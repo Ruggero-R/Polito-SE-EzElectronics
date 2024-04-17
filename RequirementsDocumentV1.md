@@ -82,18 +82,18 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |  ID   | Description |
 | :---: | :---------: |
-|  FR1  |      **Gestione Utenti**       |
-|  FR1.1  | Visualizzazione Utenti            |
+| **FR1**  |      **Gestione Utenti**       |
+| FR1.1  | Visualizzazione Utenti            |
 | FR1.2 |    Filtraggio Utenti dato un specifico ruolo         |
 | FR1.3 |    Ricerca utente tramite username         |
 | FR1.4 |    Eliminazione account utente         |
 | FR1.5 |    Eliminazione di tutti gli utenti         |
-| FR2 |    **Gestione dell'account**         |
+| **FR2** |    **Gestione dell'account**         |
 | FR2.1 |    Creazione account         |
 | FR2.2 |    Visualizzazione profilo         |
 | FR2.3 |    Login/Logout utente         |
 | FR2.4 |    Visualizzazione cronologia ordini        |
-| FR3 |    **Gestione Prodotti**        |
+| **FR3** |    **Gestione Prodotti**        |
 | FR3.1 |    Registrazione dell'arrivo di un insieme di prodotti dello stesso modello        |
 | FR3.2 |    Registrazione nuovo prodotto        |
 | FR3.3 |    Registrazione prodotto come venduto        |
@@ -103,7 +103,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.7 |    Eliminazione prodotto      |
 | FR3.8 |    Ricerca prodotto       |
 | FR3.9 |    Eliminazione di tutti i prodotti       |
-| FR4 | **Gestione Carrello**       |
+| **FR4** | **Gestione Carrello**       |
 | FR4.1 | Aggiunta di un prodotto al carrello       |
 | FR4.2 | Rimozione di un prodotto dal carrello        |
 | FR4.3 | Visualizzazione carrello        |
