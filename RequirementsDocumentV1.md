@@ -79,33 +79,35 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description |
 | :---: | :---------: |
 | **FR1**  |      **Gestione Utenti**       |
-| FR1.1  | Visualizzazione Utenti            |
-| FR1.2 |    Filtraggio Utenti dato un specifico ruolo         |
-| FR1.3 |    Ricerca utente tramite username         |
-| FR1.4 |    Eliminazione account utente         |
-| FR1.5 |    Eliminazione di tutti gli utenti         |
+| FR1.1  | Chiunque può visualizzare la lista di tutti gli utenti registrati      |
+| FR1.2 |   Chiunque può filtrare la lista degli utenti dato un specifico ruolo         |
+| FR1.3 |    Chiunque può ricercare un utente tramite il suo username         |
+| FR1.4 |    L'utente costumer loggato può eliminare il suo account         |
+| FR1.5 |    E' possibile eliminare tutti gli utenti         |
+| FR1.6 |    Un manager può eliminare l'account di un utente  |
 | **FR2** |    **Gestione dell'account**         |
-| FR2.1 |    Creazione account         |
-| FR2.2 |    Visualizzazione profilo         |
-| FR2.3 |    Login/Logout utente         |
+| FR2.1 |    Chiunque può creare un account         |
+| FR2.2 |    Un utente loggato può visualizzare il suo profilo         |
+| FR2.3 |    Un utente qualsiasi può effettuare login e logout         |
 | FR2.4 |    Visualizzazione cronologia ordini        |
 | **FR3** |    **Gestione Prodotti**        |
-| FR3.1 |    Registrazione dell'arrivo di un insieme di prodotti dello stesso modello        |
-| FR3.2 |    Registrazione nuovo prodotto        |
-| FR3.3 |    Registrazione prodotto come venduto        |
-| FR3.4 |    Recupero tutti i prodotti        |
-| FR3.5 |    Recupero prodotti appartenenti ad una specifica categoria       |
-| FR3.6 |    Recupero prodotti appartenenti ad un specifico modello       |
-| FR3.7 |    Eliminazione prodotto      |
-| FR3.8 |    Ricerca prodotto       |
-| FR3.9 |    Eliminazione di tutti i prodotti       |
+| FR3.1 |    Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello        |
+| FR3.2 |    Un manager può creare un nuovo prodotto        |
+| FR3.3 |    Un manager può registrare un prodotto come venduto        |
+| FR3.4 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti        |
+| FR3.5 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad una specifica categoria       |
+| FR3.6 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad un specifico modello       |
+| FR3.7 |    Un utente manager può eliminare un prodotto      |
+| FR3.8 |    Qualsiasi utente loggato può ricercare un prodotto dato il codice      |
+| FR3.9 |    E' possibile eliminare tutti i prodotti       |
 | **FR4** | **Gestione Carrello**       |
-| FR4.1 | Aggiunta di un prodotto al carrello       |
-| FR4.2 | Rimozione di un prodotto dal carrello        |
-| FR4.3 | Visualizzazione carrello        |
-| FR4.4 | Cronologia ordini    |
-| FR4.5 | Eliminazione di un carrello    |
-| FR4.6 | Eliminazione di tutti i carreli    |
+| FR4.1 | Un utente Costumer può aggiungere un prodotto al carrello       |
+| FR4.2 | Un utente costumer può rimuovere un prodotto dal carrello        |
+| FR4.3 | Un utente costumer può visualizzare il carrello        |
+| FR4.4 | Un utente costumer può visualizzare la propria cronologia carrelli    |
+| FR4.5 | Un utente costumer può eliminazione il proprio carrello corrente    |
+| FR4.6 | E' possibile eliminare tutti i carreli    |
+| FR4.7 | Un utente Costumer può avviare il pagamento per il carrello corrente che, una volta conclusa l'operazione, verrà svuotato|
 
 
 
