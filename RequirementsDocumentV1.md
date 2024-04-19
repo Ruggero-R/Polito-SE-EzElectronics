@@ -6,7 +6,9 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|        1       |        |
+|        1       |    Inserimento requisiti e stakeholders    |
+|        2       |    Inserimento requisiti funzionali e non  |
+|        3       |    Inserimento context-diagram e interfacce|
 
 # Contents
 
