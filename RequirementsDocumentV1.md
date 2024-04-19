@@ -97,8 +97,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.2 |    Un manager può creare un nuovo prodotto        |
 | FR3.3 |    Un manager può registrare un prodotto come venduto        |
 | FR3.4 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti        |
-| FR3.5 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad una specifica categoria       |
-| FR3.6 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad un specifico modello       |
+| FR3.5 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad una specifica categoria (parametro opzionale sold: yes per venduti, no per non venduti)    |
+| FR3.6 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad un specifico modello (parametro opzionale sold: yes per venduti, no per non venduti)   |
 | FR3.7 |    Un utente manager può eliminare un prodotto      |
 | FR3.8 |    Qualsiasi utente loggato può ricercare un prodotto dato il codice      |
 | FR3.9 |    E' possibile eliminare tutti i prodotti       |
