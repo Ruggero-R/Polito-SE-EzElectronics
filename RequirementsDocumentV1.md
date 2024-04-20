@@ -6,9 +6,7 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|        1       |    Inserimento requisiti e stakeholders    |
-|        2       |    Inserimento requisiti funzionali e non  |
-|        3       |    Inserimento context-diagram e interfacce|
+|        4       |    Stories and personas |
 
 # Contents
 
@@ -64,19 +62,52 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 # Stories and personas
 
-\<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
+## Personas
 
-\<Persona is-an-instance-of actor>
+|   **Manager**   |  |
+| :-------: | :---------------: |
+| Età| 37 anni|
+| Occupazione| Manager di un negozio di elettronica|
+|Comportamento| Organizzato, interessato alle vendite|
+|Obiettivi| Monitorare le vendite, gestire l'inventario e i prodotti del negozio|
+|Necessità| Dashboard per le vendite, gestione dell'inventario|
 
-\<stories will be formalized later as scenarios in use cases>
+|   **Customer**   |  |
+| :-------: | :---------------: |
+| Età| 28 anni|
+| Occupazione| Graphic designer|
+|Comportamento|  Attenta ai dettagli, interessata ai prodotti di qualità|
+|Obiettivi| Acquistare prodotti di qualità e visualizzare i propri ordini precedenti|
+|Necessità| Navigazione intuitiva, acquisti sicuri|
+
+|   **Non registrato**   |  |
+| :-------: | :---------------: |
+| Età| 40 anni|
+| Occupazione| Imprenditore|
+|Comportamento|  Pratico, interessato agli affari, non vuole perdere tempo|
+|Obiettivi| Trovare informazioni sui prodotti, confrontare prezzi|
+|Necessità| Accesso facile ai prodotti, dettagli dei prodotti senza registrazione|
+
+# Stories
+
+|  **Manager**  |
+| :-------: |
+|Come manager voglio inserire/togliere prodotti dall’inventario o settarli come venduti|
+|Come manager voglio poter visualizzare la lista degli account degli utenti con la facoltà di eliminarne alcuni se malevoli|
+|Come manager voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
+|  **Customer** |
+|Come cliente voglio aggiungere/rimuovere/visualizzare i prodotti del carrello in sicurezza|
+|Come cliente voglio effettuare l’ordine relativo al mio carrello in semplici passi|
+|Come cliente voglio poter visualizzare la cronologia ordini effettuati da me|
+|Come cliente voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
+|  **Non registrato** |
+|Come utente non registrato voglio vedere i dettagli dei prodotti senza dovermi registrare|
+|Come utente non registrato voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto senza dovermi registrare|
+|Come utente non registrato voglio poter creare un account in pochi passi|
 
 # Functional and non functional requirements
 
 ## Functional Requirements
-
-\<In the form DO SOMETHING, or VERB NOUN, describe high level capabilities of the system>
-
-\<they match to high level use cases>
 
 |  ID   | Description |
 | :---: | :---------: |
@@ -111,12 +142,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.6 | E' possibile eliminare tutti i carreli    |
 | FR4.7 | Un utente Costumer può avviare il pagamento per il carrello corrente che, una volta conclusa l'operazione, verrà svuotato|
 
-
-
-
 ## Non Functional Requirements
-
-\<Describe constraints on functional requirements>
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------: | :-------: |
@@ -127,9 +153,6 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  NFR5   |       Scalabilità                  | Il sistema deve essere in grado di gestire un aumento del traffico e del carico di lavoro senza compromettere le prestazioni o la disponibilità del servizio.  |    FR1-FR2-FR3-FR4-FR5    |
 |  NFR6   |     Compatibilità                  | Il sito web e l'applicazione devono essere compatibili con una vasta gamma di dispositivi e browser web per garantire un'esperienza coerente agli utenti.   |      FR1-FR2-FR3-FR4-FR5     |
 |  NFR7   |     Efficienza                     | Le funzioni indicate nei requisiti, devono lavorare in maniera asincrona in modo da aumentare l’efficienza    |   FR1-FR2-FR3-FR4-FR5    |
-
-
-
 
 # Use case diagram and use cases
 
