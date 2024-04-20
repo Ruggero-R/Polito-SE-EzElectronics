@@ -88,7 +88,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Obiettivi| Trovare informazioni sui prodotti, confrontare prezzi|
 |Necessità| Accesso facile ai prodotti, dettagli dei prodotti senza registrazione|
 
-# Stories
+## Stories
 
 |  **Manager**  |
 | :-------: |
