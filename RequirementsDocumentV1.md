@@ -95,14 +95,18 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Come manager voglio inserire/togliere prodotti dall’inventario o settarli come venduti|
 |Come manager voglio poter visualizzare la lista degli account degli utenti con la facoltà di eliminarne alcuni se malevoli|
 |Come manager voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
+
 |  **Customer** |
-|Come cliente voglio aggiungere/rimuovere/visualizzare i prodotti del carrello in sicurezza|
-|Come cliente voglio effettuare l’ordine relativo al mio carrello in semplici passi|
-|Come cliente voglio poter visualizzare la cronologia ordini effettuati da me|
-|Come cliente voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
-|  **Non registrato** |
-|Come utente non registrato voglio vedere i dettagli dei prodotti senza dovermi registrare|
-|Come utente non registrato voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto senza dovermi registrare|
+| :-------: |
+|Come customer voglio poter aggiungere/rimuovere/visualizzare i prodotti del carrello in sicurezza|
+|Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
+|Come customer voglio poter visualizzare la cronologia ordini effettuati da me|
+|Come customer voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
+
+| **Non registrato** |
+| :-------: |
+|Come utente non registrato voglio poter vedere i dettagli dei prodotti senza dovermi registrare|
+|Come utente non registrato voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
 |Come utente non registrato voglio poter creare un account in pochi passi|
 
 # Functional and non functional requirements
