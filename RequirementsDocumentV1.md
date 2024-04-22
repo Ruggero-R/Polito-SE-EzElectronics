@@ -148,7 +148,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  Post condition  |  Utente autenticato e autorizzato   |
 | Nominal Scenario |  Login dell'utente |
 |     Variants     | Nessuna  |
-|    Exceptions    | Username o password non riconosciute -> il caso d'uso termina con un fallimento  |
+|    Exceptions    | Username o password non riconosciute  |
 
 |  Scenario 1.1  |  Login corretto  |
 | :------------: | :------------------------------------------------------------------------: |
