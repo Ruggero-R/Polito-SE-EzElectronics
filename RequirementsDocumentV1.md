@@ -76,14 +76,6 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Obiettivi| Acquistare prodotti di qualità e visualizzare i propri ordini precedenti|
 |Necessità| Navigazione intuitiva, acquisti sicuri|
 
-|   **Non registrato**   |  |
-| :-------: | :---------------: |
-| Età| 40 anni|
-| Occupazione| Imprenditore|
-|Comportamento|  Pratico, interessato agli affari, non vuole perdere tempo|
-|Obiettivi| Trovare informazioni sui prodotti, confrontare prezzi|
-|Necessità| Accesso facile ai prodotti, dettagli dei prodotti senza registrazione|
-
 ## Stories
 
 |  **Manager**  |
@@ -98,12 +90,6 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
 |Come customer voglio poter visualizzare la cronologia ordini effettuati da me|
 |Come customer voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
-
-| **Non registrato** |
-| :-------: |
-|Come utente non registrato voglio poter vedere i dettagli dei prodotti senza dovermi registrare|
-|Come utente non registrato voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
-|Come utente non registrato voglio poter creare un account in pochi passi|
 
 # Functional and non functional requirements
 
@@ -154,53 +140,122 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  NFR6   |     Compatibilità                  | Il sito web e l'applicazione devono essere compatibili con una vasta gamma di dispositivi e browser web per garantire un'esperienza coerente agli utenti.   |      FR1-FR2-FR3-FR4-FR5     |
 |  NFR7   |     Efficienza                     | Le funzioni indicate nei requisiti, devono lavorare in maniera asincrona in modo da aumentare l’efficienza    |   FR1-FR2-FR3-FR4-FR5    |
 
-# Use case diagram and use cases
+### Use case 1, UC1, LOGIN
 
-## Use case diagram
+| Actors Involved  |           Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente non loggato  |
+|  Post condition  |  Utente autenticato e autorizzato   |
+| Nominal Scenario |  Login dell'utente |
+|     Variants     | Nessuna  |
+|    Exceptions    | Username o password non riconosciute -> il caso d'uso termina con un fallimento  |
 
-\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
+|  Scenario 1.1  |  Login corretto  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente non loggato |
+| Post condition | Utente autenticato e autorizzato    |
+|     Step#      |           Description     |
+|       1        | Il sistema chiede username e password all'utente |
+|       2        | L'utente inserisce username e password nei campi appositi |
+|       3        | Il sistema risponde cercando lo username nel database |
+|       4        | Il sistema confronta la password inserita con quella salvata |
+|       5        | Il sistema esegue il login utente (status: 200)  |
 
-\<next describe here each use case in the UCD>
+|  Scenario 1.2  |  Username inesistente |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Username non esistente |
+| Post condition | Utente non loggato    |
+|     Step#      |             Description     |
+|       1        | Il sistema richiede all'utente username e password |
+|       2        | L'utente inserisce username e password nei campi appositi |
+|       3        | Il sistema risponde cercando lo username nel database |
+|       4        | Il sistema non autorizza l’utente (status: 404) e stampa “Credenziali non valide” |
+
+|  Scenario 1.3  |  Password errata |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Password errata |
+| Post condition | Utente non loggato    |
+|     Step#      |                                Description     |
+|       1        | Il sistema richiede all'utente username e password |
+|       2        | L'utente inserisce username e password nei campi appositi |
+|       3        | Il sistema risponde cercando lo username nel database |
+|       4        | Il sistema confronta la password inserita con quella salvata |
+|       5        | Il sistema non autorizza l’utente (status: 404) e stampa “Credenziali non valide” |
+
+### Use case 2, UC2, LOGOUT
+
+| Actors Involved  |           Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | Utente loggato  |
+|  Post condition  | Utente non più autorizzato   |
+| Nominal Scenario | L’utente effettua il logout dal sito |
+|     Variants     | Nessuna  |
+|    Exceptions    | Nessuna  |
+
+|  Scenario 2.1  |  Logout con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente loggato |
+| Post condition | Utente non più autorizzato    |
+|     Step#      |                                Description     |
+|       1        | L'utente clicca sul link per il logout (barra in alto) |
+|       2        | Il sistema risponde eseguendo il logout utente (status: 200) |
+
+### Use case 3, UC3, STAMPA INFORMAZIONI UTENTE
+
+| Actors Involved  |           Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | Utente loggato  |
+|  Post condition  | Stampa delle informazioni utente a video   |
+| Nominal Scenario | Informazioni utente visualizzaate sullo schermo |
+|     Variants     | Nessuna  |
+|    Exceptions    | Nessuna  |
+
+|  Scenario 3.1  |  Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente loggato |
+| Post condition | Stampa delle informazioni utente a video   |
+|     Step#      |                                Description     |
+|       1        | L'utente clicca sull’icona del profilo in alto |
+|       2        | Il sistema preleva dal database le informazioni-utente |
+|       3        | Il sistema stampa le informazioni appena prelevate a video (status: 200)  |
 
 ### Use case 4, UC4 Creazione di un nuovo utente
 
-
 | Actors Involved  |                     Chiunque         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Nessuna                                     |
+|   Precondition   |  Utente non autenticato                                    |
 |  Post condition  |  Nuovo utente viene creato e inserito nel database                        |
 | Nominal Scenario |  Creazione utente |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Username già esistente|
+|    Exceptions    |  Username già esistente |
 
-
-##### Scenario 4.1
 |  Scenario 4.1  | Creazione nuovo utente  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Nessuno |
+|  Precondition  | Utente non autenticato |
 | Post condition | Nuovo utente viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo utente |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando su "Registrati" |
 |       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
-|       3        | Il sistema applica un algoritmo di hash della password |
-|       4       | Il sistema registra l’utente nel database |
+|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       5        | Il sistema applica un algoritmo di hash della password |
+|       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
+|       7       | Il sistema risponde con il messaggio di successo (status: 200) |
 
-
-##### Scenario 4.2
 |  Scenario 4.2  | Creazione di un utente già presente  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Nessuno |
-| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente  |
+|  Precondition  | Utente non autenticato, lo username è già presente nel database |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo utente |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando su "Registrati" |
 |       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
-|       3        | La richiesta fallisce con statu code 409|
-|       4       | Il sistema mostra a video un messaggio di errore |
-
+|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
 # Glossary
 
-\<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
+\<use UML class diagram to define important terms, or concepts in the domain of the application and their relationships>
 
 \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
