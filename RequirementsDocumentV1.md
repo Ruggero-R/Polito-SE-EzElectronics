@@ -43,13 +43,11 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------: | :---------: |
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. |
 | Customer         | Gli acquirenti che utilizzano il sito web dedicato per visualizzare e acquistare prodotti. Hanno interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
-| Supporto tecnico | Responsabili della creazione, manutenzione e aggiornamento dell'applicazione. Sono interessati a garantire che l'applicazione sia funzionale, sicura e risponda alle esigenze degli altri stakeholder. |
-| Sistema di pagamenti | Sistema terzo attraverso il quale vengono approvati o rifiutati i pagamenti dei Customer e che garantisce la sicurezza e il completmaneto delle transazioni. |
 
 # Context Diagram and interfaces
 
 ## Context Diagram
-<img src="images/ContextDiagram-v1.1.png" alt="Context diagram" width="500">
+<img src="images/ContextDiagram-v1.2.png" alt="Context diagram" width="500">
 
 ## Interfaces
 
@@ -57,8 +55,6 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------: | :---------------: | :----------------: |
 | Manager | Pc                  | GUI                    |
 | Customer | Smartphone, Pc | GUI |
-| Servizio di pagamento | Internet | https://developers.satispay.com/docs/official-plugins |
-| Supporto tecnico | Pc | GUI |
 
 # Stories and personas
 
