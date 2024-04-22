@@ -162,46 +162,171 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, UC1
+### Use case 4, UC4 Creazione di un nuovo utente
 
-| Actors Involved  |                                                                      |
+
+| Actors Involved  |                     Chiunque         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondition   |  Nessuna                                     |
+|  Post condition  |  Nuovo utente viene creato e inserito nel database                        |
+| Nominal Scenario |  Creazione utente |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Username già esistente|
 
-##### Scenario 1.1
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
+##### Scenario 4.1
+|  Scenario 4.1  | Creazione nuovo utente  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|  Precondition  | Nessuno |
+| Post condition | Nuovo utente viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|       1        | L'utente richiede al sistema di creare un nuovo utente |
+|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       3        | Il sistema applica un algoritmo di hash della password |
+|       4       | Il sistema registra l’utente nel database |
 
-##### Scenario 1.2
 
-##### Scenario 1.x
+##### Scenario 4.2
+|  Scenario 4.2  | Creazione di un utente già presente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuno |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo utente |
+|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       3        | La richiesta fallisce con statu code 409|
+|       4       | Il sistema mostra a video un messaggio di errore |
 
-### Use case 2, UC2
+### Use case 5, UC5 Recupero lista di tutti gli utenti
 
-..
 
-### Use case x, UCx
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Nessuna                                     |
+|  Post condition  |  Lista di tutti gli utenti a mostrata a schermo                        |
+| Nominal Scenario |  Recupero lista di tutti gli utenti |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore nell’esecuzione dell’interrogazione al database|
 
-..
+
+##### Scenario 5.1
+|  Scenario 5.1  | Recupero lista utenti  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | Lista di tutti gli utenti mostrata a schermo   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema la lista di tutti gli utenti |
+|       2        | Il sistema interroga il database e restituisce la lista di tutti gli utenti |
+
+
+### Use case 6, UC6 Recupero lista utenti con un specifico ruolo
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Nessuna                                     |
+|  Post condition  |  Lista degli utenti con il ruolo specificato mostrata a schermo                        |
+| Nominal Scenario |  Recupero lista utenti con un specifico ruolo |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore nell’esecuzione dell’interrogazione al database|
+
+
+##### Scenario 6.1
+|  Scenario 6.1  | Recupero lista utenti con specifico ruolo  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | Lista degli utenti con il ruolo mostrata a schermo   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema la lista degli utenti con il specifico ruolo |
+|       2        | Il sistema interroga il database e restituisce la lista degli utenti con ruolo|
+
+
+### Use case 7, UC7 Recupero utente tramite username
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Nessuna                                   |
+|  Post condition  |  L’utente richiesto viene mostrato a schermo                     |
+| Nominal Scenario |  Recupero utente tramite username |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore nell’esecuzione dell’interrogazione al database, Utente non trovato|
+
+
+##### Scenario 7.1
+|  Scenario 7.1  | Vengono ritornati i dettagli dell’utente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | L’utente richiesto viene ritornato correttamente   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema uno specifico utente tramite username |
+|       2        | Il sistema interroga il database e restituisce i dettagli dell’utente richiesto|
+
+
+##### Scenario 7.2
+|  Scenario 7.2  | L’utente richiesto non è presente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | Viene mostrato un messaggio di errore   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema uno specifico utente tramite username |
+|       2        | Il sistema interroga il database ma nessun utente viene trovato|
+|       3       | Il sistema restituisce un messaggio di errore 404 “user not found” |
+
+
+### Use case 8, UC8 Eliminazione di un utente
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Nessuna                                   |
+|  Post condition  |  L’utente specificato viene eliminato                     |
+| Nominal Scenario |  Eliminazione utente tramite username |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore nell’esecuzione dell’interrogazione al database|
+
+
+##### Scenario 8.1
+|  Scenario 8.1  | Utente eliminato correttamente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | L’utente specificato viene eliminato  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di eliminare un utente tramite username |
+|       2        | Il sistema elimina l’utente specificato |
+
+
+##### Scenario 8.2
+|  Scenario 8.2  | L’utente specificato non è presente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | Viene mostrato un messaggio di errore   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di eliminare un utente tramite username |
+|       2        | Il sistema interroga il database ma nessun utente viene trovato|
+|       3       | Il sistema restituisce un messaggio di errore 404 “user not found” |
+
+### Use case 9, UC9 Eliminazione di tutti gli utenti
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Nessuna                                   |
+|  Post condition  |  Tutti gli utenti vengono eliminati                     |
+| Nominal Scenario |  Eliminazione utente tramite username |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore nell’esecuzione dell’interrogazione al database|
+
+
+##### Scenario 9.1
+|  Scenario 9.1  | Tutti gli utenti vengono eliminati dal database  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Nessuna |
+| Post condition | Tutti gli utenti vengono eliminati  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di eliminare tutti gli utenti |
+|       2        | Il sistema elimina tutti gli utenti dal database|
+
 
 # Glossary
 
