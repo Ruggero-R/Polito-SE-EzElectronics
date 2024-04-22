@@ -95,50 +95,42 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Functional Requirements
 
-|  ID   | Description |
-| :---: | :---------: |
-| **FR1**  |      **Gestione Utenti**       |
-| FR1.1  | Chiunque può visualizzare la lista di tutti gli utenti registrati      |
-| FR1.2 |   Chiunque può filtrare la lista degli utenti dato un specifico ruolo         |
-| FR1.3 |    Chiunque può ricercare un utente tramite il suo username         |
-| FR1.4 |    L'utente costumer loggato può eliminare il suo account         |
-| FR1.5 |    E' possibile eliminare tutti gli utenti         |
-| FR1.6 |    Un manager può eliminare l'account di un utente  |
-| **FR2** |    **Gestione dell'account**         |
-| FR2.1 |    Chiunque può creare un account         |
-| FR2.2 |    Un utente loggato può visualizzare il suo profilo         |
-| FR2.3 |    Un utente qualsiasi può effettuare login e logout         |
-| FR2.4 |    Visualizzazione cronologia ordini        |
-| **FR3** |    **Gestione Prodotti**        |
-| FR3.1 |    Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello        |
-| FR3.2 |    Un manager può creare un nuovo prodotto        |
-| FR3.3 |    Un manager può registrare un prodotto come venduto        |
-| FR3.4 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti        |
-| FR3.5 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad una specifica categoria (parametro opzionale sold: yes per venduti, no per non venduti)    |
-| FR3.6 |    Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad un specifico modello (parametro opzionale sold: yes per venduti, no per non venduti)   |
-| FR3.7 |    Un utente manager può eliminare un prodotto      |
-| FR3.8 |    Qualsiasi utente loggato può ricercare un prodotto dato il codice      |
-| FR3.9 |    E' possibile eliminare tutti i prodotti       |
-| **FR4** | **Gestione Carrello**       |
-| FR4.1 | Un utente Costumer può aggiungere un prodotto al carrello       |
-| FR4.2 | Un utente costumer può rimuovere un prodotto dal carrello        |
-| FR4.3 | Un utente costumer può visualizzare il carrello        |
-| FR4.4 | Un utente costumer può visualizzare la propria cronologia carrelli    |
-| FR4.5 | Un utente costumer può eliminazione il proprio carrello corrente    |
-| FR4.6 | E' possibile eliminare tutti i carreli    |
-| FR4.7 | Un utente Costumer può avviare il pagamento per il carrello corrente che, una volta conclusa l'operazione, verrà svuotato|
+|  ID   | Description                                                         |
+| :---: | :---------:                                                         |
+| **FR1** |      **Gestione Utenti**                                          |
+| FR1.1 | Chiunque può creare un account                                      |
+| FR1.2 | Un utente può effettuare login e logout                             |
+| FR1.3 | Un utente può visualizzare le informazioni del proprio profilo      |
+| **FR2** |    **Gestione Prodotti**                                          |
+| FR2.1 | Un manager può registrare un prodotto                               |
+| FR2.2 | Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello |
+| FR2.3 | Un manager può segnare un prodotto come venduto                     |
+| FR2.4 | Qualsiasi utente loggato può ottenere l'elenco di tutti i prodotti  |
+| FR2.5 | Qualsiasi utente loggato può ottenere un prodotto dato il codice    |
+| FR2.6 | Qualsiasi utente loggato può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
+| FR2.7 | Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad uno specifico modello |
+| FR2.8 | Un utente manager può eliminare un prodotto                         |
+| **FR3** | **Gestione Carrello**                                             |
+| FR3.1 | Un customer può visualizzare il proprio carrello                    |
+| FR3.2 | Un customer può aggiungere un prodotto al proprio carrello          |
+| FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
+| FR3.4 | Un customer può visualizzare la propria cronologia carrelli         |
+| FR3.5 | Un customer può rimuovere un prodotto dal carrello                  |
+| FR3.6 | Un customer può eliminare un carrello dalla cronologia              |
 
 ## Non Functional Requirements
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------: | :-------: |
-|  NFR1   |            Sicurezza               |   Il sistema deve garantire la sicurezza dei dati sensibili, inclusi dettagli dell'account degli utenti customer e informazioni finanziarie durante le transazioni; la password dell’utente deve essere criptata tramite un algoritmo di hash. Solo il valore hash deve essere salvato nel database. |      FR2      |
-|  NFR2   |              Prestazioni           |    Il sito web e l'applicazione devono essere veloci e reattivi, fornendo tempi di risposta rapidi per la navigazione, la ricerca dei prodotti e il completamento degli ordini.  |    FR3       |
-|  NFR3   |           Usabilità                | L'interfaccia utente deve essere intuitiva e facile da navigare sia per i gestori che per gli utenti customer, riducendo al minimo la necessità di istruzioni aggiuntive per l'utilizzo. |   FR1-FR2-FR3-F4-FR5   |
-| NFR4    |         Affidabilità               | Il sistema deve essere affidabile e disponibile 24/7, riducendo al minimo i tempi di inattività e garantendo che gli utenti possano accedere ai servizi in qualsiasi momento. Le funzionalità sopra citate devono includere un blocco di gestione degli eventuali errori.In caso di errore deve essere ritornato il codice di errore "500" e la descrizione dell'errore.  |      FR1-FR2-FR3-FR4-FR5  |
-|  NFR5   |       Scalabilità                  | Il sistema deve essere in grado di gestire un aumento del traffico e del carico di lavoro senza compromettere le prestazioni o la disponibilità del servizio.  |    FR1-FR2-FR3-FR4-FR5    |
-|  NFR6   |     Compatibilità                  | Il sito web e l'applicazione devono essere compatibili con una vasta gamma di dispositivi e browser web per garantire un'esperienza coerente agli utenti.   |      FR1-FR2-FR3-FR4-FR5     |
-|  NFR7   |     Efficienza                     | Le funzioni indicate nei requisiti, devono lavorare in maniera asincrona in modo da aumentare l’efficienza    |   FR1-FR2-FR3-FR4-FR5    |
+| NFR1    | Usabilitá      | Un nuovo customer che visita per la prima volta il sito deve poter utilizzare tutte le funzionalità basilari (ricerca prodotti, aggiunta al carrello e checkout) senza alcun tipo di training. Un nuovo manager deve essere in grado di sfruttare tutte le funzionalità del sito dopo un massimo di due ore di training. | FR1-FR3 |
+| NFR2    | Usabilitá      | Il carrello di un utente non deve essere cancellato quando esso effettua log out ma deve essere persistente, finchè non viene eseguito il checkout | FR3 |
+| NFR3    | Prestazioni    | Il sito deve essere in grado di gestire e portare a compimento un minimo di 10 transazioni al secondo. Il tempo di risposta ad un evento (come click su un pulsante) in condizioni ottimali di velocità della connessione non deve superare i due secondi. | FR1-FR3 |
+| NFR3    | Affidabilità   | Il tempo di disponibilitá del servizio durante un mese deve essere almeno del 99.95%. | FR1-FR3  |
+| NFR4    | Robustezza     | non possono verificarsi più di 5 guasti all’anno e, nel caso se ne verifichi uno, il tempo richiesto affinché il sito torni online non deve superare le 12h | FR1-FR3 |
+| NFR5    | Portabilità    | Il sito deve poter essere visualizzato su tutte le versioni degli ultimi 4 anni di almeno cinque dei browser più utilizzati. | FR1-FR3 |
+| NFR6    | Sicurezza      | Le fughe di dati non possono verificarsi più frequentemente di una volta ogni 20 anni. | FR1-FR3 |
+
+Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
 
 ### Use case 1, UC1, LOGIN
 
