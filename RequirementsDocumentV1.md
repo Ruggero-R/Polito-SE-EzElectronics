@@ -132,7 +132,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
 
-### Use case 1, UC1, LOGIN
+### Use case 1, UC1, Login
 
 | Actors Involved  |           Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -174,7 +174,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema confronta la password inserita con quella salvata |
 |       5        | Il sistema non autorizza l’utente (status: 404) e stampa “Credenziali non valide” |
 
-### Use case 2, UC2, LOGOUT
+### Use case 2, UC2, Logout
 
 | Actors Involved  |           Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -192,7 +192,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       1        | L'utente clicca sul link per il logout (barra in alto) |
 |       2        | Il sistema risponde eseguendo il logout utente (status: 200) |
 
-### Use case 3, UC3, STAMPA INFORMAZIONI UTENTE
+### Use case 3, UC3, Stampa informazioni utente
 
 | Actors Involved  |           Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
