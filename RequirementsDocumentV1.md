@@ -245,6 +245,163 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
+### Use case 5, U5 Registrazione di un prodotto
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente loggato come manager                             |
+|  Post condition  |  Prodotto registrato                    |
+| Nominal Scenario |  Registrazione nuovo prodotto |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Prodotto già esistente, Data di arrivo non valida|
+
+
+##### Scenario 5.1
+|  Scenario 5.1  | Il prodotto viene registrato correttamente nel database  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente loggato come manager |
+| Post condition | Nuovo prodotto aggiunto nel database  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di registrare un nuovo prodotto |
+|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotto |
+|       3       | L’utente conferma la registrazione del prodotto |
+|       4       | Il sistema invia una POST request e il prodotto viene registrato nel database |
+|       4       | La richiesta viene correttamente eseguita, il sistema mostra a schermo il codice del prodotto appena registrato|
+
+
+##### Scenario 5.2
+|  Scenario 5.2  | Il prodotto già esistente |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Prodotto già esistente nel database |
+| Post condition | Il prodotto non viene inserito nel database  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di registrare un nuovo prodotto |
+|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotto |
+|       3       | L’utente conferma la registrazione del prodotto |
+|       4       | La richiesta fallisce con status code 409  |
+|       5      | Il sistema mostra a video un messaggio di errore |
+
+
+##### Scenario 5.3
+|  Scenario 5.3  | Data di arrivo successiva alla data odierna |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | La data di arrivo inserita è successiva alla data odierna  |
+| Post condition | Il prodotto non viene inserito nel database  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di registrare un nuovo prodotto |
+|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotto |
+|       3       | L’utente conferma la registrazione del prodotto |
+|       4       | La richiesta fallisce |
+|       5      | Il sistema mostra a video un messaggio di errore |
+
+
+### Use case 6, U6 Registrazione di un set di prodotti dello stesso modello
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente loggato come manager                             |
+|  Post condition  |  Set di prodotti registrati                   |
+| Nominal Scenario |  Registrazione set di prodotti dello stesso modello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Data di arrivo non valida|
+
+
+##### Scenario 6.1
+|  Scenario 6.1  | I prodotti del set vengono registrati nel database|
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente loggato come manager |
+| Post condition | Nuovo prodotti aggiunti nel database  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di registrare il set di prodotti |
+|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotti |
+|       3       | L’utente conferma la registrazione dei prodotti |
+|       4       | Il sistema invia una POST request e il prodotti vengono registrati nel database |
+
+
+##### Scenario 6.2
+|  Scenario 6.2  | Data di arrivo successiva alla data odierna |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | La data di arrivo inserita è successiva alla data odierna  |
+| Post condition | I prodotti non vengono inseriti nel database  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di registrare un nuovo set di prodotti |
+|       2        | Il sistema richiede all’utente di inserire i dettagli dei prodotti |
+|       3       | L’utente conferma la registrazione dei prodotti |
+|       4       | La richiesta fallisce |
+|       5      | Il sistema mostra a video un messaggio di errore |
+
+
+### Use case 7, U7 Vendita prodotto
+
+
+| Actors Involved  |                     Chiunque         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente loggato come manager                             |
+|  Post condition  |  Prodotto contrassegnato come venduto                 |
+| Nominal Scenario |  Prodotto contrassegnato come venduto |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Codice prodotto inesistente, Data di vendita antecedente alla data di arrivo, Data di vendita conseguente alla data odierna, Prodotto già venduto|
+
+
+##### Scenario 7.1 
+|  Scenario 7.1  | Il prodotto viene registrato come venduto nel database|
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente loggato come manager |
+| Post condition | Prodotto contrassegnato come venduto  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
+|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3       | L’utente conferma la modifica del prodotto |
+|       4       | Il sistema invia una PATCH request e il prodotto viene contrassegnato come venduto |
+
+
+##### Scenario 7.2
+|  Scenario 7.2  | Codice prodotto invalido |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Il codice del prodotto è inesistente |
+| Post condition | Il prodotto non viene contrassegnato come venduto  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
+|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3       | L’utente conferma la modifica del prodotto |
+|       4       | La richiesta fallisce con status error 404 |
+|       5       | Il sistema mostra un messaggio di errore |
+
+
+##### Scenario 7.3
+|  Scenario 7.3  | Data di vendita conseguente alla data odierna |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | La data di vendita inserita è successiva alla data odierna |
+| Post condition | Il prodotto non viene contrassegnato come venduto  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
+|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3       | L’utente inserisce una data di vendita successiva alla data odierna |
+|       4       | La richiesta fallisce e il sistema mostra un messaggio di errore |
+
+
+##### Scenario 7.4
+|  Scenario 7.4  | Data di vendita antecedente alla data di arrivo|
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | La data di vendita inserita è antecedente alla data di arrivo del prodotto |
+| Post condition | Il prodotto non viene contrassegnato come venduto  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
+|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3       | L’utente inserisce una data di vendita antecedente alla data di arrivo del prodotto |
+|       4       | La richiesta fallisce e il sistema mostra un messaggio di errore |
+##### Scenario 7.5
+|  Scenario 7.5  | Prodotto già venduto |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Il prodotto è già stato venduto |
+| Post condition | Il prodotto non viene contrassegnato come venduto  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
+|       2      | La richiesta fallisce e il sistema mostra un messaggio di errore |
+
+
 # Glossary
 
 \<use UML class diagram to define important terms, or concepts in the domain of the application and their relationships>
