@@ -611,6 +611,98 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
 
+### Use case 13, UC13, Visualizzazione carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer            |
+|  Post condition  |  Visualizzazione carrello                  |
+| Nominal Scenario |  L'utente visualizza il proprio carrello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Nessuna |
+
+|  Scenario 13.1 | Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer            |
+|  Post condition  |  Visualizzazione carrello                  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona del carrello in alto |
+|       2        | Il sistema cerca nel database tutti i prodotti con i codici presenti nel carrello utente |
+|       3        | Il sistema mostra a video i prodotti appena trovati o un messaggio di carrello vuoto (status: 200) |
+
+### Use case 14, UC14, Aggiunta al carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, selezione di un prodotto            |
+|  Post condition  |  Aggiunta prodotto al carrello                  |
+| Nominal Scenario |  L'utente visualizza il proprio carrello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Prodotto già aggiunto |
+
+|  Scenario 14.1 | Aggiunta con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
+|  Post condition  |  Aggiunta prodotto al carrello                  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
+|       2        | Il sistema accerta che il codice del prodotto non sia già stato inserito nel carrello di un utente |
+|       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
+
+|  Scenario 14.2 | Fallimento operazione |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
+|  Post condition  |  Prodotto non aggiunto                  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
+|       2        | Il sistema si accorge che il codice del prodotto è già stato inserito nel carrello (di qualunque utente) |
+|       3        | Il sistema mostra a video un messaggio di errore |
+
+Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggiunto al carrello di un altro utente e non essere stato ancora settato come venduto.
+
+### Use case 15, UC15, Checkout carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Checkout e svuotamento carrello                  |
+| Nominal Scenario |  L'utente effettua l'ordine e svuota il carrello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Carrello vuoto |
+
+|  Scenario 15.1 | Checkout con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Checkout e svuotamento carrello        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per completare l'acquisto |
+|       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello |
+|       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
+
+|  Scenario 15.2 | Fallimento operazione |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Checkout e svuotamento carrello                     |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per completare l'acquisto |
+|       2        | Il sistema mostra un messaggio di errore relativo al carrello vuoto |
+
+# Glossary
+
+\<use UML class diagram to define important terms, or concepts in the domain of the application and their relationships>
+
+\<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+
+# System Design
+
+\<describe here system design>
+
+\<must be consistent with Context diagram>
+
+# Deployment Diagram
+
+\<describe here deployment diagram >
+
+
 # Glossary
 
 \<use UML class diagram to define important terms, or concepts in the domain of the application and their relationships>
