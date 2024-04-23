@@ -245,162 +245,371 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
-### Use case 5, U5 Registrazione di un prodotto
+### Use case 5, UC5, Creazione di un nuovo prodotto
 
-
-| Actors Involved  |                     Chiunque         |
+| Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente loggato come manager                             |
-|  Post condition  |  Prodotto registrato                    |
-| Nominal Scenario |  Registrazione nuovo prodotto |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Prodotto già esistente, Data di arrivo non valida|
+|   Precondition   |  Utente autenticato come manager                                   |
+|  Post condition  |  Nuovo prodotto creato e inserito nel database                        |
+| Nominal Scenario |  Creazione di un nuovo prodotto date le sue informazioni |
+|     Variants     |  Data non inserita |
+|    Exceptions    |  Codice prodotto già esistente, data non valida, uno o più cami non inseriti o non validi |
 
-
-##### Scenario 5.1
-|  Scenario 5.1  | Il prodotto viene registrato correttamente nel database  |
+|  Scenario 5.1  | Creazione nuovo prodotto con successo (con data)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente loggato come manager |
-| Post condition | Nuovo prodotto aggiunto nel database  |
+|  Precondition  | Utente autenticato come manager |
+| Post condition | Nuovo prodotto creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di registrare un nuovo prodotto |
-|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotto |
-|       3       | L’utente conferma la registrazione del prodotto |
-|       4       | Il sistema invia una POST request e il prodotto viene registrato nel database |
-|       4       | La richiesta viene correttamente eseguita, il sistema mostra a schermo il codice del prodotto appena registrato|
+|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       4        | Il sistema controlla se nel database è già presente il codice inserito e se la data non è successiva a oggi |
+|       5        | Il sistema inserisce nel database il nuovo prodotto con i campi passati |
+|       6        | Il sistema risponde con il messaggio di successo in cui scrive il nuovo codice (status: 200) |
 
-
-##### Scenario 5.2
-|  Scenario 5.2  | Il prodotto già esistente |
+|  Scenario 5.2  | Creazione nuovo prodotto con successo (senza data)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Prodotto già esistente nel database |
-| Post condition | Il prodotto non viene inserito nel database  |
+|  Precondition  | Utente autenticato come manager |
+| Post condition | Nuovo prodotto creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di registrare un nuovo prodotto |
-|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotto |
-|       3       | L’utente conferma la registrazione del prodotto |
-|       4       | La richiesta fallisce con status code 409  |
-|       5      | Il sistema mostra a video un messaggio di errore |
+|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, ma non la arrivalDate |
+|       4        | Il sistema controlla se nel database è già presente il codice inserito |
+|       5        | Il sistema inserisce nel database il nuovo prodotto con i campi passati e arrivalDate=oggi |
+|       6        | Il sistema risponde con il messaggio di successo in cui scrive il nuovo codice (status: 200) |
 
-
-##### Scenario 5.3
-|  Scenario 5.3  | Data di arrivo successiva alla data odierna |
+|  Scenario 5.3  | Codice prodotto già presente nel database  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | La data di arrivo inserita è successiva alla data odierna  |
-| Post condition | Il prodotto non viene inserito nel database  |
+|  Precondition  | Utente autenticato come manager, codice già presente nel database |
+| Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di registrare un nuovo prodotto |
-|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotto |
-|       3       | L’utente conferma la registrazione del prodotto |
-|       4       | La richiesta fallisce |
-|       5      | Il sistema mostra a video un messaggio di errore |
+|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, con o senza arrivalDate |
+|       4        | Il sistema controlla se nel database è già presente il codice inserito |
+|       5        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
+|  Scenario 5.4  | Data successiva alla data corrente |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, data non valida |
+| Post condition | Prodotto non creato   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       4        | Il sistema controlla se nel database è già presente il codice inserito e se la data è valida |
+|       5        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-### Use case 6, U6 Registrazione di un set di prodotti dello stesso modello
+|  Scenario 5.5  | Campo/i non inserito |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, campo/i non inserito |
+| Post condition | Prodotto non creato   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
+|       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
+|  Scenario 5.6  | sellingPrice non positivo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, sellingPrice non positivo |
+| Post condition | Prodotto non creato   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e inserisce un prezzo negativo |
+|       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-| Actors Involved  |                     Chiunque         |
+### Use case 6, UC6, Registrazione arrivo di un set di prodotti
+
+| Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente loggato come manager                             |
-|  Post condition  |  Set di prodotti registrati                   |
-| Nominal Scenario |  Registrazione set di prodotti dello stesso modello |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Data di arrivo non valida|
+|   Precondition   |  Utente autenticato come manager                                   |
+|  Post condition  |  Insieme di prodotti creato e inserito nel database                        |
+| Nominal Scenario |  Creazione di un insieme di prodotti |
+|     Variants     |  Data non inserita |
+|    Exceptions    |  Data non valida, uno o più campi omessi o non validi |
 
-
-##### Scenario 6.1
-|  Scenario 6.1  | I prodotti del set vengono registrati nel database|
+|  Scenario 6.1  | Creazione nuovo set con successo (con data)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente loggato come manager |
-| Post condition | Nuovo prodotti aggiunti nel database  |
+|  Precondition  | Utente autenticato come manager |
+| Post condition | Nuovi prodotti creati e inseriti nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di registrare il set di prodotti |
-|       2        | Il sistema richiede all’utente di inserire i dettagli del prodotti |
-|       3       | L’utente conferma la registrazione dei prodotti |
-|       4       | Il sistema invia una POST request e il prodotti vengono registrati nel database |
+|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       4        | Il sistema controlla se tutti i campi sono validi e se la data non è successiva a oggi |
+|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati |
+|       6        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-
-##### Scenario 6.2
-|  Scenario 6.2  | Data di arrivo successiva alla data odierna |
+|  Scenario 6.2  | Creazione nuovo set con successo (senza data)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | La data di arrivo inserita è successiva alla data odierna  |
-| Post condition | I prodotti non vengono inseriti nel database  |
+|  Precondition  | Utente autenticato come manager |
+| Post condition | Nuovi prodotti creati e inseriti nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di registrare un nuovo set di prodotti |
-|       2        | Il sistema richiede all’utente di inserire i dettagli dei prodotti |
-|       3       | L’utente conferma la registrazione dei prodotti |
-|       4       | La richiesta fallisce |
-|       5      | Il sistema mostra a video un messaggio di errore |
+|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       3        | L'utente inserisce le informazioni richieste dal sistema tranne la arrivalDate |
+|       4        | Il sistema controlla se tutti i campi sono validi |
+|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati e la data odierna |
+|       6        | Il sistema risponde con il messaggio di successo (status: 200) |
 
+|  Scenario 6.3  | Data successiva alla data corrente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, data non valida |
+| Post condition | Operazione annullata   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       3        | L'utente inserisce le informazioni richieste dal sistema tranne la arrivalDate |
+|       4        | Il sistema controlla se tutti i campi sono validi e nota che la data è futura ad oggi |
+|       5        | Il sistema non inserisce il set e risponde con il messaggio di fallimento |
 
-### Use case 7, U7 Vendita prodotto
+|  Scenario 6.4  | Campo/i non inserito |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, campo/i non inserito |
+| Post condition | Operazione annullata   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
+|       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
+|  Scenario 6.5  | Campo/i non valido/i |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, campo/i non valido/i |
+| Post condition | Operazione annullata   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       3        | L'utente inserisce le informazioni richieste dal sistema con alcuni campi non validi (es sellingPrice<=0.0) |
+|       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
-| Actors Involved  |                     Chiunque         |
+### Use case 7, UC7, Registrazione prodotto come sold
+
+| Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente loggato come manager                             |
-|  Post condition  |  Prodotto contrassegnato come venduto                 |
-| Nominal Scenario |  Prodotto contrassegnato come venduto |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Codice prodotto inesistente, Data di vendita antecedente alla data di arrivo, Data di vendita conseguente alla data odierna, Prodotto già venduto|
+|   Precondition   |  Utente autenticato come manager                                   |
+|  Post condition  |  Prodotto venduto                       |
+| Nominal Scenario |  Prodotto segnato nel database come venduto |
+|     Variants     |  Data non inserita |
+|    Exceptions    |  Uno o più campi omessi o non validi |
 
-
-##### Scenario 7.1 
-|  Scenario 7.1  | Il prodotto viene registrato come venduto nel database|
+|  Scenario 7.1  | Il prodotto viene registrato come venduto nel database (con data)|
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente loggato come manager |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3       | L’utente conferma la modifica del prodotto |
-|       4       | Il sistema invia una PATCH request e il prodotto viene contrassegnato come venduto |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
+|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3        | L’utente inserisce la data e conferma la modifica del prodotto |
+|       4        | Il sistema contrassegna come venduto il prodotto con il codice passato (status: 200) |
 
-
-##### Scenario 7.2
-|  Scenario 7.2  | Codice prodotto invalido |
+|  Scenario 7.2  | Il prodotto viene registrato come venduto nel database (senza data)|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Il codice del prodotto è inesistente |
+|  Precondition  | Utente loggato come manager |
+| Post condition | Prodotto contrassegnato come venduto  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
+|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3        | L’utente non inserisce la data e conferma la modifica del prodotto |
+|       4        | Il sistema contrassegna come venduto il prodotto con il codice passato in data odierna (status: 200) |
+
+|  Scenario 7.3  | Codice riferito ad un prodotto venduto |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Il codice si riferisce ad un prodotto venduto |
+| Post condition | Il caso termina con un fallimento  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
+|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3        | L’utente conferma la modifica del prodotto, inserendo o meno la data |
+|       4        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
+|       5        | Il sistema mostra un messaggio di errore |
+
+|  Scenario 7.4  | Data di vendita conseguente alla data odierna o antecedente alla data di arrivo del prodotto|
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | La data di vendita inserita non è valida |
 | Post condition | Il prodotto non viene contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3       | L’utente conferma la modifica del prodotto |
-|       4       | La richiesta fallisce con status error 404 |
-|       5       | Il sistema mostra un messaggio di errore |
+|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
+|       3        | L’utente inserisce una data di vendita non valida |
+|       4        | La richiesta fallisce e il sistema mostra un messaggio di errore |
 
+### Use case 8, UC8, Elenco prodotti
 
-##### Scenario 7.3
-|  Scenario 7.3  | Data di vendita conseguente alla data odierna |
+| Actors Involved  |                     Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Elenco prodotti a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti disponibili |
+|     Variants     |  Parametro opzionale sold (yes o no) |
+|    Exceptions    |  Nessuna |
+
+|  Scenario 8.1  | Visualizzazione con successo (senza parametro sold) |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | La data di vendita inserita è successiva alla data odierna |
-| Post condition | Il prodotto non viene contrassegnato come venduto  |
+|  Precondition  | Utente autenticato |
+| Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3       | L’utente inserisce una data di vendita successiva alla data odierna |
-|       4       | La richiesta fallisce e il sistema mostra un messaggio di errore |
+|       1        | Il sistema preleva dal database tutti i prodotti creati |
+|       2        | Il sistema stampa i vari prodotti (status: 200) |
 
-
-##### Scenario 7.4
-|  Scenario 7.4  | Data di vendita antecedente alla data di arrivo|
+|  Scenario 8.2  | Visualizzazione con successo (sold=yes) |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | La data di vendita inserita è antecedente alla data di arrivo del prodotto |
-| Post condition | Il prodotto non viene contrassegnato come venduto  |
+|  Precondition  | Utente autenticato, stampa di tutti i prodotti effettuata |
+| Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2       | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3       | L’utente inserisce una data di vendita antecedente alla data di arrivo del prodotto |
-|       4       | La richiesta fallisce e il sistema mostra un messaggio di errore |
-##### Scenario 7.5
-|  Scenario 7.5  | Prodotto già venduto |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Il prodotto è già stato venduto |
-| Post condition | Il prodotto non viene contrassegnato come venduto  |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2      | La richiesta fallisce e il sistema mostra un messaggio di errore |
+|       1        | L'utente seleziona "yes" nella tendina laterale |
+|       2        | Il sistema filtra i vari prodotti mantenendo solo quelli venduti (status: 200) |
 
+|  Scenario 8.3  | Visualizzazione con successo (sold=no) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Utente autenticato, stampa di tutti i prodotti effettuata     |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "no" nella tendina laterale |
+|       2        | Il sistema filtra i vari prodotti mantenendo solo quelli non venduti (status: 200) |
+
+### Use case 9, UC9, Ricerca prodotto
+
+| Actors Involved  |                     Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Informazioni prodotto a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo le informazioni riguardanti il prodotto cercato |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Codice omesso o inesistente |
+
+|  Scenario 9.1  | Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Informazioni prodotto a schermo         |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce il codice di un prodotto nella barra e clicca sul pulsante della ricerca per codice |
+|       2        | Il sistema cerca nel database il prodotto con il codice richiesto e lo stampa a video (status: 200) |
+
+|  Scenario 9.2  | Codice omesso |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Nessun prodotto stampato        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul pulsante della ricerca per codice |
+|       2        | Il sistema risponde con un messaggio di errore |
+
+|  Scenario 9.3  | Codice inesistente |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Nessun prodotto stampato        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per codice |
+|       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
+
+### Use case 10, UC10, Elenco prodotti data la categoria
+
+| Actors Involved  |                     Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Elenco prodotti a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad una specifica categoria |
+|     Variants     |  Parametro opzionale sold (yes o no) |
+|    Exceptions    |  Nessuna |
+
+|  Scenario 10.1 | Visualizzazione con successo (senza parametro sold) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona dalla barra laterale una tra le categorie proposte |
+|       1        | Il sistema preleva dal database tutti i prodotti inerenti a quella categoria |
+|       2        | Il sistema stampa i vari prodotti (status: 200) |
+
+|  Scenario 10.2 | Visualizzazione con successo (sold=yes) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per categoria effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "yes" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
+
+|  Scenario 10.3 | Visualizzazione con successo (sold=no) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per categoria effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "no" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
+
+### Use case 11, UC11, Elenco prodotti dato il modello
+
+| Actors Involved  |                     Utente (customer o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Elenco prodotti a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad uno specifico modello |
+|     Variants     |  Parametro opzionale sold (yes o no) |
+|    Exceptions    |  Modello non valido o mancante |
+
+|  Scenario 11.1 | Visualizzazione con successo (senza parametro sold) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce un modello nella barra in alto e clicca sul pulsaante "modello" |
+|       2        | Il sistema preleva dal database tutti i prodotti inerenti a quel modello |
+|       3        | Il sistema stampa i vari prodotti (status: 200) |
+
+|  Scenario 11.2 | Visualizzazione con successo (sold=yes) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per modello effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "yes" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
+
+|  Scenario 11.3 | Visualizzazione con successo (sold=no) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per modello effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "no" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
+
+|  Scenario 11.4 | Codice omesso |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Nessun prodotto stampato        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul pulsante della ricerca per modello |
+|       2        | Il sistema risponde con un messaggio di errore |
+
+|  Scenario 11.5 | Codice inesistente |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Nessun prodotto stampato        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per modello |
+|       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
+
+### Use case 12, UC12, Eliminazione prodotto
+
+| Actors Involved  |                     Utente manager         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager            |
+|  Post condition  |  Prodotto eliminato                     |
+| Nominal Scenario |  L'utente elimina il prodotto con codice scelto |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Nessuna |
+
+|  Scenario 12.1 | Eliminazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona un prodotto singolo e clicca sul cestino |
+|       2        | Il sistema elimina dal database il prodotto con il codice coincidente a quello selezionato |
+
+Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
 
 # Glossary
 
