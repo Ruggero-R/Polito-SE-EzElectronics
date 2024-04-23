@@ -680,28 +680,12 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
 
 |  Scenario 15.2 | Fallimento operazione |
+| :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer         |
 |  Post condition  |  Checkout e svuotamento carrello                     |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto |
 |       2        | Il sistema mostra un messaggio di errore relativo al carrello vuoto |
-
-# Glossary
-
-\<use UML class diagram to define important terms, or concepts in the domain of the application and their relationships>
-
-\<concepts must be used consistently all over the document, ex in use cases, requirements etc>
-
-# System Design
-
-\<describe here system design>
-
-\<must be consistent with Context diagram>
-
-# Deployment Diagram
-
-\<describe here deployment diagram >
-
 
 # Glossary
 
