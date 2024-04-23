@@ -132,6 +132,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
 
+# Use case diagram and use cases
+
+## Use case diagram
+
+\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
+
+\<next describe here each use case in the UCD>
+
 ### Use case 1, UC1, Login
 
 | Actors Involved  |           Utente (customer o manager)         |
