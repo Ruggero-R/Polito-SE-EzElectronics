@@ -140,7 +140,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Utente autenticato e autorizzato   |
 | Nominal Scenario |  Login dell'utente |
 |     Variants     | Nessuna  |
-|    Exceptions    | Username o password non riconosciute  |
+|    Exceptions    | Username o password non riconosciute, errore interno  |
 
 |  Scenario 1.1  |  Login corretto  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -174,6 +174,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema confronta la password inserita con quella salvata |
 |       5        | Il sistema non autorizza l’utente (status: 404) e stampa “Credenziali non valide” |
 
+|  Scenario 1.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 2, UC2, Logout
 
 | Actors Involved  |           Utente (customer o manager)         |
@@ -182,7 +189,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  | Utente non più autorizzato   |
 | Nominal Scenario | L’utente effettua il logout dal sito |
 |     Variants     | Nessuna  |
-|    Exceptions    | Nessuna  |
+|    Exceptions    | Errore interno  |
 
 |  Scenario 2.1  |  Logout con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -192,6 +199,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       1        | L'utente clicca sul link per il logout (barra in alto) |
 |       2        | Il sistema risponde eseguendo il logout utente (status: 200) |
 
+|  Scenario 2.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 3, UC3, Stampa informazioni utente
 
 | Actors Involved  |           Utente (customer o manager)         |
@@ -200,7 +214,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  | Stampa delle informazioni utente a video   |
 | Nominal Scenario | Informazioni utente visualizzaate sullo schermo |
 |     Variants     | Nessuna  |
-|    Exceptions    | Nessuna  |
+|    Exceptions    | Errore interno  |
 
 |  Scenario 3.1  |  Visualizzazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -211,6 +225,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       2        | Il sistema preleva dal database le informazioni-utente |
 |       3        | Il sistema stampa le informazioni appena prelevate a video (status: 200)  |
 
+|  Scenario 3.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 4, UC4 Creazione di un nuovo utente
 
 | Actors Involved  |                     Chiunque         |
@@ -219,7 +240,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Nuovo utente viene creato e inserito nel database                        |
 | Nominal Scenario |  Creazione utente |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Username già esistente |
+|    Exceptions    |  Username già esistente, errore interno |
 
 |  Scenario 4.1  | Creazione nuovo utente  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -245,6 +266,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
+|  Scenario 4.3  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 5, UC5, Creazione di un nuovo prodotto
 
 | Actors Involved  |                     Utente manager         |
@@ -253,7 +281,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Nuovo prodotto creato e inserito nel database                        |
 | Nominal Scenario |  Creazione di un nuovo prodotto date le sue informazioni |
 |     Variants     |  Data non inserita |
-|    Exceptions    |  Codice prodotto già esistente, data non valida, uno o più cami non inseriti o non validi |
+|    Exceptions    |  Codice prodotto già esistente, data non valida, uno o più cami non inseriti o non validi, errore interno |
 
 |  Scenario 5.1  | Creazione nuovo prodotto con successo (con data)  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -321,6 +349,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste dal sistema e inserisce un prezzo negativo |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
+|  Scenario 5.7  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 6, UC6, Registrazione arrivo di un set di prodotti
 
 | Actors Involved  |                     Utente manager         |
@@ -329,7 +364,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Insieme di prodotti creato e inserito nel database                        |
 | Nominal Scenario |  Creazione di un insieme di prodotti |
 |     Variants     |  Data non inserita |
-|    Exceptions    |  Data non valida, uno o più campi omessi o non validi |
+|    Exceptions    |  Data non valida, uno o più campi omessi o non validi, errore interno |
 
 |  Scenario 6.1  | Creazione nuovo set con successo (con data)  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -386,6 +421,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste dal sistema con alcuni campi non validi (es sellingPrice<=0.0) |
 |       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
+|  Scenario 6.6  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 7, UC7, Registrazione prodotto come sold
 
 | Actors Involved  |                     Utente manager         |
@@ -394,7 +436,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Prodotto venduto                       |
 | Nominal Scenario |  Prodotto segnato nel database come venduto |
 |     Variants     |  Data non inserita |
-|    Exceptions    |  Uno o più campi omessi o non validi |
+|    Exceptions    |  Uno o più campi omessi o non validi, errore interno |
 
 |  Scenario 7.1  | Il prodotto viene registrato come venduto nel database (con data)|
 | :------------: | :------------------------------------------------------------------------: |
@@ -437,6 +479,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L’utente inserisce una data di vendita non valida |
 |       4        | La richiesta fallisce e il sistema mostra un messaggio di errore |
 
+|  Scenario 7.5  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 8, UC8, Elenco prodotti
 
 | Actors Involved  |                     Utente (customer o manager)         |
@@ -445,7 +494,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Elenco prodotti a schermo                       |
 | Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti disponibili |
 |     Variants     |  Parametro opzionale sold (yes o no) |
-|    Exceptions    |  Nessuna |
+|    Exceptions    |  Errore interno |
 
 |  Scenario 8.1  | Visualizzazione con successo (senza parametro sold) |
 | :------------: | :------------------------------------------------------------------------: |
@@ -471,6 +520,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       1        | L'utente seleziona "no" nella tendina laterale |
 |       2        | Il sistema filtra i vari prodotti mantenendo solo quelli non venduti (status: 200) |
 
+|  Scenario 8.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 9, UC9, Ricerca prodotto
 
 | Actors Involved  |                     Utente (customer o manager)         |
@@ -479,7 +535,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Informazioni prodotto a schermo                       |
 | Nominal Scenario |  L'utente visualizza a schermo le informazioni riguardanti il prodotto cercato |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Codice omesso o inesistente |
+|    Exceptions    |  Codice omesso o inesistente, errore interno |
 
 |  Scenario 9.1  | Visualizzazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -505,6 +561,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per codice |
 |       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
 
+|  Scenario 9.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 10, UC10, Elenco prodotti data la categoria
 
 | Actors Involved  |                     Utente (customer o manager)         |
@@ -513,7 +576,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Elenco prodotti a schermo                       |
 | Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad una specifica categoria |
 |     Variants     |  Parametro opzionale sold (yes o no) |
-|    Exceptions    |  Nessuna |
+|    Exceptions    |  Errore interno |
 
 |  Scenario 10.1 | Visualizzazione con successo (senza parametro sold) |
 | :------------: | :------------------------------------------------------------------------: |
@@ -540,6 +603,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       1        | L'utente seleziona "no" dalla barra laterale |
 |       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
 
+|  Scenario 10.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 11, UC11, Elenco prodotti dato il modello
 
 | Actors Involved  |                     Utente (customer o manager)         |
@@ -548,7 +618,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Elenco prodotti a schermo                       |
 | Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad uno specifico modello |
 |     Variants     |  Parametro opzionale sold (yes o no) |
-|    Exceptions    |  Modello non valido o mancante |
+|    Exceptions    |  Modello non valido o mancante, errore interno |
 
 |  Scenario 11.1 | Visualizzazione con successo (senza parametro sold) |
 | :------------: | :------------------------------------------------------------------------: |
@@ -575,21 +645,12 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       1        | L'utente seleziona "no" dalla barra laterale |
 |       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
 
-|  Scenario 11.4 | Codice omesso |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
-| Post condition | Nessun prodotto stampato        |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sul pulsante della ricerca per modello |
-|       2        | Il sistema risponde con un messaggio di errore |
-
-|  Scenario 11.5 | Codice inesistente |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
-| Post condition | Nessun prodotto stampato        |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per modello |
-|       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
+|  Scenario 11.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
 ### Use case 12, UC12, Eliminazione prodotto
 
@@ -599,7 +660,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Prodotto eliminato                     |
 | Nominal Scenario |  L'utente elimina il prodotto con codice scelto |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Nessuna |
+|    Exceptions    |  Errore prodotto |
 
 |  Scenario 12.1 | Eliminazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -608,6 +669,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |                                Description                                 |
 |       1        | L'utente seleziona un prodotto singolo e clicca sul cestino |
 |       2        | Il sistema elimina dal database il prodotto con il codice coincidente a quello selezionato |
+
+|  Scenario 12.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
 Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
 
@@ -619,7 +687,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |  Post condition  |  Visualizzazione carrello                  |
 | Nominal Scenario |  L'utente visualizza il proprio carrello |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Nessuna |
+|    Exceptions    |  Errore interno |
 
 |  Scenario 13.1 | Visualizzazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -630,6 +698,13 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | Il sistema cerca nel database tutti i prodotti con i codici presenti nel carrello utente |
 |       3        | Il sistema mostra a video i prodotti appena trovati o un messaggio di carrello vuoto (status: 200) |
 
+|  Scenario 13.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 ### Use case 14, UC14, Aggiunta al carrello
 
 | Actors Involved  |                     Utente customer        |
@@ -638,7 +713,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |  Post condition  |  Aggiunta prodotto al carrello                  |
 | Nominal Scenario |  L'utente visualizza il proprio carrello |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Prodotto già aggiunto |
+|    Exceptions    |  Prodotto già aggiunto, errore interno |
 
 |  Scenario 14.1 | Aggiunta con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -658,6 +733,13 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | Il sistema si accorge che il codice del prodotto è già stato inserito nel carrello (di qualunque utente) |
 |       3        | Il sistema mostra a video un messaggio di errore |
 
+|  Scenario 14.3 |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
 Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggiunto al carrello di un altro utente e non essere stato ancora settato come venduto.
 
 ### Use case 15, UC15, Checkout carrello
@@ -668,7 +750,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |  Post condition  |  Checkout e svuotamento carrello                  |
 | Nominal Scenario |  L'utente effettua l'ordine e svuota il carrello |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Carrello vuoto |
+|    Exceptions    |  Carrello vuoto, errore interno |
 
 |  Scenario 15.1 | Checkout con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -679,13 +761,100 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello |
 |       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
 
-|  Scenario 15.2 | Fallimento operazione |
+|  Scenario 15.2 | Carrello vuoto |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer         |
 |  Post condition  |  Checkout e svuotamento carrello                     |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto |
 |       2        | Il sistema mostra un messaggio di errore relativo al carrello vuoto |
+
+|  Scenario 15.3  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 16, UC16, History carrelli
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Elenco carrelli stampato a video             |
+| Nominal Scenario |  L'utente visualizza la history di tutti i carrelli per cui ha eseguito il checkout |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 16.1 | Visualizzazione |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Elenco carrelli stampato a video             |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona delsuo profilo |
+|       2        | Il sistema filtra ttti i carrelli già completati presenti nel database cercando quelli dell'utente |
+|       3        | Il sistema mostra a video le informazioni appena trovate o un messaggio se non sono presenti (status: 200) |
+
+|  Scenario 16.2 |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 17, UC17, Rimozione dal carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
+|  Post condition  |  Prodotto selezionato rimosso dal carrello             |
+| Nominal Scenario |  L'utente rimuove dal proprio carrello uno dei prodotti mostrati |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 17.1 | Cancellazione avvenuta con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Prodotto selezionato rimosso dal carrello              |
+|     Step#      |                                Description                                 |
+|       1        | L'utente sceglie uno dei prodotti elencati nel suo carrello e clicca per rimuoverlo |
+|       2        | Il sistema usa il codice del prodotto per eliminarlo dal carrello utente di cui ha l'id |
+|       3        | Il sistema restituisce il successo (status: 200) |
+
+|  Scenario 17.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello) su un prodotto presente nel carrello che perciò esiste per forza nel database.
+
+### Use case 18, UC18, Rimozione carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
+|  Post condition  |  Carrello svuotato             |
+| Nominal Scenario |  L'utente rimuove dal proprio carrello ogni prodotto |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 18.1 | Cancellazione avvenuta con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Carrello svuotato              |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede l'eliminazione di tutto il carrello cliccando sul pulsante apposito |
+|       2        | Il sistema accede al codice del carrello e elimina ogni entry dalla tabella del carrello  |
+|       3        | Il sistema restituisce il successo (status: 200) |
+
+|  Scenario 18.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
 # Glossary
 
