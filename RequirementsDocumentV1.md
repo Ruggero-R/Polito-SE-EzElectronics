@@ -23,12 +23,25 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
   - [Non Functional Requirements](#non-functional-requirements)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
-    - [Use case 1, UC1](#use-case-1-uc1)
-      - [Scenario 1.1](#scenario-11)
-      - [Scenario 1.2](#scenario-12)
-      - [Scenario 1.x](#scenario-1x)
-    - [Use case 2, UC2](#use-case-2-uc2)
-    - [Use case x, UCx](#use-case-x-ucx)
+  - [Use cases ](#use-cases)
+    - [UC1, Login](#use-case-1-uc1-login)
+    - [UC2, Logout](#use-case-2-uc2-logout)
+    - [UC3, Stampa informazioni utente](#use-case-3-uc3-stampa-informazioni-utente)
+    - [UC4, Creazione di un nuovo utente](#use-case-4-uc4-creazione-di-un-nuovo-utente)
+    - [UC5, Creazione di un nuovo prodotto](#use-case-5-uc5-creazione-di-un-nuovo-prodotto)
+    - [UC6, Registrazione arrivo di un set di prodotti](#use-case-6-uc6-registrazione-arrivo-di-un-set-di-prodotti)
+    - [UC7, Registrazione prodotto come venduto](#use-case-7-uc7-registrazione-prodotto-come-venduto)
+    - [UC8, Elenco prodotti](#use-case-8-uc8-elenco-prodotti)
+    - [UC9, Ricerca prodotto](#use-case-9-uc9-ricerca-prodotto)
+    - [UC10, Elenco prodotti data la categoria](#use-case-10-uc10-elenco-prodotti-data-la-categoria)
+    - [UC11, Elenco prodotti dato il modello](#use-case-11-uc11-elenco-prodotti-dato-il-modello)
+    - [UC12, Eliminazione prodotto](#use-case-12-uc12-eliminazione-prodotto)
+    - [UC13, Visualizzazione carrello](#use-case-13-uc13-visualizzazione-carrello)
+    - [UC14, Aggiunta al carrello](#use-case-14-uc14-aggiunta-al-carrello)
+    - [UC15, Checkout carrello](#use-case-15-uc15-checkout-carrello)
+    - [UC16, Cronologia carrelli](#use-case-16-uc16-cronologia-carrelli)
+    - [UC17, Rimozione dal carrello](#use-case-17-uc17-rimozione-dal-carrello)
+    - [UC18, Eliminazione carrello](#use-case-18-uc18-eliminazione-carrello)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -140,6 +153,8 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 \<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
 
 \<next describe here each use case in the UCD>
+
+## Use cases
 
 ### Use case 1, UC1, Login
 
