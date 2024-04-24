@@ -130,7 +130,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
 | FR3.4 | Un customer può visualizzare la propria cronologia carrelli         |
 | FR3.5 | Un customer può rimuovere un prodotto dal carrello                  |
-| FR3.6 | Un customer può eliminare un carrello dalla cronologia              |
+| FR3.6 | Un customer può svuotare il proprio carrello              |
 
 ## Non Functional Requirements
 
@@ -305,7 +305,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Nuovo prodotto creato e inserito nel database                        |
 | Nominal Scenario |  Creazione di un nuovo prodotto date le sue informazioni |
 |     Variants     |  Data non inserita |
-|    Exceptions    |  Codice prodotto già esistente, data non valida, uno o più cami non inseriti o non validi, errore interno |
+|    Exceptions    |  Codice prodotto già esistente, data non valida, uno o più campi non inseriti o non validi, errore interno |
 
 |  Scenario 5.1  | Creazione nuovo prodotto con successo (con data)  |
 | :------------: | :------------------------------------------------------------------------: |
