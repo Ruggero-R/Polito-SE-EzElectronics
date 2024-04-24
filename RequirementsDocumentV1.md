@@ -883,8 +883,15 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
-# System Design
+- **Manager**: Persona responsabile della gestione del negozio di elettronica.
+- **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
+- **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
+- **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
+- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti all'interno dell'applicazione.
+- **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
+- **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
 
+# System Design
 
 # Deployment Diagram
 
