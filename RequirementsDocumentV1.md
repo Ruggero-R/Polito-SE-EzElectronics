@@ -94,16 +94,15 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |  **Manager**  |
 | :-------: |
-|Come manager voglio inserire/togliere prodotti dall’inventario o settarli come venduti|
-|Come manager voglio poter visualizzare la lista degli account degli utenti con la facoltà di eliminarne alcuni se malevoli|
-|Come manager voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
+|Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
+|Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
 
 |  **Customer** |
 | :-------: |
-|Come customer voglio poter aggiungere/rimuovere/visualizzare i prodotti del carrello in sicurezza|
+|Come customer voglio poter aggiungere/rimuovere/visualizzare i prodotti del carrello |
 |Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
-|Come customer voglio poter visualizzare la cronologia ordini effettuati da me|
-|Come customer voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il relativo prodotto|
+|Come customer voglio poter visualizzare la cronologia dei miei ordini |
+|Come customer voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o i prodotti appartenenti ad una specifica categoria o modello |
 
 # Functional and non functional requirements
 
@@ -116,7 +115,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.2 | Un utente può effettuare login e logout                             |
 | FR1.3 | Un utente può visualizzare le informazioni del proprio profilo      |
 | **FR2** |    **Gestione Prodotti**                                          |
-| FR2.1 | Un manager può registrare un prodotto                               |
+| FR2.1 | Un manager può registrare un nuovo prodotto                               |
 | FR2.2 | Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager può segnare un prodotto come venduto                     |
 | FR2.4 | Qualsiasi utente loggato può ottenere l'elenco di tutti i prodotti  |
@@ -888,7 +887,6 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # System Design
 
-<img src="images/SystemDesign-v1.0.jpg" alt="Sytem design" width="500">
 
 # Deployment Diagram
 
