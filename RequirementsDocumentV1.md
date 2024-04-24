@@ -23,7 +23,7 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
   - [Non Functional Requirements](#non-functional-requirements)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
-  - [Use cases ](#use-cases)
+  - [Use cases](#use-cases)
     - [UC1, Login](#use-case-1-uc1-login)
     - [UC2, Logout](#use-case-2-uc2-logout)
     - [UC3, Stampa informazioni utente](#use-case-3-uc3-stampa-informazioni-utente)
@@ -41,7 +41,7 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
     - [UC15, Checkout carrello](#use-case-15-uc15-checkout-carrello)
     - [UC16, Cronologia carrelli](#use-case-16-uc16-cronologia-carrelli)
     - [UC17, Rimozione dal carrello](#use-case-17-uc17-rimozione-dal-carrello)
-    - [UC18, Eliminazione carrello](#use-case-18-uc18-eliminazione-carrello)
+    - [UC18, Svuotamento carrello](#use-case-18-uc18-svuotamento-carrello)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -149,9 +149,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ## Use case diagram
 
-\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
-
-\<next describe here each use case in the UCD>
+<img src="images/UseCaseDiagram-v1.0.png" alt="Use case diagram" width="500">
 
 ## Use cases
 
@@ -451,7 +449,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 7, UC7, Registrazione prodotto come sold
+### Use case 7, UC7, Registrazione prodotto come venduto
 
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -799,7 +797,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 16, UC16, History carrelli
+### Use case 16, UC16, Cronologia carrelli
 
 | Actors Involved  |                     Utente customer        |
 | :--------------: | :------------------------------------------------------------------: |
@@ -853,7 +851,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 
 Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello) su un prodotto presente nel carrello che perciò esiste per forza nel database.
 
-### Use case 18, UC18, Rimozione carrello
+### Use case 18, UC18, Svuotamento carrello
 
 | Actors Involved  |                     Utente customer        |
 | :--------------: | :------------------------------------------------------------------: |
