@@ -895,4 +895,4 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Deployment Diagram
 
-<img src="images/DeploymentDiagram-v1.0.png" alt="Deployment diagram" width="500">
+<img src="images/DeploymentDiagram-v1.0.svg" alt="Deployment diagram" width="500">
