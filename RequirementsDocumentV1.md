@@ -93,12 +93,12 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ## Stories
 
 |  **Manager**  |
-| :-------: |
+| :-------  |
 |Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
 |Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
 
 |  **Customer** |
-| :-------: |
+| :-------  |
 |Come customer voglio poter aggiungere/rimuovere/visualizzare i prodotti del carrello |
 |Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
 |Come customer voglio poter visualizzare la cronologia dei miei ordini |
@@ -109,7 +109,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ## Functional Requirements
 
 |  ID   | Description                                                         |
-| :---: | :---------:                                                         |
+| :---: | :---------                                                          |
 | **FR1** |      **Gestione Utenti**                                          |
 | FR1.1 | Chiunque può creare un account                                      |
 | FR1.2 | Un utente può effettuare login e logout                             |
@@ -134,7 +134,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ## Non Functional Requirements
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
-| :-----: | :--------------------------------: | :---------: | :-------: |
+| :-----: | :--------------------------------: | :---------  | :-------: |
 | NFR1    | Usabilitá      | Un nuovo customer che visita per la prima volta il sito deve poter utilizzare tutte le funzionalità basilari (ricerca prodotti, aggiunta al carrello e checkout) senza alcun tipo di training. Un nuovo manager deve essere in grado di sfruttare tutte le funzionalità del sito dopo un massimo di due ore di training. | FR1-FR3 |
 | NFR2    | Usabilitá      | Il carrello di un utente non deve essere cancellato quando esso effettua log out ma deve essere persistente, finchè non viene eseguito il checkout | FR3 |
 | NFR3    | Prestazioni    | Il sito deve essere in grado di gestire e portare a compimento un minimo di 10 transazioni al secondo. Il tempo di risposta ad un evento (come click su un pulsante) in condizioni ottimali di velocità della connessione non deve superare i due secondi. | FR1-FR3 |
