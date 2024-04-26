@@ -118,10 +118,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR2.1 | Un manager può registrare un nuovo prodotto                               |
 | FR2.2 | Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager può segnare un prodotto come venduto                     |
-| FR2.4 | Qualsiasi utente loggato può ottenere l'elenco di tutti i prodotti  |
-| FR2.5 | Qualsiasi utente loggato può ottenere un prodotto dato il codice    |
-| FR2.6 | Qualsiasi utente loggato può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
-| FR2.7 | Qualsiasi utente loggato può recuperare l'elenco di tutti i prodotti appartenenti ad uno specifico modello |
+| FR2.4 | Qualsiasi utente autenticato può ottenere l'elenco di tutti i prodotti  |
+| FR2.5 | Qualsiasi utente autenticato può ottenere un prodotto dato il codice    |
+| FR2.6 | Qualsiasi utente autenticato può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
+| FR2.7 | Qualsiasi utente autenticato può recuperare l'elenco di tutti i prodotti appartenenti ad uno specifico modello |
 | FR2.8 | Un utente manager può eliminare un prodotto                         |
 | **FR3** | **Gestione Carrello**                                             |
 | FR3.1 | Un customer può visualizzare il proprio carrello                    |
@@ -157,56 +157,56 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 | Actors Involved  |           Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente non loggato  |
+|   Precondition   |  Utente non autenticato  |
 |  Post condition  |  Utente autenticato e autorizzato   |
 | Nominal Scenario |  Login dell'utente |
 |     Variants     | Nessuna  |
-|    Exceptions    | Username o password non riconosciute, errore interno  |
+|    Exceptions    | Username o password non riconosciuti, errore interno  |
 
 |  Scenario 1.1  |  Login corretto  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente non loggato |
+|  Precondition  | Utente non autenticato |
 | Post condition | Utente autenticato e autorizzato    |
 |     Step#      |           Description     |
-|       1        | Il sistema chiede username e password all'utente |
-|       2        | L'utente inserisce username e password nei campi appositi |
-|       3        | Il sistema risponde cercando lo username nel database |
+|       1        | Il sistema chiede all'utente di inserire username e password |
+|       2        | L'utente fornisce username e password nei campi appositi |
+|       3        | Il sistema cerca l' username nel database |
 |       4        | Il sistema confronta la password inserita con quella salvata |
 |       5        | Il sistema esegue il login utente (status: 200)  |
 
 |  Scenario 1.2  |  Username inesistente |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Username non esistente |
-| Post condition | Utente non loggato    |
+|  Precondition  | Username inesistente |
+| Post condition | Utente non autenticato    |
 |     Step#      |             Description     |
-|       1        | Il sistema richiede all'utente username e password |
-|       2        | L'utente inserisce username e password nei campi appositi |
-|       3        | Il sistema risponde cercando lo username nel database |
-|       4        | Il sistema non autorizza l’utente (status: 404) e stampa “Credenziali non valide” |
+|       1        | Il sistema richiede all'utente di inserire username e password |
+|       2        | L'utente fornisce username e password nei campi appositi |
+|       3        | Il sistema cercan lo username nel database |
+|       4        | Il sistema non autorizza l’utente (status: 404) e mostra “Credenziali non valide” |
 
 |  Scenario 1.3  |  Password errata |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Password errata |
-| Post condition | Utente non loggato    |
+| Post condition | Utente non autenticato    |
 |     Step#      |                                Description     |
-|       1        | Il sistema richiede all'utente username e password |
-|       2        | L'utente inserisce username e password nei campi appositi |
-|       3        | Il sistema risponde cercando lo username nel database |
+|       1        | Il sistema richiede all'utente di inserire username e password |
+|       2        | L'utente fornisce username e password nei campi appositi |
+|       3        | Il sistema cerca lo username nel database |
 |       4        | Il sistema confronta la password inserita con quella salvata |
-|       5        | Il sistema non autorizza l’utente (status: 404) e stampa “Credenziali non valide” |
+|       5        | Il sistema non autorizza l’utente (status: 404) e mostra “Credenziali non valide” |
 
 |  Scenario 1.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema annulla ogni modifica nel database e mostra il messaggio di errore |
 
 ### Use case 2, UC2, Logout
 
 | Actors Involved  |           Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | Utente loggato  |
+|   Precondition   | Utente autenticato  |
 |  Post condition  | Utente non più autorizzato   |
 | Nominal Scenario | L’utente effettua il logout dal sito |
 |     Variants     | Nessuna  |
@@ -214,7 +214,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 2.1  |  Logout con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente loggato |
+|  Precondition  | Utente autenticato |
 | Post condition | Utente non più autorizzato    |
 |     Step#      |                                Description     |
 |       1        | L'utente clicca sul link per il logout (barra in alto) |
@@ -231,7 +231,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 | Actors Involved  |           Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | Utente loggato  |
+|   Precondition   | Utente autenticato  |
 |  Post condition  | Stampa delle informazioni utente a video   |
 | Nominal Scenario | Informazioni utente visualizzaate sullo schermo |
 |     Variants     | Nessuna  |
@@ -239,7 +239,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 3.1  |  Visualizzazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente loggato |
+|  Precondition  | Utente autenticato |
 | Post condition | Stampa delle informazioni utente a video   |
 |     Step#      |                                Description     |
 |       1        | L'utente clicca sull’icona del profilo in alto |
@@ -461,7 +461,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 7.1  | Il prodotto viene registrato come venduto nel database (con data)|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente loggato come manager |
+|  Precondition  | Utente autenticato come manager |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
@@ -471,7 +471,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 7.2  | Il prodotto viene registrato come venduto nel database (senza data)|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente loggato come manager |
+|  Precondition  | Utente autenticato come manager |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
