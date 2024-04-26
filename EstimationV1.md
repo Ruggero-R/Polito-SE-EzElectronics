@@ -1,7 +1,7 @@
 # Project Estimation - CURRENT
-Date:
+Date: 26/04/2024
 
-Version:
+Version: 1.0
 
 
 # Estimation approach
@@ -10,24 +10,24 @@ Consider the EZElectronics  project in CURRENT version (as given by the teachers
 ### 
 |             | Estimate                        |             
 | ----------- | ------------------------------- |  
-| NC =  Estimated number of classes to be developed   |                             |             
-|  A = Estimated average size per class, in LOC       |                            | 
-| S = Estimated size of project, in LOC (= NC * A) | |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  |                                      |   
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | | 
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |                    |               
+| NC =  Estimated number of classes to be developed   |      5                       |             
+|  A = Estimated average size per class, in LOC       |       150                     | 
+| S = Estimated size of project, in LOC (= NC * A) | 750 |
+| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  |      75                                |   
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 2250 | 
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |        1            |               
 
 # Estimate by product decomposition
 ### 
 |         component name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
-|requirement document    | |
-| GUI prototype ||
-|design document ||
-|code ||
-| unit tests ||
-| api tests ||
-| management documents  ||
+|requirement document    | 16 |
+| GUI prototype |10|
+|design document |4|
+|code |56|
+| unit tests | 8 |
+| api tests |8|
+| management documents  |4|
 
 
 
@@ -35,7 +35,27 @@ Consider the EZElectronics  project in CURRENT version (as given by the teachers
 ### 
 |         Activity name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
-| | |
+| **GROUP AND PROJECT MANAGEMENT** | |
+| Project management plan | 4 |
+| Scheduling | 2 |
+| Risk Estimation | 1 |
+| **REQUIREMENTS PLANNING**	 | |
+| Review existing code | 4 |
+| Work Analysis | 3 |
+| Model process	 | 2 |
+| Identify user requirements	 |  6 |
+| Identify performance requirements	|  4 |
+| **DESIGN** | |
+| Identify and develop the prototype design	| 4 |
+|Developing the GUI prototype	 | 8 |
+| **IMPLEMENTATION**| |
+| Develop general code	| 6 |
+| Developing the models	| 8|
+| Developing the controllers and test code	| 42 |
+| **TESTING**	 | |
+| API Testing	 | 4 |
+| UI Testing | 2 |
+| Testing of NF req	| 4 |
 ###
 Insert here Gantt chart with above activities
 
