@@ -879,7 +879,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Glossary
 
-![Glossario](images/Glossario-v1.0.jpg)
+![Glossario](images/ClassDiagram-v1.1.png)
 
 - **Manager**: Persona responsabile della gestione del negozio di elettronica.
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
