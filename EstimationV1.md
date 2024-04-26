@@ -1,7 +1,7 @@
 # Project Estimation - CURRENT
 Date: 26/04/2024
 
-Version: 1.0
+Version: 1.1
 
 
 # Estimation approach
@@ -53,9 +53,9 @@ Consider the EZElectronics  project in CURRENT version (as given by the teachers
 | Developing the models	| 8|
 | Developing the controllers and test code	| 42 |
 | **TESTING**	 | |
-| API Testing	 | 4 |
+| API Testing	 | 8 |
 | UI Testing | 2 |
-| Testing of NF req	| 4 |
+| Testing of NF req	| 6 |
 ###
 Insert here Gantt chart with above activities
 
@@ -65,6 +65,6 @@ Report here the results of the three estimation approaches. The  estimates may d
 
 |             | Estimated effort                        |   Estimated duration |
 | ----------- | ------------------------------- | ---------------|
-| estimate by size | | |
-| estimate by product decomposition | | |
-| estimate by activity decomposition | | |
+| estimate by size | 75ph | 5 |
+| estimate by product decomposition | 106ph | 4 |
+| estimate by activity decomposition | 110ph | 4 |
