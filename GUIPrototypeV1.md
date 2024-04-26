@@ -15,3 +15,4 @@ Version: 1.0.0
 | Login | ![Login](images/gui/StartLogin.png) |
 | Credenziali errate | ![CredenzialiErrate](images/gui/StartLoginErrore.png) |
 | Registrazione | ![Registrazione](images/gui/StartRegistrazione.png) |
+| Homepage | ![HomePage](images/gui/Home.png) |
