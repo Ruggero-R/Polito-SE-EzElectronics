@@ -61,7 +61,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/ContextDiagram-v1.2.png)
+![Context diagram](images/diagram/ContextDiagram-v1.2.png)
 
 ## Interfaces
 
@@ -149,7 +149,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ## Use case diagram
 
-![Use case diagram](images/UseCaseDiagram-v1.0.png)
+![Use case diagram](images/diagram/UseCaseDiagram-v1.0.png)
 
 ## Use cases
 
@@ -879,7 +879,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Glossary
 
-![Glossario](images/ClassDiagram-v1.1.png)
+![Glossario](images/diagram/ClassDiagram-v1.1.png)
 
 - **Manager**: Persona responsabile della gestione del negozio di elettronica.
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
@@ -893,4 +893,4 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Deployment Diagram
 
-![Deployment diagram](images/DeploymentDiagram-v1.0.svg)
+![Deployment diagram](images/diagram/DeploymentDiagram-v1.0.svg)
