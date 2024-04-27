@@ -28,6 +28,10 @@ Version: 1.0.0
 |Cronologia carrelli vuota| Pagina relativa alla visualizzazione dello storico dei carrelli passati, da parte di un utente customer, nella condizione in cui non vi sia alcun carrello passato. | ![CronologiaCarrelliVuota](images/gui/cart/CronologiaCarrelliVuota.png) |
 |Carrello carrelli piena| Pagina relativa alla visualizzazione dello storico dei carrelli passati, da parte di un utente customer, nella condizione in cui vi siano uno o più carrelli passati. | ![CronologiaCarrelliPiena](images/gui/cart/CronologiaCarrelli.png) |
 |Carrello vecchio pieno| Pagina relativa alla visualizzazione del resoconto di un carrello, da parte di un utente customer, nella condizione in cui il checkout sia già stato effetuato. | ![CarrelloVecchioPieno](images/gui/cart/CarrelloVecchioPieno.png) |
+|Info profilo Customer| Pagina relativa alla visualizzazione del profilo di un utente customer. | ![InfoProfiloCustomer](images/gui/profile/InfoProfiloCustomer.png) |
+|Info profilo Manager| Pagina relativa alla visualizzazione del profilo di un utente manager. | ![InfoProfiloManager](images/gui/profile/InfoProfiloManager.png) |
+|New product| Pagina, visualizzabile solo dall'utente manager, relativa all'inserimento di un nuovo prodotto. | ![NewProduct](images/gui/profile/NewProduct.png) |
+|New stock| Pagina, visualizzabile solo dall'utente manager, relativa all'inserimento di un nuovo stock di prodotti. | ![NewStock](images/gui/profile/NewStock.png) |
 
 # Application GUI - Alert
 
@@ -42,3 +46,7 @@ Version: 1.0.0
 | Alert prodotto Aggiunto al carrello | Un avviso a comparsa che appare dopo aver cliccato sul pulsante "Elimina il prodotto" dalla pagina di un prodotto specifico, richiedendo la conferma dell'azione da parte del manager.  | ![ProdottoManagerElimina](images/gui/alert/AlertProdottoApertoManagerElimina.png) |
 | Alert checkout vuoto | Un avviso che compare dopo aver cliccato sul pulsante "Procedi con il checkout" dalla pagina del carrello vuoto, segnalando l'impossibilità di avviare il processo di checkout in assenza di prodotti nel carrello. | ![CheckoutCarrelloVuoto](images/gui/alert/AlertCarrelloVuoto.png) |
 | Alert svuota carrello |  Un avviso che compare dopo aver cliccato sul pulsante "Svuota l'intero carrello" dalla pagina di visualizzazione del carrello, richiedendo la conferma dell'azione da parte dell'utente customer. | ![SvuotaCarrello](images/gui/alert/AlertSvuotaCarrello.png) |
+| Alert nuovo prodotto |  Un avviso che compare dopo aver cliccato sul pulsante "Inserisci prodotto" dalla pagina di inserimento dei dati di un nuovo prodotto che conferma l'avvenuto caricamento. | ![AlertNuovoProdotto](images/gui/alert/AlertNewProductDone.png) |
+| Alert error nuovo prodotto |  Un avviso che compare dopo aver cliccato sul pulsante "Inserisci prodotto" dalla pagina di inserimento dei dati di un nuovo prodotto che mostra un errore nei dati. | ![AlertErrorNuovoProdotto](images/gui/alert/AlertErrorNewProductDone.png) |
+| Alert nuovo stock |  Un avviso che compare dopo aver cliccato sul pulsante "Inserisci stock prodotti" dalla pagina di inserimento dei dati di un nuovo prodotto che conferma l'avvenuto caricamento. | ![AlertNuovoStock](images/gui/alert/AlertNewStockDone.png) |
+| Alert error nuovo prodotto |  Un avviso che compare dopo aver cliccato sul pulsante "Inserisci stock prodotti" dalla pagina di inserimento dei dati dello stock del nuovo prodotto che mostra un errore nei dati. | ![AlertErrorNuovoStock](images/gui/alert/AlertErrorNewStockDone.png) |
