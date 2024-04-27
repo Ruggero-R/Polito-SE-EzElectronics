@@ -10,11 +10,11 @@ Version: 1.0.0
 
 | Functionality | Description | Image |
 | ----------------- | ----------------- |:-----------:|
-|Login| Pagina relativa al login di utente. | ![Login](images/gui/StartLogin.png) |
+|Login| La pagina dedicata all'autenticazione degli utenti. | ![Login](images/gui/StartLogin.png) |
 |Register| Pagina relativa alla registrazione di un utente. | ![Registrazione](images/gui/StartRegistrazione.png) |
-|Home principale v1| Homepage (vista senza filtro vendita). | ![HomePageAll](images/gui/homepage/HomeTutti.png) |
-|Home principale v2| Homepage (vista con filtro "Venduti"). | ![HomePageSoldYes](images/gui/homepage/HomeVenduti.png) |
-|Home principale v3| Homepage (vista con filtro "Non Venduti").| ![HomePageSoldNo](images/gui/homepage/HomeNonVenduti.png) |
+|Home principale v1| La homepage nella sua versione base, senza alcun filtro per la visualizzazione dei prodotti in vendita. | ![HomePageAll](images/gui/homepage/HomeTutti.png) |
+|Home principale v2| La homepage con il filtro applicato ("Venduti") per visualizzare solo i prodotti già venduti. | ![HomePageSoldYes](images/gui/homepage/HomeVenduti.png) |
+|Home principale v3| La homepage con il filtro applicato ("Non Venduti") per visualizzare solo i prodotti non ancora venduti.| ![HomePageSoldNo](images/gui/homepage/HomeNonVenduti.png) |
 |Smartphone| Pagina relativa alla presentazione generale dei prodotti appartenenti alla categoria "Smartphone". | ![Smartphone](images/gui/homepage/Smartphone.png) |
 |Laptop| Pagina relativa alla presentazione generale dei prodotti appartenenti alla categoria "Laptop". | ![Laptop](images/gui/homepage/Laptop.png) |
 |Elettrodomestici| Pagina relativa alla presentazione generale dei prodotti appartenenti alla categoria "Elettrodomestici". | ![Elettrodomestici](images/gui/homepage/Elettrodomestici.png) |
@@ -25,9 +25,9 @@ Version: 1.0.0
 |Carrello vuoto| Pagina relativa alla visualizzazione del carrello attuale, da parte di un utente customer, nella condizione in cui nessun prodotto è stato inserito nel carrello. | ![CarrelloVuoto](images/gui/cart/CarrelloVuoto.png) |
 |Carrello pieno| Pagina relativa alla visualizzazione del carrello attuale, da parte di un utente customer, nella condizione in cui sono già stati aggiunti diversi prodotti nel carrello. | ![CarrelloPieno](images/gui/cart/CarrelloPieno.png) |
 |Checkout effettuato| Pagina relativa alla visualizzazione di conferma di avvenuta vendita/acquisto, da parte di un utente customer, del carrello. | ![CarrelloPieno](images/gui/cart/CheckoutEffettuato.png) |
+|Cronologia carrelli vuota| Pagina relativa alla visualizzazione dello storico dei carrelli passati, da parte di un utente customer, nella condizione in cui non vi sia alcun carrello passato. | ![CronologiaCarrelliVuota](images/gui/cart/CronologiaCarrelliVuota.png) |
+|Carrello carrelli piena| Pagina relativa alla visualizzazione dello storico dei carrelli passati, da parte di un utente customer, nella condizione in cui vi siano uno o più carrelli passati. | ![CronologiaCarrelliPiena](images/gui/cart/CronologiaCarrelli.png) |
 |Carrello vecchio pieno| Pagina relativa alla visualizzazione del resoconto di un carrello, da parte di un utente customer, nella condizione in cui il checkout sia già stato effetuato. | ![CarrelloVecchioPieno](images/gui/cart/CarrelloVecchioPieno.png) |
-|Cronologia carrelli vuota| Pagina relativa alla visualizzazione dello storico dei carrelli passati, da parte di un utente customer, nella condizione in cui non vi sia alcun carrello passato. | ![CarrelloPieno](images/gui/cart/CronologiaCarrelliVuota.png) |
-|Carrello carrelli piena| Pagina relativa alla visualizzazione dello storico dei carrelli passati, da parte di un utente customer, nella condizione in cui vi siano uno o più carrelli passati. | ![CarrelloPieno](images/gui/cart/CronologiaCarrelli.png) |
 
 # Application GUI - Alert
 
@@ -35,10 +35,10 @@ Version: 1.0.0
 
 | Functionality | Description | Image |
 | ----------------- | ----------------- |:-----------:|
-| Alert Credenziali errate | Messaggio di avviso a comparsa relativo ad un incorretto inserimento nei campi di input. | ![CredenzialiErrate](images/gui/alert/AlertStartLoginErrore.png) |
-| Alert Smartphone Aggiunto al carrello | Messaggio di avviso a comparsa con durata regolabile (impostato a 3 secondi) relativo ad un click sul bottone "Aggiungi al carrello", dalla pagina principale, che comporta l'inserimento del prodotto associato alla sezione carrello del profilo. | ![SmartphoneAggiunto](images/gui/alert/SmartphoneCarrello1.png) |
-| Alert prodotto Aggiunto al carrello | Messaggio di avviso a comparsa con durata regolabile (impostato a 3 secondi) relativo ad un click sul bottone "Aggiungi al carrello", dalla pagina del determinato prodotto, che ne comporta l'inserimento nella sezione carrello del profilo. | ![ProdottoAggiunto](images/gui/alert/ProdottoApertoDisponibileCarrello.png) |
-| Alert prodotto contrassegnato come venduto | Messaggio di input a comparsa relativo ad un click sul bottone "Contrassegna come venduto", dalla pagina del determinato prodotto, che comporta l'inserimento della "SellingDate" relativa al prodotto. | ![ProdottoManagerVendita](images/gui/alert/AlertProdottoApertoManagerVendita.png) |
-| Alert prodotto Aggiunto al carrello | Alert di avviso a comparsa relativo ad un click sul bottone "Elimina il prodotto", dalla pagina del determinato prodotto, che attende la selezione sulla conferma dell'operazione da parte del manager. | ![ProdottoManagerElimina](images/gui/alert/AlertProdottoApertoManagerElimina.png) |
-| Alert checkout vuoto | Alert di avviso a comparsa relativo ad un click sul bottone "Procedi con il checkout", dalla pagina del carrello vuoto, che segnala il mancato avvio del processo di checkout. | ![CheckoutCarrelloVuoto](images/gui/alert/AlertCarrelloVuoto.png) |
-| Alert svuota carrello |  Alert di avviso a comparsa relativo ad un click sul bottone "Svuota l'intero carrello", dalla pagina di visualizzazione del carrello, che attende la selezione sulla conferma dell'operazione da parte del customer. | ![SvuotaCarrello](images/gui/alert/AlertSvuotaCarrello.png) |
+| Alert Credenziali errate | Un avviso a comparsa indicante l'inserimento errato nei campi di input durante il processo di login. | ![CredenzialiErrate](images/gui/alert/AlertStartLoginErrore.png) |
+| Alert Smartphone Aggiunto al carrello | Un messaggio di avviso temporaneo, con una durata predefinita di 3 secondi, che appare dopo aver cliccato sul pulsante "Aggiungi al carrello" dalla pagina principale e che indica l'inserimento del relativo smartphone nel carrello utente. | ![SmartphoneAggiunto](images/gui/alert/SmartphoneCarrello1.png) |
+| Alert prodotto Aggiunto al carrello | Un avviso a comparsa temporizzato, della durata di 3 secondi, che appare dopo aver cliccato sul pulsante "Aggiungi al carrello" dalla pagina di un prodotto specifico, indicando l'inserimento del prodotto nel carrello utente.  | ![ProdottoAggiunto](images/gui/alert/ProdottoApertoDisponibileCarrello.png) |
+| Alert prodotto contrassegnato come venduto | Un messaggio di avviso che appare dopo che un manager ha cliccato sul pulsante "Contrassegna come venduto" dalla pagina di un prodotto specifico, indicando l'aggiornamento della data di vendita associata al prodotto. | ![ProdottoManagerVendita](images/gui/alert/AlertProdottoApertoManagerVendita.png) |
+| Alert prodotto Aggiunto al carrello | Un avviso a comparsa che appare dopo aver cliccato sul pulsante "Elimina il prodotto" dalla pagina di un prodotto specifico, richiedendo la conferma dell'azione da parte del manager.  | ![ProdottoManagerElimina](images/gui/alert/AlertProdottoApertoManagerElimina.png) |
+| Alert checkout vuoto | Un avviso che compare dopo aver cliccato sul pulsante "Procedi con il checkout" dalla pagina del carrello vuoto, segnalando l'impossibilità di avviare il processo di checkout in assenza di prodotti nel carrello. | ![CheckoutCarrelloVuoto](images/gui/alert/AlertCarrelloVuoto.png) |
+| Alert svuota carrello |  Un avviso che compare dopo aver cliccato sul pulsante "Svuota l'intero carrello" dalla pagina di visualizzazione del carrello, richiedendo la conferma dell'azione da parte dell'utente customer. | ![SvuotaCarrello](images/gui/alert/AlertSvuotaCarrello.png) |
