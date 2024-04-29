@@ -6,7 +6,7 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|       6        |  Glossary |
+|       7        | Routes di test |
 
 # Contents
 
@@ -111,7 +111,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------:                                                         |
 | **FR1** |      **Gestione Utenti**                                          |
-| FR1.1 | Chiunque può creare un account                                      |
+| FR1.1 | Chiunque può creare un account con username univoco                 |
 | FR1.2 | Un utente può effettuare login e logout                             |
 | FR1.3 | Un utente può visualizzare le informazioni del proprio profilo      |
 | **FR2** |    **Gestione Prodotti**                                          |
@@ -144,6 +144,19 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | NFR6    | Sicurezza      | Le fughe di dati non possono verificarsi più frequentemente di una volta ogni 20 anni. | FR1-FR3 |
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
+
+### Tests
+
+|  ID   | Description        |
+| :---: | :---------:        |
+|  T1   | Visualizzazione dell'elenco di tutti utenti registrati (Manager e Customer)|
+|  T2   | Visualizzazione dell'elenco di tutti utenti registrati con un determinato ruolo (Manager o Customer)|
+|  T3   | Ricerca di un utente dato lo username|
+|  T4   | Eliminazione di un utente dato lo username|
+|  T5   | Eliminazione di tutti gli utenti|
+|  T6   | Eliminazione di tutti i prodotti|
+|  T7   | Eliminazione di tutti i carrelli|
+
 
 ### Table of rights
 
