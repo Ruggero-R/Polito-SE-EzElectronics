@@ -109,7 +109,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ## Functional Requirements
 
 |  ID   | Description                                                         |
-| :---: | :---------                                                          |
+| :---: | :---------:                                                         |
 | **FR1** |      **Gestione Utenti**                                          |
 | FR1.1 | Chiunque può creare un account                                      |
 | FR1.2 | Un utente può effettuare login e logout                             |
@@ -144,6 +144,28 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | NFR6    | Sicurezza      | Le fughe di dati non possono verificarsi più frequentemente di una volta ogni 20 anni. | FR1-FR3 |
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
+
+### Table of rights
+
+| FR  |  Customer  |  Manager  |
+| :-: |  :------:  |  :-----:  |
+| 1.1 |     X      |     X     |
+| 1.2 |     X      |     X     |
+| 1.3 |     X      |     X     |
+| 2.1 |            |     X     |
+| 2.2 |            |     X     |
+| 2.3 |            |     X     |
+| 2.4 |     X      |     X     |
+| 2.5 |     X      |     X     |
+| 2.6 |     X      |     X     |
+| 2.7 |     X      |     X     |
+| 2.8 |            |     X     |
+| 3.1 |     X      |           |
+| 3.2 |     X      |           |
+| 3.3 |     X      |           |
+| 3.4 |     X      |           |
+| 3.5 |     X      |           |
+| 3.6 |     X      |           |
 
 # Use case diagram and use cases
 
