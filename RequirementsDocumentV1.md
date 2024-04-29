@@ -186,7 +186,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ## Use case diagram
 
-![Use case diagram](images/diagram/UseCaseDiagram-v1.0.png)
+![Use case diagram](images/diagram/UseCaseDiagram-v1.1.png)
 
 ## Use cases
 
