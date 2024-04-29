@@ -154,22 +154,37 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.1 | Chiunque può creare un account                                      |
 | FR1.2 | Un utente può effettuare login e logout                             |
 | FR1.3 | Un utente può visualizzare le informazioni del proprio profilo      |
+| FR1.4 | Un manager può creare il profilo di un Employee                     |
+| FR1.5 | Un manager può modificare il profilo di un Employee                 |
+| FR1.6 | Un manager può eliminare il profilo di un Employee                  |
+| FR1.7 | Un manager può eliminare il profilo di un Customer                  |
+| FR1.8 | Un customer può eliminare il proprio profilo                        |
+| FR1.9 | Un manager può visualizzare la lista di tutti i profili registrati  |
+| FR1.10| Un manager può filtrare la lista dei profili registrati per ruolo   |
+| FR1.11| Un manager può cercare il profilo di un utente tramite Username e visualizzarlo |
+| FR1.12| Un manager può modificare le informazioni sul negozio               |
 | **FR2** |    **Gestione Prodotti**                                          |
-| FR2.1 | Un manager può registrare un nuovo prodotto                               |
-| FR2.2 | Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello |
-| FR2.3 | Un manager può segnare un prodotto come venduto                     |
-| FR2.4 | Qualsiasi utente autenticato può ottenere l'elenco di tutti i prodotti  |
-| FR2.5 | Qualsiasi utente autenticato può ottenere un prodotto dato il codice    |
-| FR2.6 | Qualsiasi utente autenticato può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
-| FR2.7 | Qualsiasi utente autenticato può recuperare l'elenco di tutti i prodotti appartenenti ad uno specifico modello |
-| FR2.8 | Un utente manager può eliminare un prodotto                         |
+| FR2.1 | Un manager o un Employee possono registrare un nuovo prodotto       |
+| FR2.2 | Un manager o un Employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
+| FR2.3 | Un manager o un Employee possono segnare un prodotto come venduto   |
+| FR2.4 | Un manager o un Employee possono cercare un prdotto tramite codice  |
+| FR2.4 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti          |
+| FR2.5 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
+| FR2.7 | Qualsiasi utente può recuperare l'elenco di tutti i prodotti appartenenti ad uno specifico modello |
+| FR2.8 | Un manager o un employee possono eliminare un prodotto                                |
 | **FR3** | **Gestione Carrello**                                             |
 | FR3.1 | Un customer può visualizzare il proprio carrello                    |
 | FR3.2 | Un customer può aggiungere un prodotto al proprio carrello          |
 | FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
 | FR3.4 | Un customer può visualizzare la propria cronologia carrelli         |
 | FR3.5 | Un customer può rimuovere un prodotto dal carrello                  |
-| FR3.6 | Un customer può svuotare il proprio carrello              |
+| FR3.6 | Un customer può svuotare il proprio carrello                        |
+| **FR4** | **Gestione Recensioni**                                           |
+| FR4.1 | Qualsiasi utente può visualizzare le recensioni del prodotto cercato|
+| FR4.2 | Un customer che abbia acquistato un determinato prodotto può recensirlo |
+| FR4.3 | Un customer può modificare una recensione precedentemente scritta   |
+| FR4.4 | Un customer può elimnare una propria recensione                     |
+| FR4.5 | Un manager o un employee possono eliminare una recensione           | 
 
 ## Non Functional Requirements
 
