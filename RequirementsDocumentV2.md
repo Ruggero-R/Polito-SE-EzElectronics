@@ -122,6 +122,13 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------  |
 |Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
 |Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
+| Come manager voglio poter modificare i dettagli profilo degli utenti registrati | 
+| Come manager voglio poter creare gli account degli employee |
+
+|  **Employee** |
+| :-------  |
+|Come employee voglio registrare l’arrivo di prodotti in magazzino, segnare le vendite e i resi dei prodotti|
+|Come employee voglio visualizzare la lista di tutti i prodotti disponibili e non|
 
 |  **Customer** |
 | :-------  |
@@ -129,6 +136,13 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
 |Come customer voglio poter visualizzare la cronologia dei miei ordini |
 |Come customer voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o i prodotti appartenenti ad una specifica categoria o modello |
+| Come customer voglio poter modificare i dettagli del mio profilo |
+
+|  **Utente non registrato** |
+| :-------  |
+|Come utente non registrato, voglio vedere i dettagli dei prodotti senza dovermi registrare. |
+|Come utente non registrato voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il prodotto senza dovermi registrare |
+|Come utente non registrato, voglio poter creare un account in pochi passi. |
 
 # Functional and non functional requirements
 
