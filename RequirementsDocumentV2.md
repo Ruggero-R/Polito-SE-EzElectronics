@@ -6,7 +6,7 @@ Version: V2 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|       6        | Starting from V1 |
+|       2        | Stakeholder e Context diagram |
 
 # Contents
 
@@ -21,6 +21,8 @@ Version: V2 - description of EZElectronics in CURRENT form (as received by teach
 - [Functional and non functional requirements](#functional-and-non-functional-requirements)
   - [Functional Requirements](#functional-requirements)
   - [Non Functional Requirements](#non-functional-requirements)
+  - [Test requirements](#test-requirements)
+  - [Table of rights](#table-of-rights)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
   - [Use cases](#use-cases)
@@ -65,7 +67,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/diagram/ContextDiagram-v1.2.png)
+![Context diagram](images/diagram/ContextDiagram-v2.1.png)
 
 ## Interfaces
 
@@ -168,6 +170,19 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | NFR6    | Sicurezza      | Le fughe di dati non possono verificarsi più frequentemente di una volta ogni 20 anni. | FR1-FR3 |
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
+
+### Test Requirements
+
+|  ID   | Description        |
+| :---: | :---------:        |
+|  T1   | Visualizzazione dell'elenco di tutti utenti registrati (Manager e Customer)|
+|  T2   | Visualizzazione dell'elenco di tutti utenti registrati con un determinato ruolo (Manager o Customer)|
+|  T3   | Ricerca di un utente dato lo username|
+|  T4   | Eliminazione di un utente dato lo username|
+|  T5   | Eliminazione di tutti gli utenti|
+|  T6   | Eliminazione di tutti i prodotti|
+|  T7   | Eliminazione di tutti i carrelli|
+
 
 ### Table of rights
 

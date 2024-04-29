@@ -21,6 +21,8 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
 - [Functional and non functional requirements](#functional-and-non-functional-requirements)
   - [Functional Requirements](#functional-requirements)
   - [Non Functional Requirements](#non-functional-requirements)
+  - [Test requirements](#test-requirements)
+  - [Table of rights](#table-of-rights)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
   - [Use cases](#use-cases)
@@ -145,7 +147,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
 
-### Tests
+### Test Requirements
 
 |  ID   | Description        |
 | :---: | :---------:        |
