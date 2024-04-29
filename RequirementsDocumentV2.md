@@ -2,7 +2,7 @@
 
 Date:
 
-Version: V1 - description of EZElectronics in CURRENT form (as received by teachers)
+Version: V2 - description of EZElectronics in CURRENT form (as received by teachers)
 
 | Version number | Change |
 | :------------: | :----: |
@@ -48,14 +48,18 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
 
 # Informal description
 
-EZElectronics (read EaSy Electronics) is a software application designed to help managers of electronics stores to manage their products and offer them to customers through a dedicated website. Managers can assess the available products, record new ones, and confirm purchases. Customers can see available products, add them to a cart and see the history of their past purchases.
+EZElectronics (read EaSy Electronics) is a software application designed to help managers of electronics stores to manage their products and offer them to customers through a dedicated website. Managers can assess the available products, record new ones, and confirm purchases. Employees help managers and have similar tasks. Customers can see available products, add them to a cart and see the history of their past purchases.
 
 # Stakeholders
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-| Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. |
+| Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. Può modificare le informazioni generali del negozio e gestire il profilo degli Employee. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
+| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
+| Servizi di pagamento | Servizi terzi che permettono ai customer di effettuare transazioni in modo sicuro. |
+| Supporto tecnico | Responsabile della creazione, manutenzione e aggiornamento dell'applicazione. |
+| Servizi di spedizione | Servizi terzi che si incaricano di consegnare i prodotti acquistati dagli utenti presso l'indirizzo da loro specificato.  |
 
 # Context Diagram and interfaces
 
@@ -67,8 +71,12 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
-| Manager | Pc                  | GUI                    |
-| Customer | Smartphone, Pc | GUI |
+| Manager   | Pc                | GUI                |
+| Customer  | Smartphone, Pc    | GUI                |
+| Employee  | Pc, Scanner codici a barre    | GUI                |
+| Servizi di pagamento | Internet   | <https://satispay.com/…>, <https://paypal.com/…>, <https://visa.com/…>, <https://mastercard.com/…> |
+| Supporto tecnico  | Pc    | GUI                |
+| Servizi di spedizione  | Internet    | <https://gsped.com/api/> |
 
 # Stories and personas
 
@@ -82,6 +90,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Obiettivi| Monitorare le vendite, gestire l'inventario e i prodotti del negozio|
 |Necessità| Dashboard per le vendite, gestione dell'inventario|
 
+|   **Employee**   |  |
+| :-------: | :---------------: |
+| Età| 28 anni|
+| Occupazione| Dipendente di un negozio di elettronica|
+|Comportamento| Puntuale, organizzato, affidabile|
+|Obiettivi| Gestire l’inventario prodotti, revisione ordini, preparazione ordini|
+|Necessità| Gestione dell'inventario e delle vendite, dashboard ordini|
+
 |   **Customer**   |  |
 | :-------: | :---------------: |
 | Età| 28 anni|
@@ -89,6 +105,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Comportamento|  Attenta ai dettagli, interessata ai prodotti di qualità|
 |Obiettivi| Acquistare prodotti di qualità e visualizzare i propri ordini precedenti|
 |Necessità| Navigazione intuitiva, acquisti sicuri|
+
+|   **Utente non registrato**   |  |
+| :-------: | :---------------: |
+| Età| 40 anni|
+| Occupazione| Imprenditore|
+|Comportamento|  Pratico, interessato agli affari, interessato alla qualità |
+|Obiettivi| Trovare informazioni sui prodotti, confrontare prezzi|
+|Necessità| Accesso facile ai prodotti, dettagli dei prodotti senza registrazione|
 
 ## Stories
 
@@ -109,7 +133,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ## Functional Requirements
 
 |  ID   | Description                                                         |
-| :---: | :---------:                                                         |
+| :---: | :---------                                                          |
 | **FR1** |      **Gestione Utenti**                                          |
 | FR1.1 | Chiunque può creare un account                                      |
 | FR1.2 | Un utente può effettuare login e logout                             |
@@ -901,7 +925,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Glossary
 
-![Glossario](images/diagram/ClassDiagram-v1.2.png)
+![Glossario](images/diagram/ClassDiagram-v1.1.png)
 
 - **Manager**: Persona responsabile della gestione del negozio di elettronica.
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
