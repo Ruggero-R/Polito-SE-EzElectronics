@@ -6,7 +6,7 @@ Version: V1 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|       5        |    Use case |
+|       6        |  Glossary |
 
 # Contents
 
@@ -61,7 +61,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/ContextDiagram-v1.2.png)
+![Context diagram](images/diagram/ContextDiagram-v1.2.png)
 
 ## Interfaces
 
@@ -149,7 +149,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ## Use case diagram
 
-![Use case diagram](images/UseCaseDiagram-v1.0.png)
+![Use case diagram](images/diagram/UseCaseDiagram-v1.0.png)
 
 ## Use cases
 
@@ -160,8 +160,8 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |   Precondition   |  Utente non autenticato  |
 |  Post condition  |  Utente autenticato e autorizzato   |
 | Nominal Scenario |  Login dell'utente |
-|     Variants     | Nessuna  |
-|    Exceptions    | Username o password non riconosciuti, errore interno  |
+|     Variants     |  Nessuna  |
+|    Exceptions    |  Username o password non riconosciuti, errore interno  |
 
 |  Scenario 1.1  |  Login corretto  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -169,7 +169,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Utente autenticato e autorizzato    |
 |     Step#      |           Description     |
 |       1        | Il sistema chiede all'utente di inserire username e password |
-|       2        | L'utente fornisce username e password nei campi appositi |
+|       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
 |       3        | Il sistema cerca l' username nel database |
 |       4        | Il sistema confronta la password inserita con quella salvata |
 |       5        | Il sistema esegue il login utente (status: 200)  |
@@ -180,7 +180,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Utente non autenticato    |
 |     Step#      |             Description     |
 |       1        | Il sistema richiede all'utente di inserire username e password |
-|       2        | L'utente fornisce username e password nei campi appositi |
+|       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
 |       3        | Il sistema cercan lo username nel database |
 |       4        | Il sistema non autorizza l’utente (status: 404) e mostra “Credenziali non valide” |
 
@@ -190,7 +190,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Utente non autenticato    |
 |     Step#      |                                Description     |
 |       1        | Il sistema richiede all'utente di inserire username e password |
-|       2        | L'utente fornisce username e password nei campi appositi |
+|       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
 |       3        | Il sistema cerca lo username nel database |
 |       4        | Il sistema confronta la password inserita con quella salvata |
 |       5        | Il sistema non autorizza l’utente (status: 404) e mostra “Credenziali non valide” |
@@ -268,22 +268,22 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Precondition  | Utente non autenticato |
 | Post condition | Nuovo utente viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando su "Registrati" |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
 |       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
-|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
-|       7       | Il sistema risponde con il messaggio di successo (status: 200) |
+|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
 |  Scenario 4.2  | Creazione di un utente già presente  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente non autenticato, lo username è già presente nel database |
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando su "Registrati" |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
 |       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
-|       3        | L'utente inserisce le informazioni richieste dal sistema |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
@@ -514,7 +514,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |   Precondition   |  Utente autenticato            |
 |  Post condition  |  Elenco prodotti a schermo                       |
 | Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti disponibili |
-|     Variants     |  Parametro opzionale sold (yes o no) |
+|     Variants     |  Parametro opzionale sold (yes o no, default=null) |
 |    Exceptions    |  Errore interno |
 
 |  Scenario 8.1  | Visualizzazione con successo (senza parametro sold) |
@@ -523,7 +523,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
 |       1        | Il sistema preleva dal database tutti i prodotti creati |
-|       2        | Il sistema stampa i vari prodotti (status: 200) |
+|       2        | Il sistema stampa i vari prodotti sulla pagina principale (status: 200) |
 
 |  Scenario 8.2  | Visualizzazione con successo (sold=yes) |
 | :------------: | :------------------------------------------------------------------------: |
@@ -879,6 +879,8 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Glossary
 
+![Glossario](images/diagram/ClassDiagram-v1.1.png)
+
 - **Manager**: Persona responsabile della gestione del negozio di elettronica.
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
 - **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
@@ -891,4 +893,4 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Deployment Diagram
 
-![Deployment diagram](images/DeploymentDiagram-v1.0.svg)
+![Deployment diagram](images/diagram/DeploymentDiagram-v1.0.svg)
