@@ -56,6 +56,9 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------: | :---------: |
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
+| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
+| Servizi di pagamento         | L'applicazione include transazioni finanziarie, i fornitori di servizi di pagamento si occupano di gestire i pagamenti dei prodotti |
+| Sviluppatori software | Responsabili della creazione, manutenzione e aggiornamento dell'applicazione. |
 
 # Context Diagram and interfaces
 
