@@ -73,6 +73,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------: | :---------------: | :----------------: |
 | Manager   | Pc                | GUI                |
 | Customer  | Smartphone, Pc    | GUI                |
+| Employee  | Pc, Scanner codici a barre    | GUI                |
+| Servizi di pagamento | Internet   | https://satispay.com/…, https://paypal.com/…, https://visa.com/…, https://mastercard.com/… |
+| Supporto tecnico  | Pc    | GUI                |
+| Servizi di spedizione  | Internet    | https://gsped.com/api/ |
 
 # Stories and personas
 
@@ -86,6 +90,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Obiettivi| Monitorare le vendite, gestire l'inventario e i prodotti del negozio|
 |Necessità| Dashboard per le vendite, gestione dell'inventario|
 
+|   **Employee**   |  |
+| :-------: | :---------------: |
+| Età| 28 anni|
+| Occupazione| Dipendente di un negozio di elettronica|
+|Comportamento| Puntuale, organizzato, affidabile|
+|Obiettivi| Gestire l’inventario prodotti, revisione ordini, preparazione ordini|
+|Necessità| Gestione dell'inventario e delle vendite, dashboard ordini|
+
 |   **Customer**   |  |
 | :-------: | :---------------: |
 | Età| 28 anni|
@@ -93,6 +105,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Comportamento|  Attenta ai dettagli, interessata ai prodotti di qualità|
 |Obiettivi| Acquistare prodotti di qualità e visualizzare i propri ordini precedenti|
 |Necessità| Navigazione intuitiva, acquisti sicuri|
+
+|   **Utente non registrato**   |  |
+| :-------: | :---------------: |
+| Età| 40 anni|
+| Occupazione| Imprenditore|
+|Comportamento|  Pratico, interessato agli affari, interessato alla qualità |
+|Obiettivi| Trovare informazioni sui prodotti, confrontare prezzi|
+|Necessità| Accesso facile ai prodotti, dettagli dei prodotti senza registrazione|
 
 ## Stories
 
