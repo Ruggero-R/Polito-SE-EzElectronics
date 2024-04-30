@@ -184,7 +184,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.2 | Qualsiasi utente può visualizzare le recensioni di un determinato prodotto |
 | FR4.3 | Un customer può modificare una recensione precedentemente scritta   |
 | FR4.4 | Un customer può elimnare una propria recensione                     |
-| FR4.5 | Un manager o un employee possono eliminare una recensione           |
+| FR4.5 | Un manager o un employee possono visualizzare la lista delle recensioni per un determinato prodotto |
+| FR4.6 | Un manager o un employee possono eliminare una recensione           |
 | **FR5** | **Gestione ordini**                                               |
 | FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere|
 | FR5.2 | Un customer deve pagare il proprio ordine al momento del checkout o al ritito in negozio |
@@ -198,11 +199,13 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5.10| Un manager o un employee possono ottenere lo sotrico di tutti gli ordini    |
 | FR5.11| Un manager o un employee possono filtrare lo storico degli ordini per stato |
 
+Nota: il requisito FR4.6 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
+
 ## Non Functional Requirements
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------  | :-------: |
-| NFR1    | Usabilitá      | Un nuovo customer che visita per la prima volta il sito deve poter utilizzare tutte le funzionalità basilari (ricerca prodotti, aggiunta al carrello e checkout) senza alcun tipo di training. Un nuovo manager deve essere in grado di sfruttare tutte le funzionalità del sito dopo un massimo di due ore di training. | FR1-FR3 |
+| NFR1    | Usabilitá      | Un nuovo customer che visita per la prima volta il sito deve poter utilizzare tutte le funzionalità basilari (ricerca prodotti, aggiunta al carrello e checkout) senza alcun tipo di training. Un nuovo manager deve essere in grado di sfruttare tutte le funzionalità del sito dopo un massimo di due ore di training. Un employee | FR1-FR3 |
 | NFR2    | Usabilitá      | Il carrello di un utente non deve essere cancellato quando esso effettua log out ma deve essere persistente, finchè non viene eseguito il checkout | FR3 |
 | NFR3    | Prestazioni    | Il sito deve essere in grado di gestire e portare a compimento un minimo di 10 transazioni al secondo. Il tempo di risposta ad un evento (come click su un pulsante) in condizioni ottimali di velocità della connessione non deve superare i due secondi. | FR1-FR3 |
 | NFR3    | Affidabilità   | Il tempo di disponibilitá del servizio durante un mese deve essere almeno del 99.95%. | FR1-FR3  |
@@ -604,7 +607,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
 |       5        | Il sistema mostra un messaggio di errore |
 
-|  Scenario 7.4  | Data di vendita conseguente alla data odierna o antecedente alla data di arrivo del prodotto|
+|  Scenario 7.4  | Data di vendita successiva alla data odierna o antecedente alla data di arrivo del prodotto|
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | La data di vendita inserita non è valida |
 | Post condition | Il prodotto non viene contrassegnato come venduto  |
@@ -999,7 +1002,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
 - **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
 - **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
-- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti all'interno dell'applicazione.
+- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
 - **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
 

@@ -526,7 +526,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
 |       5        | Il sistema mostra un messaggio di errore |
 
-|  Scenario 7.4  | Data di vendita conseguente alla data odierna o antecedente alla data di arrivo del prodotto|
+|  Scenario 7.4  | Data di vendita successiva alla data odierna o antecedente alla data di arrivo del prodotto|
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | La data di vendita inserita non è valida |
 | Post condition | Il prodotto non viene contrassegnato come venduto  |
@@ -921,7 +921,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
 - **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
 - **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
-- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti all'interno dell'applicazione.
+- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
 - **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
 
