@@ -320,7 +320,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
@@ -331,7 +331,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e clicca su "Registrati" |
 |               | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
