@@ -159,7 +159,6 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  T6   | Eliminazione di tutti i prodotti|
 |  T7   | Eliminazione di tutti i carrelli|
 
-
 ### Table of rights
 
 | FR  |  Customer  |  Manager  |
@@ -270,7 +269,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | Utente autenticato  |
 |  Post condition  | Stampa delle informazioni utente a video   |
-| Nominal Scenario | Informazioni utente visualizzaate sullo schermo |
+| Nominal Scenario | Informazioni utente visualizzate sullo schermo |
 |     Variants     | Nessuna  |
 |    Exceptions    | Errore interno  |
 

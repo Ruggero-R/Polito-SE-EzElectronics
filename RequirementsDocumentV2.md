@@ -6,7 +6,7 @@ Version: V2 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|       2        | Stakeholder e Context diagram |
+|       3        | Requisiti e fix minori |
 
 # Contents
 
@@ -75,9 +75,9 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------: | :---------------: | :----------------: |
 | Manager   | Pc                | GUI                |
 | Customer  | Smartphone, Pc    | GUI                |
-| Employee  | Pc, Scanner codici a barre    | GUI                |
-| Servizi di pagamento | Internet   | <https://satispay.com/…>, <https://paypal.com/…>, <https://visa.com/…>, <https://mastercard.com/…> |
-| Supporto tecnico  | Pc    | GUI                |
+| Employee  | Pc, Scanner codici a barre    | GUI    |
+| Servizi di pagamento | Internet   | <https://satispay.com/>, <https://paypal.com/>, <https://visa.com/>, <https://mastercard.com/> |
+| Supporto tecnico  | Pc    | GUI  |
 | Servizi di spedizione  | Internet    | <https://gsped.com/api/> |
 
 # Stories and personas
@@ -158,20 +158,20 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.5 | Un manager può modificare il profilo di un Employee                 |
 | FR1.6 | Un manager può eliminare il profilo di un Employee                  |
 | FR1.7 | Un manager può eliminare il profilo di un Customer                  |
-| FR1.8 | Un customer può eliminare il proprio profilo                        |
+| FR1.8 | Un customer o un manager può eliminare il proprio profilo           |
 | FR1.9 | Un manager può visualizzare la lista di tutti i profili registrati  |
 | FR1.10| Un manager può filtrare la lista dei profili registrati per ruolo   |
-| FR1.11| Un manager può cercare il profilo di un utente tramite Username e visualizzarlo |
+| FR1.11| Un manager può cercare il profilo di un utente dato lo username     |
 | FR1.12| Un manager può modificare le informazioni sul negozio               |
 | **FR2** |    **Gestione Prodotti**                                          |
-| FR2.1 | Un manager o un Employee possono registrare un nuovo prodotto       |
-| FR2.2 | Un manager o un Employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
-| FR2.3 | Un manager o un Employee possono segnare un prodotto come venduto   |
-| FR2.4 | Un manager o un Employee possono cercare un prdotto tramite codice  |
-| FR2.4 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti          |
-| FR2.5 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
+| FR2.1 | Un manager o un employee può registrare un nuovo prodotto       |
+| FR2.2 | Un manager o un employee può registrare l'arrivo di un insieme di prodotti dello stesso modello |
+| FR2.3 | Un manager o un employee può segnare un prodotto come venduto   |
+| FR2.4 | Un manager o un employee può cercare un prdotto tramite codice  |
+| FR2.5 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti          |
+| FR2.6 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti appartenenti ad una specifica categoria |
 | FR2.7 | Qualsiasi utente può recuperare l'elenco di tutti i prodotti appartenenti ad uno specifico modello |
-| FR2.8 | Un manager o un employee possono eliminare un prodotto                                |
+| FR2.8 | Un manager o un employee può eliminare un prodotto                  |
 | **FR3** | **Gestione Carrello**                                             |
 | FR3.1 | Un customer può visualizzare il proprio carrello                    |
 | FR3.2 | Un customer può aggiungere un prodotto al proprio carrello          |
@@ -179,12 +179,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.4 | Un customer può visualizzare la propria cronologia carrelli         |
 | FR3.5 | Un customer può rimuovere un prodotto dal carrello                  |
 | FR3.6 | Un customer può svuotare il proprio carrello                        |
+| FR3.7 | Un manager può visualizzare il carrello corrente di un utente |
+| FR3.8 | Un manager può visualizzare la cronologia carrelli di un utente |
 | **FR4** | **Gestione Recensioni**                                           |
-| FR4.1 | Qualsiasi utente può visualizzare le recensioni del prodotto cercato|
-| FR4.2 | Un customer che abbia acquistato un determinato prodotto può recensirlo |
+| FR4.1 | Qualsiasi utente può visualizzare le recensioni del modello del prodotto cercato |
+| FR4.2 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
 | FR4.3 | Un customer può modificare una recensione precedentemente scritta   |
 | FR4.4 | Un customer può elimnare una propria recensione                     |
-| FR4.5 | Un manager o un employee possono eliminare una recensione           | 
+| FR4.5 | Un manager o un employee possono eliminare una recensione           |
 
 ## Non Functional Requirements
 
@@ -204,36 +206,48 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  ID   | Description        |
 | :---: | :---------:        |
-|  T1   | Visualizzazione dell'elenco di tutti utenti registrati (Manager e Customer)|
-|  T2   | Visualizzazione dell'elenco di tutti utenti registrati con un determinato ruolo (Manager o Customer)|
-|  T3   | Ricerca di un utente dato lo username|
-|  T4   | Eliminazione di un utente dato lo username|
-|  T5   | Eliminazione di tutti gli utenti|
-|  T6   | Eliminazione di tutti i prodotti|
-|  T7   | Eliminazione di tutti i carrelli|
-
+|  T1   | Eliminazione di tutti gli utenti|
+|  T2   | Eliminazione di tutti i prodotti|
+|  T3   | Eliminazione di tutti i carrelli|
+|  T4   | Eliminazione di tutte le recensioni|
 
 ### Table of rights
 
-| FR  |  Customer  |  Manager  |
-| :-: |  :------:  |  :-----:  |
-| 1.1 |     X      |     X     |
-| 1.2 |     X      |     X     |
-| 1.3 |     X      |     X     |
-| 2.1 |            |     X     |
-| 2.2 |            |     X     |
-| 2.3 |            |     X     |
-| 2.4 |     X      |     X     |
-| 2.5 |     X      |     X     |
-| 2.6 |     X      |     X     |
-| 2.7 |     X      |     X     |
-| 2.8 |            |     X     |
-| 3.1 |     X      |           |
-| 3.2 |     X      |           |
-| 3.3 |     X      |           |
-| 3.4 |     X      |           |
-| 3.5 |     X      |           |
-| 3.6 |     X      |           |
+| FR  |  Customer  |  Manager  |  Employee  |
+| :-: |  :------:  |  :-----:  |  :-------: |
+| 1.1 |     X      |     X     |            |
+| 1.2 |     X      |     X     |     X      |
+| 1.3 |     X      |     X     |     X      |
+| 1.4 |            |     X     |            |
+| 1.5 |            |     X     |            |
+| 1.6 |            |     X     |            |
+| 1.7 |            |     X     |            |
+| 1.8 |     X      |     X     |            |
+| 1.9 |            |     X     |            |
+| 1.10|            |     X     |            |
+| 1.11|            |     X     |            |
+| 1.12|            |     X     |            |
+| 2.1 |            |     X     |            |
+| 2.2 |            |     X     |            |
+| 2.3 |            |     X     |            |
+| 2.4 |            |     X     |            |
+| 2.5 |     X      |     X     |     X      |
+| 2.6 |     X      |     X     |     X      |
+| 2.7 |     X      |     X     |     X      |
+| 2.8 |            |     X     |     X      |
+| 3.1 |     X      |           |            |
+| 3.2 |     X      |           |            |
+| 3.3 |     X      |           |            |
+| 3.4 |     X      |           |            |
+| 3.5 |     X      |           |            |
+| 3.6 |     X      |           |            |
+| 3.7 |            |     X     |            |
+| 3.8 |            |     X     |            |
+| 4.1 |     X      |     X     |     X      |
+| 4.2 |     X      |           |            |
+| 4.3 |     X      |           |            |
+| 4.4 |     X      |           |            |
+| 4.5 |            |     X     |     X      |
 
 # Use case diagram and use cases
 
@@ -245,7 +259,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 1, UC1, Login
 
-| Actors Involved  |           Utente (customer o manager)         |
+| Actors Involved  |           Utente (customer,manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato  |
 |  Post condition  |  Utente autenticato e autorizzato   |
@@ -294,7 +308,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 2, UC2, Logout
 
-| Actors Involved  |           Utente (customer o manager)         |
+| Actors Involved  |           Utente (customer,manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | Utente autenticato  |
 |  Post condition  | Utente non più autorizzato   |
@@ -319,11 +333,11 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 3, UC3, Stampa informazioni utente
 
-| Actors Involved  |           Utente (customer o manager)         |
+| Actors Involved  |           Utente (customer,manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | Utente autenticato  |
 |  Post condition  | Stampa delle informazioni utente a video   |
-| Nominal Scenario | Informazioni utente visualizzaate sullo schermo |
+| Nominal Scenario | Informazioni utente visualizzate sullo schermo |
 |     Variants     | Nessuna  |
 |    Exceptions    | Errore interno  |
 
@@ -343,7 +357,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 4, UC4 Creazione di un nuovo utente
+### Use case 4, UC4 Creazione di un nuovo utente                   CONTROLLATO FINO A QUI
 
 | Actors Involved  |                     Chiunque         |
 | :--------------: | :------------------------------------------------------------------: |
