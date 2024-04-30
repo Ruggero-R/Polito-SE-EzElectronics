@@ -1,6 +1,6 @@
 # Requirements Document - current EZElectronics
 
-Date:
+Date: 30/04/2024
 
 Version: V1 - description of EZElectronics in CURRENT form (as received by teachers)
 
@@ -132,6 +132,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.4 | Un customer può visualizzare la propria cronologia carrelli         |
 | FR3.5 | Un customer può rimuovere un prodotto dal carrello                  |
 | FR3.6 | Un customer può svuotare il proprio carrello              |
+
+Nota: il requisito 1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio.
 
 ## Non Functional Requirements
 
