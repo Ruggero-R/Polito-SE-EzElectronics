@@ -296,18 +296,18 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Actors Involved  |                     Chiunque         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato                                    |
-|  Post condition  |  Nuovo utente viene creato e inserito nel database                        |
+|  Post condition  |  Un nuovo utente customer viene creato e inserito nel database                        |
 | Nominal Scenario |  Creazione utente |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Username già esistente, errore interno |
+|    Exceptions    |  Username già esistente, errore interno, omissione di campi obbligatori |
 
 |  Scenario 4.1  | Creazione nuovo utente  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente non autenticato |
-| Post condition | Nuovo utente viene creato e inserito nel database   |
+| Post condition | Un nuovo utente customer viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       2        | Il sistema chiede all’utente di inserire username, nome, cognome e password |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | Il sistema applica un algoritmo di hash della password |
@@ -325,7 +325,17 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
-|  Scenario 4.3  |  Errore interno |
+|  Scenario 4.3  | Omissione di campi obbligatori  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente non autenticato |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
+|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e clicca su "Registrati" |
+|               | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
+
+|  Scenario 4.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -398,14 +408,14 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.6  | sellingPrice non positivo |
+|  Scenario 5.4  | campo/i non valido/i |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, sellingPrice non positivo |
+|  Precondition  | Utente autenticato come manager |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
 |       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
-|       3        | L'utente inserisce le informazioni richieste dal sistema e inserisce un prezzo negativo |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, ma alcuni non sono validi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
 |  Scenario 5.7  |  Errore interno |
@@ -495,7 +505,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Prodotto venduto                       |
 | Nominal Scenario |  Prodotto segnato nel database come venduto |
 |     Variants     |  Data non inserita |
-|    Exceptions    |  Uno o più campi omessi o non validi, errore interno |
+|    Exceptions    |  Prodotto venduto o data non valida, errore interno |
 
 |  Scenario 7.1  | Il prodotto viene registrato come venduto nel database (con data)|
 | :------------: | :------------------------------------------------------------------------: |

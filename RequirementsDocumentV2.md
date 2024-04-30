@@ -376,41 +376,64 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 4, UC4 Creazione di un nuovo utente                   CONTROLLATO FINO A QUI
+### Use case 4, UC4 Creazione di un nuovo utente
 
 | Actors Involved  |                     Chiunque         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato                                    |
-|  Post condition  |  Nuovo utente viene creato e inserito nel database                        |
+|  Post condition  |  un nuovo utente customer viene creato e inserito nel database                        |
 | Nominal Scenario |  Creazione utente |
-|     Variants     |  Nessuna |
+|     Variants     |  Nessun inserimento immagine di profilo |
 |    Exceptions    |  Username già esistente, errore interno |
 
-|  Scenario 4.1  | Creazione nuovo utente  |
+|  Scenario 4.1  | Creazione nuovo utente (con immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente non autenticato |
 | Post condition | Nuovo utente viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
-|       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste  dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 4.2  | Creazione di un utente già presente  |
+|  Scenario 4.2  | Creazione nuovo utente (senza immagine)  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente non autenticato |
+| Post condition | Nuovo utente viene creato e inserito nel database   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, tranne l'immagine, e clicca su "Registrati" |
+|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       5        | Il sistema applica un algoritmo di hash della password |
+|       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
+|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
+
+|  Scenario 4.3  | Creazione di un utente già presente  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente non autenticato, lo username è già presente nel database |
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username, nome, cognome, password e ruolo |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
-|  Scenario 4.3  |  Errore interno |
+|  Scenario 4.4  | Omissione di campi obbligatori  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente non autenticato |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e clicca su "Registrati" |
+|       4        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404)|
+
+|  Scenario 4.5  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -419,81 +442,58 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 5, UC5, Creazione di un nuovo prodotto
 
-| Actors Involved  |                     Utente manager         |
+| Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager                                   |
+|   Precondition   |  Utente autenticato come manager o employee                          |
 |  Post condition  |  Nuovo prodotto creato e inserito nel database                        |
 | Nominal Scenario |  Creazione di un nuovo prodotto date le sue informazioni |
-|     Variants     |  Data non inserita |
-|    Exceptions    |  Codice prodotto già esistente, data non valida, uno o più campi non inseriti o non validi, errore interno |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Codice prodotto già esistente, uno o più campi non inseriti o non validi, errore interno |
 
-|  Scenario 5.1  | Creazione nuovo prodotto con successo (con data)  |
+|  Scenario 5.1  | Creazione nuovo prodotto con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager o employee |
 | Post condition | Nuovo prodotto creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema |
-|       4        | Il sistema controlla se nel database è già presente il codice inserito e se la data non è successiva a oggi |
-|       5        | Il sistema inserisce nel database il nuovo prodotto con i campi passati |
-|       6        | Il sistema risponde con il messaggio di successo in cui scrive il nuovo codice (status: 200) |
-
-|  Scenario 5.2  | Creazione nuovo prodotto con successo (senza data)  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
-| Post condition | Nuovo prodotto creato e inserito nel database   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
-|       3        | L'utente inserisce le informazioni richieste dal sistema, ma non la arrivalDate |
 |       4        | Il sistema controlla se nel database è già presente il codice inserito |
-|       5        | Il sistema inserisce nel database il nuovo prodotto con i campi passati e arrivalDate=oggi |
+|       5        | Il sistema inserisce nel database il nuovo prodotto con i campi passati, arrivalDate=data corrente |
 |       6        | Il sistema risponde con il messaggio di successo in cui scrive il nuovo codice (status: 200) |
 
-|  Scenario 5.3  | Codice prodotto già presente nel database  |
+|  Scenario 5.2  | Codice prodotto già presente nel database  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, codice già presente nel database |
+|  Precondition  | Utente autenticato come manager o employee, codice già presente nel database |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
-|       3        | L'utente inserisce le informazioni richieste dal sistema, con o senza arrivalDate |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
+|       3        | L'utente inserisce le informazioni richieste dal sistema |
 |       4        | Il sistema controlla se nel database è già presente il codice inserito |
 |       5        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.4  | Data successiva alla data corrente |
+|  Scenario 5.3  | Campo/i non inserito |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, data non valida |
+|  Precondition  | Utente autenticato come manager o employee |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
-|       3        | L'utente inserisce le informazioni richieste dal sistema |
-|       4        | Il sistema controlla se nel database è già presente il codice inserito e se la data è valida |
-|       5        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
-
-|  Scenario 5.5  | Campo/i non inserito |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, campo/i non inserito |
-| Post condition | Prodotto non creato   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.6  | sellingPrice non positivo |
+|  Scenario 5.4  | campo/i non valido/i |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, sellingPrice non positivo |
+|  Precondition  | Utente autenticato come manager |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,arrivalDate |
-|       3        | L'utente inserisce le informazioni richieste dal sistema e inserisce un prezzo negativo |
+|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, ma alcuni non sono validi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.7  |  Errore interno |
+|  Scenario 5.5  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -502,70 +502,47 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 6, UC6, Registrazione arrivo di un set di prodotti
 
-| Actors Involved  |                     Utente manager         |
+| Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager                                   |
+|   Precondition   |  Utente autenticato come manager o employee               |
 |  Post condition  |  Insieme di prodotti creato e inserito nel database                        |
 | Nominal Scenario |  Creazione di un insieme di prodotti |
-|     Variants     |  Data non inserita |
-|    Exceptions    |  Data non valida, uno o più campi omessi o non validi, errore interno |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Uno o più campi omessi o non validi, errore interno |
 
-|  Scenario 6.1  | Creazione nuovo set con successo (con data)  |
+|  Scenario 6.1  | Creazione nuovo set con successo  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager o employee |
 | Post condition | Nuovi prodotti creati e inseriti nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,sellingPrice |
 |       3        | L'utente inserisce le informazioni richieste dal sistema |
-|       4        | Il sistema controlla se tutti i campi sono validi e se la data non è successiva a oggi |
-|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati |
-|       6        | Il sistema risponde con il messaggio di successo (status: 200) |
-
-|  Scenario 6.2  | Creazione nuovo set con successo (senza data)  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
-| Post condition | Nuovi prodotti creati e inseriti nel database   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
-|       3        | L'utente inserisce le informazioni richieste dal sistema tranne la arrivalDate |
 |       4        | Il sistema controlla se tutti i campi sono validi |
-|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati e la data odierna |
+|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati, arrivalDate=data corrente |
 |       6        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 6.3  | Data successiva alla data corrente  |
+|  Scenario 6.2  | Campo/i non inserito |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, data non valida |
+|  Precondition  | Utente autenticato come manager o employee, campo/i non inserito |
 | Post condition | Operazione annullata   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
-|       3        | L'utente inserisce le informazioni richieste dal sistema tranne la arrivalDate |
-|       4        | Il sistema controlla se tutti i campi sono validi e nota che la data è futura ad oggi |
-|       5        | Il sistema non inserisce il set e risponde con il messaggio di fallimento |
-
-|  Scenario 6.4  | Campo/i non inserito |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, campo/i non inserito |
-| Post condition | Operazione annullata   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,sellingPrice |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
-|  Scenario 6.5  | Campo/i non valido/i |
+|  Scenario 6.3  | Campo/i non valido/i |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, campo/i non valido/i |
+|  Precondition  | Utente autenticato come manager o employee, campo/i non valido/i |
 | Post condition | Operazione annullata   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,arrivalDate,sellingPrice |
+|       2        | Il sistema chiede di inserire model,category,details,quantity,sellingPrice |
 |       3        | L'utente inserisce le informazioni richieste dal sistema con alcuni campi non validi (es sellingPrice<=0.0) |
 |       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
-|  Scenario 6.6  |  Errore interno |
+|  Scenario 6.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -574,56 +551,32 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 7, UC7, Registrazione prodotto come venduto
 
-| Actors Involved  |                     Utente manager         |
+| Actors Involved  |                     Utente manager o employee        |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager                                   |
+|   Precondition   |  Utente autenticato come manager o employee                                  |
 |  Post condition  |  Prodotto venduto                       |
 | Nominal Scenario |  Prodotto segnato nel database come venduto |
-|     Variants     |  Data non inserita |
-|    Exceptions    |  Uno o più campi omessi o non validi, errore interno |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
 
-|  Scenario 7.1  | Il prodotto viene registrato come venduto nel database (con data)|
+|  Scenario 7.1  | Il prodotto viene registrato come venduto nel database|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager o employee |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
-|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3        | L’utente inserisce la data e conferma la modifica del prodotto |
-|       4        | Il sistema contrassegna come venduto il prodotto con il codice passato (status: 200) |
+|       2        | Il sistema contrassegna come venduto il prodotto con il codice passato in data odierna (status: 200) |
 
-|  Scenario 7.2  | Il prodotto viene registrato come venduto nel database (senza data)|
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
-| Post condition | Prodotto contrassegnato come venduto  |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
-|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3        | L’utente non inserisce la data e conferma la modifica del prodotto |
-|       4        | Il sistema contrassegna come venduto il prodotto con il codice passato in data odierna (status: 200) |
-
-|  Scenario 7.3  | Codice riferito ad un prodotto venduto |
+|  Scenario 7.2  | Codice riferito ad un prodotto venduto |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Il codice si riferisce ad un prodotto venduto |
 | Post condition | Il caso termina con un fallimento  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3        | L’utente conferma la modifica del prodotto, inserendo o meno la data |
-|       4        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
+|       2        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
 |       5        | Il sistema mostra un messaggio di errore |
 
-|  Scenario 7.4  | Data di vendita successiva alla data odierna o antecedente alla data di arrivo del prodotto|
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | La data di vendita inserita non è valida |
-| Post condition | Il prodotto non viene contrassegnato come venduto  |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3        | L’utente inserisce una data di vendita non valida |
-|       4        | La richiesta fallisce e il sistema mostra un messaggio di errore |
-
-|  Scenario 7.5  |  Errore interno |
+|  Scenario 7.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -632,7 +585,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 8, UC8, Elenco prodotti
 
-| Actors Involved  |                     Utente (customer o manager)         |
+| Actors Involved  |                     Utente (customer, manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato            |
 |  Post condition  |  Elenco prodotti a schermo                       |
@@ -673,9 +626,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 9, UC9, Ricerca prodotto
 
-| Actors Involved  |                     Utente (customer o manager)         |
+| Actors Involved  |                     Utente (employee o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato            |
+|   Precondition   |  Utente autenticato come manager o employee            |
 |  Post condition  |  Informazioni prodotto a schermo                       |
 | Nominal Scenario |  L'utente visualizza a schermo le informazioni riguardanti il prodotto cercato |
 |     Variants     |  Nessuna |
@@ -683,7 +636,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 9.1  | Visualizzazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
+|  Precondition  | Utente autenticato come manager o employee |
 | Post condition | Informazioni prodotto a schermo         |
 |     Step#      |                                Description                                 |
 |       1        | L'utente inserisce il codice di un prodotto nella barra e clicca sul pulsante della ricerca per codice |
@@ -691,7 +644,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 9.2  | Codice omesso |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
+|  Precondition  | Utente autenticato come manager o employee|
 | Post condition | Nessun prodotto stampato        |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul pulsante della ricerca per codice |
@@ -699,7 +652,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 9.3  | Codice inesistente |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
+|  Precondition  | Utente autenticato come employee|
 | Post condition | Nessun prodotto stampato        |
 |     Step#      |                                Description                                 |
 |       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per codice |
@@ -712,7 +665,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 10, UC10, Elenco prodotti data la categoria
+### Use case 10, UC10, Elenco prodotti data la categoria             CONTROLLATO FINO A QUI
 
 | Actors Involved  |                     Utente (customer o manager)         |
 | :--------------: | :------------------------------------------------------------------: |
