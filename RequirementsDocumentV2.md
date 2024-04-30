@@ -153,7 +153,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | **FR1** |      **Gestione Utenti**                                          |
 | FR1.1 | Chiunque può creare un account                                      |
 | FR1.2 | Un utente può effettuare login e logout                             |
-| FR1.3 | Un customer può visualizzare le informazioni del proprio profilo    |
+| FR1.3 | Un utente può visualizzare le informazioni del proprio profilo    |
 | FR1.4 | Un manager può creare il profilo di un Employee                     |
 | FR1.5 | Un manager può modificare il profilo di un Employee                 |
 | FR1.6 | Un manager può eliminare il profilo di un Employee                  |
@@ -226,41 +226,47 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Table of rights
 
-| FR  |  Customer  |  Manager  |  Employee  |
-| :-: |  :------:  |  :-----:  |  :-------: |
-| 1.1 |     X      |     X     |            |
-| 1.2 |     X      |     X     |     X      |
-| 1.3 |     X      |     X     |     X      |
-| 1.4 |            |     X     |            |
-| 1.5 |            |     X     |            |
-| 1.6 |            |     X     |            |
-| 1.7 |            |     X     |            |
-| 1.8 |     X      |     X     |            |
-| 1.9 |            |     X     |            |
-| 1.10|            |     X     |            |
-| 1.11|            |     X     |            |
-| 1.12|            |     X     |            |
-| 2.1 |            |     X     |            |
-| 2.2 |            |     X     |            |
-| 2.3 |            |     X     |            |
-| 2.4 |            |     X     |            |
-| 2.5 |     X      |     X     |     X      |
-| 2.6 |     X      |     X     |     X      |
-| 2.7 |     X      |     X     |     X      |
-| 2.8 |            |     X     |     X      |
-| 3.1 |     X      |           |            |
-| 3.2 |     X      |           |            |
-| 3.3 |     X      |           |            |
-| 3.4 |     X      |           |            |
-| 3.5 |     X      |           |            |
-| 3.6 |     X      |           |            |
-| 3.7 |            |     X     |            |
-| 3.8 |            |     X     |            |
-| 4.1 |     X      |     X     |     X      |
-| 4.2 |     X      |           |            |
-| 4.3 |     X      |           |            |
-| 4.4 |     X      |           |            |
-| 4.5 |            |     X     |     X      |
+| FR  |  Customer  |  Manager  |  Employee  | Servizi di pagamento | Servizi di spedizione |
+| :-: |  :------:  |  :-----:  |  :-------: | :------------------: | :-------------------: |
+| 1.1 |     X      |           |            |                      |                       |
+| 1.2 |     X      |     X     |     X      |                      |                       |
+| 1.3 |     X      |     X     |     X      |                      |                       |
+| 1.4 |            |     X     |            |                      |                       |
+| 1.5 |            |     X     |            |                      |                       |
+| 1.6 |            |     X     |            |                      |                       |
+| 1.7 |            |     X     |            |                      |                       |
+| 1.8 |     X      |     X     |            |                      |                       |
+| 1.9 |            |     X     |            |                      |                       |
+| 1.10|            |     X     |            |                      |                       |
+| 1.11|            |     X     |            |                      |                       |
+| 1.12|            |     X     |            |                      |                       |
+| 1.13|            |     X     |            |                      |                       |
+| 2.1 |            |     X     |     X      |                      |                       |
+| 2.2 |            |     X     |     X      |                      |                       |
+| 2.3 |            |     X     |     X      |                      |                       |
+| 2.4 |            |     X     |     X      |                      |                       |
+| 2.5 |     X      |     X     |     X      |                      |                       |
+| 2.6 |     X      |     X     |     X      |                      |                       |
+| 2.7 |     X      |     X     |     X      |                      |                       |
+| 2.8 |            |     X     |     X      |                      |                       |
+| 3   |     X      |           |            |                      |                       |
+| 4.1 |     X      |           |            |                      |                       |
+| 4.2 |     X      |     X     |     X      |                      |                       |
+| 4.3 |     X      |           |            |                      |                       |
+| 4.4 |     X      |           |            |                      |                       |
+| 4.5 |            |     X     |     X      |                      |                       |
+| 4.6 |            |     X     |     X      |                      |                       |
+| 5.1 |     X      |           |            |                      |            X          |
+| 5.2 |     X      |           |            |        X             |                       |
+| 5.3 |     X      |           |            |                      |            X          |
+| 5.4 |     X      |           |            |                      |                       |
+| 5.5 |     X      |           |            |                      |                       |
+| 5.6 |     X      |           |            |        X             |                       |
+| 5.7 |            |     X     |     X      |                      |                       |
+| 5.8 |            |     X     |     X      |                      |                       |
+| 5.9 |            |     X     |     X      |                      |                       |
+| 5.10|            |     X     |     X      |                      |                       |
+| 5.11|            |     X     |     X      |                      |                       |
 
 # Use case diagram and use cases
 
