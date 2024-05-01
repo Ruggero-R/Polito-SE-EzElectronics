@@ -179,7 +179,6 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
 | FR3.4 | Un customer può rimuovere un prodotto dal carrello                  |
 | FR3.5 | Un customer può svuotare il proprio carrello                        |
-| FR3.6 | Un customer può visualizzare la propria cronologia carrelli         |
 | **FR4** | **Gestione Recensioni**                                           |
 | FR4.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
 | FR4.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
@@ -196,6 +195,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5.7 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
 | FR5.8 | Un manager o un employee possono ottenere lo sotrico di tutti gli ordini    |
 | FR5.9 | Un manager o un employee possono filtrare lo storico degli ordini per stato |
+| FR5.10.6 | Un customer può visualizzare la propria cronologia carrelli         |
 
 Nota: il requisito FR4.6 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
 
@@ -262,6 +262,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 5.7 |            |     X     |     X      |                      |                       |
 | 5.8 |            |     X     |     X      |                      |                       |
 | 5.9 |            |     X     |     X      |                      |                       |
+| 5.10|     X      |           |            |                      |                       |
 
 # Use case diagram and use cases
 
@@ -1236,13 +1237,13 @@ Nota: con "aggiorna i prodotti in altri carrelli" si intende che il sistema aggi
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 25, UC25, Cronologia carrelli
+### Use case 25, UC25, Cronologia ordini
 
 | Actors Involved  |                     Utente customer        |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Elenco carrelli stampato a video             |
-| Nominal Scenario |  L'utente visualizza la history di tutti i carrelli per cui ha eseguito il checkout |
+|   Precondition   |  Utente autenticato come customer             |
+|  Post condition  |  Elenco ordini stampato a video             |
+| Nominal Scenario |  L'utente visualizza la history di tutti gli ordini da lui eseguiti |
 |     Variants     |  Nessuna |
 |    Exceptions    |  Errore interno |
 
@@ -1524,7 +1525,7 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 
 | Actors Involved  |                     Utente customer      |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, checkout concluso con pagamento online |
+|   Precondition   |  Utente autenticato come customer, checkout concluso |
 |  Post condition  |  Visualizzazione stato                  |
 | Nominal Scenario |  Visualizzazione stato ordine |
 |     Variants     |  Nessuna |
@@ -1532,11 +1533,11 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 
 |  Scenario 34.1 | Visualizzazione stato |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, checkout concluso con pagamento online           |
+|   Precondition   |  Utente autenticato come customer, checkout concluso |
 |  Post condition  |  Visualizzazione stato                 |
 |     Step#      |                                Description                                 |
-|       1        | L'utente accede alla cronologia carrelli e cerca uno specifico carrello |
-|       2        | Il sistema mostra le informazioni generali del carrello e, se è stato effettuato il pagamento online, lo stato dell'ordine tra: "Ricevuto","In consegna","Consegnato" (status: 200) |
+|       1        | L'utente accede alla cronologia ordini e cerca uno specifico ordine |
+|       2        | Il sistema mostra le informazioni generali e lo stato dell'ordine tra: "Ricevuto","In consegna","Consegnato" o "pronto da ritirare" nel caso si scelga il ritiro in negozio, "Reso richiesto", "Reso approvato" o "Reso Respinto", "Reso concluso" (status: 200) |
 
 |  Scenario 34.2 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
