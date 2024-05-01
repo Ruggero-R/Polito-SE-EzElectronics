@@ -6,7 +6,7 @@ Version: V2 - description of EZElectronics in NEW form (as decided in group)
 
 | Version number | Change |
 | :------------: | :----: |
-|       6        | Altri casi d'uso e fix minori |
+|       7        | Fine casi d'uso e fix minori |
 
 # Contents
 
@@ -188,16 +188,14 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.5 | Un manager o un employee possono eliminare una recensione           |
 | **FR5** | **Gestione ordini**                                               |
 | FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere|
-| FR5.2 | Un customer deve pagare il proprio ordine al momento del checkout o al ritito in negozio |
+| FR5.2 | Se l'utente decide di ricevere tutto tramite corriere deve essere reindirizzato alla pagina del pagamento |
 | FR5.3 | Un customer può visualizzare lo stato del proprio ordine            |
-| FR5.4 | Un customer può visualizzare lo storico di tutti gli ordini che ha effettuato |
-| FR5.5 | Un customer può cercare un ordine tramite id                        |
-| FR5.6 | Un customer può effettuare il reso di un ordine entro 14 giorni dal suo pagamento |
-| FR5.7 | Il sito deve mostrare a un manager e a un employee una notifica quando un nuovo ordine viene ricevuto |
-| FR5.8 | Un manager o un employee possono cambiare lo stato di un ordine finchè esso non è stato consegnato al customer    |
-| FR5.9 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
-| FR5.10| Un manager o un employee possono ottenere lo sotrico di tutti gli ordini    |
-| FR5.11| Un manager o un employee possono filtrare lo storico degli ordini per stato |
+| FR5.4 | Un customer può cercare un ordine tramite id                        |
+| FR5.5 | Un customer può effettuare il reso di un ordine entro 14 giorni dal suo pagamento |
+| FR5.6 | Il sito deve mostrare a un manager e a un employee una notifica quando un nuovo ordine viene ricevuto |
+| FR5.7 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
+| FR5.8 | Un manager o un employee possono ottenere lo sotrico di tutti gli ordini    |
+| FR5.9 | Un manager o un employee possono filtrare lo storico degli ordini per stato |
 
 Nota: il requisito FR4.6 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
 
@@ -255,17 +253,15 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 4.3 |     X      |           |            |                      |                       |
 | 4.4 |     X      |           |            |                      |                       |
 | 4.5 |            |     X     |     X      |                      |                       |
-| 5.1 |     X      |           |            |                      |            X          |
-| 5.2 |     X      |           |            |        X             |                       |
-| 5.3 |     X      |           |            |                      |            X          |
+| 5.1 |     X      |           |            |                      |                       |
+| 5.2 |     X      |           |            |         X            |            X          |
+| 5.3 |     X      |           |            |                      |                       |
 | 5.4 |     X      |           |            |                      |                       |
 | 5.5 |     X      |           |            |                      |                       |
-| 5.6 |     X      |           |            |        X             |                       |
+| 5.6 |            |     X     |     X      |                      |                       |
 | 5.7 |            |     X     |     X      |                      |                       |
 | 5.8 |            |     X     |     X      |                      |                       |
 | 5.9 |            |     X     |     X      |                      |                       |
-| 5.10|            |     X     |     X      |                      |                       |
-| 5.11|            |     X     |     X      |                      |                       |
 
 # Use case diagram and use cases
 
@@ -1219,7 +1215,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |  Post condition  |  Checkout e svuotamento carrello        |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto e decide se ritirare in negozio o farsi spedire il tutto |
-|       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello |
+|       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello, data=data corrente |
 |       3        | Il sistema aggiorna tutti i prodotti del carrello da eventuali altri carrelli |
 |       4        | Il sistema mostra a video un messaggio di successo (status: 200) |
 
@@ -1487,3 +1483,157 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
+### Use case 33, UC33, Pagamento online
+
+| Actors Involved  |                     Utente customer,Servizi di pagamento e spedizione      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, checkout avviato e selezione pagamento online     |
+|  Post condition  |  Checkout concluso                  |
+| Nominal Scenario |  Checkout concluso  con pagamento online |
+|     Variants     |  Operazione annullata |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 33.1 | Checkout concluso con pagamento online |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, checkout avviato e selezione pagamento online           |
+|  Post condition  |  Pagamento concluso                   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente viene reindirizzato alla pagina del pagamento gestita da un servizio terzo affiliato all'azienda |
+|       2        | IL'utente conclude la procedura sul sito terzo e gli utenti manager e employee ricevono un nuovo ordine in data odierna con tutte le informazioni su utente e carrello. Spetterà poi al manager gestire, con il servizio di spedizione, la consegna |
+|       3        | Il sistema mostra un messaggio di successo con l'id dell'ordine. Stato dell'ordine: "Ricevuto" (status: 200) |
+
+Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
+
+|  Scenario 33.2 | Operazione annullata con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, checkout avviato e selezione pagamento online           |
+|  Post condition  |  Pagamento bob concluso                   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente viene reindirizzato alla pagina del pagamento gestita da un servizio terzo affiliato all'azienda |
+|       2        | IL'utente annulla la procedura sul sito terzo e il chckout non prosegue |
+|       3        | Il sistema mostra un messggio di errore (status: 404) |
+
+| Scenario 33.3 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 34, UC34, Visualizzazione ordine
+
+| Actors Involved  |                     Utente customer      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, checkout concluso con pagamento online |
+|  Post condition  |  Visualizzazione stato                  |
+| Nominal Scenario |  Visualizzazione stato ordine |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 34.1 | Visualizzazione stato |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, checkout concluso con pagamento online           |
+|  Post condition  |  Visualizzazione stato                 |
+|     Step#      |                                Description                                 |
+|       1        | L'utente accede alla cronologia carrelli e cerca uno specifico carrello |
+|       2        | Il sistema mostra le informazioni generali del carrello e, se è stato effettuato il pagamento online, lo stato dell'ordine tra: "Ricevuto","In consegna","Consegnato" (status: 200) |
+
+|  Scenario 34.2 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 35, UC35, Ricerca ordine
+
+| Actors Involved  |                     Utente customer      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, visualizzazione cronologia |
+|  Post condition  |  Ricerca ordine                  |
+| Nominal Scenario |  Ricerca ordine dato l'id |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Omissione codice, ordine non trovato, errore interno |
+
+|  Scenario 35.1 | Visualizzazione ordine |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, visualizzazione cronologia         |
+|  Post condition  |  Visualizzazione ordine                 |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce nella barra di ricerca il codice dell'ordine richiesto e avvia la ricerca |
+|       2        | Il sistema mostra le informazioni generali dell'ordine corrispondente (status:200) |
+
+|  Scenario 35.2 | Omissione codice |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, visualizzazione cronologia         |
+|  Post condition  |  Nessuna visualizzazione   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente avvia la ricerca |
+|       2        | Il sistema stampa un messaggio di errore (status:404) |
+
+|  Scenario 35.3 | Ordine non trovato |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, visualizzazione cronologia         |
+|  Post condition  |  Nessuna visualizzazione   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce un codice relativo ad un ordine inesistente o non effettuato da lui e avvia la ricerca |
+|       2        | Il sistema stampa un messaggio di errore (status:404) |
+
+|  Scenario 35.4 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 36, UC36-37, Reso                      IN SOSPESO
+
+### Use case 38, UC38, Storico ordini
+
+| Actors Involved  |                     Utente manager o employee      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o employee |
+|  Post condition  |  Visualizzazione ordini                 |
+| Nominal Scenario |  Visualizzazione di tutti gli ordini effettuati |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 38.1 | Visualizzazione ordini |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o employee |
+|  Post condition  |  Visualizzazione ordini                 |
+|     Step#      |                                Description                                 |
+|       1        | L'utente chiede di visualizzare l'elenco ordini effettuati tramite apposito link |
+|       2        | Il sistema mostra le informazioni richieste sullo schermo (status:200) |
+
+|  Scenario 38.2 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 39, UC39, Storico ordini per stato
+
+| Actors Involved  |                     Utente manager o employee      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o employee, visualizzazione storico ordini |
+|  Post condition  |  Visualizzazione ordini dato lo stato                |
+| Nominal Scenario |  Visualizzazione di tutti gli ordini effettuati dato lo stato |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 39.1 | Visualizzazione ordini |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o employee, visualizzazione ordini |
+|  Post condition  |  Visualizzazione ordini dato lo stato                |
+|     Step#      |                                Description                                 |
+|       1        | L'utente chiede di visualizzare l'elenco ordini effettuati con uno stato tra quelli proposti tramite apposito link |
+|       2        | Il sistema filtra gli ordini mantenendo solo queli con lo stato richiesto (status:200) |
+
+|  Scenario 39.2 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
