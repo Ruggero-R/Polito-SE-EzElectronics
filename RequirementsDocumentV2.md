@@ -198,6 +198,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5.10.6 | Un customer può visualizzare la propria cronologia carrelli         |
 
 Nota: il requisito FR4.6 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
+Nota: il requisito 1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
 
 ## Non Functional Requirements
 
@@ -274,33 +275,33 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 1, UC1, Login
 
-| Actors Involved  |           Utente (customer,manager o employee)         |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente non autenticato  |
-|  Post condition  |  Utente autenticato e autorizzato   |
-| Nominal Scenario |  Login dell'utente |
-|     Variants     |  Nessuna  |
+| Actors Involved  |           Utente (customer, manager o employee)         |
+| :--------------: | :----------------------------------------------------: |
+|   Precondition   |  Utente non autenticato                                |
+|  Post condition  |  Utente autenticato e autorizzato                      |
+| Nominal Scenario |  Login dell'utente                                     |
+|     Variants     |  Nessuna                                               |
 |    Exceptions    |  Username o password non riconosciuti, errore interno  |
 
-|  Scenario 1.1  |  Login corretto  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente non autenticato |
-| Post condition | Utente autenticato e autorizzato    |
-|     Step#      |           Description     |
+|  Scenario 1.1  | Login corretto                                           |
+| :------------: | :------------------------------------------------------: |
+|  Precondition  | Utente non autenticato                                   |
+| Post condition | Utente autenticato e autorizzato                         |
+|      Step#     |         Description                                      |
 |       1        | Il sistema chiede all'utente di inserire username e password |
 |       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
-|       3        | Il sistema cerca l' username nel database |
+|       3        | Il sistema cerca lo username nel database                |
 |       4        | Il sistema confronta la password inserita con quella salvata |
-|       5        | Il sistema esegue il login utente (status: 200)  |
+|       5        | Il sistema esegue il login utente (status: 200)          |
 
-|  Scenario 1.2  |  Username inesistente |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Username inesistente |
-| Post condition | Utente non autenticato    |
+|  Scenario 1.2  | Username inesistente                                     |
+| :------------: | :------------------------------------------------------: |
+|  Precondition  | Username inesistente                                     |
+| Post condition | Utente non autenticato                                   |
 |     Step#      |             Description     |
 |       1        | Il sistema richiede all'utente di inserire username e password |
 |       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
-|       3        | Il sistema cercan lo username nel database |
+|       3        | Il sistema cerca lo username nel database |
 |       4        | Il sistema non autorizza l’utente (status: 404) e mostra “Credenziali non valide” |
 
 |  Scenario 1.3  |  Password errata |
@@ -319,11 +320,11 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e mostra il messaggio di errore |
+|       1        | Il sistema non autorizza l'utente e mostra il messaggio di errore |
 
 ### Use case 2, UC2, Logout
 
-| Actors Involved  |           Utente (customer,manager o employee)         |
+| Actors Involved  |           Utente (customer, manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | Utente autenticato  |
 |  Post condition  | Utente non più autorizzato   |
@@ -344,11 +345,11 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema non esegue il Logout e stampa il messaggio di errore |
 
 ### Use case 3, UC3, Stampa informazioni utente
 
-| Actors Involved  |           Utente (customer,manager o employee)         |
+| Actors Involved  |           Utente (customer, manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   | Utente autenticato  |
 |  Post condition  | Stampa delle informazioni utente a video   |
@@ -370,15 +371,15 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema stampa il messaggio di errore |
 
-### Use case 4, UC4 Creazione di un nuovo utente
+### Use case 4, UC4 Creazione di un nuovo utente customer
 
 | Actors Involved  |                     Chiunque         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato                                    |
-|  Post condition  |  un nuovo utente customer viene creato e inserito nel database                        |
-| Nominal Scenario |  Creazione utente |
+|  Post condition  |  Un nuovo utente customer viene creato e inserito nel database       |
+| Nominal Scenario |  Creazione utente customer |
 |     Variants     |  Nessun inserimento immagine di profilo |
 |    Exceptions    |  Username già esistente, errore interno |
 
@@ -388,9 +389,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Nuovo utente viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
-|       3        | L'utente inserisce le informazioni richieste  dal sistema e clicca su "Registrati" |
-|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
+|       4        | Il sistema controlla se nel database è già presente un altro utente con lo stesso username |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
@@ -398,12 +399,12 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Scenario 4.2  | Creazione nuovo utente (senza immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente non autenticato |
-| Post condition | Nuovo utente viene creato e inserito nel database   |
+| Post condition | Un nuovo utente customer viene creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, tranne l'immagine, e clicca su "Registrati" |
-|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       4        | Il sistema controlla se nel database è già presente un altro utente con lo stesso username |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
@@ -414,7 +415,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
@@ -425,7 +426,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente cliccando sul link in basso |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e clicca su "Registrati" |
 |       4        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404)|
 
@@ -452,9 +453,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Nuovo prodotto creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire sellingPrice,model,category,details,foto |
+|       2        | Il sistema chiede di inserire sellingPrice, model, category, details, foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema |
-|       4        | Il sistema inserisce nel database il nuovo prodotto con i campi passati, arrivalDate=data corrente |
+|       4        | Il sistema inserisce nel database il nuovo prodotto con i campi passati, aggiungendo il codice prodotto generato autoamaticamente e arrivalDate=data_corrente |
 |       6        | Il sistema risponde con il messaggio di successo in cui scrive il nuovo codice (status: 200) |
 
 |  Scenario 5.2  | Campo/i non inserito |
@@ -463,7 +464,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire sellingPrice,model,category,details,foto |
+|       2        | Il sistema chiede di inserire sellingPrice, model, category, details, foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
@@ -473,7 +474,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire sellingPrice,model,category,details,foto |
+|       2        | Il sistema chiede di inserire sellingPrice, model, category, details, foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, ma alcuni non sono validi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
@@ -500,10 +501,10 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Nuovi prodotti creati e inseriti nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,sellingPrice |
+|       2        | Il sistema chiede di inserire sellingPrice, model, category, details, foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema |
 |       4        | Il sistema controlla se tutti i campi sono validi |
-|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati, arrivalDate=data corrente |
+|       5        | Il sistema inserisce nel database il nuovo set di prodotti con i campi passati, aggiungendo i codici prodotto generati automaticamente e arrivalDate=data_corrente |
 |       6        | Il sistema risponde con il messaggio di successo (status: 200) |
 
 |  Scenario 6.2  | Campo/i non inserito |
@@ -512,7 +513,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Operazione annullata   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,sellingPrice |
+|       2        | Il sistema chiede di inserire sellingPrice, model, category, details, foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
@@ -522,7 +523,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Operazione annullata   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di caricare un nuovo set di prodotti cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire model,category,details,quantity,sellingPrice |
+|       2        | Il sistema chiede di inserire sellingPrice, model, category, details, foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema con alcuni campi non validi (es sellingPrice<=0.0) |
 |       4        | Il sistema non procede e risponde con il messaggio di fallimento |
 
@@ -538,7 +539,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager                                    |
-|  Post condition  |  un nuovo utente employee viene creato e inserito nel database                        |
+|  Post condition  |  Un nuovo utente employee viene creato e inserito nel database                        |
 | Nominal Scenario |  Creazione utente |
 |     Variants     |  Nessun inserimento immagine di profilo |
 |    Exceptions    |  Username già esistente, omissione di campi obbligatori,errore interno |
@@ -549,9 +550,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Nuovo utente employee creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
-|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       4        | Il sistema controlla se nel database è già presente un employee con stesso username |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
@@ -562,9 +563,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Nuovo utente employee creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, tranne l'immagine di profilo, e invia la richiesta |
-|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       4        | Il sistema controlla se nel database è già presente un employee con stesso username |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
@@ -575,9 +576,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
-|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       4        | Il sistema controlla se nel database è già presente un employee con stesso username |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
 |  Scenario 4.4  | Omissione di campi obbligatori  |
@@ -586,7 +587,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e invia la richiesta |
 |       4        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404)|
 
@@ -609,7 +610,7 @@ Nota: modifica non eseguibile sul campo username
 |     Variants     |  Nessun inserimento immagine di profilo |
 |    Exceptions    |  Omissione di campi obbligatori, errore interno |
 
-|  Scenario 8.1  | Modifica utente (con immagine)  |
+|  Scenario 8.1  | Modifica profilo employee (con immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
 | Post condition | Utente employee modificato nel database   |
@@ -621,13 +622,13 @@ Nota: modifica non eseguibile sul campo username
 |       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 8.2  | Creazione nuovo utente (senza immagine)  |
+|  Scenario 8.2  | Modifica profilo employee (senza immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
 | Post condition | Utente employee modificato nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
-|       2        | Il sistema chiede all’utente di inserire name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne l'immagine e invia la richiesta |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
