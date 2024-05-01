@@ -6,7 +6,7 @@ Version: V2 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|       3        | Requisiti e fix minori |
+|       4        | Primi casi d'uso e fix minori |
 
 # Contents
 
@@ -396,7 +396,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste  dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | Il sistema applica un algoritmo di hash della password |
-|       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
+|       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
 |  Scenario 4.2  | Creazione nuovo utente (senza immagine)  |
@@ -409,7 +409,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste dal sistema, tranne l'immagine, e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | Il sistema applica un algoritmo di hash della password |
-|       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
+|       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
 |  Scenario 4.3  | Creazione di un utente già presente  |
@@ -549,73 +549,115 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 7, UC7, Registrazione prodotto come venduto
+### Use case 7, UC7, Creazione profilo dell'employee da parte del manager
 
-| Actors Involved  |                     Utente manager o employee        |
+| Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager o employee                                  |
-|  Post condition  |  Prodotto venduto                       |
-| Nominal Scenario |  Prodotto segnato nel database come venduto |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Errore interno |
+|   Precondition   |  Utente autenticato come manager                                    |
+|  Post condition  |  un nuovo utente employee viene creato e inserito nel database                        |
+| Nominal Scenario |  Creazione utente |
+|     Variants     |  Nessun inserimento immagine di profilo |
+|    Exceptions    |  Username già esistente, omissione di campi obbligatori,errore interno |
 
-|  Scenario 7.1  | Il prodotto viene registrato come venduto nel database|
+|  Scenario 4.1  | Creazione nuovo utente (con immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o employee |
-| Post condition | Prodotto contrassegnato come venduto  |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nuovo utente employee creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
-|       2        | Il sistema contrassegna come venduto il prodotto con il codice passato in data odierna (status: 200) |
+|       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
+|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       5        | Il sistema applica un algoritmo di hash della password |
+|       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
+|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 7.2  | Codice riferito ad un prodotto venduto |
+|  Scenario 4.2  | Creazione nuovo utente (senza immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Il codice si riferisce ad un prodotto venduto |
-| Post condition | Il caso termina con un fallimento  |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nuovo utente employee creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
-|       5        | Il sistema mostra un messaggio di errore |
+|       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, tranne l'immagine di profilo, e invia la richiesta |
+|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       5        | Il sistema applica un algoritmo di hash della password |
+|       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
+|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 7.3  |  Errore interno |
+|  Scenario 4.3  | Creazione di un utente già presente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, lo username è già presente nel database |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
+|       4        | Il sistema controlla se nel database è già presente lo username passato |
+|       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
+
+|  Scenario 4.4  | Omissione di campi obbligatori  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente non autenticato |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
+|       2        | Il sistema chiede all’utente di inserire username,name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e invia la richiesta |
+|       4        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404)|
+
+|  Scenario 4.5  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 8, UC8, Elenco prodotti
+### Use case 8, UC8, Modifica profilo dell'employee da parte del manager
 
-| Actors Involved  |                     Utente (customer, manager o employee)         |
+Nota: modifica non eseguibile sul campo username
+
+| Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato            |
-|  Post condition  |  Elenco prodotti a schermo                       |
-| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti disponibili |
-|     Variants     |  Parametro opzionale sold (yes o no, default=null) |
-|    Exceptions    |  Errore interno |
+|   Precondition   |  Utente autenticato come manager, visualizzazione del profilo desiderato |
+|  Post condition  |  Modifica al profilo dell'employee selezionato                        |
+| Nominal Scenario |  Modifica utente |
+|     Variants     |  Nessun inserimento immagine di profilo |
+|    Exceptions    |  Omissione di campi obbligatori, errore interno |
 
-|  Scenario 8.1  | Visualizzazione con successo (senza parametro sold) |
+|  Scenario 8.1  | Modifica utente (con immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
-| Post condition | Elenco prodotti a schermo    |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente employee modificato nel database   |
 |     Step#      |                                Description                                 |
-|       1        | Il sistema preleva dal database tutti i prodotti creati |
-|       2        | Il sistema stampa i vari prodotti sulla pagina principale (status: 200) |
+|       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
+|       2        | Il sistema chiede all’utente di inserire name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
+|       5        | Il sistema applica un algoritmo di hash della password |
+|       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
+|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 8.2  | Visualizzazione con successo (sold=yes) |
+|  Scenario 8.2  | Creazione nuovo utente (senza immagine)  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato, stampa di tutti i prodotti effettuata |
-| Post condition | Elenco prodotti a schermo    |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente employee modificato nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "yes" nella tendina laterale |
-|       2        | Il sistema filtra i vari prodotti mantenendo solo quelli venduti (status: 200) |
+|       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
+|       2        | Il sistema chiede all’utente di inserire name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema tranne l'immagine e invia la richiesta |
+|       5        | Il sistema applica un algoritmo di hash della password |
+|       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
+|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 8.3  | Visualizzazione con successo (sold=no) |
+|  Scenario 8.3  | Omissione di campi obbligatori  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
-| Post condition | Utente autenticato, stampa di tutti i prodotti effettuata     |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente employee non modificato nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "no" nella tendina laterale |
-|       2        | Il sistema filtra i vari prodotti mantenendo solo quelli non venduti (status: 200) |
+|       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
+|       2        | Il sistema chiede all’utente di inserire name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       3        | L'utente inserisce le informazioni richieste dal sistema tranne alcuni obbligatori e invia la richiesta |
+|       4        | La richiesta fallisce e il sistema stampa un messaggio di errore (status: 404)|
 
 |  Scenario 8.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
@@ -624,349 +666,297 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 9, UC9, Ricerca prodotto
-
-| Actors Involved  |                     Utente (employee o manager)         |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager o employee            |
-|  Post condition  |  Informazioni prodotto a schermo                       |
-| Nominal Scenario |  L'utente visualizza a schermo le informazioni riguardanti il prodotto cercato |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Codice omesso o inesistente, errore interno |
-
-|  Scenario 9.1  | Visualizzazione con successo |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o employee |
-| Post condition | Informazioni prodotto a schermo         |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce il codice di un prodotto nella barra e clicca sul pulsante della ricerca per codice |
-|       2        | Il sistema cerca nel database il prodotto con il codice richiesto e lo stampa a video (status: 200) |
-
-|  Scenario 9.2  | Codice omesso |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o employee|
-| Post condition | Nessun prodotto stampato        |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sul pulsante della ricerca per codice |
-|       2        | Il sistema risponde con un messaggio di errore |
-
-|  Scenario 9.3  | Codice inesistente |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come employee|
-| Post condition | Nessun prodotto stampato        |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per codice |
-|       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
-
-|  Scenario 9.4  |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-### Use case 10, UC10, Elenco prodotti data la categoria             CONTROLLATO FINO A QUI
-
-| Actors Involved  |                     Utente (customer o manager)         |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato            |
-|  Post condition  |  Elenco prodotti a schermo                       |
-| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad una specifica categoria |
-|     Variants     |  Parametro opzionale sold (yes o no) |
-|    Exceptions    |  Errore interno |
-
-|  Scenario 10.1 | Visualizzazione con successo (senza parametro sold) |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
-| Post condition | Elenco prodotti a schermo    |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona dalla barra laterale una tra le categorie proposte |
-|       1        | Il sistema preleva dal database tutti i prodotti inerenti a quella categoria |
-|       2        | Il sistema stampa i vari prodotti (status: 200) |
-
-|  Scenario 10.2 | Visualizzazione con successo (sold=yes) |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato, filtro per categoria effettuato |
-| Post condition | Elenco prodotti a schermo    |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "yes" dalla barra laterale |
-|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
-
-|  Scenario 10.3 | Visualizzazione con successo (sold=no) |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato, filtro per categoria effettuato |
-| Post condition | Elenco prodotti a schermo    |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "no" dalla barra laterale |
-|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
-
-|  Scenario 10.4  |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-### Use case 11, UC11, Elenco prodotti dato il modello
-
-| Actors Involved  |                     Utente (customer o manager)         |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato            |
-|  Post condition  |  Elenco prodotti a schermo                       |
-| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad uno specifico modello |
-|     Variants     |  Parametro opzionale sold (yes o no) |
-|    Exceptions    |  Modello non valido o mancante, errore interno |
-
-|  Scenario 11.1 | Visualizzazione con successo (senza parametro sold) |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato |
-| Post condition | Elenco prodotti a schermo    |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce un modello nella barra in alto e clicca sul pulsaante "modello" |
-|       2        | Il sistema preleva dal database tutti i prodotti inerenti a quel modello |
-|       3        | Il sistema stampa i vari prodotti (status: 200) |
-
-|  Scenario 11.2 | Visualizzazione con successo (sold=yes) |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato, filtro per modello effettuato |
-| Post condition | Elenco prodotti a schermo    |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "yes" dalla barra laterale |
-|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
-
-|  Scenario 11.3 | Visualizzazione con successo (sold=no) |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato, filtro per modello effettuato |
-| Post condition | Elenco prodotti a schermo    |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "no" dalla barra laterale |
-|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
-
-|  Scenario 11.4  |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-### Use case 12, UC12, Eliminazione prodotto
+### Use case 9, UC9, Eliminazione profilo dell'employee da parte del manager
 
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager            |
-|  Post condition  |  Prodotto eliminato                     |
-| Nominal Scenario |  L'utente elimina il prodotto con codice scelto |
+|   Precondition   |  Utente autenticato come manager, visualizzazione del profilo desiderato |
+|  Post condition  |  Eliminazione del profilo dell'employee selezionato                        |
+| Nominal Scenario |  Eliminazione corretta |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Errore prodotto |
+|    Exceptions    |  Errore interno, operazione annullata |
 
-|  Scenario 12.1 | Eliminazione con successo |
+|  Scenario 9.1  | Eliminazione con successo  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
-| Post condition | Elenco prodotti a schermo    |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente employee eliminato dal database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona un prodotto singolo e clicca sul cestino |
-|       2        | Il sistema elimina dal database il prodotto con il codice coincidente a quello selezionato |
+|       1        | L'utente ha visualizzato il profilo di un employee e clicca sul link per cancellarlo |
+|       2        | Il sistema chiede conferma dell'operazione e, dopo l'ok, cancella l'utente selezionato dal database |
+|       3        | Il sistema risponde con il messaggio di successo (status: 200)|
+
+|  Scenario 9.2  | Eliminazione annullata  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente employee non eliminato dal database   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente ha visualizzato il profilo di un employee e clicca sul link per cancellarlo |
+|       2        | Il sistema chiede conferma dell'operazione  |
+|       3        | L'utente annulla l'operazione |
+
+|  Scenario 9.3  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### use case 10, UC10, Eliminazione profilo customer da parte di un manager
+
+| Actors Involved  |                     Utente manager         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager, visualizzazione del profilo desiderato |
+|  Post condition  |  Eliminazione del profilo del customer selezionato                        |
+| Nominal Scenario |  Eliminazione corretta |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno, operazione annullata |
+
+|  Scenario 10.1  | Eliminazione con successo  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente customer eliminato dal database   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente ha visualizzato il profilo di un customer e clicca sul link per cancellarlo |
+|       2        | Il sistema chiede conferma dell'operazione e, dopo l'ok, cancella l'utente selezionato dal database |
+|       3        | Il sistema risponde con il messaggio di successo (status: 200)|
+
+|  Scenario 10.2  | Eliminazione annullata  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
+| Post condition | Utente customer non eliminato dal database   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente ha visualizzato il profilo di un customer e clicca sul link per cancellarlo |
+|       2        | Il sistema chiede conferma dell'operazione  |
+|       3        | L'utente annulla l'operazione |
+
+|  Scenario 10.3  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 11, UC11, Eliminazione del proprio profilo
+
+| Actors Involved  |                     Utente manager o customer         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o customer |
+|  Post condition  |  Eliminazione del proprio profilo                        |
+| Nominal Scenario |  Eliminazione corretta |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno, operazione annullata |
+
+|  Scenario 11.1  | Eliminazione con successo  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o customer|
+| Post condition | Utente eliminato dal database   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per cancellare il proprio profilo |
+|       2        | Il sistema chiede conferma dell'operazione e, dopo l'ok, cancella l'utente dal database |
+|       3        | Il sistema risponde con il messaggio di successo (status: 200) e effettua il logout utente|
+
+|  Scenario 11.2 | Eliminazione annullata  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o customer|
+| Post condition | Utente non eliminato dal database   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per cancellare il proprio profilo |
+|       2        | Il sistema chiede conferma dell'operazione |
+|       2        | Il sistema chiede conferma dell'operazione  |
+|       3        | L'utente annulla l'operazione |
+
+|  Scenario 11.3  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 12, UC12, Visualizzazione di tutti gli utenti
+
+| Actors Involved  |                     Utente manager       |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager |
+|  Post condition  |  Visualizzazione di tutti gli utenti                        |
+| Nominal Scenario |  Visualizzazione corretta |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 12.1 | Visualizzazione corretta  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Visualizzazione di tutti gli utenti    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per visualizzare tutti gli utenti registrati |
+|       2        | Il sistema risponde stampando a video l'elenco di utenti |
 
 |  Scenario 12.2  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema stampa il messaggio di errore |
 
-Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
+### Use case 13, UC13, Visualizzazione di tutti gli utenti dato il ruolo
 
-### Use case 13, UC13, Visualizzazione carrello
-
-| Actors Involved  |                     Utente customer        |
+| Actors Involved  |                     Utente manager       |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer            |
-|  Post condition  |  Visualizzazione carrello                  |
-| Nominal Scenario |  L'utente visualizza il proprio carrello |
+|   Precondition   |  Utente autenticato come manager, visualizzazione di tutti gli utenti |
+|  Post condition  |  Visualizzazione di tutti gli utenti dato il ruolo                       |
+| Nominal Scenario |  Visualizzazione corretta |
 |     Variants     |  Nessuna |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 13.1 | Visualizzazione con successo |
+|  Scenario 13.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer            |
-|  Post condition  |  Visualizzazione carrello                  |
+|  Precondition  | Utente autenticato come manager, visualizzazione di tutti gli utenti|
+| Post condition | Visualizzazione di tutti gli utenti dato il ruolo   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona del carrello in alto |
-|       2        | Il sistema cerca nel database tutti i prodotti con i codici presenti nel carrello utente |
-|       3        | Il sistema mostra a video i prodotti appena trovati o un messaggio di carrello vuoto (status: 200) |
+|       1        | L'utente clicca sul ruolo utente nella tendina in basso |
+|       2        | Il sistema risponde filtrando gli utenti per il ruolo indicato |
 
 |  Scenario 13.2  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema stampa il messaggio di errore |
 
-### Use case 14, UC14, Aggiunta al carrello
+### Use case 14, UC14, Visualizzazione profilo dato lo username
 
-| Actors Involved  |                     Utente customer        |
+| Actors Involved  |                     Utente manager       |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezione di un prodotto            |
-|  Post condition  |  Aggiunta prodotto al carrello                  |
-| Nominal Scenario |  L'utente visualizza il proprio carrello |
+|   Precondition   |  Utente autenticato come manager |
+|  Post condition  |  Visualizzazione di un profilo dato lo username       |
+| Nominal Scenario |  Visualizzazione corretta |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Prodotto già aggiunto, errore interno |
+|    Exceptions    |  Errore interno, utente inesistente o campo omesso |
 
-|  Scenario 14.1 | Aggiunta con successo |
+|  Scenario 14.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
-|  Post condition  |  Aggiunta prodotto al carrello                  |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Visualizzazione dell'utente con username scelto   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
-|       2        | Il sistema accerta che il codice del prodotto non sia già stato inserito nel carrello di un utente |
-|       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
+|       1        | L'utente inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
+|       2        | Il sistema risponde stampando a video il profilo dell'utente cercato |
 
-|  Scenario 14.2 | Fallimento operazione |
+|  Scenario 14.2 | Omissione campo  |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
-|  Post condition  |  Prodotto non aggiunto                  |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
-|       2        | Il sistema si accorge che il codice del prodotto è già stato inserito nel carrello (di qualunque utente) |
-|       3        | Il sistema mostra a video un messaggio di errore |
+|       1        | L'utente non inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
+|       2        | Il sistema risponde stampando a video un messaggio di errore (status: 404) |
 
-|  Scenario 14.3 |  Errore interno |
+|  Scenario 14.3 | Utente non esistente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
+|       2        | Il sistema non trova l'utente e risponde stampando a video un messaggio di errore (status: 404) |
+
+|  Scenario 14.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema stampa il messaggio di errore |
+
+### Use case 15, UC15, Modifica delle informazioni sul negozio
+
+| Actors Involved  |                     Utente manager         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager |
+|  Post condition  |  Modifica delle informazioni sul negozio      |
+| Nominal Scenario |  Modifica corretta |
+|     Variants     |  Omissione immagine o link ai social |
+|    Exceptions    |  Errore interno, operazione annullata, omissione campi obbligatori, campo/i non valido/i |
+
+|  Scenario 15.1  | Modifica con successo (con tutte le informazioni)  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Modifica informazioni sul negozio   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       3        | L'utente inserisce i campi richiesti e avvia l'operazione |
+|       4        | Il sistema chiede conferma e, una volta ricevuta, avvia l'operazione di modifica |
+|       3        | Il sistema risponde con il messaggio di successo (status: 200)|
+
+|  Scenario 15.2  | Modifica con successo (omissione una o più informazioni non obbligatorie)  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Modifica informazioni sul negozio   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       3        | L'utente inserisce i campi richiesti, tranne alcuni non obbligatori (es immagine, link ai social) e avvia l'operazione |
+|       4        | Il sistema chiede conferma e, una volta ricevuta, avvia l'operazione di modifica |
+|       3        | Il sistema risponde con il messaggio di successo (status: 200)|
+
+|  Scenario 15.3 | Modifica annullata |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nessuna modifica   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       3        | L'utente inserisce i campi richiesti e avvia l'operazione |
+|       4        | Il sistema chiede conferma|
+|       5        | L'utente annulla l'operazione |
+
+|  Scenario 15.4 | Omissione campi obbligatori  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nessuna modifica |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       3        | L'utente inserisce i campi richiesti,ma ne omette alcuni obbligatori e avvia l'operazione |
+|       4        | Il sistema annulla l'operazione e stampa un messaggio di errore (status: 404) |
+
+|  Scenario 15.5 | Campo/i non valido/i  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager|
+| Post condition | Nessuna modifica |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       3        | L'utente inserisce i campi richiesti, ma ne metta alcuni non validi e avvia l'operazione |
+|       4        | Il sistema annulla l'operazione e stampa un messaggio di errore (status: 404) |
+
+|  Scenario 15.6  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggiunto al carrello di un altro utente e non essere stato ancora settato come venduto.
+### Use case 16, UC17, Registrazione prodotto come venduto
 
-### Use case 15, UC15, Checkout carrello
-
-| Actors Involved  |                     Utente customer        |
+| Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Checkout e svuotamento carrello                  |
-| Nominal Scenario |  L'utente effettua l'ordine e svuota il carrello |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Carrello vuoto, errore interno |
-
-|  Scenario 15.1 | Checkout con successo |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Checkout e svuotamento carrello        |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona per completare l'acquisto |
-|       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello |
-|       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
-
-|  Scenario 15.2 | Carrello vuoto |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Checkout e svuotamento carrello                     |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona per completare l'acquisto |
-|       2        | Il sistema mostra un messaggio di errore relativo al carrello vuoto |
-
-|  Scenario 15.3  |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-### Use case 16, UC16, Cronologia carrelli
-
-| Actors Involved  |                     Utente customer        |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Elenco carrelli stampato a video             |
-| Nominal Scenario |  L'utente visualizza la history di tutti i carrelli per cui ha eseguito il checkout |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Errore interno |
-
-|  Scenario 16.1 | Visualizzazione |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Elenco carrelli stampato a video             |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona delsuo profilo |
-|       2        | Il sistema filtra ttti i carrelli già completati presenti nel database cercando quelli dell'utente |
-|       3        | Il sistema mostra a video le informazioni appena trovate o un messaggio se non sono presenti (status: 200) |
-
-|  Scenario 16.2 |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-### Use case 17, UC17, Rimozione dal carrello
-
-| Actors Involved  |                     Utente customer        |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
-|  Post condition  |  Prodotto selezionato rimosso dal carrello             |
-| Nominal Scenario |  L'utente rimuove dal proprio carrello uno dei prodotti mostrati |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Errore interno |
-
-|  Scenario 17.1 | Cancellazione avvenuta con successo |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Prodotto selezionato rimosso dal carrello              |
-|     Step#      |                                Description                                 |
-|       1        | L'utente sceglie uno dei prodotti elencati nel suo carrello e clicca per rimuoverlo |
-|       2        | Il sistema usa il codice del prodotto per eliminarlo dal carrello utente di cui ha l'id |
-|       3        | Il sistema restituisce il successo (status: 200) |
-
-|  Scenario 17.2  |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello) su un prodotto presente nel carrello che perciò esiste per forza nel database.
-
-### Use case 18, UC18, Svuotamento carrello
-
-| Actors Involved  |                     Utente customer        |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
-|  Post condition  |  Carrello svuotato             |
-| Nominal Scenario |  L'utente rimuove dal proprio carrello ogni prodotto |
+|   Precondition   |  Utente autenticato come manager o employee                                 |
+|  Post condition  |  Prodotto venduto                       |
+| Nominal Scenario |  Prodotto segnato nel database come venduto |
 |     Variants     |  Nessuna |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 18.1 | Cancellazione avvenuta con successo |
+|  Scenario 16.1  | Il prodotto viene registrato come venduto nel database|
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Carrello svuotato              |
+|  Precondition  | Utente autenticato come manager, prodotto visualizzato |
+| Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede l'eliminazione di tutto il carrello cliccando sul pulsante apposito |
-|       2        | Il sistema accede al codice del carrello e elimina ogni entry dalla tabella del carrello  |
-|       3        | Il sistema restituisce il successo (status: 200) |
+|       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
+|       2        | Il sistema contrassegna come venduto il prodotto con il codice passato in data odierna (status: 200) |
 
-|  Scenario 18.2  |  Errore interno |
+|  Scenario 16.2  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-# Glossary
+Nota: se il prodotto è già stato venduto al manager non appare la posssibilità dieseguire l'operazione
 
-![Glossario](images/diagram/ClassDiagram-v1.1.png)
-
-- **Manager**: Persona responsabile della gestione del negozio di elettronica.
-- **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
-- **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
-- **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
-- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
-- **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
-- **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
-
-# System Design
-
-# Deployment Diagram
-
-![Deployment diagram](images/diagram/DeploymentDiagram-v1.0.svg)

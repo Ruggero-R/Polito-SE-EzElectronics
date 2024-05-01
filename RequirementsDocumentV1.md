@@ -311,7 +311,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste dal sistema e clicca su "Registrati" |
 |       4        | Il sistema controlla se nel database è già presente lo username passato |
 |       5        | Il sistema applica un algoritmo di hash della password |
-|       6        | Il sistema inserisce le informazioni in una nuova lineea nel database |
+|       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
 |  Scenario 4.2  | Creazione di un utente già presente  |
@@ -505,11 +505,11 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Prodotto venduto                       |
 | Nominal Scenario |  Prodotto segnato nel database come venduto |
 |     Variants     |  Data non inserita |
-|    Exceptions    |  Prodotto venduto o data non valida, errore interno |
+|    Exceptions    |  Data non valida, errore interno |
 
 |  Scenario 7.1  | Il prodotto viene registrato come venduto nel database (con data)|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager, prodotto visualizzato  |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
@@ -519,7 +519,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 |  Scenario 7.2  | Il prodotto viene registrato come venduto nel database (senza data)|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager,prodotto visualizzato  |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
@@ -527,20 +527,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L’utente non inserisce la data e conferma la modifica del prodotto |
 |       4        | Il sistema contrassegna come venduto il prodotto con il codice passato in data odierna (status: 200) |
 
-|  Scenario 7.3  | Codice riferito ad un prodotto venduto |
+|  Scenario 7.3  | Data di vendita successiva alla data odierna o antecedente alla data di arrivo del prodotto|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Il codice si riferisce ad un prodotto venduto |
-| Post condition | Il caso termina con un fallimento  |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
-|       2        | Il sistema richiede di specificare opzionalmente la data di vendita |
-|       3        | L’utente conferma la modifica del prodotto, inserendo o meno la data |
-|       4        | Il sistema non esegue la richiesta in quanto il prodotto è già contrassegnato come venduto|
-|       5        | Il sistema mostra un messaggio di errore |
-
-|  Scenario 7.4  | Data di vendita successiva alla data odierna o antecedente alla data di arrivo del prodotto|
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | La data di vendita inserita non è valida |
+|  Precondition  | La data di vendita inserita non è valida, prodotto visualizzato  |
 | Post condition | Il prodotto non viene contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto come venduto |
@@ -548,12 +537,14 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L’utente inserisce una data di vendita non valida |
 |       4        | La richiesta fallisce e il sistema mostra un messaggio di errore |
 
-|  Scenario 7.5  |  Errore interno |
+|  Scenario 7.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+Nota: se il prodotto è già stato venduto al manager non appare la possibilità di eseguire l'operazione
 
 ### Use case 8, UC8, Elenco prodotti
 
