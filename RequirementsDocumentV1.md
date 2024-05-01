@@ -716,7 +716,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager            |
+|   Precondition   |  Utente autenticato come manager, visualizzazione prodotto            |
 |  Post condition  |  Prodotto eliminato                     |
 | Nominal Scenario |  L'utente elimina il prodotto con codice scelto |
 |     Variants     |  Nessuna |
@@ -724,7 +724,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 
 |  Scenario 12.1 | Eliminazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager, prodotto visualizzato |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
 |       1        | L'utente seleziona un prodotto singolo e clicca sul cestino |

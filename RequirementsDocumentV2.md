@@ -6,7 +6,7 @@ Version: V2 - description of EZElectronics in CURRENT form (as received by teach
 
 | Version number | Change |
 | :------------: | :----: |
-|       4        | Primi casi d'uso e fix minori |
+|       5        | Altri casi d'uso e fix minori |
 
 # Contents
 
@@ -933,7 +933,7 @@ Nota: modifica non eseguibile sul campo username
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 16, UC17, Registrazione prodotto come venduto
+### Use case 16, UC16, Registrazione prodotto come venduto
 
 | Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -960,3 +960,195 @@ Nota: modifica non eseguibile sul campo username
 
 Nota: se il prodotto è già stato venduto al manager non appare la posssibilità dieseguire l'operazione
 
+### Use case 17, UC17, Ricerca prodotto
+
+| Actors Involved  |                     Utente (employee o manager)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o employee         |
+|  Post condition  |  Informazioni prodotto a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo le informazioni riguardanti il prodotto cercato |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Codice omesso o inesistente, errore interno |
+
+|  Scenario 17.1  | Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee|
+| Post condition | Informazioni prodotto a schermo         |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce il codice di un prodotto nella barra e clicca sul pulsante della ricerca per codice |
+|       2        | Il sistema cerca nel database il prodotto con il codice richiesto e lo stampa a video (status: 200) |
+
+|  Scenario 17.2  | Codice omesso |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee |
+| Post condition | Nessun prodotto stampato        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul pulsante della ricerca per codice |
+|       2        | Il sistema risponde con un messaggio di errore |
+
+|  Scenario 17.3  | Codice inesistente |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee |
+| Post condition | Nessun prodotto stampato        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per codice |
+|       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
+
+|  Scenario 17.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 18, UC18, Elenco prodotti
+
+| Actors Involved  |                     Utente (customer o manager o employee)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Elenco prodotti a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti disponibili |
+|     Variants     |  Parametro opzionale sold (yes o no, default=null) |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 18.1  | Visualizzazione con successo (senza parametro sold) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | Il sistema preleva dal database tutti i prodotti creati |
+|       2        | Il sistema stampa i vari prodotti sulla pagina principale (status: 200) |
+
+|  Scenario 18.2  | Visualizzazione con successo (sold=yes) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, stampa di tutti i prodotti effettuata |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "yes" nella tendina laterale |
+|       2        | Il sistema filtra i vari prodotti mantenendo solo quelli venduti (status: 200) |
+
+|  Scenario 18.3  | Visualizzazione con successo (sold=no) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Utente autenticato, stampa di tutti i prodotti effettuata     |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "no" nella tendina laterale |
+|       2        | Il sistema filtra i vari prodotti mantenendo solo quelli non venduti (status: 200) |
+
+|  Scenario 18.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 19, UC19, Elenco prodotti data la categoria
+
+| Actors Involved  |                     Utente (customer o manager o employee)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Elenco prodotti a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad una specifica categoria |
+|     Variants     |  Parametro opzionale sold (yes o no) |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 19.1 | Visualizzazione con successo (senza parametro sold) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona dalla barra laterale una tra le categorie proposte |
+|       1        | Il sistema preleva dal database tutti i prodotti inerenti a quella categoria |
+|       2        | Il sistema stampa i vari prodotti (status: 200) |
+
+|  Scenario 19.2 | Visualizzazione con successo (sold=yes) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per categoria effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "yes" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
+
+|  Scenario 19.3 | Visualizzazione con successo (sold=no) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per categoria effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "no" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
+
+|  Scenario 19.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 20, UC20, Elenco prodotti dato il modello
+
+| Actors Involved  |                     Utente (customer o manager o employee)         |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato            |
+|  Post condition  |  Elenco prodotti a schermo                       |
+| Nominal Scenario |  L'utente visualizza a schermo l'elenco dei prodotti appartenenti ad uno specifico modello |
+|     Variants     |  Parametro opzionale sold (yes o no) |
+|    Exceptions    |  Modello non valido o mancante, errore interno |
+
+|  Scenario 20.1 | Visualizzazione con successo (senza parametro sold) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce un modello nella barra in alto e clicca sul pulsaante "modello" |
+|       2        | Il sistema preleva dal database tutti i prodotti inerenti a quel modello |
+|       3        | Il sistema stampa i vari prodotti (status: 200) |
+
+|  Scenario 20.2 | Visualizzazione con successo (sold=yes) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per modello effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "yes" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
+
+|  Scenario 20.3 | Visualizzazione con successo (sold=no) |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato, filtro per modello effettuato |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona "no" dalla barra laterale |
+|       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
+
+|  Scenario 20.4  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 21, UC21, Eliminazione prodotto
+
+| Actors Involved  |                     Utente manager o employee        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager o employee           |
+|  Post condition  |  Prodotto eliminato                     |
+| Nominal Scenario |  L'utente elimina il prodotto con codice scelto |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 21.1 | Eliminazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee, visualizzazione prodotto |
+| Post condition | Elenco prodotti a schermo    |
+|     Step#      |                                Description                                 |
+|       1        | L'utente seleziona un prodotto singolo e clicca sul cestino |
+|       2        | Il sistema elimina dal database il prodotto con il codice coincidente a quello selezionato |
+
+|  Scenario 21.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
