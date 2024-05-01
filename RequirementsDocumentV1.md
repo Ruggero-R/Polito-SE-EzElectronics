@@ -828,7 +828,8 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto |
 |       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello |
-|       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
+|       3        | Il sistema cancella tutti i prodotti del carrello da eventuali altri carrelli |
+|       4        | Il sistema mostra a video un messaggio di successo (status: 200) |
 
 |  Scenario 15.2 | Carrello vuoto |
 | :------------: | :------------------------------------------------------------------------: |
