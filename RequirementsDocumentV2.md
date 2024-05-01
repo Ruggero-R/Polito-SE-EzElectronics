@@ -150,55 +150,65 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |  ID   | Description                                                         |
 | :---: | :---------                                                          |
-| **FR1** |      **Gestione Utenti**                                          |
+| **FR1** |      **Gestione utenti**                                          |
 | FR1.1 | Chiunque può creare un account customer                             |
 | FR1.2 | Un utente può effettuare login e logout                             |
-| FR1.3 | Un utente può visualizzare le informazioni del proprio profilo    |
-| FR1.4 | Un manager può creare il profilo di un Employee                     |
-| FR1.5 | Un manager può modificare il profilo di un Employee                 |
-| FR1.6 | Un manager può eliminare il profilo di un Employee                  |
-| FR1.7 | Un manager può eliminare il profilo di un Customer                  |
-| FR1.8 | Un customer o un manager possono eliminare il proprio profilo       |
+| FR1.3 | Un utente può visualizzare le informazioni del proprio profilo      |
+| FR1.4 | Un manager può creare il profilo di un employee                     |
+| FR1.5 | Un manager può modificare il profilo di un employee                 |
+| FR1.6 | Un manager può eliminare il profilo di un employee                  |
+| FR1.7 | Un manager può **eliminare** (bannare?) il profilo di un customer   | 
+| FR1.8 | Un customer o un **manager** (se lo fa per sbalgio ed è lunico?) possono eliminare il proprio profilo |
 | FR1.9 | Un manager può visualizzare la lista di tutti i profili registrati  |
 | FR1.10| Un manager può filtrare la lista dei profili registrati per ruolo   |
 | FR1.11| Un manager può cercare il profilo di un utente dato lo username     |
-| FR1.12| Un manager può visualizzare il profilo di un altro utente           |
+| FR1.12| Un manager (e un employee) può visualizzare il profilo di un altro utente | 
 | FR1.13| Un manager può modificare le informazioni sul negozio               |
-| **FR2** |    **Gestione Prodotti**                                          |
+| **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
 | FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
 | FR2.4 | Un manager o un employee possono cercare un prdotto tramite codice  |
-| FR2.5 | Qualsiasi utente può ottenere l'elenco di tutti i prodotti disponibili |
-| FR2.6 | Qualsiasi utente può filtrarte l'elenco dei prodotti disponibili per categoria |
-| FR2.7 | Qualsiasi utente può filtrarte l'elenco dei prodotti disponibili per modello |
+| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti |
+| FR2.6 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per categoria |
+| FR2.7 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per modello |
 | FR2.8 | Un manager o un employee possono eliminare un prodotto              |
-| **FR3** | **Gestione Carrello**                                             |
-| FR3.1 | Un customer può visualizzare il proprio carrello                    |
-| FR3.2 | Un customer può aggiungere un prodotto al proprio carrello          |
-| FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
-| FR3.4 | Un customer può rimuovere un prodotto dal carrello                  |
-| FR3.5 | Un customer può svuotare il proprio carrello                        |
-| **FR4** | **Gestione Recensioni**                                           |
-| FR4.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
-| FR4.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
-| FR4.3 | Un customer può modificare una recensione precedentemente scritta   |
-| FR4.4 | Un customer può elimnare una propria recensione                     |
-| FR4.5 | Un manager o un employee possono eliminare una recensione           |
+| **FR3**| **Gestione modelli** |
+| FR3.1 | Un manager o un employee possono creare un nuovo modello            |
+| FR3.2 | Un manager o un employee possono modificare un modello              |
+| FR3.3 | Un manager o un employee possono **rendere un modello invisibile sul sito** |
+| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli disponibili |
+| FR3.5 | Qualsiasi utente può filtrarte l'elenco dei modelli disponibili per categoria |
+| FR3.6 | Qualisasi utente può cercare un modello per nome                    |
+| **FR4** | **Gestione carrello**                                             |
+| FR4.1 | Un customer può visualizzare il proprio carrello                    |
+| FR4.2 | Un customer può aggiungere un modello al proprio carrello, specificando la quantità di prodotti che desidera acquistare |
+| FR4.3 | Un customer può eseguire il checkout del proprio carrello           |
+| FR4.4 | Un customer può rimuovere un modello dal carrello                   |
+| FR4.5 | Un customer può svuotare il proprio carrello                        |
 | **FR5** | **Gestione ordini**                                               |
 | FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere|
 | FR5.2 | Se l'utente decide di ricevere tutto tramite corriere deve essere reindirizzato alla pagina del pagamento |
 | FR5.3 | Un customer può visualizzare lo stato del proprio ordine            |
 | FR5.4 | Un customer può cercare un ordine tramite id                        |
-| FR5.5 | Un customer può effettuare il reso di un ordine entro 14 giorni dal suo pagamento |
 | FR5.6 | Il sito deve mostrare a un manager e a un employee una notifica quando un nuovo ordine viene ricevuto |
-| FR5.7 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
 | FR5.8 | Un manager o un employee possono ottenere lo sotrico di tutti gli ordini    |
 | FR5.9 | Un manager o un employee possono filtrare lo storico degli ordini per stato |
-| FR5.10.6 | Un customer può visualizzare la propria cronologia carrelli         |
+| FR5.10| Un customer può visualizzare la propria cronologia carrelli         |
+| **FR6** | **Gestione recensioni**                                           |
+| FR4.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
+| FR4.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
+| FR4.3 | Un customer può modificare una recensione precedentemente scritta   |
+| FR4.4 | Un customer può elimnare una propria recensione                     |
+| FR4.5 | Un manager o un employee possono eliminare una recensione           |
+| **FR7** | **Gestione resi**                                                 |
+| FR7.1 | Un customer può effettuare il reso di un ordine entro 14 giorni dal suo pagamento |
+| FR7.2 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
+| FR7.3 | Un customer può visualizzare lo stato del proprio reso              |
 
+
+Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
 Nota: il requisito FR4.6 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
-Nota: il requisito 1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
 
 ## Non Functional Requirements
 
@@ -988,7 +998,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 
 ### Use case 18, UC18, Elenco prodotti
 
-| Actors Involved  |                     Utente (customer o manager o employee)         |
+| Actors Involved  |                     Utente (manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato            |
 |  Post condition  |  Elenco prodotti a schermo                       |
@@ -1029,7 +1039,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 
 ### Use case 19, UC19, Elenco prodotti data la categoria
 
-| Actors Involved  |                     Utente (customer o manager o employee)         |
+| Actors Involved  |                     Utente (manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato            |
 |  Post condition  |  Elenco prodotti a schermo                       |
@@ -1071,7 +1081,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 
 ### Use case 20, UC20, Elenco prodotti dato il modello
 
-| Actors Involved  |                     Utente (customer o manager o employee)         |
+| Actors Involved  |                     Utente (manager o employee)         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato            |
 |  Post condition  |  Elenco prodotti a schermo                       |
