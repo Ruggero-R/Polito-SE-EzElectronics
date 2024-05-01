@@ -825,7 +825,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |  Scenario 15.2 | Carrello vuoto |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Checkout e svuotamento carrello                     |
+|  Post condition  |  Nessuna          |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto |
 |       2        | Il sistema mostra un messaggio di errore relativo al carrello vuoto |

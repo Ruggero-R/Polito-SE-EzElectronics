@@ -1,12 +1,12 @@
 # Requirements Document - current EZElectronics
 
-Date:
+Date: 01/05/2024
 
-Version: V2 - description of EZElectronics in CURRENT form (as received by teachers)
+Version: V2 - description of EZElectronics in NEW form (as decided in group)
 
 | Version number | Change |
 | :------------: | :----: |
-|       5        | Altri casi d'uso e fix minori |
+|       6        | Altri casi d'uso e fix minori |
 
 # Contents
 
@@ -151,7 +151,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------                                                          |
 | **FR1** |      **Gestione Utenti**                                          |
-| FR1.1 | Chiunque può creare un account                                      |
+| FR1.1 | Chiunque può creare un account customer                             |
 | FR1.2 | Un utente può effettuare login e logout                             |
 | FR1.3 | Un utente può visualizzare le informazioni del proprio profilo    |
 | FR1.4 | Un manager può creare il profilo di un Employee                     |
@@ -179,6 +179,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
 | FR3.4 | Un customer può rimuovere un prodotto dal carrello                  |
 | FR3.5 | Un customer può svuotare il proprio carrello                        |
+| FR3.6 | Un customer può visualizzare la propria cronologia carrelli         |
 | **FR4** | **Gestione Recensioni**                                           |
 | FR4.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
 | FR4.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
@@ -227,7 +228,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 | FR  |  Customer  |  Manager  |  Employee  | Servizi di pagamento | Servizi di spedizione |
 | :-: |  :------:  |  :-----:  |  :-------: | :------------------: | :-------------------: |
-| 1.1 |     X      |           |            |                      |                       |
+| 1.1 |     X      |     X     |     X      |                      |                       |
 | 1.2 |     X      |     X     |     X      |                      |                       |
 | 1.3 |     X      |     X     |     X      |                      |                       |
 | 1.4 |            |     X     |            |                      |                       |
@@ -1139,10 +1140,187 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 
 Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
 
+### Use case 22, UC22, Visualizzazione carrello
 
-### Salto FR3
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer            |
+|  Post condition  |  Visualizzazione carrello                  |
+| Nominal Scenario |  L'utente visualizza il proprio carrello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
 
-### Use case 27, UC27, Inserimento recensione al modello
+|  Scenario 22.1 | Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer            |
+|  Post condition  |  Visualizzazione carrello                  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona del carrello in alto |
+|       2        | Il sistema cerca nel database tutti i prodotti con i codici presenti nel carrello utente |
+|       3        | Il sistema mostra a video i prodotti appena trovati o un messaggio di carrello vuoto (status: 200) |
+
+|  Scenario 22.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 23, UC23, Aggiunta al carrello              DUBBIOSO
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, selezione di un prodotto            |
+|  Post condition  |  Aggiunta prodotto al carrello                  |
+| Nominal Scenario |  L'utente visualizza il proprio carrello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Prodotto già aggiunto, errore interno |
+
+|  Scenario 14.1 | Aggiunta con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
+|  Post condition  |  Aggiunta prodotto al carrello                  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
+|       2        | Il sistema accerta che il codice del prodotto non sia già stato inserito nel carrello di un utente |
+|       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
+
+|  Scenario 14.2 | Fallimento operazione |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
+|  Post condition  |  Prodotto non aggiunto                  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
+|       2        | Il sistema si accorge che il codice del prodotto è già stato inserito nel carrello (di qualunque utente) |
+|       3        | Il sistema mostra a video un messaggio di errore |
+
+|  Scenario 14.3 |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggiunto al carrello di un altro utente e non essere stato ancora settato come venduto.
+
+### Use case 24, UC24, Checkout carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Checkout e svuotamento carrello                  |
+| Nominal Scenario |  L'utente effettua l'ordine e svuota il carrello |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Carrello vuoto, errore interno |
+
+|  Scenario 24.1 | Checkout con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Checkout e svuotamento carrello        |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per completare l'acquisto e decide se ritirare in negozio o farsi spedire il tutto |
+|       2        | Il sistema registra tutti i prodotti del carrello come venduti e svuota il carrello |
+|       3        | Il sistema aggiorna tutti i prodotti del carrello da eventuali altri carrelli |
+|       4        | Il sistema mostra a video un messaggio di successo (status: 200) |
+
+Nota: con "aggiorna i prodotti in altri carrelli" si intende che il sistema aggiorna il valore del numero pezzi richiesti se non sono presenti abbastanza prodotti da soddisfare quella richiesta (se non ce ne sono proprio il sistema elimina direttamente il modello dai carrelli)
+
+|  Scenario 24.2 | Carrello vuoto |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Nessuna  |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona per completare l'acquisto |
+|       2        | Il sistema mostra un messaggio di errore relativo al carrello vuoto |
+
+|  Scenario 24.3  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 25, UC25, Cronologia carrelli
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Elenco carrelli stampato a video             |
+| Nominal Scenario |  L'utente visualizza la history di tutti i carrelli per cui ha eseguito il checkout |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 25.1 | Visualizzazione |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Elenco carrelli stampato a video             |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sull'icona delsuo profilo |
+|       2        | Il sistema filtra ttti i carrelli già completati presenti nel database cercando quelli dell'utente |
+|       3        | Il sistema mostra a video le informazioni appena trovate o un messaggio se non sono presenti (status: 200) |
+
+|  Scenario 25.2 |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 26, UC26, Rimozione dal carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
+|  Post condition  |  Prodotto selezionato rimosso dal carrello             |
+| Nominal Scenario |  L'utente rimuove dal proprio carrello uno dei prodotti mostrati |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 26.1 | Cancellazione avvenuta con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Prodotto selezionato rimosso dal carrello              |
+|     Step#      |                                Description                                 |
+|       1        | L'utente sceglie uno dei modelli elencati nel suo carrello e clicca per ridurre il numero pezzi richiesti |
+|       2        | Il sistema elimina i prodotti non più necessari dal carrello utente di cui ha l'id |
+|       3        | Il sistema restituisce il successo (status: 200) |
+
+|  Scenario 26.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello) su un prodotto presente nel carrello che perciò esiste per forza nel database.
+
+### Use case 27, UC27, Svuotamento carrello
+
+| Actors Involved  |                     Utente customer        |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
+|  Post condition  |  Carrello svuotato             |
+| Nominal Scenario |  L'utente rimuove dal proprio carrello ogni prodotto |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 27.1 | Cancellazione avvenuta con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer         |
+|  Post condition  |  Carrello svuotato              |
+|     Step#      |                                Description                                 |
+|       1        | L'utente richiede l'eliminazione di tutto il carrello cliccando sul pulsante apposito |
+|       2        | Il sistema accede al codice del carrello e elimina ogni entry dalla tabella del carrello  |
+|       3        | Il sistema restituisce il successo (status: 200) |
+
+|  Scenario 27.2  |  Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 28, UC28, Inserimento recensione al modello
 
 | Actors Involved  |                     Utente customer       |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1152,7 +1330,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |     Variants     |  Recensione non inserita perr un modello |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 27.1 | Recensioni inserite con successo |
+|  Scenario 28.1 | Recensioni inserite con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come customer, checkout effettuato |
 | Post condition | Recensioni ai modelli    |
@@ -1162,7 +1340,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       3        | L'utente scrive le recensioni da salvare per i modelli desiderati e clicca sul link per terminare l'operazione |
 |       4        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
 
-|  Scenario 27.2 | Recensioni non inserite |
+|  Scenario 28.2 | Recensioni non inserite |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come customer, checkout effettuato |
 | Post condition | Nessuna recensione    |
@@ -1172,14 +1350,14 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       3        | L'utente clicca sul link per terminare l'operazione |
 |       4        | Il sistema termina l'operazione con successo (status: 200) |
 
-| Scenario 27.3 | Errore interno |
+| Scenario 28.3 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 28, UC28, Visualizzazione recensioni del modello
+### Use case 29, UC29, Visualizzazione recensioni del modello
 
 | Actors Involved  |                     Utente qualunque       |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1189,7 +1367,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |     Variants     |  Nessuna |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 28.1 | Recensioni visualizzate con successo |
+|  Scenario 29.1 | Recensioni visualizzate con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato, modello selezionato           |
 |  Post condition  |  Recensioni stampate a schermo                    |
@@ -1197,14 +1375,14 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       1        | L'utente seleziona il modello desiderato e clica per visualizzare le recensioni inserite |
 |       2        | Il sistema preleva dal database tutte le recensioni riferite al modello selezionato e le stampa (status: 200) |
 
-| Scenario 28.2 | Errore interno |
+| Scenario 29.2 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 29, UC29, Modifica recensione
+### Use case 30, UC30, Modifica recensione
 
 | Actors Involved  |                     Utente customer       |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1214,7 +1392,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |     Variants     |  Operazione annullata |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 29.1 | Recensione modificata con successo |
+|  Scenario 30.1 | Recensione modificata con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
 |  Post condition  |  Recensione modificata   |
@@ -1223,7 +1401,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | L'utente inserisce una nuova recensione |
 |       3        | Il sistema sovrascrive la recensione in data odierna (status: 200) |
 
-|  Scenario 29.2 | Operazione annullata |
+|  Scenario 30.2 | Operazione annullata |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
 |  Post condition  |  Recensione non modificata   |
@@ -1232,14 +1410,14 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | L'utente inserisce una nuova recensione e annulla la modifica |
 |       3        | Il sistema non sovrascrive la recensione |
 
-| Scenario 29.3 | Errore interno |
+| Scenario 30.3 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 30, UC30, Eliminazione recensione da parte del customer
+### Use case 31, UC31, Eliminazione recensione da parte del customer
 
 | Actors Involved  |                     Utente customer       |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1249,7 +1427,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |     Variants     |  Operazione annullata |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 30.1 | Recensione eliminata con successo |
+|  Scenario 31.1 | Recensione eliminata con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
 |  Post condition  |  Recensione eliminata   |
@@ -1258,7 +1436,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | Il sistema attende conferma e se la riceve elimina dal database la recensione selezionata |
 |       3        | Il sistema mostra un messggio di successo(status: 200) |
 
-|  Scenario 30.2 | Operazione annullata con successo |
+|  Scenario 31.2 | Operazione annullata con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
 |  Post condition  |  Recensione non eliminata   |
@@ -1267,14 +1445,14 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | Il sistema attende conferma |
 |       3        | L'utente annulla l'operazione |
 
-| Scenario 30.3 | Errore interno |
+| Scenario 31.3 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 31, UC31, Eliminazione recensione da parte del manager/employee
+### Use case 32, UC32, Eliminazione recensione da parte del manager/employee
 
 | Actors Involved  |                     Utente manager o employee      |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1284,7 +1462,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |     Variants     |  Operazione annullata |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 31.1 | Recensione eliminata con successo |
+|  Scenario 32.1 | Recensione eliminata con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager/employee, visualizzazione recensioni dato un modello           |
 |  Post condition  |  Recensione eliminata                   |
@@ -1293,7 +1471,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | Il sistema attende conferma e se la riceve elimina dal database la recensione selezionata |
 |       3        | Il sistema mostra un messggio di successo (status: 200) |
 
-|  Scenario 31.2 | Operazione annullata con successo |
+|  Scenario 32.2 | Operazione annullata con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager/employee, visualizzazione recensioni dato un modello           |
 |  Post condition  |  Recensione non eliminata                   |
@@ -1302,7 +1480,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 |       2        | Il sistema attende conferma |
 |       3        | L'utente annulla l'operazione |
 
-| Scenario 31.3 | Errore interno |
+| Scenario 32.3 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
