@@ -448,7 +448,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |  Post condition  |  Nuovo prodotto creato e inserito nel database                        |
 | Nominal Scenario |  Creazione di un nuovo prodotto date le sue informazioni |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Codice prodotto già esistente, uno o più campi non inseriti o non validi, errore interno |
+|    Exceptions    |  Uno o più campi non inseriti o non validi, errore interno |
 
 |  Scenario 5.1  | Creazione nuovo prodotto con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -456,44 +456,32 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Post condition | Nuovo prodotto creato e inserito nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
+|       2        | Il sistema chiede di inserire sellingPrice,model,category,details,foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema |
-|       4        | Il sistema controlla se nel database è già presente il codice inserito |
-|       5        | Il sistema inserisce nel database il nuovo prodotto con i campi passati, arrivalDate=data corrente |
+|       4        | Il sistema inserisce nel database il nuovo prodotto con i campi passati, arrivalDate=data corrente |
 |       6        | Il sistema risponde con il messaggio di successo in cui scrive il nuovo codice (status: 200) |
 
-|  Scenario 5.2  | Codice prodotto già presente nel database  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o employee, codice già presente nel database |
-| Post condition | Prodotto non creato   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
-|       3        | L'utente inserisce le informazioni richieste dal sistema |
-|       4        | Il sistema controlla se nel database è già presente il codice inserito |
-|       5        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
-
-|  Scenario 5.3  | Campo/i non inserito |
+|  Scenario 5.2  | Campo/i non inserito |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager o employee |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
+|       2        | Il sistema chiede di inserire sellingPrice,model,category,details,foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.4  | campo/i non valido/i |
+|  Scenario 5.3  | campo/i non valido/i |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
-|       2        | Il sistema chiede di inserire code,sellingPrice,model,category,details,foto |
+|       2        | Il sistema chiede di inserire sellingPrice,model,category,details,foto |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, ma alcuni non sono validi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.5  |  Errore interno |
+|  Scenario 5.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
