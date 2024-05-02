@@ -232,15 +232,6 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
 
-### Test Requirements
-
-|  ID   | Description        |
-| :---: | :---------:        |
-|  T1   | Eliminazione di tutti gli utenti|
-|  T2   | Eliminazione di tutti i prodotti|
-|  T3   | Eliminazione di tutti i carrelli|
-|  T4   | Eliminazione di tutte le recensioni|
-
 ### Table of rights
 
 | FR  |  Customer  |  Manager  |  Employee  | Servizi di pagamento | Servizi di spedizione |
@@ -1603,13 +1594,24 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 
 ![Glossario](images/diagram/ClassDiagram-v1.2.png)
 
-- **Manager**: Persona responsabile della gestione del negozio di elettronica.
-- **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
-- **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
-- **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
-- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
+- **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
+- **Categoria prodotto**: Raggruppamento di modelli elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
-- **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
+- **Customer**: Utente autenticato che utilizza l'applicazione per acquistare prodotti elettronici.
+- **Employee**: Utente autenticato, commesso del negozio che aiuta il manager a svolgere i suoi compiti.
+- **Manager**: Utente autenticato responsabile della gestione del negozio di elettronica.
+- **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici. 
+- **Ordine**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
+- **Prodotto**: Entità fisica unica e irripetibile che può essere acquistata, caratterizzata da un codice univoco.
+- **Profilo utente**: Pagina riassuntiva di tutte le informazioni di un qualsiasi utente memorizzate.
+- **Recensione**: Commento scritto che riporta le opinioni di un determinato utente su un prodotto da lui acquistato.
+- **Ruolo**: Posizione che un utente assume all'interno del sito. Ogni ruolo conferisce specifici privilegi, accessi o responsabilità all'utente in base alle sue necessità e alle sue autorizzazioni. I ruoli sono: Manager, Emplopyee, Customer e Utente non registrato. 
+- **Servizio di pagamento**: insieme di strumenti e circuiti di regolamento e norme che permettono di trasferire la moneta da un soggetto a un altro.
+- **Servizio di spedizione**: insieme di strumenti che mettono in comunicazione il corriere e il negozio.
+- **Supporto tecnico**: team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
+- **Utente non registrato**: Utente non autenticato che visita il sito.
+- **Utente**: Persona, di qualsiasi ruolo, che è connessa al sito in un determinato momento.
+- **Valutazine**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un utente riguardo a un prodotto da lui acquistato.
 
 # System Design
 
