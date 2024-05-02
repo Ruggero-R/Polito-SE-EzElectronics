@@ -1805,4 +1805,4 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 
 # Deployment Diagram
 
-![Deployment diagram](images/diagram/DeploymentDiagram-v1.0.svg)
+![Deployment diagram](images/diagram/DeploymentDiagram-v2.0.svg)
