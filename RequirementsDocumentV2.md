@@ -163,10 +163,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.6 | Un manager può eliminare il profilo di un employee                  |
 | FR1.7 | Un manager può eliminare il profilo di un customer                  | 
 | FR1.8 | Un customer può eliminare il proprio profilo                        |
-| FR1.9 | Un manager può visualizzare la lista di tutti i profili registrati  |
-| FR1.10| Un manager può filtrare la lista dei profili registrati per ruolo   |
-| FR1.11| Un manager può cercare il profilo di un utente dato lo username     |
-| FR1.12| Un manager e un employee possono visualizzare il profilo di un altro utente | 
+| FR1.9 | Un manager o employee  può visualizzare la lista di tutti i profili registrati  |
+| FR1.10| Un manager o employee può filtrare la lista dei profili registrati per ruolo   |
+| FR1.12| Un manager o employee possono visualizzare il profilo di un altro utente | 
+| FR1.11| Un manager o employee può cercare il profilo di un utente dato lo username     |
 | FR1.13| Un manager può modificare le informazioni sul negozio               |
 | **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
@@ -503,13 +503,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 6, UC6, Registrazione arrivo di un set di prodotti
+### Use case 6, UC6, Registrazione arrivo di un set di prodotti dello stesso modello
 
 | Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager o employee               |
 |  Post condition  |  Insieme di prodotti creato e inserito nel database                        |
-| Nominal Scenario |  Creazione di un insieme di prodotti |
+| Nominal Scenario |  Creazione di un insieme di prodotti di uno stesso modello |
 |     Variants     |  Nessuna |
 |    Exceptions    |  Uno o più campi omessi o non validi, errore interno |
 
@@ -558,60 +558,49 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager                                    |
 |  Post condition  |  Un nuovo utente employee viene creato e inserito nel database                        |
-| Nominal Scenario |  Creazione utente |
+| Nominal Scenario |  Creazione employee |
 |     Variants     |  Nessun inserimento immagine di profilo |
-|    Exceptions    |  Username già esistente, omissione di campi obbligatori,errore interno |
+|    Exceptions    |  Username già esistente, omissione di campi obbligatori, errore interno |
 
-|  Scenario 4.1  | Creazione nuovo utente (con immagine)  |
+|  Scenario 7.1  | Creazione nuovo employee  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager|
 | Post condition | Nuovo utente employee creato e inserito nel database   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
+|       1        | L'utente manager richiede al sistema di creare un nuovo utente employee dall'apposito link |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
 |       4        | Il sistema controlla se nel database è già presente un employee con stesso username |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 4.2  | Creazione nuovo utente (senza immagine)  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
-| Post condition | Nuovo utente employee creato e inserito nel database   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
-|       3        | L'utente inserisce le informazioni richieste dal sistema, tranne l'immagine di profilo, e invia la richiesta |
-|       4        | Il sistema controlla se nel database è già presente un employee con stesso username |
-|       5        | Il sistema applica un algoritmo di hash della password |
-|       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
-|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
+Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
 
-|  Scenario 4.3  | Creazione di un utente già presente  |
+|  Scenario 7.2  | Creazione di un employee già presente  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager, lo username è già presente nel database |
-| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
+| Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l'employee   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
 |       4        | Il sistema controlla se nel database è già presente un employee con stesso username |
 |       5        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404) |
 
-|  Scenario 4.4  | Omissione di campi obbligatori  |
+|  Scenario 7.3  | Omissione di campi obbligatori  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente non autenticato |
 | Post condition | Un messaggio di errore viene mostrato a schermo, non viene creato l’utente   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo utente employee dall'apposito link |
-|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
+|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, email, cellulare, immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema, ma ne omette alcune e invia la richiesta |
 |       4        | La richiesta fallisce e Il sistema mostra a video un messaggio di errore (status: 404)|
 
-|  Scenario 4.5  |  Errore interno |
+|  Scenario 7.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
+| Precondition   | L'utente ha inserito tutte le informazioni e ha inviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
@@ -624,7 +613,7 @@ Nota: modifica non eseguibile sul campo username
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager, visualizzazione del profilo desiderato |
 |  Post condition  |  Modifica al profilo dell'employee selezionato                        |
-| Nominal Scenario |  Modifica utente |
+| Nominal Scenario |  Modifica employee |
 |     Variants     |  Nessun inserimento immagine di profilo |
 |    Exceptions    |  Omissione di campi obbligatori, errore interno |
 
@@ -634,37 +623,28 @@ Nota: modifica non eseguibile sul campo username
 | Post condition | Utente employee modificato nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
-|       2        | Il sistema chiede all’utente di inserire name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire name,surname,password,email,cellulare,immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema e invia la richiesta |
 |       5        | Il sistema applica un algoritmo di hash della password |
 |       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 8.2  | Modifica profilo employee (senza immagine)  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
-| Post condition | Utente employee modificato nel database   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
-|       2        | Il sistema chiede all’utente di inserire username, name, surname, password, indirizzo, città, stato, CAP, email, cellulare, immagine |
-|       3        | L'utente inserisce le informazioni richieste dal sistema tranne l'immagine e invia la richiesta |
-|       5        | Il sistema applica un algoritmo di hash della password |
-|       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
-|       7        | Il sistema risponde con il messaggio di successo (status: 200) |
+Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
 
-|  Scenario 8.3  | Omissione di campi obbligatori  |
+
+|  Scenario 8.2  | Omissione di campi obbligatori  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager, visualizzazione del profilo desiderato|
 | Post condition | Utente employee non modificato nel database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente ha viisualizzato il profilo di un employee e clicca sul link per modificarlo |
-|       2        | Il sistema chiede all’utente di inserire name,surname,password,indirizzo,città,stato,CAP,email,cellulare,immagine |
+|       2        | Il sistema chiede all’utente di inserire name,surname,password,email,cellulare,immagine |
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne alcuni obbligatori e invia la richiesta |
 |       4        | La richiesta fallisce e il sistema stampa un messaggio di errore (status: 404)|
 
-|  Scenario 8.4  |  Errore interno |
+|  Scenario 8.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
+| Precondition   | L'utente ha inserito tutte le informazioni e ha inviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
@@ -699,7 +679,7 @@ Nota: modifica non eseguibile sul campo username
 
 |  Scenario 9.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
+| Precondition   | L'utente ha avviato la richiesta di eliminazione |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
@@ -734,7 +714,7 @@ Nota: modifica non eseguibile sul campo username
 
 |  Scenario 10.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
+| Precondition   | L'utente ha avviato la richiesta di eliminazione|
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
@@ -743,7 +723,7 @@ Nota: modifica non eseguibile sul campo username
 
 | Actors Involved  |                     Utente manager o customer         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager o customer |
+|   Precondition   |  Utente autenticato customer |
 |  Post condition  |  Eliminazione del proprio profilo                        |
 | Nominal Scenario |  Eliminazione corretta |
 |     Variants     |  Nessuna |
@@ -751,7 +731,7 @@ Nota: modifica non eseguibile sul campo username
 
 |  Scenario 11.1  | Eliminazione con successo  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o customer|
+|  Precondition  | Utente autenticato customer|
 | Post condition | Utente eliminato dal database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per cancellare il proprio profilo |
@@ -760,12 +740,11 @@ Nota: modifica non eseguibile sul campo username
 
 |  Scenario 11.2 | Eliminazione annullata  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o customer|
+|  Precondition  | Utente autenticato customer|
 | Post condition | Utente non eliminato dal database   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per cancellare il proprio profilo |
 |       2        | Il sistema chiede conferma dell'operazione |
-|       2        | Il sistema chiede conferma dell'operazione  |
 |       3        | L'utente annulla l'operazione |
 
 |  Scenario 11.3  |  Errore interno |
@@ -779,44 +758,68 @@ Nota: modifica non eseguibile sul campo username
 
 | Actors Involved  |                     Utente manager       |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager |
+|   Precondition   |  Utente autenticato come manager o employee |
 |  Post condition  |  Visualizzazione di tutti gli utenti                        |
 | Nominal Scenario |  Visualizzazione corretta |
-|     Variants     |  Nessuna |
+|     Variants     |  Filtro per ruolo, Ricerca singolo utente |
 |    Exceptions    |  Errore interno |
 
 |  Scenario 12.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
+|  Precondition  | Utente autenticato come manager o employee|
 | Post condition | Visualizzazione di tutti gli utenti    |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per visualizzare tutti gli utenti registrati |
 |       2        | Il sistema risponde stampando a video l'elenco di utenti |
 
-|  Scenario 12.2  |  Errore interno |
+|  Scenario 12.2 | Visualizzazione utenti filtrati per ruolo  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee|
+| Post condition | Visualizzazione di tutti gli utenti dato il ruolo   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente clicca sul filtro ruolo |
+|       2        | Il sistema risponde filtrando gli utenti per il ruolo selezionato |
+
+|  Scenario 12.3 | Ricerca singolo utente tramite username  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee|
+| Post condition | Visualizzazione dell'utente con username specificato   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
+|       2        | Il sistema risponde stampando a video il profilo dell'utente cercato |
+
+|  Scenario 12.4 | Utente non esistente  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee|
+| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente inserisce uno username nella barra di ricerca e clicca sul pulsante per avviare l'operazione |
+|       2        | Il sistema non trova l'utente e risponde stampando a video un messaggio di errore (status: 404) |
+
+|  Scenario 12.5  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema stampa il messaggio di errore |
 
-### Use case 13, UC13, Visualizzazione di tutti gli utenti dato il ruolo
+### Use case 13, UC13, Visualizzazione dettagli utente
 
 | Actors Involved  |                     Utente manager       |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager, visualizzazione di tutti gli utenti |
-|  Post condition  |  Visualizzazione di tutti gli utenti dato il ruolo                       |
+|   Precondition   |  Utente autenticato come manager o employee |
+|  Post condition  |  Visualizzazione dettagli utente                       |
 | Nominal Scenario |  Visualizzazione corretta |
-|     Variants     |  Nessuna |
+|     Variants     |   |
 |    Exceptions    |  Errore interno |
 
 |  Scenario 13.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, visualizzazione di tutti gli utenti|
-| Post condition | Visualizzazione di tutti gli utenti dato il ruolo   |
+|  Precondition  | Utente autenticato come manager o employee|
+| Post condition | Visualizzazione di tutti i dettagli dell'utente selezionato    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente clicca sul ruolo utente nella tendina in basso |
-|       2        | Il sistema risponde filtrando gli utenti per il ruolo indicato |
+|       1        | L'utente clicca sul link per visualizzare i dettagli dell'utente |
+|       2        | Il sistema risponde stampando a video l'elenco dei dettagli utente |
 
 |  Scenario 13.2  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
@@ -825,111 +828,49 @@ Nota: modifica non eseguibile sul campo username
 |     Step#      |   Description    |
 |       1        | Il sistema stampa il messaggio di errore |
 
-### Use case 14, UC14, Visualizzazione profilo dato lo username
-
-| Actors Involved  |                     Utente manager       |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager |
-|  Post condition  |  Visualizzazione di un profilo dato lo username       |
-| Nominal Scenario |  Visualizzazione corretta |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Errore interno, utente inesistente o campo omesso |
-
-|  Scenario 14.1 | Visualizzazione corretta  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
-| Post condition | Visualizzazione dell'utente con username scelto   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
-|       2        | Il sistema risponde stampando a video il profilo dell'utente cercato |
-
-|  Scenario 14.2 | Omissione campo  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
-| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente non inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
-|       2        | Il sistema risponde stampando a video un messaggio di errore (status: 404) |
-
-|  Scenario 14.3 | Utente non esistente  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
-| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
-|       2        | Il sistema non trova l'utente e risponde stampando a video un messaggio di errore (status: 404) |
-
-|  Scenario 14.4  |  Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema stampa il messaggio di errore |
-
-### Use case 15, UC15, Modifica delle informazioni sul negozio
+### Use case 14, UC14, Modifica le informazioni sul negozio
 
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager |
 |  Post condition  |  Modifica delle informazioni sul negozio      |
 | Nominal Scenario |  Modifica corretta |
-|     Variants     |  Omissione immagine o link ai social |
-|    Exceptions    |  Errore interno, operazione annullata, omissione campi obbligatori, campo/i non valido/i |
+|     Variants     |   |
+|    Exceptions    |  Errore interno, operazione annullata, campo/i non valido/i |
 
-|  Scenario 15.1  | Modifica con successo (con tutte le informazioni)  |
+|  Scenario 14.1  | Modifica con successo  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager|
 | Post condition | Modifica informazioni sul negozio   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link social, p.iva, sede legale, email, numero di telefono |
 |       3        | L'utente inserisce i campi richiesti e avvia l'operazione |
 |       4        | Il sistema chiede conferma e, una volta ricevuta, avvia l'operazione di modifica |
 |       3        | Il sistema risponde con il messaggio di successo (status: 200)|
 
-|  Scenario 15.2  | Modifica con successo (omissione una o più informazioni non obbligatorie)  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
-| Post condition | Modifica informazioni sul negozio   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
-|       3        | L'utente inserisce i campi richiesti, tranne alcuni non obbligatori (es immagine, link ai social) e avvia l'operazione |
-|       4        | Il sistema chiede conferma e, una volta ricevuta, avvia l'operazione di modifica |
-|       3        | Il sistema risponde con il messaggio di successo (status: 200)|
-
-|  Scenario 15.3 | Modifica annullata |
+|  Scenario 14.2 | Modifica annullata |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager|
 | Post condition | Nessuna modifica   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link social, p.iva, sede legale, email, numero di telefono |
 |       3        | L'utente inserisce i campi richiesti e avvia l'operazione |
 |       4        | Il sistema chiede conferma|
 |       5        | L'utente annulla l'operazione |
 
-|  Scenario 15.4 | Omissione campi obbligatori  |
+|  Scenario 14.3 | Campo/i non valido/i  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager|
 | Post condition | Nessuna modifica |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
-|       3        | L'utente inserisce i campi richiesti,ma ne omette alcuni obbligatori e avvia l'operazione |
-|       4        | Il sistema annulla l'operazione e stampa un messaggio di errore (status: 404) |
-
-|  Scenario 15.5 | Campo/i non valido/i  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager|
-| Post condition | Nessuna modifica |
-|     Step#      |                                Description                                 |
-|       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link facebook, link instagram, p.iva, sede legale, email, numero di telefono |
+|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link social, p.iva, sede legale, email, numero di telefono |
 |       3        | L'utente inserisce i campi richiesti, ma ne metta alcuni non validi e avvia l'operazione |
 |       4        | Il sistema annulla l'operazione e stampa un messaggio di errore (status: 404) |
 
-|  Scenario 15.6  |  Errore interno |
+|  Scenario 14.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
