@@ -246,6 +246,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 1.12|                        |           |     X     |     X      |                      |                       |
 | 1.13|                        |           |     X     |     X      |                      |                       |
 | 1.14|                        |           |     X     |            |                      |                       |
+| 1.15|                        |           |     X     |            |                      |                       |
 | 2.1 |                        |           |     X     |     X      |                      |                       |
 | 2.2 |                        |           |     X     |     X      |                      |                       |
 | 2.3 |                        |           |     X     |     X      |                      |                       |
