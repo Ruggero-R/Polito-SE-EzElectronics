@@ -59,6 +59,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. Può modificare le informazioni generali del negozio e gestire il profilo degli Employee. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
 | Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
+| Utente non registrato | Visistatore del sito web che non ha ancora creato un account. È interessato a visualizzare e cercare i modelli che il sito permette di acquistare. |
 | Servizi di pagamento | Servizi terzi che permettono ai customer di effettuare transazioni in modo sicuro. |
 | Supporto tecnico | Responsabile della creazione, manutenzione e aggiornamento dell'applicazione. |
 | Servizi di spedizione | Servizi terzi che si incaricano di consegnare i prodotti acquistati dagli utenti presso l'indirizzo da loro specificato.  |
@@ -67,7 +68,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/diagram/ContextDiagram-v2.1.png)
+![Context diagram](images/diagram/ContextDiagram-v2.2.png)
 
 ## Interfaces
 
@@ -76,6 +77,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Manager   | Pc                | GUI                |
 | Customer  | Smartphone, Pc    | GUI                |
 | Employee  | Pc, Scanner codici a barre    | GUI    |
+| Utente non registrato | Smartphone, pc | GUI |
 | Servizi di pagamento | Internet   | <https://satispay.com/>, <https://paypal.com/>, <https://visa.com/>, <https://mastercard.com/> |
 | Supporto tecnico  | Pc    | GUI  |
 | Servizi di spedizione  | Internet    | <https://gsped.com/api/> |
@@ -104,8 +106,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------: | :---------------: |
 | Età| 28 anni|
 | Occupazione| Graphic designer|
-|Comportamento|  Attenta ai dettagli, interessata ai prodotti di qualità|
-|Obiettivi| Acquistare prodotti di qualità e visualizzare i propri ordini precedenti|
+|Comportamento|  Attenta ai dettagli, interessata ai modelli di qualità|
+|Obiettivi| Acquistare modelli di qualità e visualizzare i propri ordini precedenti|
 |Necessità| Navigazione intuitiva, acquisti sicuri|
 
 |   **Utente non registrato**   |  |
@@ -113,36 +115,38 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Età| 40 anni|
 | Occupazione| Imprenditore|
 |Comportamento|  Pratico, interessato agli affari, interessato alla qualità |
-|Obiettivi| Trovare informazioni sui prodotti, confrontare prezzi|
-|Necessità| Accesso facile ai prodotti, dettagli dei prodotti senza registrazione|
+|Obiettivi| Trovare informazioni sui modelli, confrontare prezzi|
+|Necessità| Accesso facile ai modelli, dettagli dei modelli senza registrazione|
 
 ## Stories
 
 |  **Manager**  |
 | :-------  |
-|Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
-|Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
+| Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
+| Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
+| Come manager voglio poeter visualizzare la lista di tutti i modelli in vendita nel sito |
+| Come manager voglio poter modificare i dettagli di un modello in vendita |
 | Come manager voglio poter modificare i dettagli profilo degli utenti registrati | 
 | Come manager voglio poter creare gli account degli employee |
 
 |  **Employee** |
 | :-------  |
-|Come employee voglio registrare l’arrivo di prodotti in magazzino, segnare le vendite e i resi dei prodotti|
-|Come employee voglio visualizzare la lista di tutti i prodotti disponibili e non|
+| Come employee voglio registrare l’arrivo di prodotti in magazzino, segnare le vendite e i resi dei prodotti|
+| Come employee voglio visualizzare la lista di tutti i prodotti venduti e non |
+| Come employee voglio visualizzare la lista di tutti i modelli disponibili e non|
 
 |  **Customer** |
 | :-------  |
-|Come customer voglio poter aggiungere/rimuovere/visualizzare i prodotti del carrello |
-|Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
-|Come customer voglio poter visualizzare la cronologia dei miei ordini |
-|Come customer voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o i prodotti appartenenti ad una specifica categoria o modello |
+| Come customer voglio poter aggiungere/rimuovere/visualizzare i modelli del carrello |
+| Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi |
+| Come customer voglio poter visualizzare la cronologia dei miei ordini |
+| Come customer voglio poter visualizzare tutti i modelli nell’inventario/appartenenti a una data categoria |
 | Come customer voglio poter modificare i dettagli del mio profilo |
 
 |  **Utente non registrato** |
 | :-------  |
-|Come utente non registrato, voglio vedere i dettagli dei prodotti senza dovermi registrare. |
-|Come utente non registrato voglio poter visualizzare tutti i prodotti nell’inventario/appartenenti ad una specifica categoria/modello o dato un codice voglio visualizzare il prodotto senza dovermi registrare |
-|Come utente non registrato, voglio poter creare un account in pochi passi. |
+| Come utente non registrato voglio poter visualizzare tutti i modelli nell’inventario/appartenenti a una data categoria e visualizzare le loro recensioni senza dovermi registrare |
+| Come utente non registrato, voglio poter creare un account in pochi passi. |
 
 # Functional and non functional requirements
 
@@ -157,12 +161,12 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.4 | Un manager può creare il profilo di un employee                     |
 | FR1.5 | Un manager può modificare il profilo di un employee                 |
 | FR1.6 | Un manager può eliminare il profilo di un employee                  |
-| FR1.7 | Un manager può **eliminare** (bannare?) il profilo di un customer   | 
-| FR1.8 | Un customer o un **manager** (se lo fa per sbalgio ed è lunico?) possono eliminare il proprio profilo |
+| FR1.7 | Un manager può eliminare il profilo di un customer                  | 
+| FR1.8 | Un customer può eliminare il proprio profilo                        |
 | FR1.9 | Un manager può visualizzare la lista di tutti i profili registrati  |
 | FR1.10| Un manager può filtrare la lista dei profili registrati per ruolo   |
 | FR1.11| Un manager può cercare il profilo di un utente dato lo username     |
-| FR1.12| Un manager (e un employee) può visualizzare il profilo di un altro utente | 
+| FR1.12| Un manager e un employee possono visualizzare il profilo di un altro utente | 
 | FR1.13| Un manager può modificare le informazioni sul negozio               |
 | **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
@@ -173,10 +177,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR2.6 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per categoria |
 | FR2.7 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per modello |
 | FR2.8 | Un manager o un employee possono eliminare un prodotto              |
-| **FR3**| **Gestione modelli** |
+| **FR3**| **Gestione modelli**                                               |
 | FR3.1 | Un manager o un employee possono creare un nuovo modello            |
 | FR3.2 | Un manager o un employee possono modificare un modello              |
-| FR3.3 | Un manager o un employee possono **rendere un modello invisibile sul sito** |
+| FR3.3 | Un manager o un employee possono possono eliminare un modello       |
 | FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli disponibili |
 | FR3.5 | Qualsiasi utente può filtrarte l'elenco dei modelli disponibili per categoria |
 | FR3.6 | Qualisasi utente può cercare un modello per nome                    |
@@ -190,25 +194,29 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere|
 | FR5.2 | Se l'utente decide di ricevere tutto tramite corriere deve essere reindirizzato alla pagina del pagamento |
 | FR5.3 | Un customer può visualizzare lo stato del proprio ordine            |
-| FR5.4 | Un customer può cercare un ordine tramite id                        |
-| FR5.6 | Il sito deve mostrare a un manager e a un employee una notifica quando un nuovo ordine viene ricevuto |
-| FR5.8 | Un manager o un employee possono ottenere lo sotrico di tutti gli ordini    |
+| FR5.4 | Un customer può cercare un proprio ordine tramite id                |
+| FR5.5 | Il sito deve mostrare a un manager e a un employee una notifica quando un customer completa un nuovo checkout |
+| FR5.6 | Un manager o un employee possono modificare lo stato di un ordine   |
+| FR5.7 | Un manager o un employee possono cercare un ordine tramite id       |
+| FR5.8 | Un manager o un employee possono ottenere lo storico di tutti gli ordini    |
 | FR5.9 | Un manager o un employee possono filtrare lo storico degli ordini per stato |
-| FR5.10| Un customer può visualizzare la propria cronologia carrelli         |
+| FR5.10| Un customer può visualizzare la propria cronologia ordini           |
 | **FR6** | **Gestione recensioni**                                           |
-| FR4.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
-| FR4.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
-| FR4.3 | Un customer può modificare una recensione precedentemente scritta   |
-| FR4.4 | Un customer può elimnare una propria recensione                     |
-| FR4.5 | Un manager o un employee possono eliminare una recensione           |
-| **FR7** | **Gestione resi**                                                 |
+| FR6.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
+| FR6.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
+| FR6.3 | Un customer può eliminare una propria recensione                    |
+| FR6.4 | Un manager o un employee possono eliminare una recensione           |
+| **FR7** | **Gestione resi - *!in sospeso!***                                |
 | FR7.1 | Un customer può effettuare il reso di un ordine entro 14 giorni dal suo pagamento |
 | FR7.2 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
 | FR7.3 | Un customer può visualizzare lo stato del proprio reso              |
 
 
-Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
-Nota: il requisito FR4.6 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
+- Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
+- Nota: il requisito FR6.4 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
+- Nota: i requisiti FR1.7 e FR1.8 comportano l'eliminazione dal database di tutte le informazioni personali (nome, cognome, username, numero di telefono, email, indirizzo, CAP, città, stato, foto profilo e password) e tutte le recensioni che ha scritto. Tuttavia, va mantenuto per motivi legali lo storico degli ordini effettuati a cui l'utente non può avere accesso.
+- Nota: il requisito FR3.3 comporta l'eliminazione dal database di tutte le informazioni (nome, specifiche tecniche, immagini, prezzo, recensioni, valutazione). Tuttavia, va mantenuto per motivi legali lo storico di tutti gli ordini per quel modello.
+
 
 ## Non Functional Requirements
 
@@ -1649,3 +1657,21 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+# Glossary
+
+![Glossario](images/diagram/ClassDiagram-v1.2.png)
+
+- **Manager**: Persona responsabile della gestione del negozio di elettronica.
+- **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
+- **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
+- **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
+- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
+- **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
+- **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
+
+# System Design
+
+# Deployment Diagram
+
+![Deployment diagram](images/diagram/DeploymentDiagram-v1.0.svg)
