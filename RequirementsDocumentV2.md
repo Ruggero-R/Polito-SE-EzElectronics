@@ -78,7 +78,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Customer  | Smartphone, Pc    | GUI                |
 | Employee  | Pc, Scanner codici a barre    | GUI    |
 | Utente non registrato | Smartphone, pc | GUI |
-| Servizi di pagamento | Internet   | <https://satispay.com/>, <https://paypal.com/>, <https://visa.com/>, <https://mastercard.com/> |
+| Servizi di pagamento | Internet   | https://developers.google.com/pay/api, <https://paypal.com/>, <https://visa.com/>, <https://mastercard.com/> |
 | Supporto tecnico  | Pc    | GUI  |
 | Servizi di spedizione  | Internet    | <https://gsped.com/api/> |
 
@@ -167,21 +167,25 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.10| Un manager o employee  può visualizzare la lista di tutti i profili registrati  |
 | FR1.11| Un manager o employee può filtrare la lista dei profili registrati per ruolo   |
 | FR1.12| Un manager o employee possono visualizzare il profilo di un altro utente | 
-| FR1.13| Un manager o employee può cercare il profilo di un utente dato lo username     |
-| FR1.14| Un manager può modificare le informazioni sul negozio               |
+| FR1.11| Un manager o employee può cercare il profilo di un utente dato lo username     |
+| FR1.13| Un manager può modificare le informazioni sul negozio               |
+| FR1.13| Un manager può modificare il proprio profilo               |
 | **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
 | FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
-| FR2.4 | Un manager o un employee possono cercare un prdotto tramite codice  |
-| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
-| FR2.6 | Un manager o un employee possono eliminare un prodotto              |
+| FR2.4 | Un manager o un employee possono cercare un prodotto tramite codice  |
+| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti |
+| FR2.6 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per categoria |
+| FR2.7 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per modello |
+| FR2.8 | Un manager o un employee possono eliminare un prodotto non ancora venduto           |
 | **FR3**| **Gestione modelli**                                               |
 | FR3.1 | Un manager o un employee possono creare un nuovo modello            |
 | FR3.2 | Un manager o un employee possono modificare un modello              |
-| FR3.3 | Un manager o un employee possono eliminare un modello       |
-| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli disponibili e filtrarlo per categoria |
-| FR3.5 | Qualisasi utente può cercare un modello per nome                    |
+| FR3.3 | Un manager o un employee possono possono eliminare un modello       |
+| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli |
+| FR3.5 | Qualsiasi utente può filtrarte l'elenco dei modelli disponibili per categoria |
+| FR3.6 | Qualisasi utente può cercare un modello per nome                    |
 | **FR4** | **Gestione carrello**                                             |
 | FR4.1 | Un customer può visualizzare il proprio carrello                    |
 | FR4.2 | Un customer può aggiungere un modello al proprio carrello, specificando la quantità di prodotti che desidera acquistare |
@@ -834,7 +838,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 | Post condition | Modifica informazioni sul negozio   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link social, p.iva, sede legale, email, numero di telefono |
+|       2        | Il sistema chiede di inserire i campi nome azienda, p.iva, sede legale, email, numero di telefono |
 |       3        | L'utente inserisce i campi richiesti e avvia l'operazione |
 |       4        | Il sistema chiede conferma e, una volta ricevuta, avvia l'operazione di modifica |
 |       3        | Il sistema risponde con il messaggio di successo (status: 200)|
@@ -845,7 +849,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 | Post condition | Nessuna modifica   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link social, p.iva, sede legale, email, numero di telefono |
+|       2        | Il sistema chiede di inserire i campi nome azienda, p.iva, sede legale, email, numero di telefono |
 |       3        | L'utente inserisce i campi richiesti e avvia l'operazione |
 |       4        | Il sistema chiede conferma|
 |       5        | L'utente annulla l'operazione |
@@ -856,7 +860,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 | Post condition | Nessuna modifica |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
-|       2        | Il sistema chiede di inserire i campi immagine, nome azienda, link social, p.iva, sede legale, email, numero di telefono |
+|       2        | Il sistema chiede di inserire i campi nome azienda, p.iva, sede legale, email, numero di telefono |
 |       3        | L'utente inserisce i campi richiesti, ma ne metta alcuni non validi e avvia l'operazione |
 |       4        | Il sistema annulla l'operazione e stampa un messaggio di errore (status: 404) |
 
@@ -867,7 +871,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 16, UC16, Registrazione prodotto come venduto
+### Use case 15, UC15, Registrazione prodotto come venduto
 
 | Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -879,7 +883,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 
 |  Scenario 16.1  | Il prodotto viene registrato come venduto nel database|
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager, prodotto visualizzato |
+|  Precondition  | Utente autenticato come manager o employee, prodotto visualizzato |
 | Post condition | Prodotto contrassegnato come venduto  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di contrassegnare il prodotto selezionato come venduto |
@@ -892,7 +896,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: se il prodotto è già stato venduto al manager non appare la posssibilità dieseguire l'operazione
+Nota: se il prodotto è già stato venduto al manager non appare la posssibilità di eseguire l'operazione
 
 ### Use case 17, UC17, Ricerca prodotto
 
