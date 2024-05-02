@@ -167,25 +167,22 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.10| Un manager o employee  può visualizzare la lista di tutti i profili registrati  |
 | FR1.11| Un manager o employee può filtrare la lista dei profili registrati per ruolo   |
 | FR1.12| Un manager o employee possono visualizzare il profilo di un altro utente | 
-| FR1.11| Un manager o employee può cercare il profilo di un utente dato lo username     |
-| FR1.13| Un manager può modificare le informazioni sul negozio               |
-| FR1.13| Un manager può modificare il proprio profilo               |
+| FR1.13| Un manager o employee può cercare il profilo di un utente dato lo username     |
+| FR1.14| Un manager può modificare le informazioni sul negozio               |
+| FR1.15| Un manager può modificare il proprio profilo               |
 | **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
 | FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
 | FR2.4 | Un manager o un employee possono cercare un prodotto tramite codice  |
-| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti |
-| FR2.6 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per categoria |
-| FR2.7 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per modello |
-| FR2.8 | Un manager o un employee possono eliminare un prodotto non ancora venduto           |
+| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
+| FR2.6 | Un manager o un employee possono eliminare un prodotto non ancora venduto           |
 | **FR3**| **Gestione modelli**                                               |
 | FR3.1 | Un manager o un employee possono creare un nuovo modello            |
 | FR3.2 | Un manager o un employee possono modificare un modello              |
 | FR3.3 | Un manager o un employee possono possono eliminare un modello       |
-| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli |
-| FR3.5 | Qualsiasi utente può filtrarte l'elenco dei modelli disponibili per categoria |
-| FR3.6 | Qualisasi utente può cercare un modello per nome                    |
+| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli e filtrarlo per categoria |
+| FR3.5 | Qualisasi utente può cercare un modello per nome |
 | **FR4** | **Gestione carrello**                                             |
 | FR4.1 | Un customer può visualizzare il proprio carrello                    |
 | FR4.2 | Un customer può aggiungere un modello al proprio carrello, specificando la quantità di prodotti che desidera acquistare |
