@@ -156,34 +156,32 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :---: | :---------                                                          |
 | **FR1** |      **Gestione utenti**                                          |
 | FR1.1 | Chiunque può creare un account customer                             |
-| FR1.2 | Un utente può effettuare login e logout                             |
-| FR1.3 | Un utente può visualizzare le informazioni del proprio profilo      |
-| FR1.4 | Un manager può creare il profilo di un employee                     |
-| FR1.5 | Un manager può modificare il profilo di un employee                 |
-| FR1.6 | Un manager può eliminare il profilo di un employee                  |
-| FR1.7 | Un manager può eliminare il profilo di un customer                  | 
-| FR1.8 | Un customer può eliminare il proprio profilo                        |
-| FR1.9 | Un manager o employee  può visualizzare la lista di tutti i profili registrati  |
-| FR1.10| Un manager o employee può filtrare la lista dei profili registrati per ruolo   |
+| FR1.2 | Un utente può effettuare login                                      |
+| FR1.3 | Un utente può effettuare logout                                      |
+| FR1.4 | Un utente può visualizzare le informazioni del proprio profilo      |
+| FR1.5 | Un manager può creare il profilo di un employee                     |
+| FR1.6 | Un manager può modificare il profilo di un employee                 |
+| FR1.7 | Un manager può eliminare il profilo di un employee                  |
+| FR1.8 | Un manager può eliminare il profilo di un customer                  | 
+| FR1.9 | Un customer può eliminare il proprio profilo                        |
+| FR1.10| Un manager o employee  può visualizzare la lista di tutti i profili registrati  |
+| FR1.11| Un manager o employee può filtrare la lista dei profili registrati per ruolo   |
 | FR1.12| Un manager o employee possono visualizzare il profilo di un altro utente | 
-| FR1.11| Un manager o employee può cercare il profilo di un utente dato lo username     |
-| FR1.13| Un manager può modificare le informazioni sul negozio               |
+| FR1.13| Un manager o employee può cercare il profilo di un utente dato lo username     |
+| FR1.14| Un manager può modificare le informazioni sul negozio               |
 | **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
 | FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
 | FR2.4 | Un manager o un employee possono cercare un prdotto tramite codice  |
-| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti |
-| FR2.6 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per categoria |
-| FR2.7 | Un manager o un employee possono filtrarte l'elenco di tutti prodotti per modello |
-| FR2.8 | Un manager o un employee possono eliminare un prodotto              |
+| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
+| FR2.6 | Un manager o un employee possono eliminare un prodotto              |
 | **FR3**| **Gestione modelli**                                               |
 | FR3.1 | Un manager o un employee possono creare un nuovo modello            |
 | FR3.2 | Un manager o un employee possono modificare un modello              |
-| FR3.3 | Un manager o un employee possono possono eliminare un modello       |
-| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli disponibili |
-| FR3.5 | Qualsiasi utente può filtrarte l'elenco dei modelli disponibili per categoria |
-| FR3.6 | Qualisasi utente può cercare un modello per nome                    |
+| FR3.3 | Un manager o un employee possono eliminare un modello       |
+| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli disponibili e filtrarlo per categoria |
+| FR3.5 | Qualisasi utente può cercare un modello per nome                    |
 | **FR4** | **Gestione carrello**                                             |
 | FR4.1 | Un customer può visualizzare il proprio carrello                    |
 | FR4.2 | Un customer può aggiungere un modello al proprio carrello, specificando la quantità di prodotti che desidera acquistare |
@@ -191,25 +189,22 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.4 | Un customer può rimuovere un modello dal carrello                   |
 | FR4.5 | Un customer può svuotare il proprio carrello                        |
 | **FR5** | **Gestione ordini**                                               |
-| FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere|
-| FR5.2 | Se l'utente decide di ricevere tutto tramite corriere deve essere reindirizzato alla pagina del pagamento |
-| FR5.3 | Un customer può visualizzare lo stato del proprio ordine            |
-| FR5.4 | Un customer può cercare un proprio ordine tramite id                |
-| FR5.5 | Il sito deve mostrare a un manager e a un employee una notifica quando un customer completa un nuovo checkout |
-| FR5.6 | Un manager o un employee possono modificare lo stato di un ordine   |
-| FR5.7 | Un manager o un employee possono cercare un ordine tramite id       |
-| FR5.8 | Un manager o un employee possono ottenere lo storico di tutti gli ordini    |
-| FR5.9 | Un manager o un employee possono filtrare lo storico degli ordini per stato |
-| FR5.10| Un customer può visualizzare la propria cronologia ordini           |
+| FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere |
+| FR5.2 | Se il customer decide di ricevere il proprio ordine tramite corriere, il sito inoltra i dati di spedizione al corriere |
+| FR5.3 | Se il customer decide di ricevere il proprio ordine tramite corriere, deve essere reindirizzato alla pagina del pagamento |
+| FR5.4 | Un customer può visualizzare lo stato del proprio ordine            |
+| FR5.5 | Un customer può cercare un proprio ordine tramite id                |
+| FR5.6 | Il sito deve mostrare a un manager e a un employee una notifica quando un customer completa un nuovo checkout |
+| FR5.7 | Un manager o un employee possono modificare lo stato di un ordine   |
+| FR5.8 | Un manager o un employee possono cercare un ordine tramite id       |
+| FR5.9 | Un manager o un employee possono ottenere lo storico di tutti gli ordini    |
+| FR5.10| Un manager o un employee possono filtrare lo storico degli ordini per stato |
+| FR5.11| Un customer può visualizzare la propria cronologia ordini           |
 | **FR6** | **Gestione recensioni**                                           |
 | FR6.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
 | FR6.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
 | FR6.3 | Un customer può eliminare una propria recensione                    |
 | FR6.4 | Un manager o un employee possono eliminare una recensione           |
-| **FR7** | **Gestione resi - *!in sospeso!***                                |
-| FR7.1 | Un customer può effettuare il reso di un ordine entro 14 giorni dal suo pagamento |
-| FR7.2 | Un manager o un employee possono accettare o rifiutare una richiesta di reso|
-| FR7.3 | Un customer può visualizzare lo stato del proprio reso              |
 
 
 - Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
@@ -234,45 +229,49 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Table of rights
 
-| FR  |  Customer  |  Manager  |  Employee  | Servizi di pagamento | Servizi di spedizione |
-| :-: |  :------:  |  :-----:  |  :-------: | :------------------: | :-------------------: |
-| 1.1 |     X      |     X     |     X      |                      |                       |
-| 1.2 |     X      |     X     |     X      |                      |                       |
-| 1.3 |     X      |     X     |     X      |                      |                       |
-| 1.4 |            |     X     |            |                      |                       |
-| 1.5 |            |     X     |            |                      |                       |
-| 1.6 |            |     X     |            |                      |                       |
-| 1.7 |            |     X     |            |                      |                       |
-| 1.8 |     X      |     X     |            |                      |                       |
-| 1.9 |            |     X     |            |                      |                       |
-| 1.10|            |     X     |            |                      |                       |
-| 1.11|            |     X     |            |                      |                       |
-| 1.12|            |     X     |            |                      |                       |
-| 1.13|            |     X     |            |                      |                       |
-| 2.1 |            |     X     |     X      |                      |                       |
-| 2.2 |            |     X     |     X      |                      |                       |
-| 2.3 |            |     X     |     X      |                      |                       |
-| 2.4 |            |     X     |     X      |                      |                       |
-| 2.5 |     X      |     X     |     X      |                      |                       |
-| 2.6 |     X      |     X     |     X      |                      |                       |
-| 2.7 |     X      |     X     |     X      |                      |                       |
-| 2.8 |            |     X     |     X      |                      |                       |
-|  3  |     X      |           |            |                      |                       |
-| 4.1 |     X      |           |            |                      |                       |
-| 4.2 |     X      |     X     |     X      |                      |                       |
-| 4.3 |     X      |           |            |                      |                       |
-| 4.4 |     X      |           |            |                      |                       |
-| 4.5 |            |     X     |     X      |                      |                       |
-| 5.1 |     X      |           |            |                      |                       |
-| 5.2 |     X      |           |            |         X            |            X          |
-| 5.3 |     X      |           |            |                      |                       |
-| 5.4 |     X      |           |            |                      |                       |
-| 5.5 |     X      |           |            |                      |                       |
-| 5.6 |            |     X     |     X      |                      |                       |
-| 5.7 |            |     X     |     X      |                      |                       |
-| 5.8 |            |     X     |     X      |                      |                       |
-| 5.9 |            |     X     |     X      |                      |                       |
-| 5.10|     X      |           |            |                      |                       |
+| FR  | Utente non autenticato | Customer  |  Manager  |  Employee  | Servizi di pagamento | Servizi di spedizione |
+| :-: | :--------------------: | :------:  |  :-----:  |  :-------: | :------------------: | :-------------------: |
+| 1.1 |           X            |   X       |     X     |     X      |                      |                       |
+| 1.2 |           X            |   X       |     X     |     X      |                      |                       |
+| 1.3 |           X            |   X       |     X     |     X      |                      |                       |
+| 1.4 |                        |   X       |     X     |     X      |                      |                       |
+| 1.5 |                        |           |     X     |            |                      |                       |
+| 1.6 |                        |           |     X     |            |                      |                       |
+| 1.7 |                        |           |     X     |            |                      |                       |
+| 1.8 |                        |           |     X     |            |                      |                       |
+| 1.9 |                        |   X       |           |            |                      |                       |
+| 1.10|                        |           |     X     |     X      |                      |                       |
+| 1.11|                        |           |     X     |     X      |                      |                       |
+| 1.12|                        |           |     X     |     X      |                      |                       |
+| 1.13|                        |           |     X     |     X      |                      |                       |
+| 1.14|                        |           |     X     |            |                      |                       |
+| 2.1 |                        |           |     X     |     X      |                      |                       |
+| 2.2 |                        |           |     X     |     X      |                      |                       |
+| 2.3 |                        |           |     X     |     X      |                      |                       |
+| 2.4 |                        |           |     X     |     X      |                      |                       |
+| 2.5 |                        |           |     X     |     X      |                      |                       |
+| 2.6 |                        |           |     X     |     X      |                      |                       |
+| 3.1 |                        |           |     X     |     X      |                      |                       |
+| 3.2 |                        |           |     X     |     X      |                      |                       |
+| 3.3 |                        |           |     X     |     X      |                      |                       |
+| 3.4 |          X             |   X       |     X     |     X      |                      |                       |
+| 3.5 |          X             |   X       |     X     |     X      |                      |                       |
+|  4  |                        |   X       |           |            |                      |                       |
+| 5.1 |                        |   X       |           |            |                      |                       |
+| 5.2 |                        |   X       |           |            |                      |           X           |
+| 5.3 |                        |   X       |           |            |         X            |                       |
+| 5.4 |                        |   X       |           |            |                      |                       |
+| 5.5 |                        |   X       |           |            |                      |                       |
+| 5.6 |                        |           |     X     |     X      |                      |                       |
+| 5.7 |                        |           |     X     |     X      |                      |                       |
+| 5.8 |                        |           |     X     |     X      |                      |                       |
+| 5.9 |                        |           |     X     |     X      |                      |                       |
+| 5.10|                        |           |     X     |     X      |                      |                       |
+| 5.11|          X             |           |           |            |                      |                       |
+| 6.1 |                        |   X       |           |            |                      |                       |
+| 6.2 |          X             |   X       |     X     |     X      |                      |                       |
+| 6.3 |                        |   X       |           |            |                      |                       |
+| 6.4 |                        |           |     X     |     X      |                      |                       |
 
 # Use case diagram and use cases
 
