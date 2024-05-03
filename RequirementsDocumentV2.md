@@ -1,12 +1,12 @@
 # Requirements Document - current EZElectronics
 
-Date: 01/05/2024
+Date: 03/05/2024
 
 Version: V2 - description of EZElectronics in NEW form (as decided in group)
 
 | Version number | Change |
 | :------------: | :----: |
-|       8        | Fine casi d'uso e fix estimationV1 |
+|       8        | Fine casi d'uso e fix tabella contents |
 
 # Contents
 
@@ -21,29 +21,51 @@ Version: V2 - description of EZElectronics in NEW form (as decided in group)
 - [Functional and non functional requirements](#functional-and-non-functional-requirements)
   - [Functional Requirements](#functional-requirements)
   - [Non Functional Requirements](#non-functional-requirements)
-  - [Test requirements](#test-requirements)
   - [Table of rights](#table-of-rights)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
   - [Use cases](#use-cases)
-    - [UC1, Login](#use-case-1-uc1-login)
-    - [UC2, Logout](#use-case-2-uc2-logout)
-    - [UC3, Stampa informazioni utente](#use-case-3-uc3-stampa-informazioni-utente)
-    - [UC4, Creazione di un nuovo utente](#use-case-4-uc4-creazione-di-un-nuovo-utente)
-    - [UC5, Creazione di un nuovo prodotto](#use-case-5-uc5-creazione-di-un-nuovo-prodotto)
-    - [UC6, Registrazione arrivo di un set di prodotti](#use-case-6-uc6-registrazione-arrivo-di-un-set-di-prodotti)
-    - [UC7, Registrazione prodotto come venduto](#use-case-7-uc7-registrazione-prodotto-come-venduto)
-    - [UC8, Elenco prodotti](#use-case-8-uc8-elenco-prodotti)
-    - [UC9, Ricerca prodotto](#use-case-9-uc9-ricerca-prodotto)
-    - [UC10, Elenco prodotti data la categoria](#use-case-10-uc10-elenco-prodotti-data-la-categoria)
-    - [UC11, Elenco prodotti dato il modello](#use-case-11-uc11-elenco-prodotti-dato-il-modello)
-    - [UC12, Eliminazione prodotto](#use-case-12-uc12-eliminazione-prodotto)
-    - [UC13, Visualizzazione carrello](#use-case-13-uc13-visualizzazione-carrello)
-    - [UC14, Aggiunta al carrello](#use-case-14-uc14-aggiunta-al-carrello)
-    - [UC15, Checkout carrello](#use-case-15-uc15-checkout-carrello)
-    - [UC16, Cronologia carrelli](#use-case-16-uc16-cronologia-carrelli)
-    - [UC17, Rimozione dal carrello](#use-case-17-uc17-rimozione-dal-carrello)
-    - [UC18, Svuotamento carrello](#use-case-18-uc18-svuotamento-carrello)
+    - [UC1, Creazione di un nuovo utente customer](#use-case-1-uc1-creazione-di-un-nuovo-utente-customer)
+    - [UC2, Login](#use-case-2-uc2-login)
+    - [UC3, Logout](#use-case-3-uc3-logout)
+    - [UC4, Stampa informazioni utente](#use-case-4-uc4-stampa-informazioni-utente)
+    - [UC5, Creazione profilo dell'employee da parte del manager](#use-case-5-uc5-creazione-profilo-dellemployee-da-parte-del-manager)
+    - [UC6, Modifica profilo dell'employee da parte del manager](#use-case-6-uc6-modifica-profilo-dellemployee-da-parte-del-manager)
+    - [UC7, Eliminazione profilo dell'employee](#use-case-7-uc7-eliminazione-profilo-dellemployee-da-parte-del-manager)
+    - [UC8, Eliminazione profilo del customer](#use-case-8-uc8-eliminazione-profilo-customer-da-parte-di-un-manager)
+    - [UC9, Eliminazione del proprio profilo](#use-case-9-uc9-eliminazione-del-proprio-profilo)
+    - [UC10, Visualizzazione di tutti gli utenti](#use-case-10-uc10-visualizzazione-di-tutti-gli-utenti)
+    - [UC11, Visualizzazione di un utente](#use-case-11-uc11-visualizzazione-dettagli-utente)
+    - [UC12, Modifica informazzioni del negozio](#use-case-12-uc12-modifica-delle-informazioni-sul-negozio)
+    - [UC13, Modifica del proprio profilo](#use-case-13-uc13-modifica-del-proprio-profilo)
+    - [UC14, Creazione nuovo prodotto](#use-case-14-uc14-creazione-di-un-nuovo-prodotto)
+    - [UC15, Registrazione arrivo di un set di prodotti](#use-case-15-uc15-registrazione-arrivo-di-un-set-di-prodotti)
+    - [UC16, Registrazione prodotto come venduto](#use-case-16-uc16-registrazione-prodotto-come-venduto)
+    - [UC17, Ricerca prodotto](#use-case-17-uc17-ricerca-prodotto)
+    - [UC18, Elenco prodotti](#use-case-18-uc18-elenco-prodotti)
+    - [UC19, Eliminazione prodotto](#use-case-19-uc19-eliminazione-prodotto)
+    - [UC20, Creazione nuovo modello](#use-case-20-uc20-creazione-di-un-nuovo-modello)
+    - [UC21, Modifica di un modello](#use-case-21-uc21-modifica-di-un-modello)
+    - [UC22, Eliminazione di un modello](#use-case-22-uc22-eliminazione-di-un-modello)
+    - [UC23, Elenco modelli](#use-case-23-uc23-elenco-modelli)
+    - [UC24, Ricerca modello](#use-case-24-uc24-ricerca-modello)
+    - [UC25, Visualizzazione carrello](#use-case-25-uc25-visualizzazione-carrello)
+    - [UC26, Aggiunta al carrello](#use-case-26-uc26-aggiunta-al-carrello)
+    - [UC27, Checkout carrello](#use-case-27-uc27-checkout-carrello)
+    - [UC28, Rimozione dal carrello](#use-case-28-uc28-rimozione-dal-carrello)
+    - [UC29, Svuotamento carrello](#use-case-29-uc29-svuotamento-carrello)
+    - [UC30, Pagamento online](#use-case-30-uc30-pagamento-online)
+    - [UC31, Visualizzazione ordine](#use-case-31-uc31-visualizzazione-ordine)
+    - [UC32, Ricerca ordine](#use-case-32-uc32-ricerca-ordine-tramite-id)
+    - [UC33, Modifica stato dell'ordine](#use-case-33-uc33-modifica-stato-dellordine)
+    - [UC34, Storico ordini](#use-case-34-uc34-storico-ordini)
+    - [UC35, Cronologia ordini](#use-case-35-uc35-cronologia-ordini)
+    - [UC36, Nuova recensione](#use-case-36-uc36-nuova-recensione)
+    - [UC37, Visualizzazione recensioni](#use-case-37-uc37-visualizzazione-recensioni-del-modello)
+    - [UC38, Eliminazione della propria recensione](#use-case-38-uc38-eliminazione-recensione-da-parte-del-customer)
+    - [UC39, Modifica recensione](#use-case-39-uc39-modifica-recensione)
+    - [UC40, Eliminazione di una recensione](#use-case-40-uc40-eliminazione-recensione-da-parte-del-manageremployee)
+
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -78,7 +100,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Customer  | Smartphone, Pc    | GUI                |
 | Employee  | Pc, Scanner codici a barre    | GUI    |
 | Utente non registrato | Smartphone, pc | GUI |
-| Servizi di pagamento | Internet   | https://developers.google.com/pay/api, <https://paypal.com/>, <https://visa.com/>, <https://mastercard.com/> |
+| Servizi di pagamento | Internet   | <https://developers.google.com/pay/api>, <https://paypal.com/>, <https://visa.com/>, <https://mastercard.com/> |
 | Supporto tecnico  | Pc    | GUI  |
 | Servizi di spedizione  | Internet    | <https://gsped.com/api/> |
 
@@ -720,7 +742,7 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 |     Step#      |   Description    |
 |       1        | Il sistema stampa il messaggio di errore |
 
-### Use case 12, UC12, Modifica le informazioni sul negozio
+### Use case 12, UC12, Modifica delle informazioni sul negozio
 
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -860,7 +882,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 15, UC15, Registrazione arrivo di un set di prodotti dello stesso modello
+### Use case 15, UC15, Registrazione arrivo di un set di prodotti
 
 | Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1626,7 +1648,7 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 |       1        | L'utente effettua il checkout del proprio carrello |
 |       2        | Una volta completata l'operazione il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
 |       3        | L'utente scrive le recensioni e obbligatoriamente lascia una valutazione da salvare per i modelli desiderati e clicca sul link per terminare l'operazione |
-|       4        | L'utente carica un'immagine sullo stato del modello ricevuto
+|       4        | L'utente carica un'immagine sullo stato del modello ricevuto |
 |       5        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
 
 Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una recensione, l'inserimento di immagini è consentito solo se vengono caricate recensioni e/o valutazioni
@@ -1788,12 +1810,12 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 - **Customer**: Utente autenticato che utilizza l'applicazione per acquistare prodotti elettronici.
 - **Employee**: Utente autenticato, commesso del negozio che aiuta il manager a svolgere i suoi compiti.
 - **Manager**: Utente autenticato responsabile della gestione del negozio di elettronica.
-- **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici. 
+- **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici.
 - **Ordine**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
 - **Prodotto**: Entità fisica unica e irripetibile che può essere acquistata, caratterizzata da un codice univoco.
 - **Profilo utente**: Pagina riassuntiva di tutte le informazioni di un qualsiasi utente memorizzate.
 - **Recensione**: Commento scritto che riporta le opinioni di un determinato utente su un prodotto da lui acquistato.
-- **Ruolo**: Posizione che un utente assume all'interno del sito. Ogni ruolo conferisce specifici privilegi, accessi o responsabilità all'utente in base alle sue necessità e alle sue autorizzazioni. I ruoli sono: Manager, Emplopyee, Customer e Utente non registrato. 
+- **Ruolo**: Posizione che un utente assume all'interno del sito. Ogni ruolo conferisce specifici privilegi, accessi o responsabilità all'utente in base alle sue necessità e alle sue autorizzazioni. I ruoli sono: Manager, Emplopyee, Customer e Utente non registrato.
 - **Servizio di pagamento**: insieme di strumenti e circuiti di regolamento e norme che permettono di trasferire la moneta da un soggetto a un altro.
 - **Servizio di spedizione**: insieme di strumenti che mettono in comunicazione il corriere e il negozio.
 - **Supporto tecnico**: team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
