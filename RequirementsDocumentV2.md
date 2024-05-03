@@ -179,10 +179,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------                                                          |
 | **FR1** |      **Gestione utenti**                                          |
-| FR1.1 | Un utente non autenticato può creare un profilo customer                             |
-| FR1.2 | Un utente può effettuare login                                      |
-| FR1.3 | Un utente può effettuare logout                                     |
-| FR1.4 | Un utente può visualizzare le informazioni del proprio profilo      |
+| FR1.1 | Un utente non autenticato può creare un profilo customer            |
+| FR1.2 | Un utente non autenticato può effettuare login                      |
+| FR1.3 | Un utente autenticato può effettuare logout                         |
+| FR1.4 | Un customer può visualizzare le informazioni del proprio profilo    |
 | FR1.5 | Un manager può creare il profilo di un employee                     |
 | FR1.6 | Un manager può modificare il profilo di un employee                 |
 | FR1.7 | Un manager può eliminare il profilo di un employee                  |
@@ -197,7 +197,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
 | FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
-| FR2.4 | Un manager o un employee possono cercare un prodotto tramite codice  |
+| FR2.4 | Un manager o un employee possono cercare un prodotto tramite codice |
 | FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
 | FR2.6 | Un manager o un employee possono eliminare un prodotto non ancora venduto           |
 | **FR3**| **Gestione modelli**                                               |
@@ -210,7 +210,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.1 | Un customer può visualizzare il proprio carrello                    |
 | FR4.2 | Un customer può aggiungere un modello al proprio carrello, specificando la quantità di prodotti che desidera acquistare |
 | FR4.3 | Un customer può eseguire il checkout del proprio carrello           |
-| FR4.4 | Un customer può rimuovere un prodotto dal carrello                   |
+| FR4.4 | Un customer può rimuovere un prodotto dal carrello                  |
 | FR4.5 | Un customer può svuotare il proprio carrello                        |
 | **FR5** | **Gestione ordini**                                               |
 | FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere |
@@ -227,9 +227,9 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | **FR6** | **Gestione recensioni**                                           |
 | FR6.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
 | FR6.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
-| FR6.3 | Un customer può eliminare/modificare una propria recensione                    |
+| FR6.3 | Un customer può eliminare/modificare una propria recensione         |
 | FR6.4 | Un manager o un employee possono eliminare una recensione           |
-| FR6.5 | Un customer può visualizzare le proprie recensioni          |
+| FR6.5 | Un customer può visualizzare le proprie recensioni                  |
 | FR6.6 | Un manager o un employee possono visualizzare le recensioni di un dato customer   |
 
 - Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
