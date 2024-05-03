@@ -12,12 +12,12 @@ Consider the EZElectronics  project in FUTURE version (as proposed by your team 
 
 |             | Estimate                        |
 | ----------- | ------------------------------- |  
-| NC =  Estimated number of classes to be developed   | 29  |
+| NC =  Estimated number of classes to be developed   | 35  |
 |  A = Estimated average size per class, in LOC       |   150 |
-| S = Estimated size of project, in LOC (= NC * A) | 4350 |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 435 |
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 13050 |
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | 3 |
+| S = Estimated size of project, in LOC (= NC * A) | 5250 |
+| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 525 |
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 15750 |
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | 4 |
 
 # Estimate by product decomposition
 
@@ -65,9 +65,10 @@ Report here the results of the three estimation approaches. The  estimates may d
 
 |             | Estimated effort (in ph) |    Estimated duration (days=(ph/n_members)/ph_of_day)  |
 | ----------- | ------------------------------- | ---------------|
-| estimate by size |  435  | 14 |
+| estimate by size |  525  | 17 |
 | estimate by product decomposition |   132  | 5 |
 | estimate by activity decomposition |  134 | 5 |
 
-
-The reasons why the results given by the three approaches differ from each other could be that the first (by size) uses specific approximations and is only based on the LOC (lines of code) and so it doesn’t include the parts related to PM, requirements, design, and testing. The difference in the 2 other approaches could be explained by the fact that the one splitting by activities has a higher level of details with respect to the one based on the one splitting based on products.
+The differing results among the three approaches may be related to various factors. 
+First of all, the approach based on lines of code (LOC) doesn't consider all the effort spent on requirements, design and testing parts. 
+Finally, the discrepancy between the two decomposition approaches is related to the different levels of details required from each method: the activity-based decomposition has a higher level of details respect to the product-based decomposition.
