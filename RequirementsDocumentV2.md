@@ -203,7 +203,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | **FR3**| **Gestione modelli**                                               |
 | FR3.1 | Un manager o un employee possono creare un nuovo modello            |
 | FR3.2 | Un manager o un employee possono modificare un modello              |
-| FR3.3 | Un manager o un employee possono eliminare un modello       |
+| FR3.3 | Un manager o un employee possono eliminare un modello solo se tutti i prodotti sono terminati       |
 | FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli e filtrarlo per categoria |
 | FR3.5 | Qualisasi utente può cercare un modello per nome |
 | **FR4** | **Gestione carrello**                                             |
@@ -1855,7 +1855,6 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
-
 
 # Glossary
 
