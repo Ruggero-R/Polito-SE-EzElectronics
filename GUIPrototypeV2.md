@@ -10,8 +10,8 @@ Version: 2.0.0
 
 | Functionality | Description | Image |
 | ----------------- | ----------------- |:-----------:|
-|Login| La pagina dedicata all'autenticazione degli utenti. | ![Login](images/gui/StartLogin.png) |
-|Register| Pagina relativa alla registrazione di un utente. | ![Registrazione](images/gui/StartRegistrazione.png) |
+|Login| La pagina dedicata all'autenticazione degli utenti. | ![Login](images/gui/v2/StartLogin.png) |
+|Register| Pagina relativa alla registrazione di un utente. | ![Registrazione](images/gui/v2/StartRegistrazione.png) |
 |Home principale v1| La homepage nella sua versione base, senza alcun filtro per la visualizzazione dei prodotti in vendita. | ![HomePageAll](images/gui/homepage/HomeTutti.png) |
 |Home principale v2| La homepage con il filtro applicato ("Venduti") per visualizzare solo i prodotti già venduti. | ![HomePageSoldYes](images/gui/homepage/HomeVenduti.png) |
 |Home principale v3| La homepage con il filtro applicato ("Non Venduti") per visualizzare solo i prodotti non ancora venduti.| ![HomePageSoldNo](images/gui/homepage/HomeNonVenduti.png) |
@@ -35,6 +35,7 @@ Version: 2.0.0
 |Visualizza tutti i prodotti| Pagina, visualizzabile solo dall'utente manager, relativa all'elenco di tutti i prodotti presenti nel database. | ![VisualizzaProdottiTutti](images/gui/profile/VisualizzaProdottiManagerTutti.png) |
 |Visualizza tutti i prodotti venduti| Pagina, visualizzabile solo dall'utente manager, relativa all'elenco di tutti i prodotti non disponibili presenti nel database. | ![VisualizzaProdottiVenduti](images/gui/profile/VisualizzaProdottiManagerVenduti.png) |
 |Visualizza tutti i prodotti non venduti| Pagina, visualizzabile solo dall'utente manager, relativa all'elenco di tutti i prodotti disponibili presenti nel database. | ![VisualizzaProdottiNonVenduti](images/gui/profile/VisualizzaProdottiManagerNonVenduti.png) |
+|Footer| Barra di navigazione presente alla fine di ogni pagina diversa da quelle di autenticazione. Consente una user experience più piacevole. | ![Footer](images/gui/v2/footer.png) |
 
 # Application GUI - Alert
 
@@ -42,7 +43,9 @@ Version: 2.0.0
 
 | Functionality | Description | Image |
 | ----------------- | ----------------- |:-----------:|
-| Alert credenziali errate | Un avviso a comparsa indicante l'inserimento errato nei campi di input durante il processo di login. | ![CredenzialiErrate](images/gui/alert/AlertStartLoginErrore.png) |
+| Alert credenziali errate | Un avviso a comparsa indicante l'inserimento errato nei campi di input durante il processo di login. | ![CredenzialiErrate](images/gui/v2/alert/AlertStartLoginErrore.png) |
+| Alert campi non compilati | Un avviso a comparsa indicante la mancanza di input nei campi obbligatori durante il processo di registrazione. | ![CampiVuoti](images/gui/v2/alert/AlertStartRegistrazioneErrore.png) |
+| Allegato file multimediale | Window che permette la selezione di un file multimediale da utilizzare come immagine del profilo dell'utente durante il processo di registrazione. | ![AllegatoFotoProfilo](images/gui/v2/alert/AllegatoStartRegistrazione.png) |
 | Alert Smartphone aggiunto al carrello | Un messaggio di avviso temporaneo, con una durata predefinita di 3 secondi, che appare dopo aver cliccato sul pulsante "Aggiungi al carrello" dalla pagina principale e che indica l'inserimento del relativo smartphone nel carrello utente. | ![SmartphoneAggiunto](images/gui/alert/SmartphoneCarrello1.png) |
 | Alert prodotto aggiunto al carrello | Un avviso a comparsa temporizzato, della durata di 3 secondi, che appare dopo aver cliccato sul pulsante "Aggiungi al carrello" dalla pagina di un prodotto specifico, indicando l'inserimento del prodotto nel carrello utente.  | ![ProdottoAggiunto](images/gui/alert/ProdottoApertoDisponibileCarrello.png) |
 | Alert prodotto contrassegnato come venduto | Un messaggio di avviso che appare dopo che un manager ha cliccato sul pulsante "Contrassegna come venduto" dalla pagina di un prodotto specifico, indicando l'aggiornamento della data di vendita associata al prodotto. | ![ProdottoManagerVendita](images/gui/alert/AlertProdottoApertoManagerVendita.png) |
