@@ -65,6 +65,8 @@ Version: V2 - description of EZElectronics in NEW form (as decided in group)
     - [UC38, Eliminazione della propria recensione](#use-case-38-uc38-eliminazione-recensione-da-parte-del-customer)
     - [UC39, Modifica recensione](#use-case-39-uc39-modifica-recensione)
     - [UC40, Eliminazione di una recensione](#use-case-40-uc40-eliminazione-recensione-da-parte-del-manageremployee)
+    - [UC41, Visualizzazione delle recensioni personali](#use-case-41-uc41-visualizzazione-delle-recensioni-personali)
+    - [UC42, Visualizzazione recensioni di un utente](#use-case-42-uc42-visualizzazione-recensioni-di-un-utente)
 
 - [Glossary](#glossary)
 - [System Design](#system-design)
@@ -177,7 +179,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------                                                          |
 | **FR1** |      **Gestione utenti**                                          |
-| FR1.1 | Chiunque può creare un account customer                             |
+| FR1.1 | Un utente non autenticato può creare un profilo customer                             |
 | FR1.2 | Un utente può effettuare login                                      |
 | FR1.3 | Un utente può effettuare logout                                     |
 | FR1.4 | Un utente può visualizzare le informazioni del proprio profilo      |
@@ -192,16 +194,16 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.13| Un manager può modificare le informazioni sul negozio               |
 | FR1.14| Un utente manager o customer può modificare il proprio profilo               |
 | **FR2** |    **Gestione prodotti**                                          |
-| FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
-| FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
-| FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
-| FR2.4 | Un manager o un employee possono cercare un prodotto tramite codice  |
-| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
-| FR2.6 | Un manager o un employee possono eliminare un prodotto non ancora venduto           |
+| FR2.1 | Un manager o un employee può registrare un nuovo prodotto       |
+| FR2.2 | Un manager o un employee può registrare l'arrivo di un insieme di prodotti dello stesso modello |
+| FR2.3 | Un manager o un employee può segnare un prodotto come venduto   |
+| FR2.4 | Un manager o un employee può cercare un prodotto tramite codice  |
+| FR2.5 | Un manager o un employee può ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
+| FR2.6 | Un manager o un employee può eliminare un prodotto non ancora venduto           |
 | **FR3**| **Gestione modelli**                                               |
-| FR3.1 | Un manager o un employee possono creare un nuovo modello            |
-| FR3.2 | Un manager o un employee possono modificare un modello              |
-| FR3.3 | Un manager o un employee possono possono eliminare un modello       |
+| FR3.1 | Un manager o un employee può creare un nuovo modello            |
+| FR3.2 | Un manager o un employee può modificare un modello              |
+| FR3.3 | Un manager o un employee può eliminare un modello       |
 | FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli e filtrarlo per categoria |
 | FR3.5 | Qualisasi utente può cercare un modello per nome |
 | **FR4** | **Gestione carrello**                                             |
@@ -217,16 +219,18 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5.4 | Un customer può visualizzare lo stato del proprio ordine            |
 | FR5.5 | Un customer può cercare un proprio ordine tramite id                |
 | FR5.6 | Il sito deve mostrare a un manager e a un employee una notifica quando un customer completa un nuovo checkout |
-| FR5.7 | Un manager o un employee possono modificare lo stato di un ordine   |
-| FR5.8 | Un manager o un employee possono cercare un ordine tramite id       |
-| FR5.9 | Un manager o un employee possono ottenere lo storico di tutti gli ordini    |
-| FR5.10| Un manager o un employee possono filtrare lo storico degli ordini per stato |
+| FR5.7 | Un manager o un employee può modificare lo stato di un ordine   |
+| FR5.8 | Un manager o un employee può cercare un ordine tramite id       |
+| FR5.9 | Un manager o un employee può ottenere lo storico di tutti gli ordini    |
+| FR5.10| Un manager o un employee può filtrare lo storico degli ordini per stato |
 | FR5.11| Un customer può visualizzare la propria cronologia ordini           |
 | **FR6** | **Gestione recensioni**                                           |
 | FR6.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
 | FR6.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
 | FR6.3 | Un customer può eliminare/modificare una propria recensione                    |
-| FR6.4 | Un manager o un employee possono eliminare una recensione           |
+| FR6.4 | Un manager o un employee può eliminare una recensione           |
+| FR6.5 | Un customer può visualizzare le proprie recensioni          |
+| FR6.6 | Un manager o un employee può visualizzare le recensioni di un dato customer   |
 
 - Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
 - Nota: il requisito FR6.4 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
@@ -292,6 +296,8 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 6.2 |          X             |   X       |     X     |     X      |                      |                       |
 | 6.3 |                        |   X       |           |            |                      |                       |
 | 6.4 |                        |           |     X     |     X      |                      |                       |
+| 6.5 |                        |    X      |           |            |                      |                       |
+| 6.6 |                        |           |     X     |     X      |                      |                       |
 
 # Use case diagram and use cases
 
@@ -303,7 +309,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 1, UC1 Creazione di un nuovo utente customer
 
-| Actors Involved  |                     Chiunque         |
+| Actors Involved  |                     Utente non autenticato        |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato                                    |
 |  Post condition  |  Un nuovo utente customer viene creato e inserito nel database       |
@@ -1799,6 +1805,57 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+### Use case 41, UC41, Visualizzazione delle recensioni personali
+
+| Actors Involved  |                     Utente customer      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer, visualizzazione profilo personale            |
+|  Post condition  |  Recensioni visualizzate                  |
+| Nominal Scenario |  L'utente visualizza le proprie recensioni |
+|     Variants     |   |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 41.1 | Visualizzazione delle recensioni |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come customer,  visualizzazione profilo personale            |
+|  Post condition  |  Recensione visualizzate                   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente accede alla pagina delle proprie recensioni |
+|       2        | Il sistema ritorna la lista di tutte le recensioni dell'utente |
+
+| Scenario 41.2 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
+
+### Use case 42, UC42, Visualizzazione recensioni di un utente
+
+| Actors Involved  |                     Utente manager o employee      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del customer scelto           |
+|  Post condition  |  Visualizzazione recensioni utente                   |
+| Nominal Scenario |  L'utente viusalizza le recensioni |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 42.1 | Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del customer scelto           |
+|  Post condition  |  Visualizzazione recensioni utente                   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente accede alla pagina delle recensioni dell'utente scelto |
+|       2        | Il sistema ritorna la lista di tutte le recensioni dell'utente  |
+
+| Scenario 42.2 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
+
 
 # Glossary
 
