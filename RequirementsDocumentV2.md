@@ -302,8 +302,9 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 # Use case diagram and use cases
 
 ## Use case diagram
+### Utente non autenticato e Customer
 
-![Use case diagram](images/diagram/UseCaseDiagram-v1.0.png)
+![Use case diagram - Utente non autenticato e Customer](images/diagram/UseCaseDiagram_v2.0_UtenteNonAutenticato&Customer.png)
 
 ## Use cases
 
