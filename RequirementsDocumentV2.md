@@ -6,7 +6,7 @@ Version: V2 - description of EZElectronics in NEW form (as decided in group)
 
 | Version number | Change |
 | :------------: | :----: |
-|       8        | Fine casi d'uso e fix tabella contents |
+|       9        | System design diagram |
 
 # Contents
 
@@ -1863,8 +1863,6 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un utente di tipo **Manager** o di tipo **Employee**
 ![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.1_Manager&Employee.png)
 
-
-
 - **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
 - **Categoria prodotto**: Raggruppamento di modelli elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
@@ -1885,6 +1883,8 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 - **Valutazine**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un utente riguardo a un prodotto da lui acquistato.
 
 # System Design
+
+![Design diagram](images/diagram/SystemDesign-v2.0.jpg)
 
 # Deployment Diagram
 
