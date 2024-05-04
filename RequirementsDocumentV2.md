@@ -234,7 +234,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 - Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
 - Nota: il requisito FR6.4 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
-- Nota: i requisiti FR1.7 e FR1.8 comportano l'eliminazione dal database di tutte le informazioni personali (nome, cognome, username, numero di telefono, email, indirizzo, CAP, città, stato, foto profilo e password) e tutte le recensioni che ha scritto. Tuttavia, va mantenuto per motivi legali lo storico degli ordini effettuati a cui l'utente non può avere accesso.
+- Nota: i requisiti FR1.8 e FR1.9 comportano l'eliminazione dal database di tutte le informazioni personali (nome, cognome, username, numero di telefono, email, indirizzo, CAP, città, stato, foto profilo e password) e tutte le recensioni che ha scritto. Tuttavia, va mantenuto per motivi legali la cronologia degli ordini effettuati a cui l'utente non può avere accesso.
 - Nota: il requisito FR3.3 comporta l'eliminazione dal database di tutte le informazioni (nome, specifiche tecniche, immagini, prezzo, recensioni, valutazione). Tuttavia, va mantenuto per motivi legali lo storico di tutti gli ordini per quel modello.
 
 ## Non Functional Requirements
@@ -1864,8 +1864,9 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 ![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.1_Manager&Employee.png)
 
 - **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
-- **Categoria prodotto**: Raggruppamento di modelli elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
+- **Categoria**: Insieme di modelli simili con caratteristiche comuni.
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
+- **Cronologia ordini**: insieme di tutti gli ordini effettuati da un singolo customer.
 - **Customer**: Utente autenticato che utilizza l'applicazione per acquistare prodotti elettronici.
 - **Employee**: Utente autenticato, commesso del negozio che aiuta il manager a svolgere i suoi compiti.
 - **Manager**: Utente autenticato responsabile della gestione del negozio di elettronica.
@@ -1877,6 +1878,7 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 - **Ruolo**: Posizione che un utente assume all'interno del sito. Ogni ruolo conferisce specifici privilegi, accessi o responsabilità all'utente in base alle sue necessità e alle sue autorizzazioni. I ruoli sono: Manager, Emplopyee, Customer e Utente non registrato.
 - **Servizio di pagamento**: insieme di strumenti e circuiti di regolamento e norme che permettono di trasferire la moneta da un soggetto a un altro.
 - **Servizio di spedizione**: insieme di strumenti che mettono in comunicazione il corriere e il negozio.
+- **Storico ordini**: insieme di tutti gli ordini che il negozio ha ricevuto da quando il sito è stato aperto.
 - **Supporto tecnico**: team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
 - **Utente non registrato**: Utente non autenticato che visita il sito.
 - **Utente**: Persona, di qualsiasi ruolo, che è connessa al sito in un determinato momento.

@@ -947,6 +947,8 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
 - **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
 - **Modello**: Raggruppamento di prodotti basato su caratteristiche 
+- **Categoria**: Insieme di modelli simili con caratteristiche comuni.
+- **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici.
 
 # System Design
 
