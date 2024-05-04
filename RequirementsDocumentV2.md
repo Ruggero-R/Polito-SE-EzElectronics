@@ -304,7 +304,11 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 ## Use case diagram
 ### Utente non autenticato e Customer
 
-![Use case diagram - Utente non autenticato e Customer](images/diagram/UseCaseDiagram_v2.0_UtenteNonAutenticato&Customer.png)
+![Use case diagram - Utente non autenticato e Customer](images/diagram/UseCaseDiagram_v2.1_UtenteNonAutenticato&Customer.png)
+
+###  Manager e Employee
+
+![Use case diagram - Manager e Employee](images/diagram/UseCaseDiagram_v2.1_Manager&Employee.png)
 
 ## Use cases
 
@@ -874,7 +878,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 
 |  Scenario 14.3  | campo/i non valido/i |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager |
+|  Precondition  | Utente autenticato come manager o employee, campo/i non valido/i |
 | Post condition | Prodotto non creato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede al sistema di creare un nuovo prodotto cliccando sul pulsante apposito |
@@ -1505,7 +1509,7 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 
 |  Scenario 32.2 | Omissione codice |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, visualizzazione cronologia         |
+|   Precondition   |  Utente autenticato, visualizzazione cronologia ordini utente      |
 |  Post condition  |  Nessuna visualizzazione   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente avvia la ricerca |
@@ -1543,15 +1547,8 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 |     Step#      |                                Description                                 |
 |       1        | L'utente seleziona un nuovo stato nella barra stati |
 |       2        | Il sistema sovrascrive lo stato in data odierna (status: 200) |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
-|  Post condition  |  Recensione non modificata   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona nella barra in basso la recensione che intende modificare |
-|       2        | L'utente inserisce una nuova recensione e annulla la modifica |
-|       3        | Il sistema non sovrascrive la recensione |
 
-| Scenario 33.1 | Errore interno |
+| Scenario 33.2 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
