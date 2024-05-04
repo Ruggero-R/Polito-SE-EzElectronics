@@ -8,21 +8,21 @@ Count only effort spent on EZElectronics (so do not count effort spent in virtua
 
 These figures will not be used to evaluate neither the project nor the team, they are meant as practical application of basic project management.
 
-| Week | requirement engineering | design | coding | unit testing | integration testing | acceptance testing | management | git maven |
-| :---: | :---------------------: | :----: | :----: | :----------: | :-----------------: | :----------------: | :--------: | :-------: |
-| Apr 8-14 | 5 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Apr 15-21 | 8 | 4 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Apr 22-28 | 12 | 6 | 0 | 0 | 0 | 0 | 1 | 0 |
-| Apr 29-May 5 | 8 | 3 | 0 | 0 | 0 | 0 | 3 | 0 |
-| May 6-12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| May 13-19 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| May 20-26| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| May 27-Jun 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jun 3-9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jun 10-16 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jun 17-23 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jun 24-30 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jul 1-7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jul 8-14 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jul 15-22 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Jul 23-29 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+|      Week      | requirement engineering | design | coding | unit testing | integration testing | acceptance testing | management | git maven |
+| :------------: | :---------------------: | :----: | :----: | :----------: | :-----------------: | :----------------: | :--------: | :-------: |
+|   Apr 8 - 14   | 5                       |        |        |              |                     |                    |            |           |
+|  Apr 15 - 21   | 8                       |  4     |        |              |                     |                    |            |           |
+|  Apr 22 - 28   | 17                      |  21    |        |              |                     |                    |   1        |           |
+| Apr 29 - May 5 | 17                      |  29    |        |              |                     |                    |   2        |           |
+|   May 6 - 12   |                         |        |        |              |                     |                    |            |           |
+|  May 13 - 19   |                         |        |        |              |                     |                    |            |           |
+|  May 20 - 26   |                         |        |        |              |                     |                    |            |           |
+| May 27 - Jun 2 |                         |        |        |              |                     |                    |            |           |
+|   Jun 3 - 9    |                         |        |        |              |                     |                    |            |           |
+|  Jun 10 - 16   |                         |        |        |              |                     |                    |            |           |
+|  Jun 17 - 23   |                         |        |        |              |                     |                    |            |           |
+|  Jun 24 - 30   |                         |        |        |              |                     |                    |            |           |
+|   Jul 1 - 7    |                         |        |        |              |                     |                    |            |           |
+|   Jul 8 - 14   |                         |        |        |              |                     |                    |            |           |
+|  Jul 15 - 22   |                         |        |        |              |                     |                    |            |           |
+|  Jul 23 - 29   |                         |        |        |              |                     |                    |            |           |

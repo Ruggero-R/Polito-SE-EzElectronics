@@ -83,7 +83,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. Può modificare le informazioni generali del negozio e gestire il profilo degli Employee. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
 | Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
-| Utente non registrato | Visistatore del sito web che non ha ancora creato un account. È interessato a visualizzare e cercare i modelli che il sito permette di acquistare. |
+| Utente non registrato | Visistatore del sito web che non ha ancora creato un profilo. È interessato a visualizzare e cercare i modelli che il sito permette di acquistare. |
 | Servizi di pagamento | Servizi terzi che permettono ai customer di effettuare transazioni in modo sicuro. |
 | Supporto tecnico | Responsabile della creazione, manutenzione e aggiornamento dell'applicazione. |
 | Servizi di spedizione | Servizi terzi che si incaricano di consegnare i prodotti acquistati dagli utenti presso l'indirizzo da loro specificato.  |
@@ -151,7 +151,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Come manager voglio poeter visualizzare la lista di tutti i modelli in vendita nel sito |
 | Come manager voglio poter modificare i dettagli di un modello in vendita |
 | Come manager voglio poter modificare i dettagli profilo degli utenti registrati |
-| Come manager voglio poter creare gli account degli employee |
+| Come manager voglio poter creare i profili degli employee |
 
 |  **Employee** |
 | :-------  |
@@ -170,7 +170,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  **Utente non registrato** |
 | :-------  |
 | Come utente non registrato voglio poter visualizzare tutti i modelli nell’inventario/appartenenti a una data categoria e visualizzare le loro recensioni senza dovermi registrare |
-| Come utente non registrato, voglio poter creare un account in pochi passi. |
+| Come utente non registrato, voglio poter creare un profilo in pochi passi. |
 
 # Functional and non functional requirements
 
@@ -682,7 +682,7 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 |  Post condition  |  Visualizzazione di tutti gli utenti                        |
 | Nominal Scenario |  Visualizzazione corretta |
 |     Variants     |  Filtro per ruolo |
-|    Exceptions    |  Errore interno, omissione username o account non esistente |
+|    Exceptions    |  Errore interno, omissione username o profilo non esistente |
 
 |  Scenario 10.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -1872,7 +1872,7 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 - **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici.
 - **Ordine**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
 - **Prodotto**: Entità fisica unica e irripetibile che può essere acquistata, caratterizzata da un codice univoco.
-- **Profilo utente**: Pagina riassuntiva di tutte le informazioni di un qualsiasi utente memorizzate.
+- **Profilo**: Insieme di dati che identificano un utente
 - **Recensione**: Commento scritto che riporta le opinioni di un determinato utente su un prodotto da lui acquistato.
 - **Ruolo**: Posizione che un utente assume all'interno del sito. Ogni ruolo conferisce specifici privilegi, accessi o responsabilità all'utente in base alle sue necessità e alle sue autorizzazioni. I ruoli sono: Manager, Emplopyee, Customer e Utente non registrato.
 - **Servizio di pagamento**: insieme di strumenti e circuiti di regolamento e norme che permettono di trasferire la moneta da un soggetto a un altro.

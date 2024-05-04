@@ -63,7 +63,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/diagram/ContextDiagram-v1.2.png)
+![Context diagram](images/diagram/ContextDiagram-v1.3.png)
 
 ## Interfaces
 
@@ -71,10 +71,20 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------: | :---------------: | :----------------: |
 | Manager | Pc                  | GUI                    |
 | Customer | Smartphone, Pc | GUI |
+| Utente non registrato | Smartphone, pc | GUI |
 
 # Stories and personas
 
 ## Personas
+
+|   **Utente non registrato**   |  |
+| :-------: | :---------------: |
+| Età| 40 anni|
+| Occupazione| Imprenditore|
+|Comportamento|  Pratico, interessato agli affari, interessato alla qualità |
+|Obiettivi| Creare un nuovo profilo per acquistare prodotti|
+|Necessità| Facile creazione di un nuovo profilo|
+
 
 |   **Manager**   |  |
 | :-------: | :---------------: |
@@ -106,6 +116,10 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |Come customer voglio poter visualizzare la cronologia dei miei ordini |
 |Come customer voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o i prodotti appartenenti ad una specifica categoria o modello |
 
+|  **Utente non registrato** |
+| :-------  |
+| Come utente non registrato, voglio poter creare un profilo in pochi passi. |
+
 # Functional and non functional requirements
 
 ## Functional Requirements
@@ -113,8 +127,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------:                                                         |
 | **FR1** |      **Gestione Utenti**                                          |
-| FR1.1 | Un utente non autenticato può creare un account con username univoco                 |
-| FR1.2 | Un utente non autenticato può effettuare il login                              |
+| FR1.1 | Un utente non registrato può creare un profilo con username univoco                 |
+| FR1.2 | Un utente non registrato può effettuare il login                              |
 | FR1.3 | Un utente autenticato può effettuare il logout                             |
 | FR1.4 | Un utente autenticato può visualizzare le informazioni del proprio profilo      |
 | **FR2** |    **Gestione Prodotti**                                          |
@@ -164,7 +178,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Table of rights
 
-| FR  |  Customer  |  Manager  |  Utente non autenticato  |
+| FR  |  Customer  |  Manager  |  Utente non registrato  |
 | :-: |  :------:  |  :-----:  | :-----:                  |
 | 1.1 |            |           |         X                | 
 | 1.2 |            |           |       X                  |
@@ -189,13 +203,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ## Use case diagram
 
-![Use case diagram](images/diagram/UseCaseDiagram-v1.1.png)
+![Use case diagram](images/diagram/UseCaseDiagram-v1.2.png)
 
 ## Use cases
 
 ### Use case 1, UC1, Login
 
-| Actors Involved  |           Utente (customer o manager)         |
+| Actors Involved  |           Utente non autenticato        |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato  |
 |  Post condition  |  Utente autenticato e autorizzato   |
@@ -295,7 +309,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 ### Use case 4, UC4 Creazione di un nuovo utente
 
-| Actors Involved  |                     Chiunque         |
+| Actors Involved  |                     Utente non registrato         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente non autenticato                                    |
 |  Post condition  |  Un nuovo utente customer viene creato e inserito nel database                        |
@@ -925,6 +939,8 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 - **Manager**: Persona responsabile della gestione del negozio di elettronica.
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
+- **Utente non registrato**: Utente non in possesso di un profilo 
+- **Profilo**: Insieme di dati che identificano un utente
 - **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
 - **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
 - **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
