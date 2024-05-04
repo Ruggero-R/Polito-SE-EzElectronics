@@ -1858,7 +1858,7 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 
 # Glossary
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un **utente non registrato** o di tipo **Customer**.
-![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.2_UtenteNonRegistrato&Customer.png)
+![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.3_UtenteNonRegistrato&Customer.png)
 
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un utente di tipo **Manager** o di tipo **Employee**
 ![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.1_Manager&Employee.png)
