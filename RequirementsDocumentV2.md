@@ -1857,8 +1857,13 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 |       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
 
 # Glossary
+Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un **utente non registrato** o di tipo **Customer**.
+![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.2_UtenteNonRegistrato&Customer.png)
 
-![Glossario](images/diagram/ClassDiagram-v1.2.png)
+Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un utente di tipo **Manager** o di tipo **Employee**
+![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.1_Manager&Employee.png)
+
+
 
 - **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
 - **Categoria prodotto**: Raggruppamento di modelli elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
