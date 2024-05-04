@@ -191,8 +191,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.10| Un manager o employee possono visualizzare la lista di tutti i profili registrati  |
 | FR1.11| Un manager o employee possono filtrare la lista dei profili registrati per ruolo   |
 | FR1.12| Un manager o employee possono visualizzare il profilo di un altro utente dato lo username|
-| FR1.13| Un manager può modificare le informazioni sul negozio               |
-| FR1.14| Un utente manager o customer può modificare il proprio profilo               |
+| FR1.13| Un utente manager o customer può modificare il proprio profilo      |
 | **FR2** |    **Gestione prodotti**                                          |
 | FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
 | FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
@@ -231,6 +230,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR6.4 | Un manager o un employee possono eliminare una recensione           |
 | FR6.5 | Un customer può visualizzare le proprie recensioni                  |
 | FR6.6 | Un manager o un employee possono visualizzare le recensioni di un dato customer   |
+| **FR7** | Un manager può modificare le informazioni sul negozio             |
 
 - Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
 - Nota: il requisito FR6.4 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
@@ -267,8 +267,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 1.10|                        |           |     X     |     X      |                      |                       |
 | 1.11|                        |           |     X     |     X      |                      |                       |
 | 1.12|                        |           |     X     |     X      |                      |                       |
-| 1.13|                        |           |     X     |            |                      |                       |
-| 1.14|                        |    X      |     X     |            |                      |                       |
+| 1.13|                        |    X      |     X     |            |                      |                       |
 | 2.1 |                        |           |     X     |     X      |                      |                       |
 | 2.2 |                        |           |     X     |     X      |                      |                       |
 | 2.3 |                        |           |     X     |     X      |                      |                       |
@@ -298,6 +297,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 6.4 |                        |           |     X     |     X      |                      |                       |
 | 6.5 |                        |    X      |           |            |                      |                       |
 | 6.6 |                        |           |     X     |     X      |                      |                       |
+| 7 |                          |           |     X     |            |                      |                       |
 
 # Use case diagram and use cases
 
