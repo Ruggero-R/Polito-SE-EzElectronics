@@ -946,6 +946,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 - **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
 - **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
 - **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
+- **Modello**: Raggruppamento di prodotti basato su caratteristiche 
 
 # System Design
 
