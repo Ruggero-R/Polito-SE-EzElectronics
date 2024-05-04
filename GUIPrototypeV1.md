@@ -6,6 +6,12 @@ Date: 24/04/2024
 
 Version: 1.0.0
 
+# Application GUI pdf
+
+| File | Download |
+| ----------------- | -----------------
+|Qui di lato è possibile scaricare il file in una versione pdf interattiva| ![PdfV1](pdf/ProgettoEzElectronicsV1.pdf) |
+
 # Application GUI
 
 | Functionality | Description | Image |
