@@ -2,7 +2,7 @@
 
 Authors: Carlino Mattia, Coppola Neri Valerio, Mosca Alessandro, Rossino Ruggero
 
-Date:
+Date: 03/05/2024
 
 Version: 2.0.0
 
@@ -54,6 +54,13 @@ Version: 2.0.0
 |Visualizza tutti utenti employee| Pagina, visualizzabile dagli utenti manager e dagli utenti employee, relativa alla visualizzazione dell'elenco di tutti gli utenti employee. | ![VisualizzaUtentiEmployee](images/gui/v2/operation/VisualizzaUtentiManagerEmployee.png) |
 |Visualizza tutti utenti manager| Pagina, visualizzabile dagli utenti manager e dagli utenti employee, relativa alla visualizzazione dell'elenco di tutti gli utenti manager. | ![VisualizzaUtentiManager](images/gui/v2/operation/VisualizzaUtentiManager.png) |
 |Nuovo employee| Pagina, accessibile solo dall'utente manager, relativa all'inserimento di un nuovo utente con ruolo employee. | ![NuovoEmployee](images/gui/v2/operation/RegistrazioneEmployee.png) |
+|Vista profilo customer da manager| Pagina, visualizzabile solo dall'utente manager, relativa ad un profilo di un utente customer. | ![ManagerInfoProfiloCustomer](images/gui/v2/operation/ManagerInfoProfiloCustomer.png) |
+|Vista profilo employee da manager| Pagina, visualizzabile solo dall'utente manager, relativa ad un profilo di un utente employee. | ![ManagerInfoProfiloEmployee](images/gui/v2/operation/ManagerInfoProfiloEmployee.png) |
+|Vista profilo manager da manager| Pagina, visualizzabile solo dall'utente manager, relativa ad un profilo di un utente manager. | ![ManagerInfoProfiloManager](images/gui/v2/operation/ManagerInfoProfiloManager.png) |
+|Vista ordini utente da manager| Pagina, visualizzabile solo dall'utente manager, relativa alla visualizzazione di tutti gli ordini di un singolo utente customer. | ![OrdiniUtenteManager](images/gui/v2/cart/OrdiniUtente.png) |
+|Vista ordini vuoti utente da manager| Pagina, visualizzabile solo dall'utente manager, relativa alla visualizzazione di tutti gli ordini di un singolo utente customer che non ha ancora effettuato ordini. | ![OrdiniUtenteVuotoManager](images/gui/v2/cart/OrdiniUtenteVuoto.png) |
+|Recensioni profilo vuoto| Pagina, visualizzabile solo dall'utente manager, relativa alla visualizzazione di tutte le recensioni di un singolo utente customer che non ha ancora effettuato recensioni. | ![RecensioniProfiloVuote](images/gui/v2/review/RecensioniProfiloVuote.png) |
+|Recensioni profilo pieno| Pagina, visualizzabile solo dall'utente manager, relativa alla visualizzazione di tutte le recensioni di un singolo utente customer. | ![RecensioniProfiloPieno](images/gui/v2/review/RecensioniProfiloPiene.png) |
 |New product| Pagina, visualizzabile solo dall'utente manager, relativa all'inserimento di un nuovo prodotto. | ![NewProduct](images/gui/v2/profile/NewProduct.png) |
 |Visualizza tutti i prodotti| Pagina, visualizzabile solo dall'utente manager, relativa all'elenco di tutti i prodotti presenti nel database. | ![VisualizzaProdottiTutti](images/gui/v2/profile/VisualizzaProdottiManagerTutti.png) |
 |Visualizza tutti i prodotti venduti| Pagina, visualizzabile solo dall'utente manager, relativa all'elenco di tutti i prodotti non disponibili presenti nel database. | ![VisualizzaProdottiVenduti](images/gui/v2/profile/VisualizzaProdottiManagerVenduti.png) |
@@ -84,6 +91,8 @@ Version: 2.0.0
 | Allegato file multimediale recensione | Window che permette la selezione di un file multimediale da utilizzare in una recensione da parte di un utente customer. | ![AllegatoRecensione](images/gui/v2/alert/AllegatoRecensioneCarrelloVecchioPieno.png) |
 |Alert recensione effettuata| Alert che avvisa l'utente customer di aver inserito correttamente una recensione per il prodotto selezionato. | ![RecensioneEffettuata](images/gui/v2/alert/AlertRecensioneCarrelloVecchioPieno.png) |
 |Alert Nuovo employee| Alert di conferma di avvenuto inserimento di un nuovo utente con ruolo employee. | ![AlertNuovoEmployee](images/gui/v2/alert/AlertRegistrazioneEmployeeEffettuata.png) |
+|Alert eliminazione customer| Alert di conferma di eliminazione di un utente con ruolo customer. | ![AlertEliminaCustomer](images/gui/v2/alert/AlertManagerInfoProfiloCustomerElimina.png) |
+|Alert eliminazione employee| Alert di conferma di eliminazione di un utente con ruolo employee. | ![AlertEliminaEmployee](images/gui/v2/alert/AlertManagerInfoProfiloEmployeeElimina.png) |
 | Alert prodotto aggiunto al carrello | Un avviso a comparsa temporizzato, della durata di 3 secondi, che appare dopo aver cliccato sul pulsante "Aggiungi al carrello" dalla pagina di un prodotto specifico, indicando l'inserimento del prodotto nel carrello utente.  | ![ProdottoAggiunto](images/gui/v2/alert/ProdottoApertoDisponibileCarrello.png) |
 | Alert prodotto contrassegnato come venduto | Un messaggio di avviso che appare dopo che un manager ha cliccato sul pulsante "Contrassegna come venduto" dalla pagina di un prodotto specifico, indicando l'aggiornamento della data di vendita associata al prodotto. | ![ProdottoManagerVendita](images/gui/v2/alert/AlertProdottoApertoManagerVendita.png) |
 | Alert prodotto eliminato | Un avviso a comparsa che appare dopo aver cliccato sul pulsante "Elimina il prodotto" dalla pagina di un prodotto specifico, richiedendo la conferma dell'azione da parte del manager.  | ![ProdottoManagerElimina](images/gui/v2/alert/AlertProdottoApertoManagerElimina.png) |
