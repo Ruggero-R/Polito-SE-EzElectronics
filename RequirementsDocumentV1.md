@@ -180,8 +180,8 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 | FR  |  Customer  |  Manager  |  Utente non registrato  |
 | :-: |  :------:  |  :-----:  | :-----:                  |
-| 1.1 |            |           |         X                | 
-| 1.2 |            |           |       X                  |
+| 1.1 |            |           |            X             |
+| 1.2 |            |           |            X             |
 | 1.3 |     X      |     X     |                          |
 | 1.4 |     X      |     X     |                          |
 | 2.1 |            |     X     |                          |

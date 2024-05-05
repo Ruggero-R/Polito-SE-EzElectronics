@@ -1,6 +1,6 @@
 # Requirements Document - current EZElectronics
 
-Date: 03/05/2024
+Date: 05/05/2024
 
 Version: V2 - description of EZElectronics in NEW form (as decided in group)
 
@@ -301,6 +301,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 # Use case diagram and use cases
 
 ## Use case diagram
+
 Di seguto si riporta una vista generale dello use case diagram, con solo delle macro categorie.
 ![Use case diagram generale](/images/diagram/UseCaseDiagramV2/UCDv2_Generale.png)
 
@@ -323,7 +324,6 @@ Di seguto si riporta una vista generale dello use case diagram, con solo delle m
 ![Use case diagram gestione recensioni](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneRecensioni.png)
 
 **Nota**: per avere un'idea chiara e precisa di tutte le condizioni necessarie affinchè uno use case possa verificarsi si consiglia di leggere gli use cases di riportati nell'apposita sezione di questo documento.
-
 
 ## Use cases
 
@@ -1737,7 +1737,7 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 39, UC40, Eliminazione recensione da parte del manager/employee
+### Use case 39, UC39, Eliminazione recensione da parte del manager/employee
 
 | Actors Involved  |                     Utente manager o employee      |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1772,7 +1772,7 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e mostra un messaggio di errore |
 
-### Use case 40, UC41, Visualizzazione delle recensioni personali
+### Use case 40, UC40, Visualizzazione delle recensioni personali
 
 | Actors Involved  |                     Utente customer      |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1797,7 +1797,7 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 |     Step#      |   Description    |
 |       1        | Il sistema interrompe la query al database e mostra un messaggio di errore |
 
-### Use case 41, UC42, Visualizzazione recensioni di un utente
+### Use case 41, UC41, Visualizzazione recensioni di un utente
 
 | Actors Involved  |                     Utente manager o employee      |
 | :--------------: | :------------------------------------------------------------------: |

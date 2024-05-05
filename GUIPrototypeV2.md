@@ -4,7 +4,7 @@ Authors: Carlino Mattia, Coppola Neri Valerio, Mosca Alessandro, Rossino Ruggero
 
 Date: 03/05/2024
 
-Version: 2.0.0
+Version: 2.0
 
 # Application GUI
 
@@ -71,7 +71,7 @@ Version: 2.0.0
 
 # Application GUI - Alert
 
-**In questa tabella saranno riportati tutti gli alert collegati alla corretta funzionalità della GUI**
+## In questa tabella saranno riportati tutti gli alert collegati alla corretta funzionalità della GUI
 
 | Functionality | Description | Image |
 | ----------------- | ----------------- |:-----------:|

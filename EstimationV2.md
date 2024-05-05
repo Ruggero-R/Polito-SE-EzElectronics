@@ -1,6 +1,6 @@
 # Project Estimation - FUTURE
 
-Date: 03/0/2024
+Date: 03/05/2024
 
 Version: 1.0
 
@@ -69,6 +69,6 @@ Report here the results of the three estimation approaches. The  estimates may d
 | estimate by product decomposition |   132  | 5 |
 | estimate by activity decomposition |  134 | 5 |
 
-The differing results among the three approaches may be related to various factors. 
-First of all, the approach based on lines of code (LOC) doesn't consider all the effort spent on requirements, design and testing parts. 
+The differing results among the three approaches may be related to various factors.
+First of all, the approach based on lines of code (LOC) doesn't consider all the effort spent on requirements, design and testing parts.
 Finally, the discrepancy between the two decomposition approaches is related to the different levels of details required from each method: the activity-based decomposition has a higher level of details respect to the product-based decomposition.
