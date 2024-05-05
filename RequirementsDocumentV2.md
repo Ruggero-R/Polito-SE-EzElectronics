@@ -81,7 +81,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------: | :---------: |
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. Può modificare le informazioni generali del negozio e gestire il profilo degli Employee. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
-| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
+| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite. |
 | Utente non registrato | Visistatore del sito web che non ha ancora creato un profilo. È interessato a visualizzare e cercare i modelli che il sito permette di acquistare. |
 | Servizi di pagamento | Servizi terzi che permettono ai customer di effettuare transazioni in modo sicuro. |
 | Supporto tecnico | Responsabile della creazione, manutenzione e aggiornamento dell'applicazione. |
@@ -149,7 +149,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Come manager voglio poter visualizzare l'intero inventario, un singolo prodotto tramite il suo codice, o prodotti appartenenti a una specifica categoria o modello. |
 | Come manager voglio essere in grado di vedere l'elenco completo dei modelli disponibili sul sito. |
 | Come manager voglio poter apportare modifiche ai dettagli di un modello in vendita. |
-| Come manager voglio  avere accesso per modificare i profili degli utenti registrati. |
+| Come manager voglio poter visualizzare i profili degli utenti registrati. |
 | Come manager voglio poter creare i profili degli employee |
 
 |  **Employee** |
@@ -208,7 +208,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.1 | Gli utenti "customer" possono visualizzare il contenuto del proprio carrello.                    |
 | FR4.2 | Gli utenti "customer" possono aggiungere un modello al proprio carrello, specificando la quantità desiderata. |
 | FR4.3 | Gli utenti "customer" possono procedere al checkout del proprio carrello.           |
-| FR4.4 | Gli utenti "customer" possono rimuovere un prodotto dal loro carrello.o                  |
+| FR4.4 | Gli utenti "customer" possono rimuovere un prodotto dal loro carrello.                  |
 | FR4.5 | Gli utenti "customer" possono svuotare completamente il proprio carrello.                       |
 | **FR5** | **Gestione ordini**                                               |
 | FR5.1 | Gli utenti "customer" possono scegliere se ritirare il proprio ordine presso il negozio o riceverlo tramite corriere. |
