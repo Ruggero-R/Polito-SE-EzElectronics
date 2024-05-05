@@ -63,10 +63,9 @@ Version: V2 - description of EZElectronics in NEW form (as decided in group)
     - [UC36, Nuova recensione](#use-case-36-uc36-nuova-recensione)
     - [UC37, Visualizzazione recensioni](#use-case-37-uc37-visualizzazione-recensioni-del-modello)
     - [UC38, Eliminazione della propria recensione](#use-case-38-uc38-eliminazione-recensione-da-parte-del-customer)
-    - [UC39, Modifica recensione](#use-case-39-uc39-modifica-recensione)
-    - [UC40, Eliminazione di una recensione](#use-case-40-uc40-eliminazione-recensione-da-parte-del-manageremployee)
-    - [UC41, Visualizzazione delle recensioni personali](#use-case-41-uc41-visualizzazione-delle-recensioni-personali)
-    - [UC42, Visualizzazione recensioni di un utente](#use-case-42-uc42-visualizzazione-recensioni-di-un-utente)
+    - [UC39, Eliminazione di una recensione](#use-case-39-uc39-eliminazione-recensione-da-parte-del-manageremployee)
+    - [UC40, Visualizzazione delle recensioni personali](#use-case-40-uc40-visualizzazione-delle-recensioni-personali)
+    - [UC41, Visualizzazione recensioni di un utente](#use-case-41-uc41-visualizzazione-recensioni-di-un-utente)
 
 - [Glossary](#glossary)
 - [System Design](#system-design)
@@ -255,19 +254,19 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 
 | FR  | Utente non autenticato | Customer  |  Manager  |  Employee  | Servizi di pagamento | Servizi di spedizione |
 | :-: | :--------------------: | :------:  |  :-----:  |  :-------: | :------------------: | :-------------------: |
-| 1.1 |           X            |   X       |     X     |     X      |                      |                       |
-| 1.2 |           X            |   X       |     X     |     X      |                      |                       |
-| 1.3 |                        |   X       |     X     |     X      |                      |                       |
-| 1.4 |                        |   X       |     X     |     X      |                      |                       |
+| 1.1 |           X            |     X     |     X     |     X      |                      |                       |
+| 1.2 |           X            |     X     |     X     |     X      |                      |                       |
+| 1.3 |                        |     X     |     X     |     X      |                      |                       |
+| 1.4 |                        |     X     |     X     |     X      |                      |                       |
 | 1.5 |                        |           |     X     |            |                      |                       |
 | 1.6 |                        |           |     X     |            |                      |                       |
 | 1.7 |                        |           |     X     |            |                      |                       |
 | 1.8 |                        |           |     X     |            |                      |                       |
-| 1.9 |                        |   X       |           |            |                      |                       |
+| 1.9 |                        |     X     |           |            |                      |                       |
 | 1.10|                        |           |     X     |     X      |                      |                       |
 | 1.11|                        |           |     X     |     X      |                      |                       |
 | 1.12|                        |           |     X     |     X      |                      |                       |
-| 1.13|                        |    X      |     X     |            |                      |                       |
+| 1.13|                        |     X     |     X     |            |                      |                       |
 | 2.1 |                        |           |     X     |     X      |                      |                       |
 | 2.2 |                        |           |     X     |     X      |                      |                       |
 | 2.3 |                        |           |     X     |     X      |                      |                       |
@@ -277,25 +276,25 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 3.1 |                        |           |     X     |     X      |                      |                       |
 | 3.2 |                        |           |     X     |     X      |                      |                       |
 | 3.3 |                        |           |     X     |     X      |                      |                       |
-| 3.4 |          X             |   X       |     X     |     X      |                      |                       |
-| 3.5 |          X             |   X       |     X     |     X      |                      |                       |
-|  4  |                        |   X       |           |            |                      |                       |
-| 5.1 |                        |   X       |           |            |                      |                       |
-| 5.2 |                        |   X       |           |            |                      |           X           |
-| 5.3 |                        |   X       |           |            |         X            |                       |
-| 5.4 |                        |   X       |           |            |                      |                       |
-| 5.5 |                        |   X       |           |            |                      |                       |
+| 3.4 |          X             |     X     |     X     |     X      |                      |                       |
+| 3.5 |          X             |     X     |     X     |     X      |                      |                       |
+|  4  |                        |     X     |           |            |                      |                       |
+| 5.1 |                        |     X     |           |            |                      |                       |
+| 5.2 |                        |     X     |           |            |                      |           X           |
+| 5.3 |                        |     X     |           |            |         X            |                       |
+| 5.4 |                        |     X     |           |            |                      |                       |
+| 5.5 |                        |     X     |           |            |                      |                       |
 | 5.6 |                        |           |     X     |     X      |                      |                       |
 | 5.7 |                        |           |     X     |     X      |                      |                       |
 | 5.8 |                        |           |     X     |     X      |                      |                       |
 | 5.9 |                        |           |     X     |     X      |                      |                       |
 | 5.10|                        |           |     X     |     X      |                      |                       |
 | 5.11|                        |           |           |            |                      |                       |
-| 6.1 |                        |   X       |           |            |                      |                       |
-| 6.2 |          X             |   X       |     X     |     X      |                      |                       |
-| 6.3 |                        |   X       |           |            |                      |                       |
+| 6.1 |                        |     X     |           |            |                      |                       |
+| 6.2 |          X             |     X     |     X     |     X      |                      |                       |
+| 6.3 |                        |     X     |           |            |                      |                       |
 | 6.4 |                        |           |     X     |     X      |                      |                       |
-| 6.5 |                        |    X      |           |            |                      |                       |
+| 6.5 |                        |     X     |           |            |                      |                       |
 | 6.6 |                        |           |     X     |     X      |                      |                       |
 | 7 |                          |           |     X     |            |                      |                       |
 
@@ -688,7 +687,7 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 |  Post condition  |  Visualizzazione di tutti gli utenti                        |
 | Nominal Scenario |  Visualizzazione corretta |
 |     Variants     |  Filtro per ruolo |
-|    Exceptions    |  Errore interno, omissione username o profilo non esistente |
+|    Exceptions    |  Errore interno |
 
 |  Scenario 10.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -706,23 +705,7 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 |       1        | L'utente clicca sul filtro ruolo |
 |       2        | Il sistema risponde filtrando gli utenti per il ruolo selezionato |
 
-|  Scenario 10.3 | Ricerca singolo utente tramite username  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o employee|
-| Post condition | Visualizzazione dell'utente con username specificato   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente inserisce uno username nella barra du ricerca e clicca sul pulsante per avviare l'operazione |
-|       2        | Il sistema risponde stampando a video il profilo dell'utente cercato |
-
-|  Scenario 10.4 | Utente non esistente o username omesso  |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | Utente autenticato come manager o employee|
-| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente non inserisce uno username o inserisce uno relativo ad un utente inesistente nella barra di ricerca e clicca sul pulsante per avviare l'operazione |
-|       2        | Il sistema non trova l'utente e risponde stampando a video un messaggio di errore (status: 404) |
-
-|  Scenario 10.5  |  Errore interno |
+|  Scenario 10.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -737,17 +720,25 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 |  Post condition  |  Visualizzazione dettagli utente                       |
 | Nominal Scenario |  Visualizzazione corretta |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Errore interno |
+|    Exceptions    |  Username omesso o inesistente, errore interno |
 
 |  Scenario 11.1 | Visualizzazione corretta  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager o employee|
 | Post condition | Visualizzazione di tutti i dettagli dell'utente selezionato    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente clicca sul link per visualizzare i dettagli dell'utente |
+|       1        |  L'utente inserisce uno username nella barra di ricerca e clicca sul pulsante per avviare l'operazione|
 |       2        | Il sistema risponde stampando a video l'elenco dei dettagli utente |
 
-|  Scenario 11.2  |  Errore interno |
+|  Scenario 11.2 | Utente non esistente o username omesso  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | Utente autenticato come manager o employee|
+| Post condition | Nessuna visualizzazione dell'utente con username scelto   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente non inserisce uno username o inserisce uno relativo ad un utente inesistente nella barra di ricerca e clicca sul pulsante per avviare l'operazione |
+|       2        | Il sistema non trova l'utente e risponde stampando a video un messaggio di errore (status: 404) |
+
+|  Scenario 11.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -793,7 +784,7 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul link per modificare le informazioni suul negozio |
 |       2        | Il sistema chiede di inserire i campi nome azienda, p.iva, sede legale, email, numero di telefono |
-|       3        | L'utente inserisce i campi richiesti, ma ne metta alcuni non validi e avvia l'operazione |
+|       3        | L'utente inserisce i campi richiesti, ma ne omette alcuni o inserisce valori non validi e avvia l'operazione |
 |       4        | Il sistema annulla l'operazione e stampa un messaggio di errore (status: 404) |
 
 |  Scenario 12.4  |  Errore interno |
@@ -827,7 +818,7 @@ Nota: modifica non eseguibile sul campo username
 |       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
+Nota: Se non viene inserista nessuna immagine profilo, viene usato l'avatar di default
 
 |  Scenario 13.2  | Omissione o invalidazione di campi obbligatori  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -896,7 +887,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 
 ### Use case 15, UC15, Registrazione arrivo di un set di prodotti
 
-| Actors Involved  |                     Utente manager o employee         |
+| Actors Involved  |                    Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come manager o employee               |
 |  Post condition  |  Insieme di prodotti creato e inserito nel database                        |
@@ -1034,7 +1025,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 |  Precondition  | Utente autenticato come manager o employee, stampa di tutti i prodotti effettuata |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "yes" nella tendina laterale |
+|       1        | L'utente seleziona "venduti" nella tendina laterale |
 |       2        | Il sistema filtra i vari prodotti mantenendo solo quelli venduti (status: 200) |
 
 |  Scenario 18.3  | Visualizzazione con successo (sold=no) |
@@ -1042,7 +1033,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 |  Precondition  | Utente autenticato come manager o employee, stampa di tutti i prodotti effettuata|
 | Post condition | Utente autenticato, stampa di tutti i prodotti effettuata     |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "no" nella tendina laterale |
+|       1        | L'utente seleziona "Non venduti" nella tendina laterale |
 |       2        | Il sistema filtra i vari prodotti mantenendo solo quelli non venduti (status: 200) |
 
 |  Scenario 18.4 | Visualizzazione con successo (per categoria) |
@@ -1082,7 +1073,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 
 | Actors Involved  |                     Utente manager o employee        |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager o employee           |
+|   Precondition   |  Utente autenticato come manager o employee, Visualizzazione prodotto           |
 |  Post condition  |  Prodotto eliminato                     |
 | Nominal Scenario |  L'utente elimina il prodotto con codice scelto |
 |     Variants     |  Nessuna |
@@ -1091,7 +1082,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 |  Scenario 19.1 | Eliminazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager o employee, visualizzazione prodotto |
-| Post condition | Elenco prodotti a schermo    |
+| Post condition | Elenco prodotti a schermo, prodotto eliminato   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente seleziona un prodotto singolo e clicca sul cestino |
 |       2        | Il sistema elimina dal database il prodotto con il codice coincidente a quello selezionato |
@@ -1104,7 +1095,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
 Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
-Nota: L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è già stato contrassegnato come venduto o eliminato.
+L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è già stato contrassegnato come venduto o eliminato.
 
 ### Use case 20, UC20, Creazione di un nuovo modello
 
@@ -1158,11 +1149,11 @@ Nota: L'eliminazione è una possibilità offerta solo se il suddetto prodotto no
 
 | Actors Involved  |                     Utente manager o employee         |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager o employee, modello selezionato                          |
-|  Post condition  |  Modello modificato                        |
+|   Precondition   |  Utente autenticato come manager o employee, modello selezionato   |
+|  Post condition  |  Modello modificato    |
 | Nominal Scenario |  Modifica del modello selezionato |
 |     Variants     |  Nessuna |
-|    Exceptions    |  Uno o più campi non inseriti o non validi, errore interno |
+|    Exceptions    |  Omissione o invalidazione di uno o più campi, errore interno |
 
 |  Scenario 21.1  | Modifica con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -1175,7 +1166,7 @@ Nota: L'eliminazione è una possibilità offerta solo se il suddetto prodotto no
 |       4        | Il sistema aggiorna nel database il nuovo modello con i campi passati in data corrente|
 |       5        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-|  Scenario 21.2  | Campo/i non inserito o non valido/i |
+|  Scenario 21.2  | Omissione o invalidazione di uno o più campi |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager o employee, modello selezionato |
 | Post condition | Modello non modificato   |
@@ -1185,7 +1176,7 @@ Nota: L'eliminazione è una possibilità offerta solo se il suddetto prodotto no
 |       3        | L'utente inserisce le informazioni tranne una o più o inserisce valori non validi |
 |       4        | Il sistema non inserisce il modello e risponde con il messaggio di fallimento |
 
-|  Scenario 21.4  |  Errore interno |
+|  Scenario 21.3  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
@@ -1690,7 +1681,7 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 |   Precondition   |  Utente autenticato, modello selezionato           |
 |  Post condition  |  Recensioni stampate a schermo                    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona il modello desiderato e clica per visualizzare le recensioni inserite |
+|       1        | L'utente seleziona il modello desiderato e clicca per visualizzare le recensioni inserite |
 |       2        | Il sistema preleva dal database tutte le recensioni riferite al modello selezionato e le stampa (status: 200) |
 
 | Scenario 37.2 | Errore interno |
@@ -1882,7 +1873,7 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 - **Supporto tecnico**: team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
 - **Utente non registrato**: Utente non autenticato che visita il sito.
 - **Utente**: Persona, di qualsiasi ruolo, che è connessa al sito in un determinato momento.
-- **Valutazine**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un utente riguardo a un prodotto da lui acquistato.
+- **Valutazione**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un utente riguardo a un prodotto da lui acquistato.
 
 # System Design
 
