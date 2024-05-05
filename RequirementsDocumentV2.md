@@ -179,63 +179,63 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------                                                          |
 | **FR1** |      **Gestione utenti**                                          |
-| FR1.1 | Un utente non autenticato può creare un profilo customer            |
-| FR1.2 | Un utente non autenticato può effettuare login                      |
-| FR1.3 | Un utente autenticato può effettuare logout                         |
-| FR1.4 | Un customer può visualizzare le informazioni del proprio profilo    |
-| FR1.5 | Un manager può creare il profilo di un employee                     |
-| FR1.6 | Un manager può modificare il profilo di un employee                 |
-| FR1.7 | Un manager può eliminare il profilo di un employee                  |
-| FR1.8 | Un manager può eliminare il profilo di un customer                  |
-| FR1.9 | Un customer può eliminare il proprio profilo                        |
-| FR1.10| Un manager o employee possono visualizzare la lista di tutti i profili registrati  |
-| FR1.11| Un manager o employee possono filtrare la lista dei profili registrati per ruolo   |
-| FR1.12| Un manager o employee possono visualizzare il profilo di un altro utente dato lo username|
-| FR1.13| Un utente manager o customer può modificare il proprio profilo      |
+| FR1.1 | Gli utenti non autenticati hanno la capacità di creare un profilo utente di tipo "customer".                        |
+| FR1.2 | Gli utenti non autenticati possono effettuare il login nel sistema.                                                 |
+| FR1.3 | Gli utenti autenticati hanno la possibilità di eseguire il logout dal sistema.                                      |
+| FR1.4 | Gli utenti "customer" possono accedere e visualizzare le informazioni associate al proprio profilo utente.          |
+| FR1.5 | I manager sono abilitati a creare il profilo di un dipendente ("employee").                                         |
+| FR1.6 | I manager possono apportare modifiche al profilo di un dipendente.                                                  |
+| FR1.7 | I manager hanno l'autorità di eliminare il profilo di un dipendente.                                                |
+| FR1.8 | I manager possono eliminare il profilo di un cliente ("customer").                                                  |
+| FR1.9 | I clienti "customer" hanno la facoltà di eliminare il proprio profilo utente.                                       |
+| FR1.10| I manager e gli employee hanno accesso alla visualizzazione dell'intero elenco dei profili utente registrati.       |
+| FR1.11| I manager e gli employee possono filtrare l'elenco dei profili utente registrati in base al ruolo.                  |
+| FR1.12| I manager e gli employee possono visualizzare il profilo di un altro utente tramite il suo username.                |
+| FR1.13| Gli utenti di tipo "manager" o di tipo "customer" possono modificare le informazioni del proprio profilo utente.    |
 | **FR2** |    **Gestione prodotti**                                          |
-| FR2.1 | Un manager o un employee possono registrare un nuovo prodotto       |
-| FR2.2 | Un manager o un employee possono registrare l'arrivo di un insieme di prodotti dello stesso modello |
-| FR2.3 | Un manager o un employee possono segnare un prodotto come venduto   |
-| FR2.4 | Un manager o un employee possono cercare un prodotto tramite codice |
-| FR2.5 | Un manager o un employee possono ottenere l'elenco di tutti i prodotti e filtrarli per modello e categoria |
-| FR2.6 | Un manager o un employee possono eliminare un prodotto non ancora venduto           |
+| FR2.1 | I manager e gli employee possono registrare un nuovo prodotto       |
+| FR2.2 | I manager e gli employee possono registrare l'arrivo di una serie di prodotti appartenenti allo stesso modello. |
+| FR2.3 | I manager e gli employee hanno la capacità di segnare un prodotto come venduto nel sistema.                     |
+| FR2.4 | I manager e gli employee possono effettuare ricerche di prodotti tramite il loro codice.                        |
+| FR2.5 | I manager e gli employee possono ottenere un elenco completo di tutti i prodotti e filtrarli per modello e categoria. |
+| FR2.6 | I manager e gli employee possono eliminare un prodotto che non è ancora stato venduto dal sistema.           |
 | **FR3**| **Gestione modelli**                                               |
-| FR3.1 | Un manager o un employee possono creare un nuovo modello            |
-| FR3.2 | Un manager o un employee possono modificare un modello              |
-| FR3.3 | Un manager o un employee possono eliminare un modello solo se tutti i prodotti sono terminati       |
-| FR3.4 | Qualsiasi utente può ottenere l'elenco di tutti i modelli e filtrarlo per categoria |
-| FR3.5 | Qualisasi utente può cercare un modello per nome |
+| FR3.1 | I manager o gli employee possono creare un nuovo modello di prodotto.            |
+| FR3.2 | I manager e gli employee sono in grado di apportare modifiche a un modello esistente.              |
+| FR3.3 | I manager e gli employee possono eliminare un modello solo se tutti i prodotti associati sono stati venduti.       |
+| FR3.4 | Gli utenti possono ottenere un elenco completo di tutti i modelli e filtrarli per categoria. |
+| FR3.5 | Gli utenti hanno la capacità di cercare un modello specifico tramite il suo nome. |
 | **FR4** | **Gestione carrello**                                             |
-| FR4.1 | Un customer può visualizzare il proprio carrello                    |
-| FR4.2 | Un customer può aggiungere un modello al proprio carrello, specificando la quantità di prodotti che desidera acquistare |
-| FR4.3 | Un customer può eseguire il checkout del proprio carrello           |
-| FR4.4 | Un customer può rimuovere un prodotto dal carrello                  |
-| FR4.5 | Un customer può svuotare il proprio carrello                        |
+| FR4.1 | Gli utenti "customer" possono visualizzare il contenuto del proprio carrello.                    |
+| FR4.2 | Gli utenti "customer" possono aggiungere un modello al proprio carrello, specificando la quantità desiderata. |
+| FR4.3 | Gli utenti "customer" possono procedere al checkout del proprio carrello.           |
+| FR4.4 | Gli utenti "customer" possono rimuovere un prodotto dal loro carrello.o                  |
+| FR4.5 | Gli utenti "customer" possono svuotare completamente il proprio carrello.                       |
 | **FR5** | **Gestione ordini**                                               |
-| FR5.1 | Un customer decide se ritirare il proprio ordine in negozio o riceverlo a casa tramite corriere |
-| FR5.2 | Se il customer decide di ricevere il proprio ordine tramite corriere, il sito inoltra i dati di spedizione al corriere |
-| FR5.3 | Se il customer decide di ricevere il proprio ordine tramite corriere, deve essere reindirizzato alla pagina del pagamento |
-| FR5.4 | Un customer può visualizzare lo stato del proprio ordine            |
-| FR5.5 | Un customer può cercare un proprio ordine tramite id                |
-| FR5.6 | Il sito deve mostrare a un manager e a un employee una notifica quando un customer completa un nuovo checkout |
-| FR5.7 | Un manager o un employee possono modificare lo stato di un ordine   |
-| FR5.8 | Un manager o un employee possono cercare un ordine tramite id       |
-| FR5.9 | Un manager o un employee possono ottenere lo storico di tutti gli ordini    |
-| FR5.10| Un manager o un employee possono filtrare lo storico degli ordini per stato |
-| FR5.11| Un customer può visualizzare la propria cronologia ordini           |
+| FR5.1 | Gli utenti "customer" possono scegliere se ritirare il proprio ordine presso il negozio o riceverlo tramite corriere. |
+| FR5.2 | Se l'utente "customer" opta per la consegna tramite corriere, il sito deve trasferire i dati di spedizione al corriere. |
+| FR5.3 | Se l'utente "customer" sceglie la consegna tramite corriere, deve essere reindirizzato alla pagina di pagamento. |
+| FR5.4 | Gli utenti "customer" possono visualizzare lo stato attuale del proprio ordine.           |
+| FR5.5 |  Il sistema notifica i manager e gli employee quando un customer completa un nuovo checkout. |
+| FR5.6 | I manager e gli employee possono modificare lo stato di un ordine nel sistema.   |
+| FR5.7 | I manager e gli employee possono cercare un ordine specifico tramite il suo identificatore.       |
+| FR5.8 | I manager e gli employee possono accedere allo storico completo di tutti gli ordini effettuati.    |
+| FR5.9| I manager e gli employee possono filtrare lo storico degli ordini in base allo stato. |
+| FR5.10| Gli utenti customer possono visualizzare la loro cronologia completa degli ordini.          |
 | **FR6** | **Gestione recensioni**                                           |
-| FR6.1 | Un customer che abbia acquistato un determinato prodotto può recensirne il modello |
-| FR6.2 | Qualsiasi utente può visualizzare le recensioni di un determinato modello |
-| FR6.3 | Un customer può eliminare/modificare una propria recensione         |
-| FR6.4 | Un manager o un employee possono eliminare una recensione           |
-| FR6.5 | Un customer può visualizzare le proprie recensioni                  |
-| FR6.6 | Un manager o un employee possono visualizzare le recensioni di un dato customer   |
-| **FR7** | Un manager può modificare le informazioni sul negozio             |
+| FR6.1 | Gli utenti customer che hanno acquistato un determinato prodotto possono recensirne il modello. |
+| FR6.2 | Gli utenti hanno la possibilità di visualizzare le recensioni di un determinato modello di prodotto. |
+| FR6.3 | Gli utenti customer hanno la possibilità di eliminare le proprie recensioni.        |
+| FR6.4 | I manager e gli employee possono eliminare una recensione dal sistema.          |
+| FR6.5 | Gli utenti customer possono visualizzare un elenco delle loro recensioni.                  |
+| FR6.6 | I manager o gli employee possono visualizzare le recensioni di un determinato utente "cutomer" nel sistema.  |
+| **FR7** | **Gestione delle informazioni sul negozio**                       |
+| FR7.1 | I manager possono modificare le informazioni relative al negozio nel sistema.       |
 
-- Nota: il requisito FR1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio, mentre gli utente Employee devono essere creati da un utente Manager.
-- Nota: il requisito FR6.4 può far sorgere dubbi di natura etica, tuttavia lo si ritiene necessario per motivi di moderazione.
-- Nota: i requisiti FR1.8 e FR1.9 comportano l'eliminazione dal database di tutte le informazioni personali (nome, cognome, username, numero di telefono, email, indirizzo, CAP, città, stato, foto profilo e password) e tutte le recensioni che ha scritto. Tuttavia, va mantenuto per motivi legali la cronologia degli ordini effettuati a cui l'utente non può avere accesso.
-- Nota: il requisito FR3.3 comporta l'eliminazione dal database di tutte le informazioni (nome, specifiche tecniche, immagini, prezzo, recensioni, valutazione). Tuttavia, va mantenuto per motivi legali lo storico di tutti gli ordini per quel modello.
+- Nota: Si sottolinea che il requisito FR1.1 evidenzia la possibilità di creare soltanto utenti di tipo "customer". Si precisa inoltre che gli utenti di tipo "manager" devono essere preesistenti nel database al momento dell'avvio del sistema, mentre gli utenti di tipo "employee" devono essere creati esclusivamente da un utente di tipo "manager".
+- Nota: È importante notare che il requisito FR6.4 potrebbe suscitare questioni etiche; tuttavia, è stato ritenuto necessario per motivi di moderazione.
+- Nota: Si tenga presente che i requisiti FR1.8 e FR1.9 comportano la rimozione completa dalle informazioni personali del database (nome, cognome, username, numero di telefono, email, indirizzo, CAP, città, stato, foto profilo e password) nonché tutte le recensioni scritte dall'utente. È tuttavia fondamentale conservare per ragioni legali lo storico degli ordini effettuati, al quale l'utente non può accedere.
+- Nota: Si evidenzia che il requisito FR3.3 comporta l'eliminazione completa dalle informazioni relative a un modello nel database, comprese nome, specifiche tecniche, immagini, prezzo, recensioni e valutazioni. È però essenziale mantenere per motivi legali lo storico di tutti gli ordini relativi a quel modello.
 
 ## Non Functional Requirements
 
