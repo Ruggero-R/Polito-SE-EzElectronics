@@ -91,7 +91,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/diagram/ContextDiagram-v2.2.png)
+![Context diagram](images/diagram/v2/ContextDiagram-v2.2.png)
 
 ## Interfaces
 
@@ -303,25 +303,25 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ## Use case diagram
 
 Di seguto si riporta una vista generale dello use case diagram, con solo delle macro categorie.
-![Use case diagram generale](/images/diagram/UseCaseDiagramV2/UCDv2_Generale.png)
+![Use case diagram generale](/images/diagram/v2/UseCaseDiagramV2/UCDv2_Generale.png)
 
 - Use case riferiti alla gestione degli utenti
-![Use case diagram gestione utenti](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneUtenti.png)
+![Use case diagram gestione utenti](/images/diagram/v2/UseCaseDiagramV2/UCDv2_GestioneUtenti.png)
 
 - Use case riferiti alla gestione dei modelli
-![Use case diagram gestione modelli](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneModelli.png)
+![Use case diagram gestione modelli](/images/diagram/v2/UseCaseDiagramV2/UCDv2_GestioneModelli.png)
 
 - Use case riferiti alla gestione dei prodotti
-![Use case diagram gestione prodotti](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneProdotti.png)
+![Use case diagram gestione prodotti](/images/diagram/v2/UseCaseDiagramV2/UCDv2_GestioneProdotti.png)
 
 - Use case riferiti alla gestione del carrello
-![Use case diagram gestione carrello](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneCarrello.png)
+![Use case diagram gestione carrello](/images/diagram/v2/UseCaseDiagramV2/UCDv2_GestioneCarrello.png)
 
 - Use case riferiti alla gestione ordini
-![Use case diagram gestione ordini](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneOrdini.png)
+![Use case diagram gestione ordini](/images/diagram/v2/UseCaseDiagramV2/UCDv2_GestioneOrdini.png)
 
 - Use case riferiti alla gestione delle recensioni
-![Use case diagram gestione recensioni](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneRecensioni.png)
+![Use case diagram gestione recensioni](/images/diagram/v2/UseCaseDiagramV2/UCDv2_GestioneRecensioni.png)
 
 **Nota**: per avere un'idea chiara e precisa di tutte le condizioni necessarie affinchè uno use case possa verificarsi si consiglia di leggere gli use cases di riportati nell'apposita sezione di questo documento.
 
@@ -1825,10 +1825,10 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 # Glossary
 
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un **utente non registrato** o di tipo **Customer**.
-![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.3_UtenteNonRegistrato&Customer.png)
+![Class Diagram - Utente non registrato / Customer](images/diagram/v2/ClassDiagram-v2.3_UtenteNonRegistrato&Customer.png)
 
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un utente di tipo **Manager** o di tipo **Employee**
-![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.1_Manager&Employee.png)
+![Class Diagram - Manager / Employee](images/diagram/v2/ClassDiagram-v2.1_Manager&Employee.png)
 
 - **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei modelli selezionati da un customer prima di completare il processo di acquisto.
 - **Categoria**: Insieme di modelli con caratteristiche e funzionalità comuni.
@@ -1855,8 +1855,8 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 
 # System Design
 
-![Design diagram](images/diagram/SystemDesign-v2.0.jpg)
+![Design diagram](images/diagram/v2/SystemDesign-v2.0.jpg)
 
 # Deployment Diagram
 
-![Deployment diagram](images/diagram/DeploymentDiagram-v2.0.svg)
+![Deployment diagram](images/diagram/v2/DeploymentDiagram-v2.0.svg)

@@ -57,7 +57,7 @@ Consider the EZElectronics  project in FUTURE version (as proposed by your team 
 | UI Testing | 2 |
 | Testing of NF req | 6 |
 
-![Gantt diagramm](images/diagram/GanttDiagram-v2.0.jpg)
+![Gantt diagramm](images/diagram/v2/GanttDiagram-v2.0.jpg)
 
 # Summary
 

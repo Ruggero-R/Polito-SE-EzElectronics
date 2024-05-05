@@ -63,7 +63,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Context Diagram
 
-![Context diagram](images/diagram/ContextDiagram-v1.3.png)
+![Context diagram](images/diagram/v1/ContextDiagram-v1.3.png)
 
 ## Interfaces
 
@@ -192,18 +192,13 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | 2.6 |     X      |     X     |                          |
 | 2.7 |     X      |     X     |                          |
 | 2.8 |            |     X     |                          |
-| 3.1 |     X      |           |                          |
-| 3.2 |     X      |           |                          |
-| 3.3 |     X      |           |                          |
-| 3.4 |     X      |           |                          |
-| 3.5 |     X      |           |                          |
-| 3.6 |     X      |           |                          |
+| 3 |     X      |           |                          |
 
 # Use case diagram and use cases
 
 ## Use case diagram
 
-![Use case diagram](images/diagram/UseCaseDiagram-v1.2.png)
+![Use case diagram](images/diagram/v1/UseCaseDiagram-v1.2.png)
 
 ## Use cases
 
@@ -935,7 +930,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 # Glossary
 
-![Glossario](images/diagram/ClassDiagram-v1.4.png)
+![Glossario](images/diagram/v1/ClassDiagram-v1.4.png)
 
 - **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati da un customer prima di eseguire il checkout.
 - **Categoria**: Insieme di modelli con caratteristiche e funzionalità comuni.
@@ -953,8 +948,6 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 *Nota: Dal momento che dal codice non risulta esserci una gestione dei pagamenti, si presuppone che il checkout serva per ordinare dei prodotti che poi dovranno essere ritirati dal customer fisicamente in neogizo.
 
-# System Design
-
 # Deployment Diagram
 
-![Deployment diagram](images/diagram/DeploymentDiagram-v1.1.svg)
+![Deployment diagram](images/diagram/v1/DeploymentDiagram-v1.1.svg)
