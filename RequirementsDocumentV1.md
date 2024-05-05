@@ -98,7 +98,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :-------: | :---------------: |
 | Età| 28 anni|
 | Occupazione| Graphic designer|
-|Comportamento|  Attenta ai dettagli, interessata ai prodotti di qualità|
+|Comportamento|  Attento ai dettagli, interessato ai prodotti di qualità|
 |Obiettivi| Acquistare prodotti di qualità e visualizzare i propri ordini precedenti|
 |Necessità| Navigazione intuitiva, acquisti sicuri|
 
@@ -106,19 +106,19 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |  **Manager**  |
 | :-------  |
-|Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
-|Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
+|Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarlo come venduto |
+|Come manager voglio poter tener traccia dell'inventario del negozio, visualizzando tutti i prodotti a disposizione oppure ricercando un singolo prodotto tramite il relativo codice |
 
 |  **Customer** |
 | :-------  |
 |Come customer voglio poter aggiungere/rimuovere/visualizzare i prodotti del carrello |
-|Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi|
-|Come customer voglio poter visualizzare la cronologia dei miei ordini |
-|Come customer voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o i prodotti appartenenti ad una specifica categoria o modello |
+|Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi  |
+|Come customer voglio poter visualizzare la cronologia dei miei ordini                |
+|Come customer voglio poter visualizzare tutti i prodotti che il sito offre, filtrandoli per modello e categoria, oppure un singolo prodotto tramite il relativo codice |
 
 |  **Utente non registrato** |
 | :-------  |
-| Come utente non registrato, voglio poter creare un profilo in pochi passi. |
+| Come utente non registrato, voglio poter creare un profilo in pochi passi |
 
 # Functional and non functional requirements
 
@@ -127,12 +127,12 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  ID   | Description                                                         |
 | :---: | :---------:                                                         |
 | **FR1** |      **Gestione Utenti**                                          |
-| FR1.1 | Un utente non registrato può creare un profilo con username univoco                 |
-| FR1.2 | Un utente non registrato può effettuare il login                              |
-| FR1.3 | Un utente autenticato può effettuare il logout                             |
-| FR1.4 | Un utente autenticato può visualizzare le informazioni del proprio profilo      |
+| FR1.1 | Un utente non registrato può creare un profilo con username univoco |
+| FR1.2 | Un utente non registrato può effettuare il login                    |
+| FR1.3 | Un utente autenticato può effettuare il logout                      |
+| FR1.4 | Un utente autenticato può visualizzare le informazioni del proprio profilo |
 | **FR2** |    **Gestione Prodotti**                                          |
-| FR2.1 | Un manager può registrare un nuovo prodotto                               |
+| FR2.1 | Un manager può registrare un nuovo prodotto                         |
 | FR2.2 | Un manager può registrare l'arrivo di un insieme di prodotti dello stesso modello |
 | FR2.3 | Un manager può segnare un prodotto come venduto                     |
 | FR2.4 | Qualsiasi utente autenticato può ottenere l'elenco di tutti i prodotti  |
@@ -146,7 +146,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.3 | Un customer può eseguire il checkout del proprio carrello           |
 | FR3.4 | Un customer può visualizzare la propria cronologia carrelli         |
 | FR3.5 | Un customer può rimuovere un prodotto dal carrello                  |
-| FR3.6 | Un customer può svuotare il proprio carrello              |
+| FR3.6 | Un customer può svuotare il proprio carrello                        |
 
 Nota: il requisito 1.1 sottolinea la possibilità di creare solo utenti customer; gli utenti manager devono essere già presenti nel database al momento dell'avvio.
 
@@ -155,8 +155,8 @@ Nota: il requisito 1.1 sottolinea la possibilità di creare solo utenti customer
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------  | :-------: |
 | NFR1    | Usabilitá      | Un nuovo customer che visita per la prima volta il sito deve poter utilizzare tutte le funzionalità basilari (ricerca prodotti, aggiunta al carrello e checkout) senza alcun tipo di training. Un nuovo manager deve essere in grado di sfruttare tutte le funzionalità del sito dopo un massimo di due ore di training. | FR1-FR3 |
-| NFR2    | Usabilitá      | Il carrello di un utente non deve essere cancellato quando esso effettua log out ma deve essere persistente, finchè non viene eseguito il checkout | FR3 |
-| NFR3    | Prestazioni    | Il sito deve essere in grado di gestire e portare a compimento un minimo di 10 transazioni al secondo. Il tempo di risposta ad un evento (come click su un pulsante) in condizioni ottimali di velocità della connessione non deve superare i due secondi. | FR1-FR3 |
+| NFR2    | Persistenza dei dati | Le informazioni relative ad un utente registrato non devono andare perse e devono rimanere consistenti nel database anche se esso effettua logout | FR1 |
+| NFR3    | Prestazioni    | Il sito deve essere in grado di gestire e portare a compimento un minimo di 10 transazioni al secondo. Il tempo di risposta ad un evento (come click su un pulsante) in condizioni ottimali di velocità della connessione non deve superare i 2 secondi. | FR1-FR3 |
 | NFR3    | Affidabilità   | Il tempo di disponibilitá del servizio durante un mese deve essere almeno del 99.95%. | FR1-FR3  |
 | NFR4    | Robustezza     | non possono verificarsi più di 5 guasti all’anno e, nel caso se ne verifichi uno, il tempo richiesto affinché il sito torni online non deve superare le 12h | FR1-FR3 |
 | NFR5    | Portabilità    | Il sito deve poter essere visualizzato su tutte le versioni degli ultimi 4 anni di almeno cinque dei browser più utilizzati. | FR1-FR3 |
@@ -219,7 +219,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |           Description     |
 |       1        | Il sistema chiede all'utente di inserire username e password |
 |       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
-|       3        | Il sistema cerca l' username nel database |
+|       3        | Il sistema cerca l'username nel database |
 |       4        | Il sistema confronta la password inserita con quella salvata |
 |       5        | Il sistema esegue il login utente (status: 200)  |
 
@@ -230,7 +230,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |     Step#      |             Description     |
 |       1        | Il sistema richiede all'utente di inserire username e password |
 |       2        | L'utente fornisce username e password nei campi appositi e clicca su "Accedi" |
-|       3        | Il sistema cercan lo username nel database |
+|       3        | Il sistema cerca lo username nel database |
 |       4        | Il sistema non autorizza l’utente (status: 404) e mostra “Credenziali non valide” |
 
 |  Scenario 1.3  |  Password errata |
@@ -249,7 +249,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e mostra il messaggio di errore |
+|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
 ### Use case 2, UC2, Logout
 
@@ -419,7 +419,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       3        | L'utente inserisce le informazioni richieste dal sistema tranne uno o più campi |
 |       4        | Il sistema non inserisce il prodotto e risponde con il messaggio di fallimento |
 
-|  Scenario 5.4  | campo/i non valido/i |
+|  Scenario 5.6  | campo/i non valido/i |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come manager |
 | Post condition | Prodotto non creato   |
@@ -622,7 +622,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 | Post condition | Nessun prodotto stampato        |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sul pulsante della ricerca per codice |
-|       2        | Il sistema risponde con un messaggio di errore |
+|       2        | La richiesta fallisce |
 
 |  Scenario 9.3  | Codice inesistente |
 | :------------: | :------------------------------------------------------------------------: |
@@ -630,7 +630,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 | Post condition | Nessun prodotto stampato        |
 |     Step#      |                                Description                                 |
 |       1        | L'utente inserisce il codice di un prodotto non valido e clicca sul pulsante della ricerca per codice |
-|       2        | Il sistema non trova nel database il prodotto richiesto e risponde con un messaggio di errore |
+|       2        | La richiesta fallisce |
 
 |  Scenario 9.4  |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
@@ -663,7 +663,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 |  Precondition  | Utente autenticato, filtro per categoria effettuato |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "yes" dalla barra laterale |
+|       1        | L'utente seleziona "venduti" dalla barra laterale |
 |       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
 
 |  Scenario 10.3 | Visualizzazione con successo (sold=no) |
@@ -671,7 +671,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 |  Precondition  | Utente autenticato, filtro per categoria effettuato |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "no" dalla barra laterale |
+|       1        | L'utente seleziona "non venduti" dalla barra laterale |
 |       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
 
 |  Scenario 10.4  |  Errore interno |
@@ -696,7 +696,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 |  Precondition  | Utente autenticato |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente inserisce un modello nella barra in alto e clicca sul pulsaante "modello" |
+|       1        | L'utente inserisce un modello nella barra in alto e clicca sul pulsante "modello" |
 |       2        | Il sistema preleva dal database tutti i prodotti inerenti a quel modello |
 |       3        | Il sistema stampa i vari prodotti (status: 200) |
 
@@ -705,7 +705,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 |  Precondition  | Utente autenticato, filtro per modello effettuato |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "yes" dalla barra laterale |
+|       1        | L'utente seleziona "venduti" dalla barra laterale |
 |       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli venduti (status:200) |
 
 |  Scenario 11.3 | Visualizzazione con successo (sold=no) |
@@ -713,7 +713,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la possibilità
 |  Precondition  | Utente autenticato, filtro per modello effettuato |
 | Post condition | Elenco prodotti a schermo    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona "no" dalla barra laterale |
+|       1        | L'utente seleziona "non venduti" dalla barra laterale |
 |       1        | Il sistema filtra i prodotti stampati mantenendo solo quelli non venduti (status:200) |
 
 |  Scenario 11.4  |  Errore interno |
@@ -780,7 +780,7 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 
 | Actors Involved  |                     Utente customer        |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezione di un prodotto            |
+|   Precondition   |  Utente autenticato come customer, visualizzazione del prodotto desiderato |
 |  Post condition  |  Aggiunta prodotto al carrello                  |
 | Nominal Scenario |  L'utente visualizza il proprio carrello |
 |     Variants     |  Nessuna |
@@ -788,21 +788,21 @@ Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto
 
 |  Scenario 14.1 | Aggiunta con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
+|   Precondition   |  Utente autenticato come customer, visualizzazione del prodotto desiderato |
 |  Post condition  |  Aggiunta prodotto al carrello                  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
-|       2        | Il sistema accerta che il codice del prodotto non sia già stato inserito nel carrello di un utente |
+|       2        | Il sistema accerta che il codice del prodotto non sia già stato inserito nel carrello di un customer |
 |       3        | Il sistema mostra a video un messaggio di successo (status: 200) |
 
 |  Scenario 14.2 | Fallimento operazione |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezione di un prodotto              |
+|   Precondition   |  Utente autenticato come customer, visualizzazione del prodotto desiderato |
 |  Post condition  |  Prodotto non aggiunto                  |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per aggiungere il prodotto al carrello |
-|       2        | Il sistema si accorge che il codice del prodotto è già stato inserito nel carrello (di qualunque utente) |
-|       3        | Il sistema mostra a video un messaggio di errore |
+|       2        | Il sistema si accorge che il codice del prodotto è già stato inserito nel carrello (di qualunque customer) |
+|       3        | La richiesta fallisce |
 
 |  Scenario 14.3 |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
@@ -817,7 +817,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 
 | Actors Involved  |                     Utente customer        |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
 |  Post condition  |  Checkout e svuotamento carrello                  |
 | Nominal Scenario |  L'utente effettua l'ordine e svuota il carrello |
 |     Variants     |  Nessuna |
@@ -825,7 +825,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 
 |  Scenario 15.1 | Checkout con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
 |  Post condition  |  Checkout e svuotamento carrello        |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto |
@@ -835,7 +835,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 
 |  Scenario 15.2 | Carrello vuoto |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato          |
 |  Post condition  |  Nessuna          |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona per completare l'acquisto |
@@ -854,7 +854,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer         |
 |  Post condition  |  Elenco carrelli stampato a video             |
-| Nominal Scenario |  L'utente visualizza la history di tutti i carrelli per cui ha eseguito il checkout |
+| Nominal Scenario |  L'utente visualizza la cronologia di tutti i carrelli per cui ha eseguito il checkout |
 |     Variants     |  Nessuna |
 |    Exceptions    |  Errore interno |
 
@@ -864,7 +864,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |  Post condition  |  Elenco carrelli stampato a video             |
 |     Step#      |                                Description                                 |
 |       1        | L'utente clicca sull'icona delsuo profilo |
-|       2        | Il sistema filtra ttti i carrelli già completati presenti nel database cercando quelli dell'utente |
+|       2        | Il sistema filtra tutti i carrelli di cui si è fatto checkout in precedenza presenti nel database cercando quelli dell'utente |
 |       3        | Il sistema mostra a video le informazioni appena trovate o un messaggio se non sono presenti (status: 200) |
 
 |  Scenario 16.2 |  Errore interno |
@@ -886,7 +886,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 
 |  Scenario 17.1 | Cancellazione avvenuta con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato         |
 |  Post condition  |  Prodotto selezionato rimosso dal carrello              |
 |     Step#      |                                Description                                 |
 |       1        | L'utente sceglie uno dei prodotti elencati nel suo carrello e clicca per rimuoverlo |
@@ -900,7 +900,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello) su un prodotto presente nel carrello che perciò esiste per forza nel database.
+Nota:non esiste uno scenario che controlli se il codice del prodotto da eliminare esista perchè, se un prodotto è in un carrello, deve esistere per forza.
 
 ### Use case 18, UC18, Svuotamento carrello
 
@@ -914,7 +914,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 |  Scenario 18.1 | Cancellazione avvenuta con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer         |
+|   Precondition   |  Utente autenticato come customer, carrello corrente visualizzato        |
 |  Post condition  |  Carrello svuotato              |
 |     Step#      |                                Description                                 |
 |       1        | L'utente richiede l'eliminazione di tutto il carrello cliccando sul pulsante apposito |
@@ -927,6 +927,8 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+
+Nota: tutti i casi in cui il sistema non risponde alle richieste per errori interni non sono stati presi in considerazione per il prototipo della UI.
 
 # Glossary
 
