@@ -81,7 +81,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------: | :---------: |
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. Può modificare le informazioni generali del negozio e gestire il profilo degli Employee. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
-| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite. |
+| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
 | Utente non registrato | Visistatore del sito web che non ha ancora creato un profilo. È interessato a visualizzare e cercare i modelli che il sito permette di acquistare. |
 | Servizi di pagamento | Servizi terzi che permettono ai customer di effettuare transazioni in modo sicuro. |
 | Supporto tecnico | Responsabile della creazione, manutenzione e aggiornamento dell'applicazione. |
@@ -149,7 +149,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Come manager voglio poter visualizzare l'intero inventario, un singolo prodotto tramite il suo codice, o prodotti appartenenti a una specifica categoria o modello. |
 | Come manager voglio essere in grado di vedere l'elenco completo dei modelli disponibili sul sito. |
 | Come manager voglio poter apportare modifiche ai dettagli di un modello in vendita. |
-| Come manager voglio poter visualizzare i profili degli utenti registrati. |
+| Come manager voglio  avere accesso per modificare i profili degli utenti registrati. |
 | Come manager voglio poter creare i profili degli employee |
 
 |  **Employee** |
@@ -185,8 +185,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR1.5 | I manager sono abilitati a creare il profilo di un dipendente ("employee").                                         |
 | FR1.6 | I manager possono apportare modifiche al profilo di un dipendente.                                                  |
 | FR1.7 | I manager hanno l'autorità di eliminare il profilo di un dipendente.                                                |
-| FR1.8 | I manager possono eliminare il profilo di un cliente ("customer").                                                  |
-| FR1.9 | I clienti "customer" hanno la facoltà di eliminare il proprio profilo utente.                                       |
+| FR1.8 | I manager possono eliminare il profilo di un customer.                                                  |
+| FR1.9 | I customer hanno la facoltà di eliminare il proprio profilo utente.                                       |
 | FR1.10| I manager e gli employee hanno accesso alla visualizzazione dell'intero elenco dei profili utente registrati.       |
 | FR1.11| I manager e gli employee possono filtrare l'elenco dei profili utente registrati in base al ruolo.                  |
 | FR1.12| I manager e gli employee possono visualizzare il profilo di un altro utente tramite il suo username.                |
@@ -208,7 +208,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.1 | Gli utenti "customer" possono visualizzare il contenuto del proprio carrello.                    |
 | FR4.2 | Gli utenti "customer" possono aggiungere un modello al proprio carrello, specificando la quantità desiderata. |
 | FR4.3 | Gli utenti "customer" possono procedere al checkout del proprio carrello.           |
-| FR4.4 | Gli utenti "customer" possono rimuovere un prodotto dal loro carrello.                  |
+| FR4.4 | Gli utenti "customer" possono rimuovere un prodotto dal loro carrello.o                  |
 | FR4.5 | Gli utenti "customer" possono svuotare completamente il proprio carrello.                       |
 | **FR5** | **Gestione ordini**                                               |
 | FR5.1 | Gli utenti "customer" possono scegliere se ritirare il proprio ordine presso il negozio o riceverlo tramite corriere. |
@@ -1801,7 +1801,7 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 
 | Actors Involved  |                     Utente manager o employee      |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del profilo di un cliente           |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del profilo di un customer           |
 |  Post condition  |  Recensioni dell'utente visualizzate                   |
 | Nominal Scenario |  L'utente viusalizza le recensioni |
 |     Variants     |  Nessuna |
@@ -1809,7 +1809,7 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 
 |  Scenario 41.1 | Visualizzazione con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del profilo di un cliente           |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del profilo di un customer           |
 |  Post condition  |  Recensioni dell'utente visualizzate                   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente manager/employee accede alla pagina delle recensioni dell'utente selezionato |
@@ -1830,26 +1830,27 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un utente di tipo **Manager** o di tipo **Employee**
 ![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.1_Manager&Employee.png)
 
-- **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
-- **Categoria**: Insieme di modelli simili con caratteristiche comuni.
-- **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
-- **Cronologia ordini**: insieme di tutti gli ordini effettuati da un singolo customer.
+- **Carrello**: Sezione dell'applicazione dedicata alla memorizzazione dei modelli selezionati da un customer prima di completare il processo di acquisto.
+- **Categoria**: Insieme di modelli con caratteristiche e funzionalità comuni.
+- **Checkout**: Procedura durante la quale un customer inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
+- **Cronologia ordini**: Insieme di tutti gli ordini effettuati da un singolo customer.
 - **Customer**: Utente autenticato che utilizza l'applicazione per acquistare prodotti elettronici.
-- **Employee**: Utente autenticato, commesso del negozio che aiuta il manager a svolgere i suoi compiti.
+- **Employee**: Utente autenticato, commesso del negozio, che aiuta il manager a svolgere i suoi compiti.
 - **Manager**: Utente autenticato responsabile della gestione del negozio di elettronica.
 - **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici.
-- **Ordine**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
+- **Ordine**: Transazione conclusa dal customer per l'acquisto di uno o più prodotti.
 - **Prodotto**: Entità fisica unica e irripetibile che può essere acquistata, caratterizzata da un codice univoco.
 - **Profilo**: Insieme di dati che identificano un utente
-- **Recensione**: Commento scritto che riporta le opinioni di un determinato utente su un prodotto da lui acquistato.
+- **Recensione**: Commento scritto che riporta le opinioni di un determinato utente su un prodotto da lui acquistato. In generale, con il termine recensione ci si può anche riferire all'insieme del commento scritto e della valutazione.
 - **Ruolo**: Posizione che un utente assume all'interno del sito. Ogni ruolo conferisce specifici privilegi, accessi o responsabilità all'utente in base alle sue necessità e alle sue autorizzazioni. I ruoli sono: Manager, Emplopyee, Customer e Utente non registrato.
-- **Servizio di pagamento**: insieme di strumenti e circuiti di regolamento e norme che permettono di trasferire la moneta da un soggetto a un altro.
-- **Servizio di spedizione**: insieme di strumenti che mettono in comunicazione il corriere e il negozio.
-- **Storico ordini**: insieme di tutti gli ordini che il negozio ha ricevuto da quando il sito è stato aperto.
-- **Supporto tecnico**: team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
+- **Servizio di pagamento**: Insieme di strumenti e circuiti di regolamento e norme che permettono di trasferire la moneta da un soggetto a un altro.
+- **Servizio di spedizione**: Insieme di strumenti che mettono in comunicazione il corriere e il negozio.
+- **Storico ordini**: Insieme di tutti gli ordini che il negozio ha ricevuto da quando il sito è stato aperto.
+- **Supporto tecnico**: Team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
 - **Utente non registrato**: Utente non autenticato che visita il sito.
 - **Utente**: Persona, di qualsiasi ruolo, che è connessa al sito in un determinato momento.
-- **Valutazione**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un utente riguardo a un prodotto da lui acquistato.
+- **Valutazione**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un customer riguardo a un prodotto da lui acquistato.
+- **Vendita**: Transazione conclusa dal customer per l'acquisto di uno o più prodotti.
 
 # System Design
 

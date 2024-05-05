@@ -937,18 +937,21 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 
 ![Glossario](images/diagram/ClassDiagram-v1.4.png)
 
-- **Manager**: Persona responsabile della gestione del negozio di elettronica.
+- **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati da un customer prima di eseguire il checkout.
+- **Categoria**: Insieme di modelli con caratteristiche e funzionalità comuni.
+- **Checkout**: Procedura durante la quale un customer conferma di voler ordinare i prodotti all'interno del proprio carrello*.
 - **Customer**: Persona che utilizza l'applicazione per acquistare prodotti elettronici.
-- **Utente non registrato**: Utente non in possesso di un profilo 
+- **Manager**: Persona responsabile della gestione del negozio di elettronica.
+- **Prodotto**: Entità fisica unica e irripetibile in vendita sul sito, caratterizzata da un codice univoco.
 - **Profilo**: Insieme di dati che identificano un utente
-- **Carrello**: Sezione dell'applicazione dedicata alla temporanea memorizzazione dei prodotti selezionati dai clienti prima di completare il processo di acquisto.
-- **Prodotto**: Qualsiasi articolo offerto in vendita all'interno dell'applicazione di e-commerce.
-- **Vendita**: Transazione conclusa dal cliente per l'acquisto di uno o più prodotti.
-- **Checkout**: Procedura durante la quale il cliente inserisce i dati necessari per la consegna, seleziona la modalità di pagamento e visualizza un riepilogo dettagliato dell'ordine prima di confermarlo.
-- **Categoria prodotto**: Raggruppamento di prodotti elettronici simili all'interno dell'applicazione, basato su caratteristiche comuni.
-- **Modello**: Raggruppamento di prodotti basato su caratteristiche 
-- **Categoria**: Insieme di modelli simili con caratteristiche comuni.
-- **Modello**: Designazione distintiva di una particolare variante di un prodotto, che può includere specifiche come marca, serie, e altri dettagli tecnici.
+- **Modello**: Insieme di prodotti con le stesse caratteristiche.
+- **Utente**: Persona, di qualsiasi ruolo, che è connessa al sito in un determinato momento.
+- **Utente non registrato**: Utente non in possesso di un profilo. 
+- **Utente non autenticato**: Utente che non ha eseguito l'accesso al proprio profilo. 
+- **Vendita**: Transazione conclusa dal customer per l'acquisto di uno o più prodotti.
+
+
+*Nota: Dal momento che dal codice non risulta esserci una gestione dei pagamenti, si presuppone che il checkout serva per ordinare dei prodotti che poi dovranno essere ritirati dal customer fisicamente in neogizo.
 
 # System Design
 
