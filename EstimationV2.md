@@ -35,24 +35,24 @@ Consider the EZElectronics  project in FUTURE version (as proposed by your team 
 
 |         Activity name    | Estimated effort (person hours)   |
 | ----------- | ------------------------------- |
-| **GROUP AND PROJECT MANAGEMENT** | 9 |
+| **GROUP AND PROJECT MANAGEMENT** | **9** |
 | Project management plan | 5 |
 | Scheduling | 3 |
 | Risk Estimation | 1 |
-| **REQUIREMENTS PLANNING** | 24 |
+| **REQUIREMENTS PLANNING** | **24** |
 | Review existing code | 6 |
 | Work Analysis | 4 |
 | Model process | 2 |
 | Identify user requirements |  8  |
 | Identify performance requirements |  4 |
-| **DESIGN** | 19 |
+| **DESIGN** | **19** |
 | Identify and develop the prototype design | 5 |
 | Developing the GUI prototype | 14 |
-| **IMPLEMENTATION**| 65 |
+| **IMPLEMENTATION**| **65** |
 | Develop general code | 6 |
 | Developing the models | 9 |
 | Developing the controllers and test code | 50 |
-| **TESTING** | 17 |
+| **TESTING** | **17** |
 | API Testing | 9 |
 | UI Testing | 2 |
 | Testing of NF req | 6 |

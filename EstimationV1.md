@@ -35,24 +35,24 @@ Consider the EZElectronics  project in CURRENT version (as given by the teachers
 
 |         Activity name    | Estimated effort (person hours)   |
 | ----------- | ------------------------------- |
-| **GROUP AND PROJECT MANAGEMENT** | 7 |
+| **GROUP AND PROJECT MANAGEMENT** | **7** |
 | Project management plan | 4 |
 | Scheduling | 2 |
 | Risk Estimation | 1 |
-| **REQUIREMENTS PLANNING** | 19 |
+| **REQUIREMENTS PLANNING** | **19** |
 | Review existing code | 4 |
 | Work Analysis | 3 |
 | Model process | 2 |
 | Identify user requirements |  6 |
 | Identify performance requirements |  4 |
-| **DESIGN** | 12 |
+| **DESIGN** | +*12** |
 | Identify and develop the prototype design | 4 |
 |Developing the GUI prototype | 8 |
-| **IMPLEMENTATION**| 56 |
+| **IMPLEMENTATION**| **56** |
 | Develop general code | 6 |
 | Developing the models | 8|
 | Developing the controllers and test code | 42 |
-| **TESTING** | 16 |
+| **TESTING** | **16** |
 | API Testing | 8 |
 | UI Testing | 2 |
 | Testing of NF req | 6 |
