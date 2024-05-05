@@ -146,31 +146,31 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 |  **Manager**  |
 | :-------  |
-| Come manager voglio inserire uno o più prodotti appartententi ad uno stesso modello, rimuovere un prodotto dall’inventario o contrassegnarle un prodotto come venduto |
-| Come manager voglio poter visualizzare tutti i prodotti nell’inventario, un singolo prodotto tramite il relativo codice o prodotti  appartenenti ad una specifica categoria o modello |
-| Come manager voglio poeter visualizzare la lista di tutti i modelli in vendita nel sito |
-| Come manager voglio poter modificare i dettagli di un modello in vendita |
-| Come manager voglio poter modificare i dettagli profilo degli utenti registrati |
+| In qualità di manager voglio aggiungere uno o più prodotti dello stesso modello, rimuovere articoli dall'inventario o segnare prodotti come venduti.|
+| Come manager voglio poter visualizzare l'intero inventario, un singolo prodotto tramite il suo codice, o prodotti appartenenti a una specifica categoria o modello. |
+| Come manager voglio essere in grado di vedere l'elenco completo dei modelli disponibili sul sito. |
+| Come manager voglio poter apportare modifiche ai dettagli di un modello in vendita. |
+| Come manager voglio  avere accesso per modificare i profili degli utenti registrati. |
 | Come manager voglio poter creare i profili degli employee |
 
 |  **Employee** |
 | :-------  |
-| Come employee voglio registrare l’arrivo di prodotti in magazzino, segnare le vendite e i resi dei prodotti|
-| Come employee voglio visualizzare la lista di tutti i prodotti venduti e non |
-| Come employee voglio visualizzare la lista di tutti i modelli disponibili e non|
+| Come employee voglio essere in grado di registrare l'arrivo di prodotti in magazzino e annotare le vendite.|
+| Come employee voglio visualizzare la lista completa dei prodotti venduti e non venduti. |
+| Come employee voglio avere accesso alla lista completa dei modelli disponibili e quelli non disponibili.|
 
 |  **Customer** |
 | :-------  |
-| Come customer voglio poter aggiungere/rimuovere/visualizzare i modelli del carrello |
-| Come customer voglio effettuare l’ordine relativo al mio carrello in semplici passi |
-| Come customer voglio poter visualizzare la cronologia dei miei ordini |
-| Come customer voglio poter visualizzare tutti i modelli nell’inventario/appartenenti a una data categoria |
-| Come customer voglio poter modificare i dettagli del mio profilo |
+| Come customer voglio avere la possibilità di aggiungere, rimuovere e visualizzare i modelli presenti nel mio carrello. |
+| Come customer voglio poter effettuare l'ordine del mio carrello in pochi e chiari passaggi. |
+| Come customer voglio accedere alla cronologia completa dei miei ordini. |
+| Come customer voglio poter visualizzare tutti i modelli presenti nell'inventario o appartenenti a una specifica categoria.|
+| Come customer voglio poter modificare facilmente i dettagli del mio profilo. |
 
 |  **Utente non registrato** |
 | :-------  |
-| Come utente non registrato voglio poter visualizzare tutti i modelli nell’inventario/appartenenti a una data categoria e visualizzare le loro recensioni senza dovermi registrare |
-| Come utente non registrato, voglio poter creare un profilo in pochi passi. |
+| Come utente non registrato voglio poter visualizzare tutti i modelli presenti nell'inventario o appartenenti a una specifica categoria, e leggere le recensioni associate, senza dovermi registrare.|
+| Come utente non registrato, voglio poter creare un account in modo rapido e senza complicazioni.|
 
 # Functional and non functional requirements
 
@@ -302,11 +302,12 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 # Use case diagram and use cases
 
 ## Use case diagram
+
 ### Utente non autenticato e Customer
 
 ![Use case diagram - Utente non autenticato e Customer](images/diagram/UseCaseDiagram_v2.1_UtenteNonAutenticato&Customer.png)
 
-###  Manager e Employee
+### Manager e Employee
 
 ![Use case diagram - Manager e Employee](images/diagram/UseCaseDiagram_v2.1_Manager&Employee.png)
 
@@ -1855,6 +1856,7 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 |       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
 
 # Glossary
+
 Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un **utente non registrato** o di tipo **Customer**.
 ![Class Diagram - Utente non registrato / Customer](images/diagram/ClassDiagram-v2.3_UtenteNonRegistrato&Customer.png)
 
