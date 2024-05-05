@@ -81,7 +81,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------: | :---------: |
 | Manager          | Principale utente dell'applicazione, ha un interesse diretto nel suo funzionamento ottimale per gestire efficacemente i prodotti e le vendite del suo negozio. Può modificare le informazioni generali del negozio e gestire il profilo degli Employee. |
 | Customer         | Acquirente che utilizza il sito web dedicato per visualizzare e acquistare prodotti. Ha un interesse nell'esperienza utente, nella facilità di navigazione, e nella consistenza sui dati dei prodotti. |
-| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite o i resi. |
+| Employee         | Commesso del negozio, deve gestire il negozio sia nella sua parte fisica sia nella parte online, potendo aggiungere prodotti e segnare le vendite. |
 | Utente non registrato | Visistatore del sito web che non ha ancora creato un profilo. È interessato a visualizzare e cercare i modelli che il sito permette di acquistare. |
 | Servizi di pagamento | Servizi terzi che permettono ai customer di effettuare transazioni in modo sicuro. |
 | Supporto tecnico | Responsabile della creazione, manutenzione e aggiornamento dell'applicazione. |
@@ -149,7 +149,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Come manager voglio poter visualizzare l'intero inventario, un singolo prodotto tramite il suo codice, o prodotti appartenenti a una specifica categoria o modello. |
 | Come manager voglio essere in grado di vedere l'elenco completo dei modelli disponibili sul sito. |
 | Come manager voglio poter apportare modifiche ai dettagli di un modello in vendita. |
-| Come manager voglio  avere accesso per modificare i profili degli utenti registrati. |
+| Come manager voglio poter visualizzare i profili degli utenti registrati. |
 | Come manager voglio poter creare i profili degli employee |
 
 |  **Employee** |
@@ -1848,6 +1848,7 @@ Di seguito il class diagram con tutte le relazioni che hanno come *soggetto* un 
 - **Storico ordini**: Insieme di tutti gli ordini che il negozio ha ricevuto da quando il sito è stato aperto.
 - **Supporto tecnico**: Team di sviluppo del software che può essere contattato per risolvere problemi e bug del sito.
 - **Utente non registrato**: Utente non autenticato che visita il sito.
+- **Utente non autenticato**: Utente che non ha eseguito l'accesso al proprio profilo. 
 - **Utente**: Persona, di qualsiasi ruolo, che è connessa al sito in un determinato momento.
 - **Valutazione**: Grado di soddisfazione su una scala da 1 (minimo) a 5 (massimo) espresso da un customer riguardo a un prodotto da lui acquistato.
 - **Vendita**: Transazione conclusa dal customer per l'acquisto di uno o più prodotti.
