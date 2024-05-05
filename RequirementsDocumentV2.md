@@ -248,7 +248,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | NFR5    | Portabilità    | Il sito deve poter essere visualizzato su tutte le versioni degli ultimi 4 anni di almeno cinque dei browser più utilizzati. | FR1-FR7 |
 | NFR6    | Sicurezza      | Le fughe di dati non possono verificarsi più frequentemente di una volta ogni 20 anni. | FR1-FR7 |
 
-Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
+**Nota**: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i FR da FRX a FRY compresi. La dicitura FRX, FRY significa che il relativo NFR si riferisce separatamente a FRX e FRY.
 
 ### Table of rights
 
@@ -301,14 +301,29 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 # Use case diagram and use cases
 
 ## Use case diagram
+Di seguto si riporta una vista generale dello use case diagram, con solo delle macro categorie.
+![Use case diagram generale](/images/diagram/UseCaseDiagramV2/UCDv2_Generale.png)
 
-### Utente non autenticato e Customer
+- Use case riferiti alla gestione degli utenti
+![Use case diagram gestione utenti](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneUtenti.png)
 
-![Use case diagram - Utente non autenticato e Customer](images/diagram/UseCaseDiagram_v2.1_UtenteNonAutenticato&Customer.png)
+- Use case riferiti alla gestione dei modelli
+![Use case diagram gestione modelli](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneModelli.png)
 
-### Manager e Employee
+- Use case riferiti alla gestione dei prodotti
+![Use case diagram gestione prodotti](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneProdotti.png)
 
-![Use case diagram - Manager e Employee](images/diagram/UseCaseDiagram_v2.1_Manager&Employee.png)
+- Use case riferiti alla gestione del carrello
+![Use case diagram gestione carrello](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneCarrello.png)
+
+- Use case riferiti alla gestione ordini
+![Use case diagram gestione ordini](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneOrdini.png)
+
+- Use case riferiti alla gestione delle recensioni
+![Use case diagram gestione recensioni](/images/diagram/UseCaseDiagramV2/UCDv2_GestioneRecensioni.png)
+
+**Nota**: per avere un'idea chiara e precisa di tutte le condizioni necessarie affinchè uno use case possa verificarsi si consiglia di leggere gli use cases di riportati nell'apposita sezione di questo documento.
+
 
 ## Use cases
 
@@ -499,7 +514,7 @@ Nota: la scrittura FRX-FRY signfica che il relativo NFR si riferisce a tutti i F
 |       6        | Il sistema inserisce le informazioni in una nuova linea nel database |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
+**Nota**: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
 
 |  Scenario 5.2  | Creazione di un employee già presente  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -531,7 +546,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 
 ### Use case 6, UC6, Modifica profilo dell'employee da parte del manager
 
-Nota: modifica non eseguibile sul campo username
+**Nota**: modifica non eseguibile sul campo username
 
 | Actors Involved  |                     Utente manager         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -553,7 +568,7 @@ Nota: modifica non eseguibile sul campo username
 |       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
+**Nota**: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar di default
 
 |  Scenario 6.2  | Omissione o invalidazione di campi obbligatori  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -677,7 +692,7 @@ Nota: Se il manager non inserisce nessuna immagine profilo, viene usato l'avatar
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: l'eliminazione del profilo comporta la cancellazione della linea con le informazioni utente dal database, le recensioni, ma non gli ordini effettuati.
+**Nota**: l'eliminazione del profilo comporta la cancellazione della linea con le informazioni utente dal database, le recensioni, ma non gli ordini effettuati.
 
 ### Use case 10, UC10, Visualizzazione di tutti gli utenti
 
@@ -796,7 +811,7 @@ Nota: l'eliminazione del profilo comporta la cancellazione della linea con le in
 
 ### Use case 13, UC13, Modifica del proprio profilo
 
-Nota: modifica non eseguibile sul campo username
+**Nota**: modifica non eseguibile sul campo username
 
 | Actors Involved  |                     Utente manager o customer         |
 | :--------------: | :------------------------------------------------------------------: |
@@ -818,7 +833,7 @@ Nota: modifica non eseguibile sul campo username
 |       6        | Il sistema sovrascrive le informazioni nella linea nel database identificata dallo username |
 |       7        | Il sistema risponde con il messaggio di successo (status: 200) |
 
-Nota: Se non viene inserista nessuna immagine profilo, viene usato l'avatar di default
+**Nota**: Se non viene inserista nessuna immagine profilo, viene usato l'avatar di default
 
 |  Scenario 13.2  | Omissione o invalidazione di campi obbligatori  |
 | :------------: | :------------------------------------------------------------------------: |
@@ -959,7 +974,7 @@ Nota: Se non viene inserista nessuna immagine profilo, viene usato l'avatar di d
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: se il prodotto è già stato venduto al manager non appare la posssibilità di eseguire l'operazione
+**Nota**: se il prodotto è già stato venduto al manager non appare la posssibilità di eseguire l'operazione
 
 ### Use case 17, UC17, Ricerca prodotto
 
@@ -1094,7 +1109,7 @@ Nota: se il prodotto è già stato venduto al manager non appare la posssibilit�
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
+**Nota**: L'eliminazione del prodotto avviene solo dopo aver selezionato il prodotto tra quelli a video che di conseguenza esiste nel db.
 L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è già stato contrassegnato come venduto o eliminato.
 
 ### Use case 20, UC20, Creazione di un nuovo modello
@@ -1326,7 +1341,7 @@ L'eliminazione è una possibilità offerta solo se il suddetto prodotto non è g
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggiunto al carrello di un altro utente e non essere stato ancora settato come venduto. Se la quantità inserita eccede la disponibilità viene causato un errore interno.
+**Nota**: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggiunto al carrello di un altro utente e non essere stato ancora settato come venduto. Se la quantità inserita eccede la disponibilità viene causato un errore interno.
 
 ### Use case 27, UC27, Checkout carrello
 
@@ -1363,7 +1378,7 @@ Nota: il prodotto selezionato (quindi esistente) potrebbe essere già stato aggi
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: con "aggiorna i prodotti in altri carrelli" si intende che il sistema aggiorna il valore del numero pezzi richiesti se non sono presenti abbastanza prodotti da soddisfare quella richiesta (se non ce ne sono proprio il sistema elimina direttamente il modello dai carrelli)
+**Nota**: con "aggiorna i prodotti in altri carrelli" si intende che il sistema aggiorna il valore del numero pezzi richiesti se non sono presenti abbastanza prodotti da soddisfare quella richiesta (se non ce ne sono proprio il sistema elimina direttamente il modello dai carrelli)
 
 ### Use case 28, UC28, Rimozione dal carrello
 
@@ -1391,7 +1406,7 @@ Nota: con "aggiorna i prodotti in altri carrelli" si intende che il sistema aggi
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello).
+**Nota**: la rimozione viene applicata sul carrello dell'utente (da login so il codice del carrello).
 
 ### Use case 29, UC29, Svuotamento carrello
 
@@ -1438,7 +1453,7 @@ Nota: la rimozione viene applicata sul carrello dell'utente (da login so il codi
 |       2        | IL'utente conclude la procedura sul sito terzo e gli utenti manager e employee ricevono un nuovo ordine in data odierna con tutte le informazioni su utente e carrello. Il sito inoltra al servizio di pagamento i dati del nuovo ordine |
 |       3        | Il sistema mostra un messaggio di successo con l'id dell'ordine. Stato dell'ordine: "Ricevuto" (status: 200) |
 
-Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
+**Nota**: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 
 |  Scenario 30.2 | Operazione annullata con successo |
 | :------------: | :------------------------------------------------------------------------: |
@@ -1644,7 +1659,7 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 |       3        | L'utente carica un'immagine sullo stato del modello ricevuto e clicca sul link per terminare l'operazione |
 |       4        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
 
-Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una recensione, l'inserimento di immagini è consentito solo se vengono caricate recensioni e/o valutazioni
+**Nota**: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una recensione, l'inserimento di immagini è consentito solo se vengono caricate recensioni e/o valutazioni
 
 |  Scenario 36.4 | Recensioni non inserite |
 | :------------: | :------------------------------------------------------------------------: |
