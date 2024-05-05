@@ -1586,34 +1586,34 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer             |
 |  Post condition  |  Elenco ordini stampato a video             |
-| Nominal Scenario |  L'utente visualizza la history di tutti gli ordini da lui eseguiti |
+| Nominal Scenario |  L'utente visualizza la cronologia di tutti i propri ordini |
 |     Variants     |  Nessuna |
 |    Exceptions    |  Errore interno |
 
 |  Scenario 35.1 | Visualizzazione |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer         |
-|  Post condition  |  Elenco carrelli stampato a video             |
+|  Post condition  |  Elenco ordini stampato a video             |
 |     Step#      |                                Description                                 |
-|       1        | L'utente clicca sull'icona delsuo profilo |
-|       2        | Il sistema filtra ttti i carrelli già completati presenti nel database cercando quelli dell'utente |
-|       3        | Il sistema mostra a video le informazioni appena trovate o un messaggio se non sono presenti (status: 200) |
+|       1        | L'utente clicca sull'icona del suo profilo |
+|       2        | Il sistema filtra tutti gli ordini completati nel database relativi all'utente |
+|       3        | Il sistema visualizza le informazioni trovate o un messaggio se non sono presenti (status: 200) |
 
 |  Scenario 35.2 |  Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema annulla ogni modifica nel database e mostra un messaggio di errore |
 
 ### Use case 36, UC36, Nuova recensione
 
 | Actors Involved  |                     Utente customer       |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer, checkout effettuato           |
-|  Post condition  |  Recensioni, valutazioni ai modelli                    |
+|  Post condition  |  Recensioni e valutazioni ai modelli                    |
 | Nominal Scenario |  L'utente recensisce i vari modelli di prodotti acquistati |
-|     Variants     |  Recensione non inserita per uno/più modello/i, inserita/e solo la/e valutazione/i, immagini caricate |
+|     Variants     |  Recensione non inserita per uno o più modelli, inserita solo la valutazione, immagini caricate |
 |    Exceptions    |  Errore interno |
 
 |  Scenario 36.1 | Recensioni inserite con successo |
@@ -1621,31 +1621,28 @@ Nota: l'indirizzo di recapito è sottointeso essere l'indirizzo dell'utente
 |  Precondition  | Utente autenticato come customer, checkout effettuato |
 | Post condition | Recensioni ai modelli    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente effettua il checkout del proprio carrello |
-|       2        | Una volta completata l'operazione il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
-|       3        | L'utente scrive le recensioni e obbligatoriamente lascia una valutazione da salvare per i modelli desiderati e clicca sul link per terminare l'operazione |
-|       4        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
+|       1        | Il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
+|       2        | L'utente scrive le recensioni e obbligatoriamente lascia una valutazione per i modelli desiderati, successivamente clicca sul link per terminare l'operazione |
+|       3        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
 
 |  Scenario 36.2 | Valutazioni inserite con successo |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come customer, checkout effettuato |
 | Post condition | Valutazioni ai modelli    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente effettua il checkout del proprio carrello |
-|       2        | Una volta completata l'operazione il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
-|       3        | L'utente scrive le valutazioni da salvare per i modelli desiderati e clicca sul link per terminare l'operazione |
-|       4        | Il sistema salva le varie valutazioni in data corrente e termina l'operazione con successo (status: 200) |
+|       1        | Il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
+|       2        | L'utente scrive le valutazioni per i modelli desiderati e clicca sul link per terminare l'operazione |
+|       3        | Il sistema salva le varie valutazioni in data corrente e termina l'operazione con successo (status: 200) |
 
 |  Scenario 36.3 | Caricamento opzionale di immagine |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondition  | Utente autenticato come customer, checkout effettuato |
 | Post condition | Immagini alle recensioni|
 |     Step#      |                                Description                                 |
-|       1        | L'utente effettua il checkout del proprio carrello |
-|       2        | Una volta completata l'operazione il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
-|       3        | L'utente scrive le recensioni e obbligatoriamente lascia una valutazione da salvare per i modelli desiderati e clicca sul link per terminare l'operazione |
-|       4        | L'utente carica un'immagine sullo stato del modello ricevuto |
-|       5        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
+|       1        | Il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
+|       2        | L'utente scrive le recensioni e obbligatoriamente lascia una valutazione |
+|       3        | L'utente carica un'immagine sullo stato del modello ricevuto e clicca sul link per terminare l'operazione |
+|       4        | Il sistema salva le varie recensioni in data corrente e termina l'operazione con successo (status: 200) |
 
 Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una recensione, l'inserimento di immagini è consentito solo se vengono caricate recensioni e/o valutazioni
 
@@ -1654,10 +1651,9 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 |  Precondition  | Utente autenticato come customer, checkout effettuato |
 | Post condition | Nessuna recensione    |
 |     Step#      |                                Description                                 |
-|       1        | L'utente effettua il checkout del proprio carrello |
-|       2        | Una volta completata l'operazione il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
-|       3        | L'utente clicca sul link per terminare l'operazione |
-|       4        | Il sistema termina l'operazione con successo (status: 200) |
+|       1        | Il sistema chiede, per ogni modello presente nel carrello, se l'utente vuole lasciare una recensione |
+|       2        | L'utente clicca sul link per terminare l'operazione |
+|       3        | Il sistema termina l'operazione con successo (status: 200) |
 
 | Scenario 36.5 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
@@ -1695,7 +1691,7 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 
 | Actors Involved  |                     Utente customer       |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
+|   Precondition   |  Utente autenticato come customer, selezionato un ordine dalla cronologia           |
 |  Post condition  |  Recensione eliminata                   |
 | Nominal Scenario |  L'utente Elimina una o più recensioni |
 |     Variants     |  Operazione annullata |
@@ -1703,7 +1699,7 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 
 |  Scenario 38.1 | Recensione eliminata con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
+|   Precondition   |  Utente autenticato come customer, selezionato un ordine dalla cronologia           |
 |  Post condition  |  Recensione eliminata   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente seleziona nella barra in basso la recensione che intende eliminare |
@@ -1712,7 +1708,7 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 
 |  Scenario 38.2 | Operazione annullata con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
+|   Precondition   |  Utente autenticato come customer, selezionato un ordine dalla cronologia           |
 |  Post condition  |  Recensione non eliminata   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente seleziona nella barra in basso la recensione che intende eliminare |
@@ -1726,125 +1722,90 @@ Nota: l'inserimento delle valutazioni è OBBLIGATORIO se si vuole caricare una r
 |     Step#      |   Description    |
 |       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
 
-### Use case 39, UC39, Modifica recensione
+### Use case 39, UC40, Eliminazione recensione da parte del manager/employee
 
-| Actors Involved  |                     Utente customer       |
+| Actors Involved  |                     Utente manager o employee      |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
-|  Post condition  |  Recensione modificata                    |
-| Nominal Scenario |  L'utente modifica una o più recensioni |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione delle recensioni di un determinato utente customer           |
+|  Post condition  |  Recensione eliminata                   |
+| Nominal Scenario |  L'utente elimina una o più recensioni |
 |     Variants     |  Operazione annullata |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 39.1 | Recensione modificata con successo |
+|  Scenario 39.1 | Recensione eliminata con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
-|  Post condition  |  Recensione modificata   |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione delle recensioni di un determinato utente customer           |
+|  Post condition  |  Recensione eliminata                   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona nella barra in basso la recensione che intende modificare |
-|       2        | L'utente inserisce una nuova recensione |
-|       3        | Il sistema sovrascrive la recensione in data odierna (status: 200) |
+|       1        | L'utente seleziona la recensione da eliminare |
+|       2        | Il sistema richiede conferma e, se confermato, elimina la recensione selezionata dal database |
+|       3        | Il sistema visualizza un messaggio di successo (status: 200) |
 
-|  Scenario 39.2 | Operazione annullata |
+|  Scenario 39.2 | Operazione annullata con successo |
 | :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, selezionato un carrello dalla cronologia           |
-|  Post condition  |  Recensione non modificata   |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione delle recensioni di un determinato utente customer           |
+|  Post condition  |  Recensione non eliminata                   |
 |     Step#      |                                Description                                 |
-|       1        | L'utente seleziona nella barra in basso la recensione che intende modificare |
-|       2        | L'utente inserisce una nuova recensione e annulla la modifica |
-|       3        | Il sistema non sovrascrive la recensione |
+|       1        | L'utente seleziona la recensione da eliminare |
+|       2        | Il sistema richiede conferma |
+|       3        | L'utente annulla l'operazione |
 
 | Scenario 39.3 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
+|       1        | Il sistema annulla ogni modifica nel database e mostra un messaggio di errore |
 
-### Use case 40, UC40, Eliminazione recensione da parte del manager/employee
-
-| Actors Involved  |                     Utente manager o employee      |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione recensioni dato un modello           |
-|  Post condition  |  Recensione eliminata                   |
-| Nominal Scenario |  L'utente elimina una o più recensioni |
-|     Variants     |  Operazione annullata |
-|    Exceptions    |  Errore interno |
-
-|  Scenario 40.1 | Recensione eliminata con successo |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione recensioni dato un modello           |
-|  Post condition  |  Recensione eliminata                   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona la recensione che intende eliminare |
-|       2        | Il sistema attende conferma e se la riceve elimina dal database la recensione selezionata |
-|       3        | Il sistema mostra un messggio di successo (status: 200) |
-
-|  Scenario 40.2 | Operazione annullata con successo |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione recensioni dato un modello           |
-|  Post condition  |  Recensione non eliminata                   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente seleziona la recensione che intende eliminare |
-|       2        | Il sistema attende conferma |
-|       3        | L'utente annulla l'operazione |
-
-| Scenario 40.3 | Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annulla ogni modifica nel database e stampa il messaggio di errore |
-
-### Use case 41, UC41, Visualizzazione delle recensioni personali
+### Use case 40, UC41, Visualizzazione delle recensioni personali
 
 | Actors Involved  |                     Utente customer      |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come customer, visualizzazione profilo personale            |
+|   Precondition   |  Utente autenticato come customer, visualizzazione del proprio profilo personale            |
 |  Post condition  |  Recensioni visualizzate                  |
 | Nominal Scenario |  L'utente visualizza le proprie recensioni |
-|     Variants     |   |
+|     Variants     | Nessuna |
 |    Exceptions    |  Errore interno |
 
-|  Scenario 41.1 | Visualizzazione delle recensioni |
+|  Scenario 40.1 | Visualizzazione delle recensioni |
 | :------------: | :------------------------------------------------------------------------: |
 |   Precondition   |  Utente autenticato come customer,  visualizzazione profilo personale            |
 |  Post condition  |  Recensione visualizzate                   |
 |     Step#      |                                Description                                 |
 |       1        | L'utente accede alla pagina delle proprie recensioni |
-|       2        | Il sistema ritorna la lista di tutte le recensioni dell'utente |
+|       2        | Il sistema mostra la lista di tutte le recensioni dell'utente |
+
+| Scenario 40.2 | Errore interno |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondition   | L'utente ha avviato la richiesta |
+| Post condition | L'operazione viene annullata |
+|     Step#      |   Description    |
+|       1        | Il sistema interrompe la query al database e mostra un messaggio di errore |
+
+### Use case 41, UC42, Visualizzazione recensioni di un utente
+
+| Actors Involved  |                     Utente manager o employee      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del profilo di un cliente           |
+|  Post condition  |  Recensioni dell'utente visualizzate                   |
+| Nominal Scenario |  L'utente viusalizza le recensioni |
+|     Variants     |  Nessuna |
+|    Exceptions    |  Errore interno |
+
+|  Scenario 41.1 | Visualizzazione con successo |
+| :------------: | :------------------------------------------------------------------------: |
+|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del profilo di un cliente           |
+|  Post condition  |  Recensioni dell'utente visualizzate                   |
+|     Step#      |                                Description                                 |
+|       1        | L'utente manager/employee accede alla pagina delle recensioni dell'utente selezionato |
+|       2        | Il sistema mostra la lista di tutte le recensioni dell'utente  |
 
 | Scenario 41.2 | Errore interno |
 | :------------: | :----------------------------------------------------------------------: |
 | Precondition   | L'utente ha avviato la richiesta |
 | Post condition | L'operazione viene annullata |
 |     Step#      |   Description    |
-|       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
-
-### Use case 42, UC42, Visualizzazione recensioni di un utente
-
-| Actors Involved  |                     Utente manager o employee      |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del customer scelto           |
-|  Post condition  |  Visualizzazione recensioni utente                   |
-| Nominal Scenario |  L'utente viusalizza le recensioni |
-|     Variants     |  Nessuna |
-|    Exceptions    |  Errore interno |
-
-|  Scenario 42.1 | Visualizzazione con successo |
-| :------------: | :------------------------------------------------------------------------: |
-|   Precondition   |  Utente autenticato come manager/employee, visualizzazione del customer scelto           |
-|  Post condition  |  Visualizzazione recensioni utente                   |
-|     Step#      |                                Description                                 |
-|       1        | L'utente accede alla pagina delle recensioni dell'utente scelto |
-|       2        | Il sistema ritorna la lista di tutte le recensioni dell'utente  |
-
-| Scenario 42.2 | Errore interno |
-| :------------: | :----------------------------------------------------------------------: |
-| Precondition   | L'utente ha avviato la richiesta |
-| Post condition | L'operazione viene annullata |
-|     Step#      |   Description    |
-|       1        | Il sistema annula l'interrogazione al database e stampa il messaggio di errore |
+|       1        | Il sistema annulla la query al database e mostra un messaggio di errore |
 
 # Glossary
 
