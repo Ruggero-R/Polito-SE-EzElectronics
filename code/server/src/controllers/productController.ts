@@ -21,7 +21,9 @@ class ProductController {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ { }
+    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
+        return this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate)
+    }
 
     /**
      * Increases the available quantity of a product through the addition of new units.
@@ -63,7 +65,9 @@ class ProductController {
      * Deletes all products.
      * @returns A Promise that resolves to `true` if all products have been successfully deleted.
      */
-    async deleteAllProducts() /**:Promise <Boolean> */ { }
+    async deleteAllProducts() /**:Promise <Boolean> */ {
+        return this.dao.deleteAllProducts()
+    }
 
 
     /**
@@ -71,7 +75,9 @@ class ProductController {
      * @param model The model of the product to delete
      * @returns A Promise that resolves to `true` if the product has been successfully deleted.
      */
-    async deleteProduct(model: string) /**:Promise <Boolean> */ { }
+    async deleteProduct(model: string) /**:Promise <Boolean> */ {
+        return this.dao.deleteProduct(model)
+    }
 
 }
 
