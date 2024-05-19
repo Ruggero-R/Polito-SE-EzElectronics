@@ -100,5 +100,27 @@ class UserDAO {
 
         })
     }
+
+    getUsers(): Promise<User[]> {
+        return new Promise<User[]>((resolve, reject) => {
+            try {
+                const sql = "SELECT * FROM users"
+                db.all(sql, [], (err: Error | null, rows: any) => {
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+                    const users: User[] = []
+                    rows.forEach((row: any) => {
+                        const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate)
+                        users.push(user)
+                    })
+                    resolve(users)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
 }
 export default UserDAO
