@@ -135,6 +135,8 @@ class UserRoutes {
          */
         this.router.delete(
             "/",
+            this.authService.isLoggedIn,
+            this.authService.isAdmin,
             (req: any, res: any, next: any) => this.controller.deleteAll()
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
@@ -153,11 +155,17 @@ class UserRoutes {
          */
         this.router.patch(
             "/:username",
+            this.authService.isLoggedIn,
+            body("username").isString().isLength({ min: 1 }),
+            body("name").isString().isLength({ min: 1 }),
+            body("surname").isString().isLength({ min: 1 }),
+            body("address").isString().isLength({ min: 1 }),
+            //TODO capire come gestire il controllo sulla data
+            body("birthdate").isString(),
             (req: any, res: any, next: any) => this.controller.updateUserInfo(req.user, req.body.name, req.body.surname, req.body.address, req.body.birthdate, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
                 .catch((err: any) => next(err))
         )
-
     }
 }
 

@@ -110,11 +110,7 @@ class UserDAO {
                         reject(err)
                         return
                     }
-                    const users: User[] = []
-                    rows.forEach((row: any) => {
-                        const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate)
-                        users.push(user)
-                    })
+                    const users: User[] = rows.map((row: any) => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate))
                     resolve(users)
                 })
             } catch (error) {
@@ -162,5 +158,44 @@ class UserDAO {
             }
         })
     }
+
+    deleteAllUsers(): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            try {
+                const sql = "DELETE FROM users WHERE role != 'Admin'"
+                db.run(sql, [], (err: Error | null) => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve(true)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string): Promise<User> {
+        return new Promise<User>((resolve, reject) => {
+            try {
+                const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ? WHERE username = ?"
+                db.run(sql, [name, surname, address, birthdate, username], (err: Error | null) => {
+                    if (err) {
+                        reject(err)
+                    }
+
+                    // if (this.changes === 0) {
+                    //     reject(new Error('No user found with the provided username.'));
+                    //     return;
+                    // }
+
+                    resolve(new User(username, name, surname, user.role, address, birthdate))
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
 }
 export default UserDAO
