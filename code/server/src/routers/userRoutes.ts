@@ -106,6 +106,8 @@ class UserRoutes {
          */
         this.router.get(
             "/:username",
+            this.authService.isLoggedIn,
+            param("username").isString().isLength({ min: 1 }),
             (req: any, res: any, next: any) => this.controller.getUserByUsername(req.user, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
                 .catch((err) => next(err))
@@ -119,6 +121,8 @@ class UserRoutes {
          */
         this.router.delete(
             "/:username",
+            this.authService.isLoggedIn,
+            param("username").isString().isLength({ min: 1 }),
             (req: any, res: any, next: any) => this.controller.deleteUser(req.user, req.params.username)
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))

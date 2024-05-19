@@ -50,7 +50,14 @@ class UserController {
      * @param username - The username of the user to retrieve. The user must exist.
      * @returns A Promise that resolves to the user with the specified username.
      */
-    async getUserByUsername(user: User, username: string) /**:Promise<User> */ { }
+    async getUserByUsername(user: User, username: string) /**:Promise<User> */ {
+        if (user.username === username || user.role === "Admin") {
+            return this.dao.getUserByUsername(username)
+        } else {
+            //TODO come gestisco questo errore? It should return a 401 error when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin
+            throw new Error("Unauthorized")
+        }
+    }
 
     /**
      * Deletes a specific user
@@ -60,7 +67,14 @@ class UserController {
      * @param username - The username of the user to delete. The user must exist.
      * @returns A Promise that resolves to true if the user has been deleted.
      */
-    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ { }
+    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ {
+        //TODO gestire It should return a 401 error when the calling user is an Admin and username represents a different Admin user
+        if (user.username === username || user.role === "Admin") {
+            return this.dao.deleteUser(username)
+        } else {
+            throw new Error("Unauthorized")
+        }
+    }
 
     /**
      * Deletes all non-Admin users

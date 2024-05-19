@@ -145,5 +145,22 @@ class UserDAO {
             }
         })
     }
+
+    deleteUser(username: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            try {
+                const sql = "DELETE FROM users WHERE username = ?"
+                db.run(sql, [username], (err: Error | null) => {
+                    if (err) {
+                        if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserNotFoundError())
+                        reject(err)
+                    }
+                    resolve(true)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
 }
 export default UserDAO
