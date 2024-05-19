@@ -1,7 +1,7 @@
 import db from "../db/db"
 import { User } from "../components/user"
 import crypto from "crypto"
-import { UserAlreadyExistsError, UserNotFoundError } from "../errors/userError";
+import { InvalidRoleError, UserAlreadyExistsError, UserNotFoundError } from "../errors/userError";
 
 /**
  * A class that implements the interaction with the database for all user-related operations.
@@ -115,6 +115,29 @@ class UserDAO {
                         const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate)
                         users.push(user)
                     })
+                    resolve(users)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    getUsersByRole(role: string): Promise<User[]> {
+        return new Promise<User[]>((resolve, reject) => {
+            try {
+                if (role !== "Manager" && role !== "Customer" && role !== "Admin") {
+                    //TODO capire se possiamo creare un nuovo errore o no
+                    reject(new InvalidRoleError)
+                    return
+                }
+                const sql = "SELECT * FROM users WHERE role = ?"
+                db.all(sql, [role], (err: Error | null, rows: any) => {
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+                    const users: User[] = rows.map((row: any) => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate))
                     resolve(users)
                 })
             } catch (error) {

@@ -5,6 +5,7 @@ const USER_NOT_CUSTOMER = "This operation can be performed only by a customer"
 const USER_NOT_ADMIN = "This operation can be performed only by an admin"
 const USER_IS_ADMIN = "Admins cannot be deleted"
 const UNAUTHORIZED_USER = "You cannot access the information of other users"
+const INVALID_ROLE = "The role is invalid"
 
 /**
  * Represents an error that occurs when a user is not found.
@@ -97,4 +98,17 @@ class UnauthorizedUserError extends Error {
     }
 }
 
-export { UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError }
+//Aggiunti successivamente 
+class InvalidRoleError extends Error {
+    customMessage: String;
+    customCode: Number;
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_ROLE
+        this.customCode = 422
+    }
+}
+
+
+export { UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError, InvalidRoleError }
