@@ -39,7 +39,7 @@ class ProductDAO {
         return new Promise<Boolean>((resolve, reject) => {
             try {
                 const sql = "DELETE FROM products"
-                db.run(sql, [], function(err: Error | null) {
+                db.run(sql, [], function (err: Error | null) {
                     if (err) {
                         reject(err)
                     }
@@ -54,7 +54,7 @@ class ProductDAO {
         return new Promise<Boolean>((resolve, reject) => {
             try {
                 const sql = "DELETE FROM products WHERE model = ?"
-                db.run(sql, [model], function(err: Error | null)  {
+                db.run(sql, [model], function (err: Error | null) {
                     if (err) {
                         if (this.changes === 0) reject(new ProductNotFoundError)
                         reject(err)

@@ -32,7 +32,7 @@ class ProductController {
      * @param changeDate The optional date in which the change occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {}
+    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ { }
 
     /**
      * Decreases the available quantity of a product through the sale of units.
