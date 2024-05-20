@@ -32,7 +32,11 @@ class ProductController {
      * @param changeDate The optional date in which the change occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ { }
+    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
+        if(newQuantity<0){
+            throw new Error("Invalid number of new quantity");}
+        return this.dao.changeProductQuantity(model,newQuantity,changeDate);
+    }
 
     /**
      * Decreases the available quantity of a product through the sale of units.
@@ -41,7 +45,9 @@ class ProductController {
      * @param sellingDate The optional date in which the sale occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ { }
+    async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
+        return this.dao.sellProduct(model,quantity,sellingDate);
+     }
 
     /**
      * Returns all products in the database, with the option to filter them by category or model.
