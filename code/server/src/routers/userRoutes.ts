@@ -156,7 +156,7 @@ class UserRoutes {
         this.router.patch(
             "/:username",
             this.authService.isLoggedIn,
-            body("username").isString().isLength({ min: 1 }),
+            param("username").isString().isLength({ min: 1 }),
             body("name").isString().isLength({ min: 1 }),
             body("surname").isString().isLength({ min: 1 }),
             body("address").isString().isLength({ min: 1 }),

@@ -83,6 +83,13 @@ class ProductRoutes {
          */
         this.router.patch(
             "/:model",
+            param("model").isString().isLength({ min: 1 }),
+            this.authenticator.isLoggedIn,
+            //TODO: check if both admin ane manager or only manager
+            this.authenticator.isAdminOrManager,
+            body("quantity").isNumeric().isInt({ gt: 0 }),
+            //TODO: check if changeDate is a valid date
+            body("changeDate").isString() || body("changeDate").isEmpty(),
             (req: any, res: any, next: any) => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => next(err))
@@ -99,6 +106,12 @@ class ProductRoutes {
          */
         this.router.patch(
             "/:model/sell",
+            this.authenticator.isLoggedIn,
+            this.authenticator.isAdminOrManager,
+            param("model").isString().isLength({ min: 1 }),
+            body("quantity").isNumeric().isInt({ gt: 0 }),
+            //TODO check if sellingDate is a valid date
+            body("sellingDate").isString() || body("sellingDate").isEmpty(),
             (req: any, res: any, next: any) => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => {
@@ -118,6 +131,11 @@ class ProductRoutes {
          */
         this.router.get(
             "/",
+            this.authenticator.isLoggedIn,
+            //TODO capire se deve avere un particolare ruolo
+            query("grouping").isString().isIn(["category", "model"]) || query("grouping").isEmpty(),
+            query("category").isString().isIn(["Smartphone", "Laptop", "Appliance"]) || query("category").isEmpty(),
+            query("model").isString().isLength({ min: 1 }) || query("model").isEmpty(),
             (req: any, res: any, next: any) => this.controller.getProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any /*Product[]*/) => res.status(200).json(products))
                 .catch((err) => {

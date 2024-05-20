@@ -32,7 +32,10 @@ class ProductController {
      * @param changeDate The optional date in which the change occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ { }
+    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
+        return this.dao.changeProductQuantity(model, newQuantity, changeDate)
+
+    }
 
     /**
      * Decreases the available quantity of a product through the sale of units.
@@ -41,7 +44,10 @@ class ProductController {
      * @param sellingDate The optional date in which the sale occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ { }
+    async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
+        if (sellingDate)
+            this.dao.sellProduct(model, quantity, sellingDate)
+    }
 
     /**
      * Returns all products in the database, with the option to filter them by category or model.
@@ -50,7 +56,17 @@ class ProductController {
      * @param model An optional parameter. It can only be present if grouping is equal to "model" (in which case it must be present and not empty).
      * @returns A Promise that resolves to an array of Product objects.
      */
-    async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ { }
+    async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ {
+        if (grouping === null) {
+            this.dao.getProducts(null, null, null)
+        } else if (grouping === "category" && category !== null && model === null) {
+            this.dao.getProducts(grouping, category, null)
+        } else if (grouping === "model" && model !== null && category === null) {
+            this.dao.getProducts(grouping, null, model)
+        } else {
+            throw new Error("Invalid parameters")
+        }
+    }
 
     /**
      * Returns all available products (with a quantity above 0) in the database, with the option to filter them by category or model.
