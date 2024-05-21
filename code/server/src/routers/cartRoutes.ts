@@ -71,7 +71,8 @@ class CartRoutes {
         this.router.post(
             "/",
             this.authService.isLoggedIn,
-            body("model").isString.isLength({ min: 1 }),
+            this.authService.isCustomer,
+            body("model").isString().isLength({ min: 1 }),
 
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.addToCart(req.user, req.body.model)
@@ -122,6 +123,9 @@ class CartRoutes {
             "/products/:model",
             this.authService.isLoggedIn,
             this.authService.isCustomer,
+            param("model").isString().isLength({ min: 1 }),
+            this.errorHandler.validateRequest,
+
             (req: any, res: any, next: any) => this.controller.removeProductFromCart(req.user, req.params.model)
                 .then(() => res.status(200).end())
                 .catch((err) => {
