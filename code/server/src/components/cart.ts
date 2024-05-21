@@ -6,7 +6,7 @@ import { Category } from "./product"
 class Cart {
     customer: string
     paid: boolean
-    paymentDate: string
+    paymentDate: string | null
     total: number
     products: ProductInCart[]
 
