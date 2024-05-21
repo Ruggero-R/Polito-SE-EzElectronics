@@ -1,6 +1,6 @@
 import db from "../db/db"
 import { Product } from "../components/product"
-import { EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
+import { ArrivalDateError, EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
 
 /**
  * A class that implements the interaction with the database for all product-related operations.
@@ -21,8 +21,18 @@ class ProductDAO {
     registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) {
         return new Promise<void>((resolve, reject) => {
             try {
-                const sql = "INSERT INTO products (model, category, quantity, details, sellingPrice, arrivalDate) VALUES (?, ?, ?, ?, ?, ?)"
-                db.run(sql, [model, category, quantity, details, sellingPrice, arrivalDate], (err: Error | null) => {
+                if (typeof model !== 'string' || (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || (typeof quantity !== 'number' || quantity <= 0) || (typeof details !== 'string' || details !== null) || (typeof sellingPrice !== 'number' || sellingPrice <= 0) || (typeof arrivalDate !== 'string' || arrivalDate !== null)) {
+                    reject(new Error("Invalid parameters"))
+                }
+                if (arrivalDate !== null) {
+                    //TODO: check if arrivalDate is a valid date
+                    // currentDate = dayjs().format('YYYY-MM-DD')
+                    // if (arrivalDate > currentDate) {
+                    //     reject(new ArrivalDateError)
+                    // }
+                }
+                const sql = "INSERT INTO products (model, category, arrivalDate, quantity, details, sellingPrice) VALUES (?, ?, ?, ?, ?, ?)"
+                db.run(sql, [model, category, arrivalDate, quantity, details, sellingPrice], (err: Error | null) => {
                     if (err) {
                         if (err.message.includes("UNIQUE constraint failed: products.model")) reject(new ProductAlreadyExistsError)
                         reject(err)

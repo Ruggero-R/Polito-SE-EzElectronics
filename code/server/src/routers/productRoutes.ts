@@ -59,14 +59,15 @@ class ProductRoutes {
         this.router.post(
             "/",
             this.authenticator.isLoggedIn,
-            this.authenticator.isManager,
-            body("model").isString().isLength({ min: 1 }),
-            body("category").isString().isIn(["Smartphone", "Laptop", "Appliance"]),
-            body("quantity").isNumeric().isInt({ gt: 0 }),
-            body("details").isString(),
-            body("sellingPrice").isNumeric().isFloat({ gt: 0 }),
+            //TODO: check if both admin ane manager or only manager
+            this.authenticator.isAdminOrManager,
+            // body("model").isString().isLength({ min: 1 }),
+            // body("category").isString().isIn(["Smartphone", "Laptop", "Appliance"]),
+            // body("quantity").isNumeric().isInt({ gt: 0 }),
+            // body("details").isString(),
+            // body("sellingPrice").isNumeric().isFloat({ gt: 0 }),
             //TODO: check if arrivalDate is a valid date
-            body("arrivalDate").isString(),
+            //body("arrivalDate").isString(),
             (req: any, res: any, next: any) => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
                 .then(() => res.status(200).end())
                 .catch((err) => next(err))

@@ -6,6 +6,7 @@ const PRODUCT_SOLD = "Product already sold"
 const EMPTY_PRODUCT_STOCK = "Product stock is empty"
 const LOW_PRODUCT_STOCK = "Product stock cannot satisfy the requested quantity"
 const INVALID_FILTERS = "Invalid filters"
+const INVALID_DATE = "Arrival date if after current date"
 
 /**
  * Represents an error that occurs when a product is not found.
@@ -83,4 +84,15 @@ class FiltersError extends Error {
     }
 }
 
-export { ProductNotFoundError, ProductAlreadyExistsError, ProductSoldError, EmptyProductStockError, LowProductStockError, FiltersError }
+class ArrivalDateError extends Error {
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_DATE
+        this.customCode = 400
+    }
+}
+
+export { ProductNotFoundError, ProductAlreadyExistsError, ProductSoldError, EmptyProductStockError, LowProductStockError, FiltersError, ArrivalDateError }
