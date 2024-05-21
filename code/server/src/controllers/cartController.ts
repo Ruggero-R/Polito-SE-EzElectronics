@@ -1,7 +1,5 @@
 import { User } from "../components/user";
 import CartDAO from "../dao/cartDAO";
-import { Cart, ProductInCart } from "../components/cart";
-import { CartNotFoundError, EmptyCartError } from "../errors/cartError";
 
 /**
  * Represents a controller for managing shopping carts.
