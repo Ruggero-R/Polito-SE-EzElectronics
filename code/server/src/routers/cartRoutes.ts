@@ -12,14 +12,14 @@ class CartRoutes {
     private controller: CartController
     private router: Router
     private errorHandler: ErrorHandler
-    private authenticator: Authenticator
+    private authService: Authenticator
 
     /**
      * Constructs a new instance of the CartRoutes class.
      * @param {Authenticator} authenticator - The authenticator object used for authentication.
      */
     constructor(authenticator: Authenticator) {
-        this.authenticator = authenticator
+        this.authService = authenticator
         this.controller = new CartController()
         this.router = express.Router()
         this.errorHandler = new ErrorHandler()
@@ -50,6 +50,8 @@ class CartRoutes {
          */
         this.router.get(
             "/",
+            this.authService.isLoggedIn,
+            this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.getCart(req.user)
                 .then((cart: any /**Cart */) => {
                     res.status(200).json(cart)
@@ -68,6 +70,10 @@ class CartRoutes {
          */
         this.router.post(
             "/",
+            this.authService.isLoggedIn,
+            body("model").isString.isLength({ min: 1 }),
+
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.addToCart(req.user, req.body.model)
                 .then(() => res.status(200).end())
                 .catch((err) => {
@@ -83,6 +89,8 @@ class CartRoutes {
          */
         this.router.patch(
             "/",
+            this.authService.isLoggedIn,
+            this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.checkoutCart(req.user)
                 .then(() => res.status(200).end())
                 .catch((err) => {
@@ -97,6 +105,8 @@ class CartRoutes {
          */
         this.router.get(
             "/history",
+            this.authService.isLoggedIn,
+            this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.getCustomerCarts(req.user)
                 .then((carts: any /**Cart[] */) => res.status(200).json(carts))
                 .catch((err) => next(err))
@@ -110,6 +120,8 @@ class CartRoutes {
          */
         this.router.delete(
             "/products/:model",
+            this.authService.isLoggedIn,
+            this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.removeProductFromCart(req.user, req.params.model)
                 .then(() => res.status(200).end())
                 .catch((err) => {
@@ -125,6 +137,8 @@ class CartRoutes {
          */
         this.router.delete(
             "/current",
+            this.authService.isLoggedIn,
+            this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.clearCart(req.user)
                 .then(() => res.status(200).end())
                 .catch((err) => next(err))
@@ -137,6 +151,8 @@ class CartRoutes {
          */
         this.router.delete(
             "/",
+            this.authService.isLoggedIn,
+            this.authService.isAdminOrManager,
             (req: any, res: any, next: any) => this.controller.deleteAllCarts()
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
@@ -149,6 +165,8 @@ class CartRoutes {
          */
         this.router.get(
             "/all",
+            this.authService.isLoggedIn,
+            this.authService.isAdminOrManager,
             (req: any, res: any, next: any) => this.controller.getAllCarts()
                 .then((carts: any/**Cart[] */) => res.status(200).json(carts))
                 .catch((err: any) => next(err))
