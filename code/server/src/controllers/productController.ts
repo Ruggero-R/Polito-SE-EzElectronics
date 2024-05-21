@@ -57,12 +57,12 @@ class ProductController {
      * @returns A Promise that resolves to an array of Product objects.
      */
     async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ {
-        if (grouping === null) {
-            this.dao.getProducts(null, null, null)
-        } else if (grouping === "category" && category !== null && model === null) {
-            this.dao.getProducts(grouping, category, null)
-        } else if (grouping === "model" && model !== null && category === null) {
-            this.dao.getProducts(grouping, null, model)
+        if (typeof grouping === 'undefined') {
+            this.dao.getAvailableProducts(null, null, null)
+        } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
+            this.dao.getAvailableProducts(grouping, category, null)
+        } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
+            this.dao.getAvailableProducts(grouping, null, model)
         } else {
             throw new Error("Invalid parameters")
         }
@@ -75,7 +75,17 @@ class ProductController {
      * @param model An optional parameter. It can only be present if grouping is equal to "model" (in which case it must be present and not empty).
      * @returns A Promise that resolves to an array of Product objects.
      */
-    async getAvailableProducts(grouping: string | null, category: string | null, model: string | null) /**:Promise<Product[]> */ { }
+    async getAvailableProducts(grouping: string | null, category: string | null, model: string | null) /**:Promise<Product[]> */ {
+        if (typeof grouping === 'undefined') {
+            this.dao.getAvailableProducts(null, null, null)
+        } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
+            this.dao.getAvailableProducts(grouping, category, null)
+        } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
+            this.dao.getAvailableProducts(grouping, null, model)
+        } else {
+            throw new Error("Invalid parameters")
+        }
+    }
 
     /**
      * Deletes all products.

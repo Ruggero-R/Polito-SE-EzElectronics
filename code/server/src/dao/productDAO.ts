@@ -131,50 +131,109 @@ class ProductDAO {
 
     getProducts(grouping: string | null, category: string | null, model: string | null) {
         return new Promise<Product[]>((resolve, reject) => {
-            let sql
-            if (grouping === null) {
-                if (category === null && model === null) {
-                    sql = "SELECT * FROM products"
-                    db.all(sql, [], (err: Error | null, rows: any) => {
-                        if (err) {
-                            reject(err)
-                        }
-                        const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                        resolve(products)
-                    })
+            try {
+                let sql
+                if (grouping === null) {
+                    if (category === null && model === null) {
+                        sql = "SELECT * FROM products"
+                        db.all(sql, [], (err: Error | null, rows: any) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
+                            resolve(products)
+                        })
+                    } else {
+                        reject(new FiltersError)
+                    }
+                } else if (grouping === "category") {
+                    if (category !== null && model === null) {
+                        sql = "SELECT * FROM products WHERE category = ?"
+                        db.all(sql, [category], (err: Error | null, rows: any) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
+                            resolve(products)
+                        })
+                    } else {
+                        reject(new FiltersError)
+                    }
+                } else if (grouping === "model") {
+                    if (category === null && model !== null) {
+                        sql = "SELECT * FROM products WHERE model = ?"
+                        db.all(sql, [model], (err: Error | null, rows: any) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
+                            resolve(products)
+                        })
+                    } else {
+                        reject(new FiltersError)
+                    }
                 } else {
                     reject(new FiltersError)
                 }
-            } else if (grouping === "category") {
-                if (category !== null && model === null) {
-                    sql = "SELECT * FROM products WHERE category = ?"
-                    db.all(sql, [category], (err: Error | null, rows: any) => {
-                        if (err) {
-                            reject(err)
-                        }
-                        const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                        resolve(products)
-                    })
-                } else {
-                    reject(new FiltersError)
-                }
-            } else {
-                if (category === null && model !== null) {
-                    sql = "SELECT * FROM products WHERE model = ?"
-                    db.all(sql, [model], (err: Error | null, rows: any) => {
-                        if (err) {
-                            reject(err)
-                        }
-                        const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                        resolve(products)
-                    })
-                } else {
-                    reject(new FiltersError)
-                }
+            } catch (error) {
+                reject(error)
             }
 
         })
 
+    }
+
+    getAvailableProducts(grouping: string | null, category: string | null, model: string | null): Promise<Product[]> {
+        return new Promise<Product[]>((resolve, reject) => {
+            try {
+                let sql
+                if (grouping === null) {
+                    if (category === null && model === null) {
+                        sql = "SELECT * FROM products WHERE quantity > 0"
+                        db.all(sql, [], (err: Error | null, rows: any) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
+                            console.log(products)
+                            resolve(products)
+                        })
+                    } else {
+                        reject(new FiltersError)
+                        return
+                    }
+                } else if (grouping === "category") {
+                    if (category !== null && model === null) {
+                        sql = "SELECT * FROM products WHERE category = ? AND quantity > 0"
+                        db.all(sql, [category], (err: Error | null, rows: any) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
+                            resolve(products)
+                        })
+                    } else {
+                        reject(new FiltersError)
+                    }
+                } else {
+                    if (category === null && model !== null) {
+                        sql = "SELECT * FROM products WHERE model = ? AND quantity > 0"
+                        db.all(sql, [model], (err: Error | null, rows: any) => {
+                            if (err) {
+                                reject(err)
+                            }
+                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
+                            resolve(products)
+                        })
+                    } else {
+                        reject(new FiltersError)
+                    }
+                }
+            } catch (error) {
+                reject(error)
+            }
+
+        })
     }
 }
 export default ProductDAO

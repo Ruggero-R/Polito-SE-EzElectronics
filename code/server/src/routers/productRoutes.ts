@@ -132,7 +132,6 @@ class ProductRoutes {
         this.router.get(
             "/",
             this.authenticator.isLoggedIn,
-            //TODO capire se deve avere un particolare ruolo
             query("grouping").isString().isIn(["category", "model"]) || query("grouping").isEmpty(),
             query("category").isString().isIn(["Smartphone", "Laptop", "Appliance"]) || query("category").isEmpty(),
             query("model").isString().isLength({ min: 1 }) || query("model").isEmpty(),
@@ -155,6 +154,9 @@ class ProductRoutes {
          */
         this.router.get(
             "/available",
+            query("grouping").isString().isIn(["category", "model"]) || query("grouping").isEmpty(),
+            query("category").isString().isIn(["Smartphone", "Laptop", "Appliance"]) || query("category").isEmpty(),
+            query("model").isString().isLength({ min: 1 }) || query("model").isEmpty(),
             (req: any, res: any, next: any) => this.controller.getAvailableProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any/*Product[]*/) => res.status(200).json(products))
                 .catch((err) => next(err))
