@@ -63,8 +63,8 @@ class ProductRoutes {
             this.authenticator.isLoggedIn,
             //TODO: check if both admin ane manager or only manager
             this.authenticator.isAdminOrManager,
-            body("model").notEmpty().isString(),
-            body("category").notEmpty().isString().isIn(["Smartphone", "Laptop", "Appliance"]),
+            body("model").notEmpty().isString().trim(),
+            body("category").notEmpty().isString().trim().isIn(["Smartphone", "Laptop", "Appliance"]),
             body("quantity").isNumeric().isInt({ gt: 0 }),
             body("details").isString().optional(),
             body("sellingPrice").isNumeric().isFloat({ gt: 0 }),
@@ -97,9 +97,9 @@ class ProductRoutes {
             "/:model",
             this.authenticator.isLoggedIn,
             this.authenticator.isAdminOrManager,
-            param("model").notEmpty().isString(),
+            param("model").trim().notEmpty().isString(),
             body("quantity").isNumeric().isInt({ gt: 0 }),
-            body("changeDate").optional().isString(),
+            body("changeDate").optional().trim().isString(),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
@@ -119,7 +119,7 @@ class ProductRoutes {
             "/:model/sell",
             this.authenticator.isLoggedIn,
             this.authenticator.isAdminOrManager,
-            param("model").notEmpty().isString(),
+            param("model").trim().notEmpty().isString(),
             body("quantity").isNumeric().isInt({ gt: 0 }),
             //TODO check if sellingDate is a valid date
             body("sellingDate").optional().isString(),
@@ -145,8 +145,8 @@ class ProductRoutes {
             "/",
             this.authenticator.isLoggedIn,
             this.authenticator.isAdminOrManager,
-            query("grouping").optional().isString().isIn(["category", "model"]),
-            query("category").optional().isString().isIn(["Smartphone", "Laptop", "Appliance"]),
+            query("grouping").trim().optional().isString().isIn(["category", "model"]),
+            query("category").trim().optional().isString().isIn(["Smartphone", "Laptop", "Appliance"]),
             query("model").optional().isString().notEmpty(),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.getProducts(req.query.grouping, req.query.category, req.query.model)
@@ -170,9 +170,9 @@ class ProductRoutes {
             "/available",
             this.authenticator.isLoggedIn,
             this.authenticator.isCustomer,
-            query("grouping").optional().isString().isIn(["category", "model"]),
-            query("category").optional().isString().isIn(["Smartphone", "Laptop", "Appliance"]),
-            query("model").optional().isString().notEmpty(),
+            query("grouping").trim().optional().isString().isIn(["category", "model"]),
+            query("category").trim().optional().isString().isIn(["Smartphone", "Laptop", "Appliance"]),
+            query("model").trim().optional().isString().notEmpty(),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.getAvailableProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any/*Product[]*/) => res.status(200).json(products))
@@ -204,7 +204,7 @@ class ProductRoutes {
             "/:model",
             this.authenticator.isLoggedIn,
             this.authenticator.isAdminOrManager,
-            param("model").notEmpty().isString(),
+            param("model").trim().notEmpty().isString(),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.deleteProduct(req.params.model)
                 .then(() => res.status(200).end())

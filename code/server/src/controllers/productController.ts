@@ -36,7 +36,9 @@ class ProductController {
                 throw new ArrivalDateError
             }
         }
-        return this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate)
+        
+        const ret: any = await this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
+        return ret;
     }
 
     /**
@@ -58,8 +60,8 @@ class ProductController {
                 throw new ArrivalDateError
             }
         }
-        return this.dao.changeProductQuantity(model, newQuantity, changeDate)
-
+        const ret: any = await this.dao.changeProductQuantity(model, newQuantity, changeDate);
+        return ret;
     }
 
     /**
@@ -81,7 +83,8 @@ class ProductController {
                 throw new ArrivalDateError
             }
         }
-        return this.dao.sellProduct(model, quantity, sellingDate)
+        const ret: any = await this.dao.sellProduct(model, quantity, sellingDate);
+        return ret;
     }
 
     /**
@@ -92,15 +95,19 @@ class ProductController {
      * @returns A Promise that resolves to an array of Product objects.
      */
     async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ {
+        let ret: any;
+
         if (typeof grouping === 'undefined' && typeof category === 'undefined' && typeof model === 'undefined') {
-            return this.dao.getProducts(undefined, undefined, undefined)
+            ret = await this.dao.getProducts(undefined, undefined, undefined);
         } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
-            return this.dao.getProducts(grouping, category, undefined)
+            ret = await this.dao.getProducts(grouping, category, undefined);
         } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
-            return this.dao.getProducts(grouping, undefined, model)
+            ret = await this.dao.getProducts(grouping, undefined, model);
         } else {
             throw new FiltersError
         }
+
+        return ret;
     }
 
     /**
@@ -111,15 +118,18 @@ class ProductController {
      * @returns A Promise that resolves to an array of Product objects.
      */
     async getAvailableProducts(grouping: string | null, category: string | null, model: string | null) /**:Promise<Product[]> */ {
+        let ret: any
         if (typeof grouping === 'undefined' && typeof category === 'undefined' && typeof model === 'undefined') {
-            return this.dao.getAvailableProducts(undefined, undefined, undefined)
+            ret = await this.dao.getAvailableProducts(undefined, undefined, undefined);
         } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
-            return this.dao.getAvailableProducts(grouping, category, undefined)
+            ret = await this.dao.getAvailableProducts(grouping, category, undefined);
         } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
-            return this.dao.getAvailableProducts(grouping, undefined, model)
+            ret = await this.dao.getAvailableProducts(grouping, undefined, model);
         } else {
             throw new FiltersError
         }
+
+        return ret;
     }
 
     /**
@@ -127,7 +137,9 @@ class ProductController {
      * @returns A Promise that resolves to `true` if all products have been successfully deleted.
      */
     async deleteAllProducts() /**:Promise <Boolean> */ {
-        return this.dao.deleteAllProducts()
+        const ret: any = await this.dao.deleteAllProducts();
+        
+        return ret;
     }
 
 
@@ -140,7 +152,9 @@ class ProductController {
         if (typeof model !== 'string' || model.trim() === '') {
             throw new InvalidParametersError
         }
-        return this.dao.deleteProduct(model)
+        const ret: any = await this.dao.deleteProduct(model);
+
+        return ret;
     }
 
 }
