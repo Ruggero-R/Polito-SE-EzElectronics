@@ -5,8 +5,23 @@ const USER_NOT_CUSTOMER = "This operation can be performed only by a customer"
 const USER_NOT_ADMIN = "This operation can be performed only by an admin"
 const USER_IS_ADMIN = "Admins cannot be deleted"
 const UNAUTHORIZED_USER = "You cannot access the information of other users"
-const INVALID_ROLE = "The role is invalid, only \"Customer\",\"Manager\",\"Admin\" are allowed roles"
+const INVALID_ROLE = "The chosen role is not valid"
+const INVALID_PARAMS = "The request cannot be satisfied due to an/some incorret/s parameter/s"
 
+
+/**
+ * Represent an error that occurs when one or more parameters are not valid
+ */
+class InvalidParametersError extends Error{
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_PARAMS
+        this.customCode = 404
+    }
+}
 /**
  * Represents an error that occurs when a user is not found.
  */
@@ -103,12 +118,12 @@ class InvalidRoleError extends Error {
     customMessage: String;
     customCode: Number;
 
-    constructor() {
+    constructor(role:string) {
         super()
-        this.customMessage = INVALID_ROLE
+        this.customMessage = INVALID_ROLE + ": " + role
         this.customCode = 422
     }
 }
 
 
-export { UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError, InvalidRoleError }
+export { InvalidParametersError, UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError, InvalidRoleError }

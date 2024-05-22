@@ -1,5 +1,8 @@
+import { UnauthorizedUserError,InvalidParametersError,InvalidRoleError } from "../errors/userError";
 import { User } from "../components/user"
 import UserDAO from "../dao/userDAO"
+import dayjs from "dayjs";
+import { ArrivalDateError } from "../errors/productError";
 
 /**
  * Represents a controller for managing users.
@@ -22,16 +25,19 @@ class UserController {
      * @returns A Promise that resolves to true if the user has been created.
      */
     async createUser(username: string, name: string, surname: string, password: string, role: string) /**:Promise<Boolean> */ {
-        return this.dao.createUser(username, name, surname, password, role)
-    }
+        if(!username || !name || !surname || !password || !role ){
+            throw new InvalidParametersError;}
+        else if(username.trim().length==0 || name.trim().length==0 || surname.trim().length==0 || password.trim().length==0){
+            throw new InvalidParametersError;}
+        else if(["Manager", "Customer", "Admin"].includes(role.trim())==false){
+            throw new InvalidRoleError(role);}   // Errors
+        return this.dao.createUser(username.trim(), name.trim(), surname.trim(), password.trim(), role.trim());}
 
     /**
      * Returns all users.
      * @returns A Promise that resolves to an array of users.
      */
-    async getUsers() /**:Promise<User[]> */ {
-        return this.dao.getUsers()
-    }
+    async getUsers() /**:Promise<User[]> */ {return this.dao.getUsers();}
 
     /**
      * Returns all users with a specific role.
@@ -39,8 +45,9 @@ class UserController {
      * @returns A Promise that resolves to an array of users with the specified role.
      */
     async getUsersByRole(role: string) /**:Promise<User[]> */ {
-        return this.dao.getUsersByRole(role)
-    }
+        if(!role || ["Manager","Customer","Admin"].includes(role.trim())==false){
+            throw new InvalidRoleError(role);}
+        return this.dao.getUsersByRole(role.trim());}
 
     /**
      * Returns a specific user.
@@ -51,13 +58,13 @@ class UserController {
      * @returns A Promise that resolves to the user with the specified username.
      */
     async getUserByUsername(user: User, username: string) /**:Promise<User> */ {
-        if (user.username === username || user.role === "Admin") {
-            return this.dao.getUserByUsername(username)
-        } else {
-            //TODO come gestisco questo errore? It should return a 401 error when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin
-            throw new Error("Unauthorized")
-        }
-    }
+        if(!user || !user.role || !user.username || user.username.trim().length==0 || !username || username.trim().length==0){
+            throw new InvalidParametersError;}
+        else if(["Manager","Customer","Admin"].includes(user.role)==false){
+            throw new InvalidRoleError(user.role);}
+        else if(user.role.trim()=="Admin" || user.username.trim()==username.trim()){
+            return this.dao.getUserByUsername(username.trim());}
+        throw new UnauthorizedUserError;}
 
     /**
      * Deletes a specific user
@@ -67,22 +74,22 @@ class UserController {
      * @param username - The username of the user to delete. The user must exist.
      * @returns A Promise that resolves to true if the user has been deleted.
      */
-    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ {
-        //TODO gestire It should return a 401 error when the calling user is an Admin and username represents a different Admin user
-        if (user.username === username || user.role === "Admin") {
-            return this.dao.deleteUser(username)
-        } else {
-            throw new Error("Unauthorized")
-        }
-    }
+    async deleteUser(user:User, username: string) /**:Promise<Boolean> */{
+        if(!user || !user.role || !user.username || user.username.trim().length==0 || !username || username.trim().length==0){
+            throw new InvalidParametersError;}
+        else if(["Manager","Customer","Admin"].includes(user.role)==false){
+            throw new InvalidRoleError(user.role);}
+        else if(user.username.trim()==username.trim()){
+            return this.dao.deleteUser(username.trim());}
+        else if(user.role.trim()=="Admin"){
+            return this.dao.deleteUserAsAdmin(user.username.trim(),username.trim());}
+        throw new UnauthorizedUserError;}
 
     /**
      * Deletes all non-Admin users
      * @returns A Promise that resolves to true if all non-Admin users have been deleted.
      */
-    async deleteAll() {
-        return this.dao.deleteAllUsers()
-    }
+    async deleteAll() /**:Promise<Boolean> */{return this.dao.deleteAllUsers();}
 
     /**
      * Updates the personal information of one user. The user can only update their own information.
@@ -95,13 +102,19 @@ class UserController {
      * @returns A Promise that resolves to the updated user
      */
     async updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string) /**:Promise<User> */ {
-        //TODO gestire il caso in cui è l'admina a fare la richiesta
-        if ((user.role === 'Manager' || user.role === 'Customer') && user.username === username) {
-            this.dao.updateUserInfo(user, name, surname, address, birthdate, username)
-        } else {
-            throw new Error("Unauthorized")
-        }
-    }
-}
+        if(!user || !user.username || !user.role || !username|| !name || !surname || !address || !birthdate){
+            throw new InvalidParametersError;}
+        else if(user.username.trim().length==0 || name.trim().length==0 || surname.trim().length==0 || address.trim().length==0 ||
+            birthdate.trim().length==0 || username.trim().length==0){
+                throw new InvalidParametersError;}
+        else if(dayjs(birthdate.trim(),"YYYY-MM-DD").isValid()==false || dayjs(birthdate.trim()).isAfter(dayjs())){
+            throw new ArrivalDateError;}
+        else if(["Manager","Customer","Admin"].includes(user.role.trim())==false){
+            throw new InvalidRoleError(user.role);}
+        else if(user.username.trim()==username.trim()){
+            return this.dao.updateUser(username.trim(),name.trim(),surname.trim(),address.trim(),birthdate.trim());}
+        else if(user.role.trim()=="Admin"){
+            return this.dao.updateUserAsAdmin(username.trim(),name.trim(),surname.trim(),address.trim(),birthdate.trim());}
+        throw new UnauthorizedUserError;}}
 
 export default UserController
