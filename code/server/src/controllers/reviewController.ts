@@ -17,7 +17,11 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ {
-        return this.dao.addReview(model, user, score, comment);
+        if (!model || !user || score < 1 || score > 5 || !comment || !comment.trim()) {
+            throw new Error("Invalid parameters");
+        } else {
+            return this.dao.addReview(model, user, score, comment);
+        }
     }
 
     /**
@@ -25,8 +29,12 @@ class ReviewController {
      * @param model The model of the product to get reviews from
      * @returns A Promise that resolves to an array of ProductReview objects
      */
-    async getProductReviews(model: string) /**:Promise<ProductReview[]> */ { 
-        return this.dao.getProductReviews(model);
+    async getProductReviews(model: string) /**:Promise<ProductReview[]> */ {
+        if (!model || !model.trim()) {
+            throw new Error("Invalid parameters");
+        } else {
+            return this.dao.getProductReviews(model);
+        }
     }
 
     /**
@@ -35,8 +43,12 @@ class ReviewController {
      * @param user The user who made the review to delete
      * @returns A Promise that resolves to nothing
      */
-    async deleteReview(model: string, user: User) /**:Promise<void> */ { 
-        return this.dao.deleteReview(model, user);
+    async deleteReview(model: string, user: User) /**:Promise<void> */ {
+        if (!model || !model.trim() || !user) {
+            throw new Error("Invalid parameters");
+        } else {
+            return this.dao.deleteReview(model, user);
+        }
     }
 
     /**
@@ -44,15 +56,19 @@ class ReviewController {
      * @param model The model of the product to delete the reviews from
      * @returns A Promise that resolves to nothing
      */
-    async deleteReviewsOfProduct(model: string) /**:Promise<void> */ { 
-        return this.dao.deleteReviewsOfProduct(model);
+    async deleteReviewsOfProduct(model: string) /**:Promise<void> */ {
+        if (!model || !model.trim()) {
+            throw new Error("Invalid parameters");
+        } else {
+            return this.dao.deleteReviewsOfProduct(model);
+        }
     }
 
     /**
      * Deletes all reviews of all products
      * @returns A Promise that resolves to nothing
      */
-    async deleteAllReviews() /**:Promise<void> */ { 
+    async deleteAllReviews() /**:Promise<void> */ {
         return this.dao.deleteAllReviews();
     }
 }

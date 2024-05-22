@@ -2,7 +2,6 @@ import db from "../db/db"
 import { resolve } from "path";
 import { User } from "../components/user";
 import { ProductReview } from "../components/review";
-import { rejects } from "assert";
 import dayjs from "dayjs";
 import { ExistingReviewError, NoReviewProductError } from "../errors/reviewError";
 import { Product } from "../components/product";
