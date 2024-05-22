@@ -66,13 +66,13 @@ class CartDAO {
 
     /**
      * Retrieves all items in a specific cart.
-     * @param cartId The ID of the cart.
+     * @param userId The ID of the user.
      * @returns A Promise that resolves to an array of ProductInCart objects.
      */
-    getCartItems(cartId: number): Promise<ProductInCart[]> {
+    getCartItems(userId: string): Promise<ProductInCart[]> {
         return new Promise<ProductInCart[]>((resolve, reject) => {
-            const sql = "SELECT * FROM cart_items WHERE cart_id = ?";
-            db.all(sql, [cartId], (err: Error | null, rows: any[]) => {
+            const sql = "SELECT ci.product_id, p.model, ci.quantity, p.category, p.price FROM cart_items ci JOIN products p ON ci.product_id = p.model WHERE ci.cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
+            db.all(sql, [userId], (err: Error | null, rows: any[]) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -83,17 +83,18 @@ class CartDAO {
         });
     }
 
+
     /**
      * Adds a product to a cart.
-     * @param cartId The ID of the cart.
+     * @param userId The ID of the user.
      * @param productId The ID of the product.
      * @param quantity The quantity of the product to add.
      * @returns A Promise that resolves when the product is added to the cart.
      */
-    addProductToCart(cartId: number, productId: number, quantity: number): Promise<void> {
+    addProductToCart(userId: string, productId: number, quantity: number): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)";
-            db.run(sql, [cartId, productId, quantity], (err: Error | null) => {
+            const sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, ?)";
+            db.run(sql, [userId, productId, quantity], (err: Error | null) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -105,15 +106,15 @@ class CartDAO {
 
     /**
      * Updates the quantity of a product in a cart.
-     * @param cartId The ID of the cart.
+     * @param userId The ID of the user.
      * @param productId The ID of the product.
      * @param quantity The new quantity of the product.
      * @returns A Promise that resolves when the quantity is updated.
      */
-    updateCartItemQuantity(cartId: number, productId: number, quantity: number): Promise<void> {
+    updateCartItemQuantity(userId: string, productId: number, quantity: number): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND product_id = ?";
-            db.run(sql, [quantity, cartId, productId], (err: Error | null) => {
+            const sql = "UPDATE cart_items SET quantity = ? WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_id = ?";
+            db.run(sql, [quantity, userId, productId], (err: Error | null) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -142,15 +143,15 @@ class CartDAO {
     }
 
     /**
-     * Removes a product from a cart.
-     * @param cartId The ID of the cart.
-     * @param productId The ID of the product.
-     * @returns A Promise that resolves when the product is removed from the cart.
-     */
-    removeProductFromCart(cartId: number, productId: number): Promise<void> {
+    * Removes a product from a cart.
+    * @param userId The ID of the user.
+    * @param productModel The model of the product.
+    * @returns A Promise that resolves when the product is removed from the cart.
+    */
+    removeProductFromCart(userId: string, productModel: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?";
-            db.run(sql, [cartId, productId], (err: Error | null) => {
+            const sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_id = (SELECT model FROM products WHERE model = ?)";
+            db.run(sql, [userId, productModel], (err: Error | null) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -162,13 +163,13 @@ class CartDAO {
 
     /**
      * Clears all products from a cart.
-     * @param cartId The ID of the cart.
+     * @param userId The ID of the user.
      * @returns A Promise that resolves when all products are removed from the cart.
      */
-    clearCart(cartId: number): Promise<void> {
+    clearCart(userId: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "DELETE FROM cart_items WHERE cart_id = ?";
-            db.run(sql, [cartId], (err: Error | null) => {
+            const sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
+            db.run(sql, [userId], (err: Error | null) => {
                 if (err) {
                     reject(err);
                 } else {
