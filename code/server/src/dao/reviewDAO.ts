@@ -3,7 +3,7 @@ import { resolve } from "path";
 import { User } from "../components/user";
 import { ProductReview } from "../components/review";
 import dayjs from "dayjs";
-import { ExistingReviewError, NoReviewProductError } from "../errors/reviewError";
+import { ExistingReviewError, NoReviewProductError, ProductNotFoundError } from "../errors/reviewError";
 import { Product } from "../components/product";
 
 /**
@@ -17,19 +17,23 @@ class ReviewDAO {
 
         return new Promise<void>((resolve, reject) => {
             try {
-                const sql = "SELECT * FROM products WHERE model = ?";
-                db.get(sql, [model], (err: Error | null, row: Product) => {
-                    if(err) {
+                const selectSql = "SELECT * FROM products WHERE model = ?";
+                db.get(selectSql, [model], (err: Error | null, row: Product) => {
+                    if (err) {
                         reject(err);
+                        return
                     } else if (!row) {
-                        reject(new NoReviewProductError);
+                        reject(new ProductNotFoundError);
                     } else {
                         const sql = "INSERT INTO products_reviews(model, user, score, date, comment) VALUES(?, ?, ?, ?, ?)";
                         db.run(sql, [model, user, score, dayjs().format("YYYY-MM-DD"), comment], (err: Error | null) => {
                             if (err) {
-                                if (err.message.includes("FOREIGN KEY constraint failed"))
+                                if (err.message.includes("FOREIGN KEY constraint failed")) {
                                     reject(new ExistingReviewError);
+                                    return
+                                }
                                 reject(err);
+                                return
                             }
                             resolve();
                         });
@@ -46,30 +50,34 @@ class ReviewDAO {
 
         return new Promise<ProductReview[]>((resolve, reject) => {
             try {
-                const sql = "SELECT * FROM products WHERE model = ?";
-                db.get(sql, [model], (err: Error | null, row: Product) => {
-                    if(err) {
+                const selectSql = "SELECT * FROM products WHERE model = ?";
+                db.get(selectSql, [model], (err: Error | null, row: Product) => {
+                    if (err) {
                         reject(err);
+                        return
                     } else if (!row) {
-                        reject(new NoReviewProductError);
+                        reject(new ProductNotFoundError);
                     } else {
                         const sql = "SELECT * FROM products_reviews WHERE model = ?";
                         db.all(sql, [model], (err: Error | null, rows: ProductReview[]) => {
                             if (err) {
                                 reject(err);
+                                return
                             }
-                            resolve(rows);
+                            const reviews: ProductReview[] = rows.map((row: any) => new ProductReview(row.model, row.user, row.score, row.date, row.comment));
+                            resolve(reviews);
                         });
                     }
                 });
             } catch (error) {
                 reject(error);
+                return
             }
         });
     }
 
     deleteReview(model: string, user: User): Promise<void> {
-        // DA MODIFICARE UNA VOLTA CHE IL DAO DEI PRODOTTI SARÀ COMPLETATO, usare getProducts invece della query sql
+        //TODO controllare
 
         return new Promise<void>((resolve, reject) => {
             try {

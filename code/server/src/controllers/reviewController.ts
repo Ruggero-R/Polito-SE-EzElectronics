@@ -1,3 +1,4 @@
+import { InvalidParametersError } from "../errors/reviewError";
 import { User } from "../components/user";
 import ReviewDAO from "../dao/reviewDAO";
 
@@ -17,11 +18,10 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ {
-        if (!model || !user || score < 1 || score > 5 || !comment || !comment.trim()) {
-            throw new Error("Invalid parameters");
-        } else {
-            return this.dao.addReview(model, user, score, comment);
-        }
+        if ((!model || typeof model !== 'string' || !model.trim()) || (!user && !(user instanceof User)) || (typeof score !== 'number' || score < 1 || score > 5) || (typeof comment !== 'string' || !comment || !comment.trim()))
+            throw new InvalidParametersError;
+        const ret: any = await this.dao.addReview(model, user, score, comment);
+        return ret
     }
 
     /**
@@ -30,11 +30,10 @@ class ReviewController {
      * @returns A Promise that resolves to an array of ProductReview objects
      */
     async getProductReviews(model: string) /**:Promise<ProductReview[]> */ {
-        if (!model || !model.trim()) {
-            throw new Error("Invalid parameters");
-        } else {
-            return this.dao.getProductReviews(model);
-        }
+        if (!model || !model.trim() || typeof model !== 'string')
+            throw new InvalidParametersError;
+        const ret: any = await this.dao.getProductReviews(model);
+        return ret
     }
 
     /**
