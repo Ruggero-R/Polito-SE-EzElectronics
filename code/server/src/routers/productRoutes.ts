@@ -61,23 +61,13 @@ class ProductRoutes {
         this.router.post(
             "/",
             this.authenticator.isLoggedIn,
-            //TODO: check if both admin ane manager or only manager
             this.authenticator.isAdminOrManager,
             body("model").notEmpty().isString().trim(),
             body("category").notEmpty().isString().trim().isIn(["Smartphone", "Laptop", "Appliance"]),
             body("quantity").isNumeric().isInt({ gt: 0 }),
             body("details").isString().optional(),
             body("sellingPrice").isNumeric().isFloat({ gt: 0 }),
-            //Verificare la custom
-            body("arrivalDate").optional().isString().custom((value) => {
-                if (!dayjs(value, 'YYYY-MM-DD', true).isValid()) {
-                    throw new ArrivalDateError
-                }
-                if (value > dayjs().format('YYYY-MM-DD')) {
-                    throw new ArrivalDateError
-                }
-                return true
-            }),
+            body("arrivalDate").optional().isString(),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
                 .then(() => res.status(200).end())
