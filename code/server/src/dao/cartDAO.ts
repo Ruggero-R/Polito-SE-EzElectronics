@@ -85,16 +85,16 @@ class CartDAO {
 
 
     /**
-     * Adds a product to a cart.
-     * @param userId The ID of the user.
-     * @param productId The ID of the product.
-     * @param quantity The quantity of the product to add.
-     * @returns A Promise that resolves when the product is added to the cart.
-     */
-    addProductToCart(userId: string, productId: number, quantity: number): Promise<void> {
+    * Adds a product to a cart.
+    * @param userId The ID of the user.
+    * @param productModel The model of the product.
+    * @param quantity The quantity of the product to add.
+    * @returns A Promise that resolves when the product is added to the cart.
+    */
+    addProductToCart(userId: string, productModel: string, quantity: number): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, ?)";
-            db.run(sql, [userId, productId, quantity], (err: Error | null) => {
+            const sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), (SELECT model FROM products WHERE model = ?), ?)";
+            db.run(sql, [userId, productModel, quantity], (err: Error | null) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -103,6 +103,7 @@ class CartDAO {
             });
         });
     }
+
 
     /**
      * Updates the quantity of a product in a cart.
