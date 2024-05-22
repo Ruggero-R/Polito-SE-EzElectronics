@@ -49,18 +49,17 @@ class CartController {
     }
 
     /**
-     * Checks out the user's cart. We assume that payment is always successful, there is no need to implement anything related to payment.
-     * @param user - The user whose cart should be checked out.
-     * @returns A Promise that resolves to `true` if the cart was successfully checked out.
-     * 
-     */
-    async checkoutCart(user: User) /**Promise<Boolean> */ {
+    * Checks out the user's cart. We assume that payment is always successful, there is no need to implement anything related to payment.
+    * @param user - The user whose cart should be checked out.
+    * @returns A Promise that resolves to `true` if the cart was successfully checked out.
+    */
+    async checkoutCart(user: User): Promise<boolean> {
         const activeCart = await this.dao.getActiveCartByUserId(user.username);
         if (!activeCart) {
             throw new CartNotFoundError();
         }
 
-        const items = await this.dao.getCartItems(activeCart.id);
+        const items = await this.dao.getCartItems(user.username);
         if (items.length === 0) {
             throw new EmptyCartError();
         }
@@ -68,6 +67,7 @@ class CartController {
         await this.dao.checkoutCart(user.username);
         return true;
     }
+
 
     /**
      * Retrieves all paid carts for a specific customer.
