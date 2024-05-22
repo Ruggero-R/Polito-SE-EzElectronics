@@ -24,7 +24,7 @@ class ProductDAO {
         return new Promise<void>((resolve, reject) => {
             try {
                 const sql = "INSERT INTO products (model, category, arrivalDate, quantity, details, sellingPrice) VALUES (?, ?, ?, ?, ?, ?)"
-                db.run(sql, [model, category, (typeof arrivalDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : arrivalDate, quantity, details, sellingPrice], (err: Error | null) => {
+                db.run(sql, [model, category, (typeof arrivalDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : arrivalDate, quantity, details, sellingPrice], function (err: Error | null) {
                     if (err) {
                         if (err.message.includes("UNIQUE constraint failed: products.model")) reject(new ProductAlreadyExistsError)
                         reject(err)

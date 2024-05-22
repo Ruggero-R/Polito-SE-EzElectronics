@@ -77,6 +77,7 @@ class ReviewRoutes {
             this.authenticator.isLoggedIn,
             this.authenticator.isCustomer,
             param("model").isString().trim().notEmpty().isLength({ min: 1 }),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.deleteReview(req.params.model, req.user)
                 .then(() => res.status(200).send())
                 .catch((err: Error) => {
@@ -96,6 +97,7 @@ class ReviewRoutes {
             this.authenticator.isLoggedIn,
             this.authenticator.isAdminOrManager,
             param("model").isString().trim().notEmpty().isLength({ min: 1 }),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.deleteReviewsOfProduct(req.params.model)
                 .then(() => res.status(200).send())
                 .catch((err: Error) => next(err))

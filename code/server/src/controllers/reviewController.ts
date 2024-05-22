@@ -18,7 +18,7 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ {
-        if ((!model || typeof model !== 'string' || !model.trim()) || (!user && !(user instanceof User)) || (typeof score !== 'number' || score < 1 || score > 5) || (typeof comment !== 'string' || !comment || !comment.trim()))
+        if ((!model || typeof model !== 'string' || !model.trim()) || !(user instanceof User) || (typeof score !== 'number' || score < 1 || score > 5) || (typeof comment !== 'string' || !comment || !comment.trim()))
             throw new InvalidParametersError;
         const ret: any = await this.dao.addReview(model, user, score, comment);
         return ret
@@ -43,11 +43,10 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteReview(model: string, user: User) /**:Promise<void> */ {
-        if (!model || !model.trim() || !user) {
-            throw new Error("Invalid parameters");
-        } else {
-            return this.dao.deleteReview(model, user);
-        }
+        if (!model || !model.trim() || typeof model === 'string' || !(user instanceof User))
+            throw new InvalidParametersError
+        const ret: any = await this.dao.deleteReview(model, user);
+        return ret
     }
 
     /**
@@ -56,10 +55,11 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteReviewsOfProduct(model: string) /**:Promise<void> */ {
-        if (!model || !model.trim()) {
-            throw new Error("Invalid parameters");
+        if (!model || !model.trim() || typeof model !== 'string') {
+            throw new InvalidParametersError;
         } else {
-            return this.dao.deleteReviewsOfProduct(model);
+            const ret = await this.dao.deleteReviewsOfProduct(model);
+            return ret
         }
     }
 
@@ -68,7 +68,8 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteAllReviews() /**:Promise<void> */ {
-        return this.dao.deleteAllReviews();
+        const ret: any = await this.dao.deleteAllReviews();
+        return ret
     }
 }
 

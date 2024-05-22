@@ -26,7 +26,7 @@ class ReviewDAO {
                         reject(new ProductNotFoundError);
                     } else {
                         const sql = "INSERT INTO products_reviews(model, user, score, date, comment) VALUES(?, ?, ?, ?, ?)";
-                        db.run(sql, [model, user, score, dayjs().format("YYYY-MM-DD"), comment], (err: Error | null) => {
+                        db.run(sql, [model, user, score, dayjs().format("YYYY-MM-DD"), comment], function (err: Error | null) {
                             if (err) {
                                 if (err.message.includes("FOREIGN KEY constraint failed")) {
                                     reject(new ExistingReviewError);
@@ -77,22 +77,36 @@ class ReviewDAO {
     }
 
     deleteReview(model: string, user: User): Promise<void> {
-        //TODO controllare
-
         return new Promise<void>((resolve, reject) => {
             try {
-                const sql = "SELECT * FROM products WHERE model = ?";
-                db.get(sql, [model], (err: Error | null, row: Product) => {
+                const selecetSql = "SELECT * FROM products WHERE model = ?";
+                db.get(selecetSql, [model], (err: Error | null, row: Product) => {
                     if (err) {
                         reject(err);
+                        return
                     } else if (!row) {
-                        reject(new NoReviewProductError);
+                        reject(new ProductNotFoundError);
+                        return
                     } else {
-                        const sql = "DELETE FROM products_reviews WHERE model = ? AND user = ?";
-                        db.run(sql, [model, user], (err: Error | null) => {
+                        const selectReviewSql = "SELECT * FROM products_reviews WHERE model = ? AND user = ?";
+                        db.get(selectReviewSql, [model, user], (err: Error | null, row: ProductReview) => {
                             if (err) {
-                                if (err.message.includes("FOREIGN KEY constraint failed"))
-                                    reject(new ExistingReviewError);
+                                reject(err);
+                                return
+                            }
+                            if (!row) {
+                                reject(new NoReviewProductError);
+                                return
+                            }
+                        });
+                        const sql = "DELETE FROM products_reviews WHERE model = ? AND user = ?";
+                        db.run(sql, [model, user], function (err: Error | null) {
+                            if (err) {
+                                if (err.message.includes("FOREIGN KEY constraint failed")) {
+                                    reject(new NoReviewProductError);
+                                }
+                                reject(err);
+                                return
                             }
                             resolve();
                         });
@@ -100,6 +114,7 @@ class ReviewDAO {
                 });
             } catch (error) {
                 reject(error);
+                return
             }
         });
     }
@@ -107,17 +122,20 @@ class ReviewDAO {
     deleteReviewsOfProduct(model: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
-                const sql = "SELECT * FROM products WHERE model = ?";
-                db.get(sql, [model], (err: Error | null, row: Product) => {
+                const selectSql = "SELECT * FROM products WHERE model = ?";
+                db.get(selectSql, [model], (err: Error | null, row: Product) => {
                     if (err) {
                         reject(err);
+                        return
                     } else if (!row) {
-                        reject(new NoReviewProductError);
+                        reject(new ProductNotFoundError);
+                        return
                     } else {
                         const sql = "DELETE FROM products_reviews WHERE model = ?";
-                        db.run(sql, [model], (err: Error | null) => {
+                        db.run(sql, [model], function (err: Error | null) {
                             if (err) {
                                 reject(err);
+                                return
                             }
                             resolve();
                         });
@@ -133,9 +151,10 @@ class ReviewDAO {
         return new Promise<void>((resolve, reject) => {
             try {
                 const sql = "DELETE FROM products_reviews";
-                db.run(sql, [], (err: Error | null) => {
+                db.run(sql, [], function (err: Error | null) {
                     if (err) {
                         reject(err);
+                        return
                     }
                     resolve();
                 });
