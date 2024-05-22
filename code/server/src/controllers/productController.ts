@@ -1,4 +1,6 @@
 import ProductDAO from "../dao/productDAO";
+import dayjs from 'dayjs';
+import { ArrivalDateError, EmptyProductStockError, FiltersError, InvalidParametersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
 
 /**
  * Represents a controller for managing products.
@@ -22,6 +24,18 @@ class ProductController {
      * @returns A Promise that resolves to nothing.
      */
     async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
+        if ((typeof model !== 'string' || model.trim() === '') || (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || (typeof details !== 'string' && typeof details !== 'undefined') || (typeof sellingPrice !== 'number' || sellingPrice <= 0) || (typeof arrivalDate !== 'string' && typeof arrivalDate !== 'undefined')) {
+            throw new InvalidParametersError
+        }
+
+        if (typeof arrivalDate !== 'undefined') {
+            if (!dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()) {
+                throw new InvalidParametersError
+            }
+            if (arrivalDate > dayjs().format('YYYY-MM-DD')) {
+                throw new ArrivalDateError
+            }
+        }
         return this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate)
     }
 
@@ -33,6 +47,17 @@ class ProductController {
      * @returns A Promise that resolves to the new available quantity of the product.
      */
     async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
+        if ((typeof model !== 'string' || model.trim() === '') || (typeof newQuantity !== 'number' || !Number.isInteger(newQuantity) || newQuantity <= 0) || (typeof changeDate !== 'string' && typeof changeDate !== 'undefined')) {
+            throw new InvalidParametersError
+        }
+        if (typeof changeDate !== 'undefined') {
+            if (!dayjs(changeDate, 'YYYY-MM-DD', true).isValid()) {
+                throw new InvalidParametersError
+            }
+            if (changeDate > dayjs().format('YYYY-MM-DD')) {
+                throw new ArrivalDateError
+            }
+        }
         return this.dao.changeProductQuantity(model, newQuantity, changeDate)
 
     }
@@ -45,8 +70,18 @@ class ProductController {
      * @returns A Promise that resolves to the new available quantity of the product.
      */
     async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
-        if (sellingDate)
-            this.dao.sellProduct(model, quantity, sellingDate)
+        if ((typeof model !== 'string' || model.trim() === '') || (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || (typeof sellingDate !== 'string' && typeof sellingDate !== 'undefined')) {
+            throw new InvalidParametersError
+        }
+        if (typeof sellingDate !== 'undefined') {
+            if (!dayjs(sellingDate, 'YYYY-MM-DD', true).isValid()) {
+                throw new InvalidParametersError
+            }
+            if (sellingDate > dayjs().format('YYYY-MM-DD')) {
+                throw new ArrivalDateError
+            }
+        }
+        return this.dao.sellProduct(model, quantity, sellingDate)
     }
 
     /**
@@ -57,14 +92,14 @@ class ProductController {
      * @returns A Promise that resolves to an array of Product objects.
      */
     async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ {
-        if (typeof grouping === 'undefined') {
-            this.dao.getAvailableProducts(null, null, null)
+        if (typeof grouping === 'undefined' && typeof category === 'undefined' && typeof model === 'undefined') {
+            return this.dao.getProducts(undefined, undefined, undefined)
         } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
-            this.dao.getAvailableProducts(grouping, category, null)
+            return this.dao.getProducts(grouping, category, undefined)
         } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
-            this.dao.getAvailableProducts(grouping, null, model)
+            return this.dao.getProducts(grouping, undefined, model)
         } else {
-            throw new Error("Invalid parameters")
+            throw new FiltersError
         }
     }
 
@@ -76,14 +111,14 @@ class ProductController {
      * @returns A Promise that resolves to an array of Product objects.
      */
     async getAvailableProducts(grouping: string | null, category: string | null, model: string | null) /**:Promise<Product[]> */ {
-        if (typeof grouping === 'undefined') {
-            this.dao.getAvailableProducts(null, null, null)
+        if (typeof grouping === 'undefined' && typeof category === 'undefined' && typeof model === 'undefined') {
+            return this.dao.getAvailableProducts(undefined, undefined, undefined)
         } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
-            this.dao.getAvailableProducts(grouping, category, null)
+            return this.dao.getAvailableProducts(grouping, category, undefined)
         } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
-            this.dao.getAvailableProducts(grouping, null, model)
+            return this.dao.getAvailableProducts(grouping, undefined, model)
         } else {
-            throw new Error("Invalid parameters")
+            throw new FiltersError
         }
     }
 
@@ -102,6 +137,9 @@ class ProductController {
      * @returns A Promise that resolves to `true` if the product has been successfully deleted.
      */
     async deleteProduct(model: string) /**:Promise <Boolean> */ {
+        if (typeof model !== 'string' || model.trim() === '') {
+            throw new InvalidParametersError
+        }
         return this.dao.deleteProduct(model)
     }
 

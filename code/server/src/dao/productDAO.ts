@@ -1,6 +1,8 @@
 import db from "../db/db"
 import { Product } from "../components/product"
-import { ArrivalDateError, EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
+import { ArrivalDateError, EmptyProductStockError, FiltersError, InvalidParametersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
+import dayjs from "dayjs"
+import { ResultWithContext } from "express-validator/src/chain";
 
 /**
  * A class that implements the interaction with the database for all product-related operations.
@@ -18,82 +20,50 @@ class ProductDAO {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) {
+    registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
-                if (typeof model !== 'string' || (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || (typeof quantity !== 'number' || quantity <= 0) || (typeof details !== 'string' || details !== null) || (typeof sellingPrice !== 'number' || sellingPrice <= 0) || (typeof arrivalDate !== 'string' || arrivalDate !== null)) {
-                    reject(new Error("Invalid parameters"))
-                }
-                if (arrivalDate !== null) {
-                    //TODO: check if arrivalDate is a valid date
-                    // currentDate = dayjs().format('YYYY-MM-DD')
-                    // if (arrivalDate > currentDate) {
-                    //     reject(new ArrivalDateError)
-                    // }
-                }
                 const sql = "INSERT INTO products (model, category, arrivalDate, quantity, details, sellingPrice) VALUES (?, ?, ?, ?, ?, ?)"
-                db.run(sql, [model, category, arrivalDate, quantity, details, sellingPrice], (err: Error | null) => {
+                db.run(sql, [model, category, (typeof arrivalDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : arrivalDate, quantity, details, sellingPrice], (err: Error | null) => {
                     if (err) {
                         if (err.message.includes("UNIQUE constraint failed: products.model")) reject(new ProductAlreadyExistsError)
                         reject(err)
+                        return
                     }
                     resolve()
                 })
             } catch (error) {
                 reject(error)
+                return
             }
         })
     }
 
-    deleteAllProducts() {
-        return new Promise<Boolean>((resolve, reject) => {
-            try {
-                const sql = "DELETE FROM products"
-                db.run(sql, [], function (err: Error | null) {
-                    if (err) {
-                        reject(err)
-                    }
-                    resolve(true)
-                })
-            } catch (error) {
-                reject(error)
-            }
-        })
-    }
-    deleteProduct(model: string) {                                      // DUBBIO
-        return new Promise<Boolean>((resolve, reject) => {
-            try {
-                const sql = "DELETE FROM products WHERE model = ?"
-                db.run(sql, [model], function (err: Error | null) {
-                    if (err) {
-                        reject(err)
-                    }
-                    if (this.changes === 0) reject(new ProductNotFoundError)
-                    resolve(true)
-                })
-            } catch (error) {
-                reject(error)
-            }
-        })
-    }
-
-    changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) {
+    changeProductQuantity(model: string, newQuantity: number, changeDate: string | null): Promise<number> {
         return new Promise<number>((resolve, reject) => {
             try {
                 //search model in database
-                let sql = "SELECT quantity FROM products WHERE model = ?"
+                let sql = "SELECT quantity,arrivalDate FROM products WHERE model = ?"
                 db.get(sql, [model], (err: Error | null, row: Product) => {
                     if (err) {
                         reject(err)
+                        return
                     }
                     if (!row) {
                         reject(new ProductNotFoundError)
+                        return
                     }
-                    //update quantity
+                    //check if change date is after current date or before arrival date
+                    if (changeDate && (dayjs(changeDate).isAfter(dayjs()) || dayjs(changeDate).isBefore(dayjs(row.arrivalDate)))) {
+                        reject(new ArrivalDateError)
+                        return
+                    }
+
                     sql = "UPDATE products SET quantity = ?, arrivalDate = ? WHERE model = ?"
-                    db.run(sql, [row.quantity + newQuantity, changeDate, model], function (err: Error | null) {
+                    db.run(sql, [row.quantity + newQuantity, (typeof changeDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : changeDate, model], function (err: Error | null) {
                         if (err) {
                             reject(err)
+                            return
                         }
                         resolve(row.quantity + newQuantity)
                     })
@@ -101,33 +71,43 @@ class ProductDAO {
 
             } catch (error) {
                 reject(error)
+                return
             }
         })
     }
 
-    sellProduct(model: string, quantity: number, sellingDate: string | null) {
+    sellProduct(model: string, quantity: number, sellingDate: string | null): Promise<number> {
         return new Promise<number>((resolve, reject) => {
             try {
                 //search model in database
-                let sql = "SELECT quantity FROM products WHERE model = ?"
+                let sql = "SELECT quantity, arrivalDate FROM products WHERE model = ?"
                 db.get(sql, [model], (err: Error | null, row: Product) => {
                     if (err) {
                         reject(err)
+                        return
                     }
                     if (!row) {
                         reject(new ProductNotFoundError)
+                        return
                     }
                     if (row.quantity == 0) {
                         reject(new EmptyProductStockError)
+                        return
                     }
                     if (row.quantity < quantity) {
                         reject(new LowProductStockError)
+                        return
                     }
-                    //update quantity
+                    if (typeof sellingDate === 'string' && (dayjs(sellingDate).isAfter(dayjs()) || dayjs(sellingDate).isBefore(dayjs(row.arrivalDate)))) {
+                        reject(new ArrivalDateError)
+                        return
+                    }
+
                     sql = "UPDATE products SET quantity = ?, sellingDate = ? WHERE model = ?"
-                    db.run(sql, [row.quantity - quantity, sellingDate, model], function (err: Error | null) {
+                    db.run(sql, [row.quantity - quantity, (typeof sellingDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : sellingDate, model], function (err: Error | null) {
                         if (err) {
                             reject(err)
+                            return
                         }
                         resolve(row.quantity - quantity)
                     })
@@ -139,51 +119,66 @@ class ProductDAO {
         })
     }
 
-    getProducts(grouping: string | null, category: string | null, model: string | null) {
+    getProducts(grouping: string | null, category: string | null, model: string | null): Promise<Product[]> {
         return new Promise<Product[]>((resolve, reject) => {
             try {
-                let sql
-                if (grouping === null) {
-                    if (category === null && model === null) {
+                let sql: string;
+                const params: any[] = [];
+                if (typeof grouping === 'undefined') {
+                    if (typeof category === 'undefined' && typeof model === 'undefined') {
+                        console.log("here2")
                         sql = "SELECT * FROM products"
-                        db.all(sql, [], (err: Error | null, rows: any) => {
-                            if (err) {
-                                reject(err)
-                            }
-                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                            resolve(products)
-                        })
                     } else {
-                        reject(new FiltersError)
+                        console.log("here3")
+                        reject(new FiltersError());
+                        return;
                     }
                 } else if (grouping === "category") {
-                    if (category !== null && model === null) {
+                    if (typeof category !== 'undefined' && typeof model === 'undefined') {
                         sql = "SELECT * FROM products WHERE category = ?"
-                        db.all(sql, [category], (err: Error | null, rows: any) => {
-                            if (err) {
-                                reject(err)
-                            }
-                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                            resolve(products)
-                        })
+                        params.push(category);
                     } else {
-                        reject(new FiltersError)
+                        reject(new FiltersError());
+                        return;
                     }
                 } else if (grouping === "model") {
-                    if (category === null && model !== null) {
+                    if (typeof category === 'undefined' && model !== 'undefined') {
                         sql = "SELECT * FROM products WHERE model = ?"
-                        db.all(sql, [model], (err: Error | null, rows: any) => {
-                            if (err) {
-                                reject(err)
-                            }
-                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                            resolve(products)
-                        })
+                        params.push(model);
                     } else {
-                        reject(new FiltersError)
+                        reject(new FiltersError());
+                        return;
                     }
                 } else {
                     reject(new FiltersError)
+                }
+
+                if (grouping === "model") {
+                    console.log('here model')
+                    // Use db.get for a single result
+                    db.get(sql, params, (err: Error | null, row: any) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        if (row) {
+                            const product = new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity);
+                            resolve([product]);
+                        } else {
+                            reject(new ProductNotFoundError);
+                        }
+                    });
+                } else {
+                    // Use db.all for multiple results
+                    db.all(sql, params, (err: Error | null, rows: any) => {
+                        console.log('here4')
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity));
+                        resolve(products);
+                    });
                 }
             } catch (error) {
                 reject(error)
@@ -196,53 +191,109 @@ class ProductDAO {
     getAvailableProducts(grouping: string | null, category: string | null, model: string | null): Promise<Product[]> {
         return new Promise<Product[]>((resolve, reject) => {
             try {
-                let sql
-                if (grouping === null) {
-                    if (category === null && model === null) {
+                let sql: string;
+                const params: any[] = [];
+                if (typeof grouping === 'undefined') {
+                    if (typeof category === 'undefined' && typeof model === 'undefined') {
                         sql = "SELECT * FROM products WHERE quantity > 0"
-                        db.all(sql, [], (err: Error | null, rows: any) => {
-                            if (err) {
-                                reject(err)
-                            }
-                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                            console.log(products)
-                            resolve(products)
-                        })
                     } else {
-                        reject(new FiltersError)
-                        return
+                        reject(new FiltersError());
+                        return;
                     }
                 } else if (grouping === "category") {
-                    if (category !== null && model === null) {
+                    //ARRIVATO qui
+                    if (typeof category !== 'undefined' && typeof model === 'undefined') {
                         sql = "SELECT * FROM products WHERE category = ? AND quantity > 0"
-                        db.all(sql, [category], (err: Error | null, rows: any) => {
-                            if (err) {
-                                reject(err)
-                            }
-                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                            resolve(products)
-                        })
+                        params.push(category);
                     } else {
-                        reject(new FiltersError)
+                        reject(new FiltersError());
+                        return;
+                    }
+                } else if (grouping === "model") {
+                    if (typeof category === 'undefined' && model !== 'undefined') {
+                        sql = "SELECT * FROM products WHERE model = ? AND quantity > 0"
+                        params.push(model);
+                    } else {
+                        reject(new FiltersError());
+                        return;
                     }
                 } else {
-                    if (category === null && model !== null) {
-                        sql = "SELECT * FROM products WHERE model = ? AND quantity > 0"
-                        db.all(sql, [model], (err: Error | null, rows: any) => {
-                            if (err) {
-                                reject(err)
-                            }
-                            const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity))
-                            resolve(products)
-                        })
-                    } else {
-                        reject(new FiltersError)
-                    }
+                    reject(new FiltersError)
+                }
+
+                if (grouping === "model") {
+                    // Use db.get for a single result
+                    db.get(sql, params, (err: Error | null, row: any) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        if (row) {
+                            const product = new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity);
+                            resolve([product]);
+                        } else {
+                            reject(new ProductNotFoundError);
+                        }
+                    });
+                } else {
+                    // Use db.all for multiple results
+                    db.all(sql, params, (err: Error | null, rows: any) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        const products: Product[] = rows.map((row: any) => new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity));
+                        resolve(products);
+                    });
                 }
             } catch (error) {
                 reject(error)
             }
 
+        })
+    }
+
+    deleteAllProducts(): Promise<Boolean> {
+        return new Promise<Boolean>((resolve, reject) => {
+            try {
+                const sql = "DELETE FROM products"
+                db.run(sql, [], function (err: Error | null) {
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+                    resolve(true)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+    deleteProduct(model: string): Promise<Boolean> {                                      // DUBBIO
+        return new Promise<Boolean>((resolve, reject) => {
+            try {
+                let sql = "SELECT * FROM products WHERE model = ?"
+                db.get(sql, [model], (err: Error | null, row: Product) => {
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+                    if (!row) {
+                        reject(new ProductNotFoundError)
+                        return
+                    }
+                })
+                sql = "DELETE FROM products WHERE model = ?"
+                db.run(sql, [model], function (err: Error | null) {
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+                    resolve(true)
+                })
+            } catch (error) {
+                reject(error)
+            }
         })
     }
 }
