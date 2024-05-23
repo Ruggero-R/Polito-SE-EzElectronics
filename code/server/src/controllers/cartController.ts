@@ -1,7 +1,7 @@
 import { User } from "../components/user";
 import CartDAO from "../dao/cartDAO";
 import { Cart, ProductInCart } from "../components/cart";
-import { CartNotFoundError, EmptyCartError } from "../errors/cartError";
+import { CartNotFoundError, EmptyCartError, InvalidParametersError } from "../errors/cartError";
 
 /**
  * Represents a controller for managing shopping carts.
@@ -23,14 +23,17 @@ class CartController {
     * @returns A Promise that resolves to `true` if the product was successfully added.
     */
     async addToCart(user: User, productModel: string): Promise<boolean> {
-        const activeCart = await this.dao.getActiveCartByUserId(user.username);
-
-        if (!activeCart) {
-            await this.dao.createCart(user.username);
+        if (!user || !(user instanceof User) || typeof productModel !== 'string' || productModel.trim() === '' || !productModel) {
+            throw new InvalidParametersError;
         }
+        // //TODO controllare 
+        // const activeCart: any = await this.dao.getActiveCartByUserId(user.username);
 
-        await this.dao.addProductToCart(user.username, productModel, 1);
-        return true;
+        // if (!activeCart) {
+        //     await this.dao.createCart(user.username);
+        // }
+        const res: any = await this.dao.addProductToCart(user.username, productModel);
+        return res;
     }
 
     /**

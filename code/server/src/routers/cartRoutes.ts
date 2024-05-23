@@ -75,7 +75,6 @@ class CartRoutes {
             this.authService.isLoggedIn,
             this.authService.isCustomer,
             body("model").isString().notEmpty(),
-
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.addToCart(req.user, req.body.model)
                 .then(() => res.status(200).end())

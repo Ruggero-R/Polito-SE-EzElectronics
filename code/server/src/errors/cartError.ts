@@ -3,7 +3,7 @@ const PRODUCT_IN_CART = "Product already in cart"
 const PRODUCT_NOT_IN_CART = "Product not in cart"
 const WRONG_USER_CART = "Cart belongs to another user"
 const EMPTY_CART = "Cart is empty"
-
+const INVALID_CART_PARAMETERS = "Invalid parameters"
 /**
  * Represents an error that occurs when a cart is not found.
  */
@@ -71,4 +71,16 @@ class EmptyCartError extends Error {
     }
 }
 
-export { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError }
+// Aggiunti di seguito
+class InvalidParametersError extends Error {
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_CART_PARAMETERS
+        this.customCode = 422
+    }
+}
+
+export { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError, InvalidParametersError }
