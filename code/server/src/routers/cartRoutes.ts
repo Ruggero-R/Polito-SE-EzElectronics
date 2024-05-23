@@ -3,7 +3,9 @@ import ErrorHandler from "../helper"
 import { body, param } from "express-validator"
 import CartController from "../controllers/cartController"
 import Authenticator from "./auth"
+import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError } from "../errors/cartError";
 import { Cart } from "../components/cart"
+import { Product } from "../components/product"
 
 /**
  * Represents a class that defines the routes for handling carts.
@@ -72,7 +74,7 @@ class CartRoutes {
             "/",
             this.authService.isLoggedIn,
             this.authService.isCustomer,
-            body("model").isString().isLength({ min: 1 }),
+            body("model").isString().notEmpty(),
 
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.addToCart(req.user, req.body.model)
