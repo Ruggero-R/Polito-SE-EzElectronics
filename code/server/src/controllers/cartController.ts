@@ -15,24 +15,24 @@ class CartController {
     }
 
     /**
-     * Adds a product to the user's cart. If the product is already in the cart, the quantity should be increased by 1.
-     * If the product is not in the cart, it should be added with a quantity of 1.
-     * If there is no current unpaid cart in the database, then a new cart should be created.
-     * @param user - The user to whom the product should be added.
-     * @param productModel - The model of the product to add.
-     * @returns A Promise that resolves to `true` if the product was successfully added.
-     */
+    * Adds a product to the user's cart. If the product is already in the cart, the quantity should be increased by 1.
+    * If the product is not in the cart, it should be added with a quantity of 1.
+    * If there is no current unpaid cart in the database, then a new cart should be created.
+    * @param user - The user to whom the product should be added.
+    * @param productModel - The model of the product to add.
+    * @returns A Promise that resolves to `true` if the product was successfully added.
+    */
     async addToCart(user: User, productModel: string): Promise<boolean> {
         const activeCart = await this.dao.getActiveCartByUserId(user.username);
 
         if (!activeCart) {
-            const newCartId = await this.dao.createCart(user.username);
-            await this.dao.addProductToCart(user.username, productModel, 1);
-        } else {
-            await this.dao.addProductToCart(user.username, productModel, 1);
+            await this.dao.createCart(user.username);
         }
+
+        await this.dao.addProductToCart(user.username, productModel, 1);
         return true;
     }
+
 
 
     /**

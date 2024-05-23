@@ -45,23 +45,12 @@ class CartDAO {
     }
 
     /**
-     * Retrieves a cart by its ID.
-     * @param cartId The ID of the cart.
-     * @returns A Promise that resolves to the cart if found, otherwise rejects with a CartNotFoundError.
+     * Retrieves the active cart for a specific user (alias for getActiveCartByUserId).
+     * @param userId The ID of the user.
+     * @returns A Promise that resolves to the active cart of the user, or null if no active cart exists.
      */
-    getCartById(cartId: number): Promise<Cart> {
-        return new Promise<Cart>((resolve, reject) => {
-            const sql = "SELECT * FROM carts WHERE id = ?";
-            db.get(sql, [cartId], (err: Error | null, row: any) => {
-                if (err) {
-                    reject(err);
-                } else if (!row) {
-                    reject(new CartNotFoundError());
-                } else {
-                    resolve(new Cart(row.customer, row.paid, row.paymentDate, row.total, []));
-                }
-            });
-        });
+    getCartById(userId: string): Promise<Cart | null> {
+        return this.getActiveCartByUserId(userId);
     }
 
     /**
@@ -108,14 +97,14 @@ class CartDAO {
     /**
      * Updates the quantity of a product in a cart.
      * @param userId The ID of the user.
-     * @param productId The ID of the product.
+     * @param productModel The model of the product.
      * @param quantity The new quantity of the product.
      * @returns A Promise that resolves when the quantity is updated.
      */
-    updateCartItemQuantity(userId: string, productId: number, quantity: number): Promise<void> {
+    updateCartItemQuantity(userId: string, productModel: string, quantity: number): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             const sql = "UPDATE cart_items SET quantity = ? WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_id = ?";
-            db.run(sql, [quantity, userId, productId], (err: Error | null) => {
+            db.run(sql, [quantity, userId, productModel], (err: Error | null) => {
                 if (err) {
                     reject(err);
                 } else {
