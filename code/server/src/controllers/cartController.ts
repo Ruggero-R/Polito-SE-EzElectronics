@@ -33,17 +33,23 @@ class CartController {
         return true;
     }
 
-
-
     /**
-     * Retrieves the current cart for a specific user.
-     * @param user - The user for whom to retrieve the cart.
-     * @returns A Promise that resolves to the user's cart or an empty one if there is no current cart.
-     */
+    * Retrieves the current cart for a specific user.
+    * If there is no active cart, creates a new one.
+    * @param user - The user for whom to retrieve the cart.
+    * @returns A Promise that resolves to the user's cart.
+    */
     async getCart(user: User): Promise<Cart> {
-        const activeCart = await this.dao.getActiveCartByUserId(user.username);
+        let activeCart = await this.dao.getActiveCartByUserId(user.username);
         if (!activeCart) {
-            throw new CartNotFoundError();
+            // If there's no active cart, create a new one
+            await this.dao.createCart(user.username);
+            // Retrieve the newly created cart
+            activeCart = await this.dao.getActiveCartByUserId(user.username);
+            if (!activeCart) {
+                // If there's still no active cart, throw an error
+                throw new CartNotFoundError();
+            }
         }
         return activeCart;
     }
@@ -67,7 +73,6 @@ class CartController {
         await this.dao.checkoutCart(user.username);
         return true;
     }
-
 
     /**
      * Retrieves all paid carts for a specific customer.
