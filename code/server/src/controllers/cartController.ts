@@ -63,18 +63,24 @@ class CartController {
     * @returns A Promise that resolves to `true` if the cart was successfully checked out.
     */
     async checkoutCart(user: User): Promise<boolean> {
-        const activeCart = await this.dao.getActiveCartByUserId(user.username);
-        if (!activeCart) {
-            throw new CartNotFoundError();
-        }
+        // const activeCart = await this.dao.getActiveCartByUserId(user.username);
+        // if (!activeCart) {
+        //     throw new CartNotFoundError();
+        // }
 
-        const items = await this.dao.getCartItems(user.username);
-        if (items.length === 0) {
-            throw new EmptyCartError();
-        }
+        // const items = await this.dao.getCartItems(user.username);
+        // if (items.length === 0) {
+        //     throw new EmptyCartError();
+        // }
 
-        await this.dao.checkoutCart(user.username);
-        return true;
+        // await this.dao.checkoutCart(user.username);
+        // return true;
+        if (!user || !(user instanceof User) || user.username.trim() === '' || !user.username) {
+            throw new InvalidParametersError;
+        }
+        let ret: any = await this.dao.checkoutCart(user.username);
+        return ret;
+
     }
 
     /**

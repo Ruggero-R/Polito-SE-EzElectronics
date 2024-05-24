@@ -2,7 +2,8 @@ import db from "../db/db";
 import { Cart, ProductInCart } from "../components/cart";
 import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError } from "../errors/cartError";
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../errors/productError";
-
+import dayjs from "dayjs";
+import { format } from "path";
 /**
  * A class that implements the interaction with the database for all cart-related operations.
  * You are free to implement any method you need here, as long as the requirements are satisfied.
@@ -320,14 +321,18 @@ class CartDAO {
      */
     checkoutCart(userId: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "UPDATE carts SET paid = 1, paymentDate = CURRENT_TIMESTAMP WHERE customer = ? AND paid = 0";
-            db.run(sql, [userId], (err: Error | null) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
+            try {
+                const sql = "UPDATE carts SET paid = 1, paymentDate = ? WHERE customer = ? AND paid = 0";
+                db.run(sql, [dayjs().format('YYYY-MM-DD'), userId], (err: Error | null) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                });
+            } catch (error) {
+                reject(error)
+            }
         });
     }
 
