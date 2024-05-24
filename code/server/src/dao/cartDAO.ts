@@ -135,12 +135,12 @@ class CartDAO {
                                 return
                             }
                             sellingPrice = row.sellingPrice
-                            console.log("Run db " + sellingPrice)
+                            console.log("Run db" + sellingPrice)
                         })
                         console.log(sellingPrice)
                         //check if user has active
                         this.userHasActiveCart(userId).then((hasCart) => {
-                            console.log("carrello attivo " + hasCart)
+                            console.log("carrello atrivo" + hasCart)
                             if (!hasCart) {
                                 console.log("No cart")
                                 //create cart
@@ -182,14 +182,14 @@ class CartDAO {
                                         //Product is already in cart
                                         //check if quantity is available
                                         const cartProductQuantity = row.quantity;
-                                        console.log("cartProductQuantity " + cartProductQuantity)
+                                        console.log("cartProductQuantity" + cartProductQuantity)
                                         const sqlCheckStoreProductQuantity = "SELECT quantity FROM products WHERE model = ?";
                                         db.get(sqlCheckStoreProductQuantity, [productModel], (err: Error | null, row: any) => {
                                             if (err) {
                                                 reject(err);
                                                 return
                                             }
-                                            console.log("storeProductQuantity " + row.quantity)
+                                            console.log("storeProductQuantity" + row.quantity)
                                             if (row.quantity < cartProductQuantity + 1) {
                                                 reject(new LowProductStockError)
                                                 return;
