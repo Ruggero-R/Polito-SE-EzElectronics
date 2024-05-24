@@ -322,14 +322,88 @@ class CartDAO {
     checkoutCart(userId: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
-                console.log(dayjs().format('YYYY-MM-DD'));
-                const sql = "UPDATE carts SET paid = 1, paymentDate = ? WHERE customer = ? AND paid = 0";
-                db.run(sql, [dayjs().format('YYYY-MM-DD'), userId], (err: Error | null) => {
+                const sqlCheckCart = "SELECT * FROM carts WHERE customer = ? AND paid = 0";
+                db.get(sqlCheckCart, [userId], (err: Error | null, row: any) => {
                     if (err) {
                         reject(err);
+                        return
+                    }
+                    if (!row) {
+                        reject(new CartNotFoundError);
+                        return;
                     } else {
+                        const sqlCheckCartItems = "SELECT * FROM carts_items WHERE cart_id = ?";
+                        db.all(sqlCheckCartItems, [row.id], (err: Error | null, rows: any[]) => {
+                            if (err) {
+                                reject(err);
+                                return
+                            }
+                            if (rows.length === 0) {
+                                reject(new EmptyCartError);
+                                return;
+                            } else {
+                                const checkProductsAvailability = "SELECT quantity,model  FROM products WHERE model IN(SELECT product_id FROM carts_items WHERE cart_id IN(SELECT id FROM carts WHERE customer = ? AND paid = 0))";
+                                db.all(checkProductsAvailability, [userId], (err: Error | null, rows: any[]) => {
+                                    let productQuantity = 0;
+                                    if (err) {
+                                        reject(err);
+                                        return
+                                    }
+                                    rows.forEach((product) => {
+                                        productQuantity = product.quantity;
+                                        if (productQuantity <= 0) {
+                                            reject(new EmptyProductStockError);
+                                            return;
+                                        }
+                                        const checkCartItems = "SELECT quantity FROM carts_items WHERE product_id = ? AND cart_id IN(SELECT id FROM carts WHERE customer = ? AND paid = 0)";
+                                        db.get(checkCartItems, [product.model, userId], (err: Error | null, row: any) => {
+                                            if (err) {
+                                                reject(err);
+                                                return
+                                            }
+                                            if (!row) {
+                                                reject(new ProductNotInCartError);
+                                                return;
+                                            }
+                                            if (row.quantity > productQuantity) {
+                                                reject(new LowProductStockError);
+                                                return;
+                                            }
 
-                        resolve();
+                                            const updateProductQuantity = "UPDATE products SET quantity = quantity - ? WHERE model = ?";
+                                            db.run(updateProductQuantity, [row.quantity, product.model], function (err: Error | null) {
+                                                console.log("update product quantity")
+                                                if (err) {
+                                                    reject(err);
+                                                    return
+                                                }
+                                            });
+                                        });
+                                        const deleteCartItems = "DELETE FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
+                                        db.run(deleteCartItems, [userId], function (err: Error | null) {
+                                            console.log("delete cart items")
+                                            console.log("User id" + userId)
+                                            console.log(rows)
+                                            console.log(this.changes)
+                                            if (err) {
+                                                console.log("error")
+                                                reject(err);
+                                                return
+                                            }
+                                        });
+                                    });
+                                    const sql = "UPDATE carts SET paid = 1, paymentDate = ? WHERE customer = ? AND paid = 0";
+                                    db.run(sql, [dayjs().format('YYYY-MM-DD'), userId], (err: Error | null) => {
+                                        if (err) {
+                                            reject(err);
+                                            return
+                                        }
+                                        resolve();
+
+                                    });
+                                });
+                            }
+                        });
                     }
                 });
             } catch (error) {

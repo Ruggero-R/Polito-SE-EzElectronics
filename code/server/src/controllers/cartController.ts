@@ -43,18 +43,11 @@ class CartController {
     * @returns A Promise that resolves to the user's cart.
     */
     async getCart(user: User): Promise<Cart> {
-        let activeCart = await this.dao.getActiveCartByUserId(user.username);
-        if (!activeCart) {
-            // If there's no active cart, create a new one
-            await this.dao.createCart(user.username);
-            // Retrieve the newly created cart
-            activeCart = await this.dao.getActiveCartByUserId(user.username);
-            if (!activeCart) {
-                // If there's still no active cart, throw an error
-                throw new CartNotFoundError();
-            }
+        if (!user || !(user instanceof User) || user.username.trim() === '' || !user.username) {
+            throw new InvalidParametersError;
         }
-        return activeCart;
+        let ret: any = await this.dao.getActiveCartByUserId(user.username);
+        return ret;
     }
 
     /**

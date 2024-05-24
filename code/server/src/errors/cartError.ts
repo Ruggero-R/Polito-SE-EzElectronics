@@ -4,6 +4,7 @@ const PRODUCT_NOT_IN_CART = "Product not in cart"
 const WRONG_USER_CART = "Cart belongs to another user"
 const EMPTY_CART = "Cart is empty"
 const INVALID_CART_PARAMETERS = "Invalid parameters"
+const LOWER_PRODCUT_STOCK = "Product stock is lower than requested quantity"
 /**
  * Represents an error that occurs when a cart is not found.
  */
@@ -83,4 +84,15 @@ class InvalidParametersError extends Error {
     }
 }
 
-export { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError, InvalidParametersError }
+class LowProductStockError extends Error {
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = LOWER_PRODCUT_STOCK
+        this.customCode = 409
+    }
+}
+
+export { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError, InvalidParametersError, LowProductStockError }
