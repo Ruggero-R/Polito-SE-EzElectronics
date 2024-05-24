@@ -1,5 +1,6 @@
 import db from "../db/db";
 import { Cart, ProductInCart } from "../components/cart";
+import { Product } from "../components/product";
 import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError } from "../errors/cartError";
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../errors/productError";
 import dayjs from "dayjs";
@@ -472,16 +473,27 @@ class CartDAO {
      */
     getAllCarts(): Promise<Cart[]> {
         return new Promise<Cart[]>((resolve, reject) => {
-            const sql = "SELECT * FROM carts";
-            db.all(sql, [], (err: Error | null, rows: any[]) => {
+            let sql = "SELECT * FROM carts";
+            let carts : Cart[] = [];
+            db.all(sql, [], (err: Error | null, user_carts: any[]) => {
                 if (err) {
                     reject(err);
-                } else {
-                    const carts = rows.map(row => new Cart(row.customer, row.paid, row.paymentDate, row.total, []));
-                    resolve(carts);
+                    return
                 }
-            });
-        });
+
+                user_carts.forEach(user_cart=>{
+                    sql="SELECT * FROM carts_items WHERE cart_id = ?";
+                    db.all(sql, [user_cart.id],(err: Error | null, products: any[])=>{
+                        if (err) {
+                            reject(err);
+                        } else{
+                            carts.push(new Cart(user_cart.costumer,Boolean(user_cart.paid),user_cart.paymentDate,user_cart.total,products));
+                        }
+                    });
+                });
+                resolve(carts);
+            })
+        })
     }
 }
 

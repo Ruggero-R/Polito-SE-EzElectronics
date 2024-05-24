@@ -71,6 +71,9 @@ class CartController {
      * Only the carts that have been checked out should be returned, the current cart should not be included in the result.
      */
     async getCustomerCarts(user: User): Promise<Cart[]> {
+        if(!user || !user.username || user.username.trim().length==0){
+            throw new InvalidParametersError
+        }
         const allCarts = await this.dao.getAllCarts();
         const customerCarts = allCarts.filter(cart => cart.customer === user.username && cart.paid === true);
         return customerCarts;
