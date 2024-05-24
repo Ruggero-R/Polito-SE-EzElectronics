@@ -101,14 +101,14 @@ class CartController {
      * @returns A Promise that resolves to `true` if the cart was successfully cleared.
      */
     async clearCart(user: User): Promise<boolean> {
-        const activeCart = await this.dao.getActiveCartByUserId(user.username);
-        if (!activeCart) {
-            throw new CartNotFoundError();
+        if(!user || !user.username || user.username.trim().length==0){
+            throw new InvalidParametersError
         }
-
-        await this.dao.clearCart(user.username);
-        return true;
-    }
+        const N = await this.dao.userHasActiveCart(user.username);
+        if(N==false){
+            throw new CartNotFoundError
+        }
+        return this.dao.clearCart(user.username);}
 
     /**
      * Deletes all carts of all users.

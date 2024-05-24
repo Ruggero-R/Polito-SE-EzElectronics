@@ -56,7 +56,7 @@ class CartDAO {
                         //Store cart
                         const cart = new Cart(row.customer, row.paid, row.paymentDate, row.total, []);
                         //Check if cart has items
-                        const sqlItems = "SELECT * FROM carts_items WHERE cart_id = ?";
+                        const sqlItems = "SELECT product_id,quantity,price,category FROM carts_items WHERE cart_id = ?";
                         db.all(sqlItems, [row.id], (err: Error | null, rows: any[]) => {
                             if (err) {
                                 reject(err);
@@ -83,13 +83,13 @@ class CartDAO {
     userHasActiveCart(userId: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
-                const sql = "SELECT paid FROM carts WHERE customer = ? AND paid = 0";
+                const sql = "SELECT COUNT(*) AS N FROM carts WHERE customer = ? AND paid = 0";
                 db.get(sql, [userId], (err: Error | null, row: any) => {
                     if (err) {
                         reject(err);
                         return
                     } else {
-                        resolve(row ? true : false);
+                        resolve(Boolean(row.N));
                     }
                 })
             } catch (error) {
@@ -439,16 +439,24 @@ class CartDAO {
      */
     clearCart(userId: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "DELETE FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
-            db.run(sql, [userId], (err: Error | null) => {
+            let sql = "SELECT id FROM carts WHERE customer = ? AND paid = 0";
+            db.get(sql,[userId],(err: Error | null, Res : any)=>{
                 if (err) {
                     reject(err);
-                } else {
-                    resolve();
+                    return;
                 }
-            });
-        });
+            sql = "DELETE FROM carts_items WHERE cart_id = ?";
+            db.run(sql, [userId], function(err: Error | null) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+            })
+            resolve();
+            })
+        })
     }
+            
 
     /**
      * Deletes all carts from the database.
@@ -456,17 +464,23 @@ class CartDAO {
      */
     deleteAllCarts(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            const sql = "DELETE FROM carts";
-            db.run(sql, [], (err: Error | null) => {
+            let sql = "DELETE FROM carts";
+            db.run(sql, [], function(err: Error | null){
                 if (err) {
                     reject(err);
-                } else {
-                    resolve();
+                    return
+                } 
+            })
+            sql = "DELETE FROM carts_items"
+            db.run(sql, [], function(err: Error | null){
+                if (err) {
+                    reject(err);
+                    return
                 }
-            });
-        });
+            })
+            resolve();
+        })
     }
-
     /**
      * Retrieves all carts from the database.
      * @returns A Promise that resolves to an array of Cart objects.
@@ -482,7 +496,7 @@ class CartDAO {
                 }
 
                 user_carts.forEach(user_cart=>{
-                    sql="SELECT * FROM carts_items WHERE cart_id = ?";
+                    sql="SELECT product_id,quantity,price,category FROM carts_items WHERE cart_id = ?";
                     db.all(sql, [user_cart.id],(err: Error | null, products: any[])=>{
                         if (err) {
                             reject(err);
