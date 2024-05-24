@@ -37,16 +37,39 @@ class CartDAO {
      * @param userId The ID of the user.
      * @returns A Promise that resolves to the active cart of the user, or null if no active cart exists.
      */
-    getActiveCartByUserId(userId: string): Promise<Cart | null> {
-        return new Promise<Cart | null>((resolve, reject) => {
+    getActiveCartByUserId(userId: string): Promise<Cart> {
+        return new Promise<Cart>((resolve, reject) => {
             try {
                 const sql = "SELECT * FROM carts WHERE customer = ? AND paid = 0";
                 db.get(sql, [userId], (err: Error | null, row: any) => {
                     if (err) {
                         reject(err);
                         return
+                    }
+                    if (!row) {
+                        //Return an empty cart
+                        console.log("No cart")
+                        resolve(new Cart(userId, false, null, 0.0, []));
                     } else {
-                        resolve(row ? new Cart(row.customer, row.paid, row.paymentDate, row.total, []) : null);
+                        //Store cart
+                        const cart = new Cart(row.customer, row.paid, row.paymentDate, row.total, []);
+                        //Check if cart has items
+                        const sqlItems = "SELECT * FROM carts_items WHERE cart_id = ?";
+                        db.all(sqlItems, [row.id], (err: Error | null, rows: any[]) => {
+                            if (err) {
+                                reject(err);
+                                return
+                            }
+                            if (rows.length === 0) {
+                                resolve(new Cart(userId, false, null, 0.0, []));
+                            } else {
+                                //Store items
+                                const items = rows.map(row => new ProductInCart(row.product_id, row.quantity, row.category, row.price));
+                                cart.products = items;
+                                console.log(cart)
+                                resolve(cart);
+                            }
+                        });
                     }
                 })
             } catch (error) {
@@ -127,14 +150,16 @@ class CartDAO {
                         return;
                     } else {
                         let sellingPrice = 0;
+                        let category = "";
                         //retrieve product price
-                        const sqlCheckProductPrice = "SELECT sellingPrice FROM products WHERE model = ?";
+                        const sqlCheckProductPrice = "SELECT sellingPrice, category FROM products WHERE model = ?";
                         db.get(sqlCheckProductPrice, [productModel], (err: Error | null, row: any) => {
                             if (err) {
                                 reject(err);
                                 return
                             }
                             sellingPrice = row.sellingPrice
+                            category = row.category
                             console.log("Run db" + sellingPrice)
                         })
                         console.log(sellingPrice)
@@ -145,9 +170,9 @@ class CartDAO {
                                 console.log("No cart")
                                 //create cart
                                 this.createCart(userId).then(() => {
-                                    const sql = "INSERT INTO carts_items (cart_id, product_id, quantity, price) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?)";
-                                    db.run(sql, [userId, productModel, sellingPrice], function (err: Error | null) {
-                                        console.log(userId, productModel, sellingPrice)
+                                    const sql = "INSERT INTO carts_items (cart_id, product_id, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
+                                    db.run(sql, [userId, productModel, sellingPrice, category], function (err: Error | null) {
+                                        console.log(userId, productModel, sellingPrice, category)
                                         if (err) {
                                             console.log("errore")
                                             reject(err);
@@ -212,9 +237,9 @@ class CartDAO {
                                     } else {
                                         console.log("Product not in cart")
                                         //Product is not in cart
-                                        const sql = "INSERT INTO carts_items (cart_id, product_id, quantity, price) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?)";
+                                        const sql = "INSERT INTO carts_items (cart_id, product_id, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
                                         console.log(userId, productModel, sellingPrice)
-                                        db.run(sql, [userId, productModel, sellingPrice], function (err: Error | null) {
+                                        db.run(sql, [userId, productModel, sellingPrice, category], function (err: Error | null) {
                                             if (err) {
                                                 reject(err);
                                                 return
