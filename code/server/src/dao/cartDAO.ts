@@ -50,7 +50,6 @@ class CartDAO {
                     }
                     if (!row) {
                         //Return an empty cart
-                        console.log("No cart")
                         resolve(new Cart(userId, false, null, 0.0, []));
                     } else {
                         //Store cart
@@ -68,7 +67,6 @@ class CartDAO {
                                 //Store items
                                 const items = rows.map(row => new ProductInCart(row.product_id, row.quantity, row.category, row.price));
                                 cart.products = items;
-                                console.log(cart)
                                 resolve(cart);
                             }
                         });
@@ -162,25 +160,18 @@ class CartDAO {
                             }
                             sellingPrice = row.sellingPrice
                             category = row.category
-                            console.log("Run db" + sellingPrice)
                         })
-                        console.log(sellingPrice)
                         //check if user has active
                         this.userHasActiveCart(userId).then((hasCart) => {
-                            console.log("carrello atrivo" + hasCart)
                             if (!hasCart) {
-                                console.log("No cart")
                                 //create cart
                                 this.createCart(userId).then(() => {
                                     const sql = "INSERT INTO carts_items (cart_id, product_id, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
                                     db.run(sql, [userId, productModel, sellingPrice, category], function (err: Error | null) {
-                                        console.log(userId, productModel, sellingPrice, category)
                                         if (err) {
-                                            console.log("errore")
                                             reject(err);
                                             return
                                         }
-                                        console.log("after insert")
                                         const sqlUpdateCart = "UPDATE carts SET total = total + ? WHERE customer = ? AND paid = 0";
                                         db.run(sqlUpdateCart, [sellingPrice, userId], function (err: Error | null) {
                                             if (err) {
@@ -195,7 +186,6 @@ class CartDAO {
                                     return
                                 })
                             } else {
-                                console.log("Has cart")
                                 //User already has a active cart
                                 //check if a equals product is already in cart
                                 const sqlCheckProduct = "SELECT * FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_id = ?";
@@ -205,18 +195,15 @@ class CartDAO {
                                         return
                                     }
                                     if (row) {
-                                        console.log("Product already in cart")
                                         //Product is already in cart
                                         //check if quantity is available
                                         const cartProductQuantity = row.quantity;
-                                        console.log("cartProductQuantity" + cartProductQuantity)
                                         const sqlCheckStoreProductQuantity = "SELECT quantity FROM products WHERE model = ?";
                                         db.get(sqlCheckStoreProductQuantity, [productModel], (err: Error | null, row: any) => {
                                             if (err) {
                                                 reject(err);
                                                 return
                                             }
-                                            console.log("storeProductQuantity" + row.quantity)
                                             if (row.quantity < cartProductQuantity + 1) {
                                                 reject(new LowProductStockError)
                                                 return;
@@ -237,10 +224,8 @@ class CartDAO {
                                             })
                                         })
                                     } else {
-                                        console.log("Product not in cart")
                                         //Product is not in cart
                                         const sql = "INSERT INTO carts_items (cart_id, product_id, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
-                                        console.log(userId, productModel, sellingPrice)
                                         db.run(sql, [userId, productModel, sellingPrice, category], function (err: Error | null) {
                                             if (err) {
                                                 reject(err);
@@ -281,7 +266,6 @@ class CartDAO {
     updateCartItem(userId: string, price: number, productModel: string, quantity: number): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
-                console.log("Update cart item")
                 const sql = "UPDATE carts_items SET quantity = ?, price = ? WHERE cart_id = (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_id = ?";
                 db.run(sql, [quantity, price, userId, productModel], function (err: Error | null) {
                     if (err) {
@@ -373,25 +357,12 @@ class CartDAO {
 
                                             const updateProductQuantity = "UPDATE products SET quantity = quantity - ? WHERE model = ?";
                                             db.run(updateProductQuantity, [row.quantity, product.model], function (err: Error | null) {
-                                                console.log("update product quantity")
                                                 if (err) {
                                                     reject(err);
                                                     return
                                                 }
                                             });
                                         });
-                                        // const deleteCartItems = "DELETE FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
-                                        // db.run(deleteCartItems, [userId], function (err: Error | null) {
-                                        //     console.log("delete cart items")
-                                        //     console.log("User id" + userId)
-                                        //     console.log(rows)
-                                        //     console.log(this.changes)
-                                        //     if (err) {
-                                        //         console.log("error")
-                                        //         reject(err);
-                                        //         return
-                                        //     }
-                                        // });
                                     });
                                     const sql = "UPDATE carts SET paid = 1, paymentDate = ? WHERE customer = ? AND paid = 0";
                                     db.run(sql, [dayjs().format('YYYY-MM-DD'), userId], (err: Error | null) => {
@@ -470,10 +441,7 @@ class CartDAO {
                                     }
                                     const decreaseTotalSql = "UPDATE carts SET total = total - ? WHERE customer = ? AND paid = 0 AND id = ?";
                                     db.run(decreaseTotalSql, [product.price, userId, activeCart.id], function (err: Error | null) {
-                                        console.log(typeof product.price, typeof userId, typeof activeCart.id)
-                                        console.log(product.price, userId, activeCart.id)
                                         if (err) {
-                                            console.log("error qui")
                                             reject(err);
                                             return
                                         }
