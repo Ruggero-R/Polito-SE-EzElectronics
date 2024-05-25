@@ -111,6 +111,24 @@ test("It should change the product quantity", async () => {
     mockDBRun.mockRestore();
 });
 
+test("It should change the product quantity if the changeDate is not specified", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, { quantity: 10, arrivalDate: "2022-01-01" });
+        return {} as Database;
+    });
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+    });
+
+    const newQuantity = await productDAO.changeProductQuantity("Model1", 5, null);
+    expect(newQuantity).toBe(15);
+
+    mockDBGet.mockRestore();
+    mockDBRun.mockRestore();
+});
+
 test("It should throw an error if product not found", async () => {
     const productDAO = new ProductDAO();
     const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
@@ -202,6 +220,24 @@ test("It should sell a product", async () => {
     });
 
     const newQuantity = await productDAO.sellProduct("Model1", 5, "2022-01-02");
+    expect(newQuantity).toBe(5);
+
+    mockDBGet.mockRestore();
+    mockDBRun.mockRestore();
+});
+
+test("It should sell a product if the sellingDate is not specified", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, { quantity: 10, arrivalDate: "2022-01-01" });
+        return {} as Database;
+    });
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+    });
+
+    const newQuantity = await productDAO.sellProduct("Model1", 5, null);
     expect(newQuantity).toBe(5);
 
     mockDBGet.mockRestore();
@@ -400,7 +436,7 @@ test("It should throw an Error if the database fails to get the products", async
         return {} as Database;
     });
 
-    await expect(productDAO.getProducts("model", null, null)).rejects.toThrow(Error);
+    await expect(productDAO.getProducts("model", null, "Model1")).rejects.toThrow(Error);
 
     mockDBGet.mockRestore();
 });
@@ -427,3 +463,230 @@ test("It should throw an Error if an error is thrown in the try block", async ()
 
     mockDBGet.mockRestore();
 });
+
+/* ************************************************ *
+ *  Unit test for the getAvailableProducts method   *
+ * ************************************************ */
+test("It should get all available products in the database if the three parameters are null", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+        callback(null, productsData.filter(product => product.quantity > 0));
+        return {} as Database
+    });
+
+    const productsReturned = await productDAO.getAvailableProducts(null, null, null);
+    expect(productsReturned).toEqual(productsData.filter(product => product.quantity > 0));
+
+    mockDBGet.mockRestore();
+});
+
+test("It should get all available products in the database if the grouping is 'category' and the category is valid", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+        const filteredProducts = productsData.filter(product => product.category === params[0] && product.quantity > 0);
+        callback(null, filteredProducts);
+        return {} as Database;
+    });
+
+    const productsReturned = await productDAO.getAvailableProducts("category", "Smartphone", null);
+    expect(productsReturned).toEqual([productsData[0]]);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should get the available product in the database if the grouping is 'model' and the model is valid", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        const filteredProduct = productsData.find(product => product.model === params[0] && product.quantity > 0);
+        callback(null, filteredProduct);
+        return {} as Database;
+    });
+
+    const productsReturned = await productDAO.getAvailableProducts("model", null, "Model2");
+    expect(productsReturned).toEqual([productsData[1]]);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should throw a FiltersError if grouping is null and category or model is provided", async () => {
+    const productDAO = new ProductDAO();
+    await expect(productDAO.getAvailableProducts(null, "category", null)).rejects.toThrow(FiltersError);
+    await expect(productDAO.getAvailableProducts(null, null, "model")).rejects.toThrow(FiltersError);
+});
+
+test("It should throw a FiltersError if grouping is 'category' and category is not provided or model is provided", async () => {
+    const productDAO = new ProductDAO();
+    await expect(productDAO.getAvailableProducts("category", null, null)).rejects.toThrow(FiltersError);
+    await expect(productDAO.getAvailableProducts("category", "category", "model")).rejects.toThrow(FiltersError);
+});
+
+test("It should throw a FiltersError if grouping is 'model' and model is not provided or category is provided", async () => {
+    const productDAO = new ProductDAO();
+    await expect(productDAO.getAvailableProducts("model", null, null)).rejects.toThrow(FiltersError);
+    await expect(productDAO.getAvailableProducts("model", "category", "model")).rejects.toThrow(FiltersError);
+});
+
+test("It should throw a FiltersError if grouping is not 'category', 'model', null, or undefined", async () => {
+    const productDAO = new ProductDAO();
+    await expect(productDAO.getAvailableProducts("invalidGrouping", null, null)).rejects.toThrow(FiltersError);
+});
+
+test("It should throw a ProductNotFoundError if no product is found for the given model", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, null); // Simulate no product found
+        return {} as Database;
+    });
+
+    await expect(productDAO.getAvailableProducts("model", null, "nonexistentModel")).rejects.toThrow(ProductNotFoundError);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should throw an Error if the database fails to get the products", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"), null);
+        return {} as Database;
+    });
+
+    await expect(productDAO.getAvailableProducts("model", null, "Model1")).rejects.toThrow(Error);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should throw an Error if the database fails to get the products", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"), null);
+        return {} as Database;
+    });
+
+    await expect(productDAO.getAvailableProducts(null, null, null)).rejects.toThrow(Error);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should throw an Error if an error is thrown in the try block", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "all").mockImplementation(() => {
+        throw new Error("Error in try block");
+    });
+
+    await expect(productDAO.getAvailableProducts(null, null, null)).rejects.toThrow("Error in try block");
+
+    mockDBGet.mockRestore();
+});
+
+/* ********************************************** *
+ *   Unit test for the deleteAllProducts method   *
+ * ********************************************** */
+test("It should delete all products", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+    });
+
+    await expect(productDAO.deleteAllProducts()).resolves.toBe(true);
+
+    mockDBRun.mockRestore();
+});
+
+test("It should throw an Error if the database fails to delete the products", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+    });
+
+    await expect(productDAO.deleteAllProducts()).rejects.toThrow(Error);
+
+    mockDBRun.mockRestore();
+});
+
+test("It should throw an Error if an error is thrown in the try block", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation(() => {
+        throw new Error("Error in try block");
+    });
+
+    await expect(productDAO.deleteAllProducts()).rejects.toThrow("Error in try block");
+
+    mockDBRun.mockRestore();
+});
+
+/* ********************************************** *
+ *  Unit test for the deleteProduct method        *
+ * ********************************************** */
+test("It should delete the product if the model is valid", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, productsData.find(product => product.model === params[0]));
+        return {} as Database;
+    });
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+    });
+
+    await expect(productDAO.deleteProduct("Model1")).resolves.toBeTruthy();
+
+    mockDBGet.mockRestore();
+    mockDBRun.mockRestore();
+});
+
+test("It should throw a ProductNotFoundError if the model is not found", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, null); // Simulate no product found
+        return {} as Database;
+    });
+
+    await expect(productDAO.deleteProduct("nonexistentModel")).rejects.toThrow(ProductNotFoundError);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should throw an Error if the database fails to get the product", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"), null);
+        return {} as Database;
+    });
+
+    await expect(productDAO.deleteProduct("Model1")).rejects.toThrow(Error);
+
+    mockDBGet.mockRestore();
+});
+
+test("It should throw an Error if the database fails to delete the product", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, productsData.find(product => product.model === params[0]));
+        return {} as Database;
+    });
+    const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+    });
+
+    await expect(productDAO.deleteProduct("Model1")).rejects.toThrow(Error);
+
+    mockDBGet.mockRestore();
+    mockDBRun.mockRestore();
+});
+
+test("It should throw an Error if an error is thrown in the try block", async () => {
+    const productDAO = new ProductDAO();
+    const mockDBGet = jest.spyOn(db, "get").mockImplementation(() => {
+        throw new Error("Error in try block");
+    });
+
+    await expect(productDAO.deleteProduct("Model1")).rejects.toThrow("Error in try block");
+
+    mockDBGet.mockRestore();
+});
+
+
+
