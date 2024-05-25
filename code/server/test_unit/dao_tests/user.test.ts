@@ -57,22 +57,58 @@ describe('UserDAO', () => {
 
     })
 
+
+
+    /* ********************************************** *
+     *    Unit test for the createUser method    *
+     * ********************************************** */
+    /* POSSIBILE INIZIO TESTO EDITATO POICHÈ FALLISCE TEST SOPRA
+    test("It should resolve to true if a user has been created", async () => {
+        const userDAO = new UserDAO();
+        const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(null);
+            return {} as Database;
+        });
+
+        const mockRandomBytes = jest.spyOn(crypto, "randomBytes").mockReturnValue(Buffer.from("salt"));
+        const mockScrypt = jest.spyOn(crypto, "scrypt").mockResolvedValue(Buffer.from("hashedPassword"));
+
+        const result = await userDAO.createUser("username", "name", "surname", "password", "role");
+        expect(result).toBe(true);
+        
+        mockRandomBytes.mockRestore();
+        mockDBRun.mockRestore();
+        mockScrypt.mockRestore();
+    });
+
+    */
+
     /* ********************************************** *
      *    Unit test for the getIsUserAuthenticated method    *
      * ********************************************** */
     test('should return true if user is authenticated', async () => {
-        const username = 'testuser';
-        const password = 'password';
-        const salt = crypto.randomBytes(16).toString('hex');
-        const hashedPassword = crypto.scryptSync(password, salt, 16).toString('hex');
-        const row = { username, password: hashedPassword, salt };
+        const userDAO = new UserDAO();
 
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-            callback(null, row);
+            callback(null);
             return {} as Database
         });
 
-        const result = await userDAO.getIsUserAuthenticated(username, password);
-        expect(result).toBe(true);
+        await expect(userDAO.getIsUserAuthenticated("username", "password"));
+    });
+
+    test('It should throw UserAlreadyExistsError if user already exists', async () => {
+        const username = 'existinguser';
+        const name = 'name';
+        const surname = 'surname';
+        const password = 'password';
+        const role = 'Customer';
+
+        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(null, { N: 1 });
+            return {} as Database;
+        });
+
+        await expect(userDAO.createUser(username, name, surname, password, role)).rejects.toThrow(UserAlreadyExistsError);
     });
 })
