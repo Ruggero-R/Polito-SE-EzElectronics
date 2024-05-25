@@ -43,8 +43,11 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteReview(model: string, user: User) /**:Promise<void> */ {
-        if (!model || !model.trim() || typeof model === 'string' || !(user instanceof User))
+        if (!model || !model.trim() || typeof model !== 'string' || !(user instanceof User)) {
+            console.log(model, model.trim(), typeof model, user instanceof User)
+            console.log("Invalid parameters")
             throw new InvalidParametersError
+        }
         const ret: any = await this.dao.deleteReview(model, user);
         return ret
     }

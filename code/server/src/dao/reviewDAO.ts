@@ -26,7 +26,7 @@ class ReviewDAO {
                         reject(new ProductNotFoundError);
                     } else {
                         const sql = "INSERT INTO products_reviews(model, user, score, date, comment) VALUES(?, ?, ?, ?, ?)";
-                        db.run(sql, [model, user, score, dayjs().format("YYYY-MM-DD"), comment], function (err: Error | null) {
+                        db.run(sql, [model, user.username, score, dayjs().format("YYYY-MM-DD"), comment], function (err: Error | null) {
                             if (err) {
                                 if (err.message.includes("FOREIGN KEY constraint failed")) {
                                     reject(new ExistingReviewError);
@@ -64,6 +64,7 @@ class ReviewDAO {
                                 reject(err);
                                 return
                             }
+                            console.log(rows);
                             const reviews: ProductReview[] = rows.map((row: any) => new ProductReview(row.model, row.user, row.score, row.date, row.comment));
                             resolve(reviews);
                         });
@@ -89,7 +90,7 @@ class ReviewDAO {
                         return
                     } else {
                         const selectReviewSql = "SELECT * FROM products_reviews WHERE model = ? AND user = ?";
-                        db.get(selectReviewSql, [model, user], (err: Error | null, row: ProductReview) => {
+                        db.get(selectReviewSql, [model, user.username], (err: Error | null, row: ProductReview) => {
                             if (err) {
                                 reject(err);
                                 return
@@ -100,7 +101,7 @@ class ReviewDAO {
                             }
                         });
                         const sql = "DELETE FROM products_reviews WHERE model = ? AND user = ?";
-                        db.run(sql, [model, user], function (err: Error | null) {
+                        db.run(sql, [model, user.username], function (err: Error | null) {
                             if (err) {
                                 if (err.message.includes("FOREIGN KEY constraint failed")) {
                                     reject(new NoReviewProductError);
