@@ -1,7 +1,7 @@
 import db from "../db/db";
 import { Cart, ProductInCart } from "../components/cart";
 import { Product } from "../components/product";
-import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError } from "../errors/cartError";
+import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError, NoCartItemsError } from "../errors/cartError";
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../errors/productError";
 import dayjs from "dayjs";
 
@@ -56,7 +56,7 @@ class CartDAO {
                         //Store cart
                         const cart = new Cart(row.customer, row.paid, row.paymentDate, row.total, []);
                         //Check if cart has items
-                        const sqlItems = "SELECT product_id,quantity,price,category FROM carts_items WHERE cart_id = ?";
+                        const sqlItems = "SELECT * FROM carts_items WHERE cart_id = ?";
                         db.all(sqlItems, [row.id], (err: Error | null, rows: any[]) => {
                             if (err) {
                                 reject(err);
@@ -83,13 +83,13 @@ class CartDAO {
     userHasActiveCart(userId: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
-                const sql = "SELECT COUNT(*) AS N FROM carts WHERE customer = ? AND paid = 0";
+                const sql = "SELECT paid FROM carts WHERE customer = ? AND paid = 0";
                 db.get(sql, [userId], (err: Error | null, row: any) => {
                     if (err) {
                         reject(err);
                         return
                     } else {
-                        resolve(Boolean(row.N));
+                        resolve(row ? true : false);
                     }
                 })
             } catch (error) {
@@ -380,18 +380,18 @@ class CartDAO {
                                                 }
                                             });
                                         });
-                                        const deleteCartItems = "DELETE FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
-                                        db.run(deleteCartItems, [userId], function (err: Error | null) {
-                                            console.log("delete cart items")
-                                            console.log("User id" + userId)
-                                            console.log(rows)
-                                            console.log(this.changes)
-                                            if (err) {
-                                                console.log("error")
-                                                reject(err);
-                                                return
-                                            }
-                                        });
+                                        // const deleteCartItems = "DELETE FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0)";
+                                        // db.run(deleteCartItems, [userId], function (err: Error | null) {
+                                        //     console.log("delete cart items")
+                                        //     console.log("User id" + userId)
+                                        //     console.log(rows)
+                                        //     console.log(this.changes)
+                                        //     if (err) {
+                                        //         console.log("error")
+                                        //         reject(err);
+                                        //         return
+                                        //     }
+                                        // });
                                     });
                                     const sql = "UPDATE carts SET paid = 1, paymentDate = ? WHERE customer = ? AND paid = 0";
                                     db.run(sql, [dayjs().format('YYYY-MM-DD'), userId], (err: Error | null) => {
@@ -419,16 +419,74 @@ class CartDAO {
     * @param productModel The model of the product.
     * @returns A Promise that resolves when the product is removed from the cart.
     */
-    removeProductFromCart(userId: string, productModel: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const sql = "DELETE FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_id = (SELECT model FROM products WHERE model = ?)";
-            db.run(sql, [userId, productModel], (err: Error | null) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve();
-                }
-            });
+    removeProductFromCart(userId: string, productModel: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            try {
+                const checkExistingModelSql = "SELECT model FROM products WHERE model = ?";
+                db.get(checkExistingModelSql, [productModel], (err: Error | null, model: any) => {
+                    if (err) {
+                        reject(err);
+                        return
+                    }
+                    if (!model) {
+                        reject(new ProductNotFoundError);
+                        return;
+                    }
+                    const checkActiveCartSql = "SELECT * FROM carts WHERE customer = ? AND paid = 0";
+                    db.get(checkActiveCartSql, [userId], (err: Error | null, activeCart: any) => {
+                        if (err) {
+                            reject(err);
+                            return
+                        }
+                        if (!activeCart) {
+                            reject(new CartNotFoundError);
+                            return;
+                        }
+                        const checkEmptyCartSql = "SELECT * FROM carts_items WHERE cart_id = ?";
+                        db.all(checkEmptyCartSql, [activeCart.id], (err: Error | null, cartItems: any[]) => {
+                            if (err) {
+                                reject(err);
+                                return
+                            }
+                            if (cartItems.length === 0) {
+                                reject(new NoCartItemsError);
+                                return;
+                            }
+                            const checkProductInCartSql = "SELECT * FROM carts_items WHERE cart_id = ? AND product_id = ?";
+                            db.get(checkProductInCartSql, [activeCart.id, productModel], (err: Error | null, product: any) => {
+                                if (err) {
+                                    reject(err);
+                                    return
+                                }
+                                if (!product) {
+                                    reject(new ProductNotInCartError);
+                                    return;
+                                }
+                                const deleteProductSql = "DELETE FROM carts_items WHERE cart_id = ? AND product_id = ?";
+                                db.run(deleteProductSql, [activeCart.id, productModel], function (err: Error | null) {
+                                    if (err) {
+                                        reject(err);
+                                        return
+                                    }
+                                    const decreaseTotalSql = "UPDATE carts SET total = total - ? WHERE customer = ? AND paid = 0 AND id = ?";
+                                    db.run(decreaseTotalSql, [product.price, userId, activeCart.id], function (err: Error | null) {
+                                        console.log(typeof product.price, typeof userId, typeof activeCart.id)
+                                        console.log(product.price, userId, activeCart.id)
+                                        if (err) {
+                                            console.log("error qui")
+                                            reject(err);
+                                            return
+                                        }
+                                        resolve(true);
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            } catch (error) {
+                reject(error)
+            }
         });
     }
 
@@ -437,48 +495,67 @@ class CartDAO {
      * @param userId The ID of the user.
      * @returns A Promise that resolves when all products are removed from the cart.
      */
-    clearCart(userId: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            let sql = "SELECT id FROM carts WHERE customer = ? AND paid = 0";
-            db.get(sql,[userId],(err: Error | null, Res : any)=>{
-                if (err) {
-                    reject(err);
-                    return;
-                }
-            sql = "DELETE FROM carts_items WHERE cart_id = ?";
-            db.run(sql, [userId], function(err: Error | null) {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-            })
-            resolve();
-            })
+    clearCart(userId: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            try {
+                const getCartSql = "SELECT * FROM carts WHERE customer = ? AND paid = 0";
+                db.get(getCartSql, [userId], (err: Error | null, cart: any) => {
+                    if (err) {
+                        reject(err);
+                        return
+                    }
+                    if (!cart) {
+                        reject(new CartNotFoundError);
+                        return;
+                    }
+                    const clearCartSql = "DELETE FROM carts_items WHERE cart_id = ?";
+                    db.run(clearCartSql, [cart.id], function (err: Error | null) {
+                        if (err) {
+                            reject(err);
+                            return
+                        }
+                        const updateTotalSql = "UPDATE carts SET total = 0 WHERE customer = ? AND paid = 0";
+                        db.run(updateTotalSql, [userId], function (err: Error | null) {
+                            if (err) {
+                                reject(err);
+                                return
+                            }
+                            resolve(true);
+                        });
+                    });
+                })
+            } catch (error) {
+                reject(error)
+            }
         })
     }
-            
+
 
     /**
      * Deletes all carts from the database.
      * @returns A Promise that resolves when all carts are deleted.
      */
-    deleteAllCarts(): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            let sql = "DELETE FROM carts";
-            db.run(sql, [], function(err: Error | null){
-                if (err) {
-                    reject(err);
-                    return
-                } 
-            })
-            sql = "DELETE FROM carts_items"
-            db.run(sql, [], function(err: Error | null){
-                if (err) {
-                    reject(err);
-                    return
-                }
-            })
-            resolve();
+    deleteAllCarts(): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            try {
+                let sql = "DELETE FROM carts";
+                db.run(sql, [], function (err: Error | null) {
+                    if (err) {
+                        reject(err);
+                        return
+                    }
+                })
+                sql = "DELETE FROM carts_items"
+                db.run(sql, [], function (err: Error | null) {
+                    if (err) {
+                        reject(err);
+                        return
+                    }
+                })
+                resolve(true);
+            } catch (error) {
+                reject(error)
+            }
         })
     }
     /**
@@ -487,26 +564,69 @@ class CartDAO {
      */
     getAllCarts(): Promise<Cart[]> {
         return new Promise<Cart[]>((resolve, reject) => {
-            let sql = "SELECT * FROM carts";
-            let carts : Cart[] = [];
-            db.all(sql, [], (err: Error | null, user_carts: any[]) => {
-                if (err) {
-                    reject(err);
-                    return
-                }
-
-                user_carts.forEach(user_cart=>{
-                    sql="SELECT product_id,quantity,price,category FROM carts_items WHERE cart_id = ?";
-                    db.all(sql, [user_cart.id],(err: Error | null, products: any[])=>{
-                        if (err) {
-                            reject(err);
-                        } else{
-                            carts.push(new Cart(user_cart.costumer,Boolean(user_cart.paid),user_cart.paymentDate,user_cart.total,products));
-                        }
-                    });
+            try {
+                const getCartsSql = "SELECT * FROM carts";
+                db.all(getCartsSql, [], async (err: Error | null, user_carts: any[]) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    const carts: Cart[] = await Promise.all(user_carts.map(async (user_cart) => {
+                        const getProductsSql = "SELECT product_id, quantity, price, category FROM carts_items WHERE cart_id = ?";
+                        return new Promise<Cart>((resolve, reject) => {
+                            db.all(getProductsSql, [user_cart.id], (err: Error | null, products: any[]) => {
+                                if (err) {
+                                    reject(err);
+                                    return;
+                                }
+                                const productsInCart: ProductInCart[] = products.map(product => {
+                                    return new ProductInCart(product.product_id, product.quantity, product.category, product.price);
+                                });
+                                resolve(new Cart(user_cart.customer, Boolean(user_cart.paid), user_cart.paymentDate, user_cart.total, productsInCart));
+                            });
+                        });
+                    }));
+                    resolve(carts);
                 });
-                resolve(carts);
-            })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    /**
+     * Retrieves all paid customer carts from the database.
+     * @User The user who owns the cart.
+     */
+    getCustomerCarts(user: string): Promise<Cart[]> {
+        return new Promise<Cart[]>((resolve, reject) => {
+            try {
+                const getCartsSql = "SELECT * FROM carts WHERE customer = ? AND paid = 1";
+                db.all(getCartsSql, [user], async (err: Error | null, user_carts: any[]) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    const carts: Cart[] = await Promise.all(user_carts.map(async (user_cart) => {
+                        const getProductsSql = "SELECT product_id, quantity, price, category FROM carts_items WHERE cart_id = ?";
+                        return new Promise<Cart>((resolve, reject) => {
+                            db.all(getProductsSql, [user_cart.id], (err: Error | null, products: any[]) => {
+                                if (err) {
+                                    reject(err);
+                                    return;
+                                }
+                                const productsInCart: ProductInCart[] = products.map(product => {
+                                    return new ProductInCart(product.product_id, product.quantity, product.category, product.price);
+                                });
+                                resolve(new Cart(user_cart.customer, Boolean(user_cart.paid), user_cart.paymentDate, user_cart.total, productsInCart));
+                            });
+                        });
+                    }));
+                    resolve(carts);
+                });
+            } catch (error) {
+                reject(error)
+            }
         })
     }
 }

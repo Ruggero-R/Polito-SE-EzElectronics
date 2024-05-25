@@ -124,9 +124,8 @@ class CartRoutes {
             "/products/:model",
             this.authService.isLoggedIn,
             this.authService.isCustomer,
-            param("model").isString().isLength({ min: 1 }),
+            param("model").notEmpty().isString().isLength({ min: 1 }),
             this.errorHandler.validateRequest,
-
             (req: any, res: any, next: any) => this.controller.removeProductFromCart(req.user, req.params.model)
                 .then(() => res.status(200).end())
                 .catch((err) => {

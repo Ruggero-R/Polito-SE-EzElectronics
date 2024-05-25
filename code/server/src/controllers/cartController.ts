@@ -71,12 +71,11 @@ class CartController {
      * Only the carts that have been checked out should be returned, the current cart should not be included in the result.
      */
     async getCustomerCarts(user: User): Promise<Cart[]> {
-        if(!user || !user.username || user.username.trim().length==0){
+        if (!user || !user.username || user.username.trim().length == 0) {
             throw new InvalidParametersError
         }
-        const allCarts = await this.dao.getAllCarts();
-        const customerCarts = allCarts.filter(cart => cart.customer === user.username && cart.paid === true);
-        return customerCarts;
+        const ret: any = this.dao.getCustomerCarts(user.username);
+        return ret
     }
 
     /**
@@ -86,13 +85,11 @@ class CartController {
      * @returns A Promise that resolves to `true` if the product was successfully removed.
      */
     async removeProductFromCart(user: User, product: string): Promise<boolean> {
-        const activeCart = await this.dao.getActiveCartByUserId(user.username);
-        if (!activeCart) {
-            throw new CartNotFoundError();
+        if (!user || !user.username || user.username.trim().length == 0 || !product || product.trim().length == 0) {
+            throw new InvalidParametersError
         }
-
-        await this.dao.removeProductFromCart(user.username, product);
-        return true;
+        const ret: any = await this.dao.removeProductFromCart(user.username, product);
+        return ret;
     }
 
     /**
@@ -101,22 +98,20 @@ class CartController {
      * @returns A Promise that resolves to `true` if the cart was successfully cleared.
      */
     async clearCart(user: User): Promise<boolean> {
-        if(!user || !user.username || user.username.trim().length==0){
+        if (!user || !user.username || user.username.trim().length == 0) {
             throw new InvalidParametersError
         }
-        const N = await this.dao.userHasActiveCart(user.username);
-        if(N==false){
-            throw new CartNotFoundError
-        }
-        return this.dao.clearCart(user.username);}
+        const ret: any = await this.dao.clearCart(user.username);
+        return ret
+    }
 
     /**
      * Deletes all carts of all users.
      * @returns A Promise that resolves to `true` if all carts were successfully deleted.
      */
     async deleteAllCarts() /**Promise<Boolean> */ {
-        await this.dao.deleteAllCarts();
-        return true;
+        const ret: any = await this.dao.deleteAllCarts();
+        return ret;
     }
 
     /**
@@ -124,7 +119,8 @@ class CartController {
      * @returns A Promise that resolves to an array of carts.
      */
     async getAllCarts() /*:Promise<Cart[]> */ {
-        return this.dao.getAllCarts();
+        const ret: any = this.dao.getAllCarts();
+        return ret;
     }
 }
 
