@@ -24,7 +24,14 @@ class ProductController {
      * @returns A Promise that resolves to nothing.
      */
     async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
-        if ((typeof model !== 'string' || model.trim() === '') || (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || (typeof details !== 'string' && typeof details !== 'undefined') || (typeof sellingPrice !== 'number' || sellingPrice <= 0) || (typeof arrivalDate !== 'string' && typeof arrivalDate !== 'undefined')) {
+        if (
+            (typeof model !== 'string' || model.trim() === '') || 
+            (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || 
+            (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
+            (typeof details !== 'string' && typeof details !== 'undefined') || 
+            (typeof sellingPrice !== 'number' || sellingPrice <= 0) || 
+            (typeof arrivalDate !== 'string' && typeof arrivalDate !== 'undefined')
+        ) {
             throw new InvalidParametersError
         }
 
@@ -49,7 +56,11 @@ class ProductController {
      * @returns A Promise that resolves to the new available quantity of the product.
      */
     async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
-        if ((typeof model !== 'string' || model.trim() === '') || (typeof newQuantity !== 'number' || !Number.isInteger(newQuantity) || newQuantity <= 0) || (typeof changeDate !== 'string' && typeof changeDate !== 'undefined')) {
+        if (
+            (typeof model !== 'string' || model.trim() === '') || 
+            (typeof newQuantity !== 'number' || !Number.isInteger(newQuantity) || newQuantity <= 0) || 
+            (typeof changeDate !== 'string' && typeof changeDate !== 'undefined')
+        ) {
             throw new InvalidParametersError
         }
         if (typeof changeDate !== 'undefined') {
@@ -72,7 +83,11 @@ class ProductController {
      * @returns A Promise that resolves to the new available quantity of the product.
      */
     async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
-        if ((typeof model !== 'string' || model.trim() === '') || (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || (typeof sellingDate !== 'string' && typeof sellingDate !== 'undefined')) {
+        if (
+            (typeof model !== 'string' || model.trim() === '') || 
+            (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
+            (typeof sellingDate !== 'string' && typeof sellingDate !== 'undefined')
+        ) {
             throw new InvalidParametersError
         }
         if (typeof sellingDate !== 'undefined') {
@@ -97,16 +112,16 @@ class ProductController {
     async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ {
         let ret: any;
 
-        if (typeof grouping === 'undefined' && typeof category === 'undefined' && typeof model === 'undefined') {
-            ret = await this.dao.getProducts(undefined, undefined, undefined);
-        } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
-            ret = await this.dao.getProducts(grouping, category, undefined);
-        } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
-            ret = await this.dao.getProducts(grouping, undefined, model);
+        if (
+            (!grouping && !category && !model) ||
+            (grouping === "category" && ["Smartphone", "Laptop", "Appliance"].includes(category) && !model) ||
+            (grouping === "model" && !category && model)
+        ) {
+            ret = await this.dao.getProducts(grouping, category, model);
         } else {
-            throw new FiltersError
+            throw new FiltersError();
         }
-
+        
         return ret;
     }
 
@@ -119,16 +134,17 @@ class ProductController {
      */
     async getAvailableProducts(grouping: string | null, category: string | null, model: string | null) /**:Promise<Product[]> */ {
         let ret: any
-        if (typeof grouping === 'undefined' && typeof category === 'undefined' && typeof model === 'undefined') {
-            ret = await this.dao.getAvailableProducts(undefined, undefined, undefined);
-        } else if (grouping === "category" && typeof category !== 'undefined' && typeof model === 'undefined') {
-            ret = await this.dao.getAvailableProducts(grouping, category, undefined);
-        } else if (grouping === "model" && typeof model !== 'undefined' && typeof category === 'undefined') {
-            ret = await this.dao.getAvailableProducts(grouping, undefined, model);
-        } else {
-            throw new FiltersError
-        }
 
+        if (
+            (!grouping && !category && !model) ||
+            (grouping === "category" && ["Smartphone", "Laptop", "Appliance"].includes(category) && !model) ||
+            (grouping === "model" && !category && model)
+        ) {
+            ret = await this.dao.getAvailableProducts(grouping, category, model);
+        } else {
+            throw new FiltersError();
+        }
+        
         return ret;
     }
 

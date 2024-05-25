@@ -24,9 +24,10 @@ class ProductDAO {
         return new Promise<void>((resolve, reject) => {
             try {
                 const sql = "INSERT INTO products (model, category, arrivalDate, quantity, details, sellingPrice) VALUES (?, ?, ?, ?, ?, ?)"
-                db.run(sql, [model, category, (typeof arrivalDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : arrivalDate, quantity, details, sellingPrice], function (err: Error | null) {
+                db.run(sql, [model, category, !arrivalDate ? dayjs().format('YYYY-MM-DD') : arrivalDate, quantity, details, sellingPrice], function (err: Error | null) {
                     if (err) {
-                        if (err.message.includes("UNIQUE constraint failed: products.model")) reject(new ProductAlreadyExistsError)
+                        if (err.message.includes("UNIQUE constraint failed: products.model")) 
+                            reject(new ProductAlreadyExistsError)
                         reject(err)
                         return
                     }
@@ -60,7 +61,7 @@ class ProductDAO {
                     }
 
                     sql = "UPDATE products SET quantity = ?, arrivalDate = ? WHERE model = ?"
-                    db.run(sql, [row.quantity + newQuantity, (typeof changeDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : changeDate, model], function (err: Error | null) {
+                    db.run(sql, [row.quantity + newQuantity, !changeDate ? dayjs().format('YYYY-MM-DD') : changeDate, model], function (err: Error | null) {
                         if (err) {
                             reject(err)
                             return
@@ -104,7 +105,7 @@ class ProductDAO {
                     }
 
                     sql = "UPDATE products SET quantity = ?, sellingDate = ? WHERE model = ?"
-                    db.run(sql, [row.quantity - quantity, (typeof sellingDate === 'undefined') ? dayjs().format('YYYY-MM-DD') : sellingDate, model], function (err: Error | null) {
+                    db.run(sql, [row.quantity - quantity, !sellingDate  ? dayjs().format('YYYY-MM-DD') : sellingDate, model], function (err: Error | null) {
                         if (err) {
                             reject(err)
                             return
@@ -115,6 +116,7 @@ class ProductDAO {
 
             } catch (error) {
                 reject(error)
+                return
             }
         })
     }
@@ -124,37 +126,42 @@ class ProductDAO {
             try {
                 let sql: string;
                 const params: any[] = [];
-                if (typeof grouping === 'undefined') {
-                    if (typeof category === 'undefined' && typeof model === 'undefined') {
-                        console.log("here2")
-                        sql = "SELECT * FROM products"
-                    } else {
-                        console.log("here3")
+
+                switch (grouping) {
+                    case null: 
+                    case undefined:
+                        if(!category && !model){
+                            sql = "SELECT * FROM products"
+                        } else {
+                            reject(new FiltersError());
+                            return;
+                        }
+                        break;
+                    case "category":
+                        if(category && !model){
+                            sql = "SELECT * FROM products WHERE category = ?"
+                            params.push(category);
+                        } else {
+                            reject(new FiltersError());
+                            return;
+                        }
+                        break;
+                    case "model":
+                        if(model && !category){
+                            sql = "SELECT * FROM products WHERE model = ?"
+                            params.push(model);
+                        } else {
+                            reject(new FiltersError());
+                            return;
+                        }
+                        break;
+                    default:
                         reject(new FiltersError());
                         return;
-                    }
-                } else if (grouping === "category") {
-                    if (typeof category !== 'undefined' && typeof model === 'undefined') {
-                        sql = "SELECT * FROM products WHERE category = ?"
-                        params.push(category);
-                    } else {
-                        reject(new FiltersError());
-                        return;
-                    }
-                } else if (grouping === "model") {
-                    if (typeof category === 'undefined' && model !== 'undefined') {
-                        sql = "SELECT * FROM products WHERE model = ?"
-                        params.push(model);
-                    } else {
-                        reject(new FiltersError());
-                        return;
-                    }
-                } else {
-                    reject(new FiltersError)
                 }
 
+                
                 if (grouping === "model") {
-                    console.log('here model')
                     // Use db.get for a single result
                     db.get(sql, params, (err: Error | null, row: any) => {
                         if (err) {
@@ -171,7 +178,6 @@ class ProductDAO {
                 } else {
                     // Use db.all for multiple results
                     db.all(sql, params, (err: Error | null, rows: any) => {
-                        console.log('here4')
                         if (err) {
                             reject(err);
                             return;
@@ -185,7 +191,6 @@ class ProductDAO {
             }
 
         })
-
     }
 
     getAvailableProducts(grouping: string | null, category: string | null, model: string | null): Promise<Product[]> {
@@ -193,34 +198,41 @@ class ProductDAO {
             try {
                 let sql: string;
                 const params: any[] = [];
-                if (typeof grouping === 'undefined') {
-                    if (typeof category === 'undefined' && typeof model === 'undefined') {
-                        sql = "SELECT * FROM products WHERE quantity > 0"
-                    } else {
+
+                switch (grouping) {
+                    case null: 
+                    case undefined:
+                        if(!category && !model){
+                            sql = "SELECT * FROM products WHERE quantity > 0"
+                        } else {
+                            reject(new FiltersError());
+                            return;
+                        }
+                        break;
+                    case "category":
+                        if(category && !model){
+                            sql = "SELECT * FROM products WHERE category = ? AND quantity > 0"
+                            params.push(category);
+                        } else {
+                            reject(new FiltersError());
+                            return;
+                        }
+                        break;
+                    case "model":
+                        if(model && !category){
+                            sql = "SELECT * FROM products WHERE model = ? AND quantity > 0"
+                            params.push(model);
+                        } else {
+                            reject(new FiltersError());
+                            return;
+                        }
+                        break;
+                    default:
                         reject(new FiltersError());
                         return;
-                    }
-                } else if (grouping === "category") {
-                    //ARRIVATO qui
-                    if (typeof category !== 'undefined' && typeof model === 'undefined') {
-                        sql = "SELECT * FROM products WHERE category = ? AND quantity > 0"
-                        params.push(category);
-                    } else {
-                        reject(new FiltersError());
-                        return;
-                    }
-                } else if (grouping === "model") {
-                    if (typeof category === 'undefined' && model !== 'undefined') {
-                        sql = "SELECT * FROM products WHERE model = ? AND quantity > 0"
-                        params.push(model);
-                    } else {
-                        reject(new FiltersError());
-                        return;
-                    }
-                } else {
-                    reject(new FiltersError)
                 }
 
+                
                 if (grouping === "model") {
                     // Use db.get for a single result
                     db.get(sql, params, (err: Error | null, row: any) => {
