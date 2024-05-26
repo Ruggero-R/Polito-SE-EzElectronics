@@ -1,6 +1,9 @@
 import ProductDAO from "../dao/productDAO";
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { ArrivalDateError, EmptyProductStockError, FiltersError, InvalidParametersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
+
+dayjs.extend(customParseFormat);
 
 /**
  * Represents a controller for managing products.
@@ -38,8 +41,7 @@ class ProductController {
         if (arrivalDate !== null && arrivalDate > dayjs().format('YYYY-MM-DD')) {
             throw new ArrivalDateError
         }
-        
-        console.log(arrivalDate)
+
         const ret: any = await this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
         return ret;
     }
