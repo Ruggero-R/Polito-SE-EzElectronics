@@ -28,22 +28,18 @@ class ProductController {
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || 
             (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
-            (typeof details !== 'string' && typeof details !== 'undefined') || 
+            (details !== null && (typeof details !== 'string' || details.trim() === '')) || 
             (typeof sellingPrice !== 'number' || sellingPrice <= 0) || 
-            (typeof arrivalDate !== 'string' && typeof arrivalDate !== 'undefined')
+            (arrivalDate !== null && (typeof arrivalDate !== 'string' || !dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }
 
-        if (typeof arrivalDate !== 'undefined') {
-            if (!dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()) {
-                throw new InvalidParametersError
-            }
-            if (arrivalDate > dayjs().format('YYYY-MM-DD')) {
-                throw new ArrivalDateError
-            }
+        if (arrivalDate !== null && arrivalDate > dayjs().format('YYYY-MM-DD')) {
+            throw new ArrivalDateError
         }
         
+        console.log(arrivalDate)
         const ret: any = await this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
         return ret;
     }
@@ -59,18 +55,15 @@ class ProductController {
         if (
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof newQuantity !== 'number' || !Number.isInteger(newQuantity) || newQuantity <= 0) || 
-            (typeof changeDate !== 'string' && typeof changeDate !== 'undefined')
+            (changeDate !== null && (typeof changeDate !== 'string' || !dayjs(changeDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }
-        if (typeof changeDate !== 'undefined') {
-            if (!dayjs(changeDate, 'YYYY-MM-DD', true).isValid()) {
-                throw new InvalidParametersError
-            }
-            if (changeDate > dayjs().format('YYYY-MM-DD')) {
-                throw new ArrivalDateError
-            }
+
+        if (changeDate !== null && changeDate > dayjs().format('YYYY-MM-DD')) {
+            throw new ArrivalDateError
         }
+
         const ret: any = await this.dao.changeProductQuantity(model, newQuantity, changeDate);
         return ret;
     }
@@ -82,22 +75,19 @@ class ProductController {
      * @param sellingDate The optional date in which the sale occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
+    async sellProduct(model: string, quantity: number, sellingDate: string | null | undefined) /**:Promise<number> */ {
         if (
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
-            (typeof sellingDate !== 'string' && typeof sellingDate !== 'undefined')
+            (sellingDate !== null && (typeof sellingDate !== 'string' || !dayjs(sellingDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }
-        if (typeof sellingDate !== 'undefined') {
-            if (!dayjs(sellingDate, 'YYYY-MM-DD', true).isValid()) {
-                throw new InvalidParametersError
-            }
-            if (sellingDate > dayjs().format('YYYY-MM-DD')) {
-                throw new ArrivalDateError
-            }
+
+        if (sellingDate !== null && sellingDate > dayjs().format('YYYY-MM-DD')) {
+            throw new ArrivalDateError
         }
+
         const ret: any = await this.dao.sellProduct(model, quantity, sellingDate);
         return ret;
     }
