@@ -54,11 +54,7 @@ describe('UserDAO', () => {
         mockRandomBytes.mockRestore()
         mockDBRun.mockRestore()
         mockScrypt.mockRestore()
-
-
     })
-
-
 
     /* ********************************************** *
      *    Unit test for the createUser method    *
@@ -145,7 +141,7 @@ describe('UserDAO', () => {
         expect(result).toEqual(customer || manager || admin);
     });
 
-    test('It should throw UserNotFoundError if user is not found', async () => {
+    test('The getUserByUsername method should throw UserNotFoundError if user is not found', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
             callback(null, null); // Simulate no product found
@@ -178,11 +174,11 @@ describe('UserDAO', () => {
         await expect(userDAO.deleteUser("username")).resolves.toBe(true);
     });
 
-    test('It should throw UserNotFoundError if user is not found', async () => {
+    test('The deleteUser method should throw UserNotFoundError if user is not found', async () => {
         const username = 'nonexistentuser';
 
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-            callback(null, null); // Simulate no product found
+            callback(null, null); // Simulate no user found
             return {} as Database;
         });
 
@@ -192,14 +188,28 @@ describe('UserDAO', () => {
     /* **************************************** *
     *  Unit test for the deleteUserAsAdmin method      *
     * ***************************************** */
-    test('It should delete a user successfully as admin', async () => {
+    test("deleteUserAsAdmin should delete a user as admin successfully", async () => {
         const userDAO = new UserDAO();
+        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+            callback(null, { role: "Customer" });
+            return {} as Database;
+        });
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
             return {} as Database;
         });
 
-        await expect(userDAO.deleteUserAsAdmin("username", "adminId"));
+        await expect(userDAO.deleteUserAsAdmin("admin", "username")).resolves.toBe(true);
+    });
+
+    test("deleteUserAsAdmin should throw UserIsAdminError if user is an admin", async () => {
+        const userDAO = new UserDAO();
+        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+            callback(null, { role: "Admin" });
+            return {} as Database;
+        });
+
+        await expect(userDAO.deleteUserAsAdmin("admin", "username")).rejects.toThrow(UserIsAdminError);
     });
 
 
@@ -215,4 +225,34 @@ describe('UserDAO', () => {
 
         await expect(userDAO.deleteAllUsers()).resolves.toBe(true);
     });
+
+    /* **************************************** *
+    * Unit test for the UpdateUser method       *
+    * ***************************************** */
+    test("The updateUser method should update a user successfully", async () => {
+        const userDAO = new UserDAO();
+        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(null);
+            return {} as Database;
+        });
+        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+            callback(null, { role: "Customer" });
+            return {} as Database;
+        });
+
+        const result = await userDAO.updateUser("username", "name", "surname", "address", "birthdate");
+        expect(result).toEqual(new User("username", "name", "surname", Role.CUSTOMER, "address", "birthdate"));
+    });
+
+    /*
+    test("The updateUser method should throw UserNotFoundError if user is not found", async () => {
+        const userDAO = new UserDAO();
+        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(null, null);
+            return {} as Database;
+        });
+
+        await expect(userDAO.updateUser("nonexistentuser", "name", "surname", "address", "birthdate")).rejects.toThrow(UserNotFoundError);
+    });
+    */
 })
