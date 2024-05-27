@@ -3,9 +3,6 @@ import ErrorHandler from "../helper"
 import { body, param, query } from "express-validator"
 import ProductController from "../controllers/productController"
 import Authenticator from "./auth"
-import { Product } from "../components/product"
-import dayjs from "dayjs"
-import { ArrivalDateError, EmptyProductStockError, FiltersError, InvalidParametersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
 
 /**
  * Represents a class that defines the routes for handling proposals.

@@ -1,8 +1,7 @@
 import db from "../db/db"
 import { Product } from "../components/product"
-import { ArrivalDateError, EmptyProductStockError, FiltersError, InvalidParametersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
+import { ArrivalDateError, EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from "../errors/productError";
 import dayjs from "dayjs"
-import { ResultWithContext } from "express-validator/src/chain";
 
 /**
  * A class that implements the interaction with the database for all product-related operations.

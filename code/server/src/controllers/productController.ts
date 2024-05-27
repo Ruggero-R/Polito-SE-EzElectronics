@@ -1,7 +1,7 @@
 import ProductDAO from "../dao/productDAO";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { ArrivalDateError, EmptyProductStockError, FiltersError, InvalidParametersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
+import { ArrivalDateError, FiltersError, InvalidParametersError } from "../errors/productError";
 
 dayjs.extend(customParseFormat);
 

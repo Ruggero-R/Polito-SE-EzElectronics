@@ -1,5 +1,3 @@
-import { error } from "console"
-
 const PRODUCT_NOT_FOUND = "Product not found"
 const PRODUCT_ALREADY_EXISTS = "The product already exists"
 const PRODUCT_SOLD = "Product already sold"
@@ -39,7 +37,7 @@ class ProductAlreadyExistsError extends Error {
 
 /**
  * Represents an error that occurs when a product is already sold.
- */
+ 
 class ProductSoldError extends Error {
     customMessage: string
     customCode: number
@@ -49,7 +47,7 @@ class ProductSoldError extends Error {
         this.customMessage = PRODUCT_SOLD
         this.customCode = 409
     }
-}
+}*/
 
 class EmptyProductStockError extends Error {
     customMessage: string
@@ -109,4 +107,4 @@ class InvalidParametersError extends Error {
 
 
 
-export { ProductNotFoundError, ProductAlreadyExistsError, ProductSoldError, EmptyProductStockError, LowProductStockError, FiltersError, ArrivalDateError, InvalidParametersError }
+export { ProductNotFoundError, ProductAlreadyExistsError, /*ProductSoldError,*/ EmptyProductStockError, LowProductStockError, FiltersError, ArrivalDateError, InvalidParametersError }
