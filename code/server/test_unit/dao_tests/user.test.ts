@@ -83,7 +83,7 @@ describe('UserDAO', () => {
     /* ****************************************************  *
      *    Unit test for the getIsUserAuthenticated method    *
      * ****************************************************  */
-    test('It should return true if user is authenticated', async () => {
+    test('The getIsUserAuthenticated method should return true if user is authenticated', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
@@ -96,24 +96,24 @@ describe('UserDAO', () => {
     /* ********************************************** *
      *    Unit test for the createUser method         *
      * ********************************************** */
-    test('It should create a new user successfully', async () => {
+    test('The createUser method should create a new user successfully', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
             return {} as Database;
         });
 
-        await expect(userDAO.createUser("username", "name", "surname", "password", "role"));
+        await expect(userDAO.createUser("username", "name", "surname", "password", "role")).resolves.toBe(true);
     });
 
-    test('It should throw UserAlreadyExistsError if user already exists', async () => {
+    test('The createUser method should throw UserAlreadyExistsError if user already exists', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(new Error("UNIQUE constraint failed: users.model"));
             return {} as Database;
         });
 
-        await expect(userDAO.createUser("username", "name", "surname", "password", "role"));
+        await expect(userDAO.createUser("username", "name", "surname", "password", "role")).rejects.toThrow(UserAlreadyExistsError);
     });
 
     /* ********************************************** *
@@ -122,7 +122,7 @@ describe('UserDAO', () => {
     const customer = new User("username", "name", "surname", Role.CUSTOMER, "address", "birthdate");
     const manager = new User("username", "name", "surname", Role.MANAGER, "address", "birthdate");
     const admin = new User("username", "name", "surname", Role.ADMIN, "address", "birthdate");
-    test('It should return a user by username', async () => {
+    test('The getUserByUsername method should return a user by username', async () => {
         const username = 'username';
         const row = {
             username,
@@ -144,17 +144,17 @@ describe('UserDAO', () => {
     test('The getUserByUsername method should throw UserNotFoundError if user is not found', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-            callback(null, null); // Simulate no product found
+            callback(null, null);
             return {} as Database;
         });
 
         await expect(userDAO.getUserByUsername("username")).rejects.toThrow(UserNotFoundError);
     });
 
-    test('It should throw UserNotFoundError if user is not found', async () => {
+    test('The getUsersByRole method should throw UserNotFoundError if user is not found', async () => {
         const userDAO = new UserDAO();
-        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-            callback(null, null); // Simulate no product found
+        jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+            callback(null, []);
             return {} as Database;
         });
 
@@ -164,7 +164,7 @@ describe('UserDAO', () => {
     /* **************************************** *
     *  Unit test for the deleteUser method      *
     * ***************************************** */
-    test('It should delete a user successfully', async () => {
+    test('The deleteUser method should delete a user successfully', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
@@ -185,10 +185,10 @@ describe('UserDAO', () => {
         await expect(userDAO.deleteUser(username)).rejects.toThrow(UserNotFoundError);
     });
 
-    /* **************************************** *
-    *  Unit test for the deleteUserAsAdmin method      *
-    * ***************************************** */
-    test("deleteUserAsAdmin should delete a user as admin successfully", async () => {
+    /* *********************************************
+    *  Unit test for the deleteUserAsAdmin method  *
+    * **********************************************/
+    test("The deleteUserAsAdmin method should delete a user as admin successfully", async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
             callback(null, { role: "Customer" });
@@ -202,7 +202,7 @@ describe('UserDAO', () => {
         await expect(userDAO.deleteUserAsAdmin("admin", "username")).resolves.toBe(true);
     });
 
-    test("deleteUserAsAdmin should throw UserIsAdminError if user is an admin", async () => {
+    test("The deleteUserAsAdmin method should throw UserIsAdminError if user is an admin", async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
             callback(null, { role: "Admin" });
@@ -216,7 +216,7 @@ describe('UserDAO', () => {
     /* **************************************** *
     *  Unit test for the deleteAllUsers method      *
     * ***************************************** */
-    test('It should delete all users successfully', async () => {
+    test('The deleteAllUsers method should delete all users successfully', async () => {
         const userDAO = new UserDAO();
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
@@ -240,19 +240,18 @@ describe('UserDAO', () => {
             return {} as Database;
         });
 
-        const result = await userDAO.updateUser("username", "name", "surname", "address", "birthdate");
-        expect(result).toEqual(new User("username", "name", "surname", Role.CUSTOMER, "address", "birthdate"));
+        await expect(userDAO.updateUser("username", "name", "surname", "address", "birthdate")).resolves.toEqual(new User("username", "name", "surname", Role.CUSTOMER, "address", "birthdate"));
     });
 
-    /*
+
     test("The updateUser method should throw UserNotFoundError if user is not found", async () => {
         const userDAO = new UserDAO();
-        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
             callback(null, null);
             return {} as Database;
         });
 
         await expect(userDAO.updateUser("nonexistentuser", "name", "surname", "address", "birthdate")).rejects.toThrow(UserNotFoundError);
     });
-    */
+
 })
