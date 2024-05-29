@@ -3,12 +3,12 @@ import dayjs from 'dayjs';
 import { expect, afterEach, beforeEach, describe, test } from '@jest/globals';
 import sqlite3 from 'sqlite3';
 import db from '../../src/db/db';
-import { ArrivalDateError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from '../../src/errors/productError';
+import { ArrivalDateError, EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from '../../src/errors/productError';
 import { Category, Product } from '../../src/components/product';
 
 describe('ProductDAO', () => {
     let dao: ProductDAO;
-
+    
     beforeEach((done) => {
         dao = new ProductDAO();
         db.serialize(() => {
@@ -20,18 +20,25 @@ describe('ProductDAO', () => {
             });
         });
     });
-
+    
+    const p1 = new Product(100.00, "Model1", Category.SMARTPHONE, "2024-01-01", "Details1", 10);
+    const p2 = new Product(200.00, "Model2", Category.LAPTOP, "2024-01-02", "Details2", 20);
+    const p3 = new Product(300.00, "Model3", Category.APPLIANCE, "2024-01-03", "Details3", 30);
+    const p4 = new Product(100.00, "Model4", Category.SMARTPHONE, "2024-01-01", "Details1", 0);
+    const p5 = new Product(200.00, "Model5", Category.LAPTOP, "2024-01-02", "Details2", 0);
+    const p6 = new Product(300.00, "Model6", Category.APPLIANCE, "2024-01-03", "Details3", 0);
+    
     /* ********************************************** *
     * Integration test for the registerProduct method *    
     * *********************************************** */
 
     test('registerProducts should insert a product into the database', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
-        const arrivalDate = dayjs().format('YYYY-MM-DD');
+        const model = p1.model;
+        const category = p1.category;
+        const quantity = p1.quantity;
+        const details = p1.details;
+        const sellingPrice = p1.sellingPrice;
+        const arrivalDate = p1.arrivalDate;
 
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
 
@@ -54,14 +61,16 @@ describe('ProductDAO', () => {
         });
 
 
+
+
     });
 
     test('registerProducts should insert a product into the database if detatails are not provided', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const sellingPrice = 100.00;
-        const arrivalDate = dayjs().format('YYYY-MM-DD');
+        const model = p2.model;
+        const category = p2.category;
+        const quantity = p2.quantity;
+        const sellingPrice = p2.sellingPrice;
+        const arrivalDate = p2.arrivalDate;
 
         await dao.registerProducts(model, category, quantity, null, sellingPrice, arrivalDate);
 
@@ -85,11 +94,11 @@ describe('ProductDAO', () => {
     });
 
     test('registerProducts should insert a product into the database if arrivalDate is not provided', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
+        const model = p3.model;
+        const category = p3.category;
+        const quantity = p3.quantity;
+        const details = p3.details;
+        const sellingPrice = p3.sellingPrice;
 
         await dao.registerProducts(model, category, quantity, details, sellingPrice, null);
 
@@ -113,12 +122,12 @@ describe('ProductDAO', () => {
     });
 
     test('registerProducts should throw ProductAlreadyExistsError error if the product already exists', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
-        const arrivalDate = dayjs().format('YYYY-MM-DD');
+        const model = p1.model;
+        const category = p1.category;
+        const quantity = p1.quantity;
+        const details = p1.details;
+        const sellingPrice = p1.sellingPrice;
+        const arrivalDate = p1.arrivalDate;
 
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
 
@@ -130,12 +139,12 @@ describe('ProductDAO', () => {
     * Integration test for the changeProductQuantity method *
     * ***************************************************** */
     test('changeProductQuantity should update the quantity of a product in the database', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
-        const arrivalDate = dayjs().format('YYYY-MM-DD');
+        const model = p1.model;
+        const category = p1.category;
+        const quantity = p1.quantity;
+        const details = p1.details;
+        const sellingPrice = p1.sellingPrice;
+        const arrivalDate = p1.arrivalDate;
     
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
     
@@ -160,12 +169,12 @@ describe('ProductDAO', () => {
     });
 
     test('changeProductQuantity should update the quantity of a product in the database with changeDate set to the current date if not provided', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
-        const arrivalDate = "2024-01-01";
+        const model = p2.model;
+        const category = p2.category;
+        const quantity = p2.quantity;
+        const details = p2.details;
+        const sellingPrice = p2.sellingPrice;
+        const arrivalDate = p2.arrivalDate;
 
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
 
@@ -201,7 +210,7 @@ describe('ProductDAO', () => {
     });
 
     test('changeProductQuantity should throw an error if the product does not exist', async () => {
-        const model = 'model1';
+        const model = p3.model;
         const newQuantity = 20;
         const changeDate = dayjs().format('YYYY-MM-DD');
 
@@ -209,11 +218,11 @@ describe('ProductDAO', () => {
     });
 
     test('changeProductQuantity should throw an error if the changeDate is in the future', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
+        const model = p1.model;
+        const category = p1.category;
+        const quantity = p1.quantity;
+        const details = p1.details;
+        const sellingPrice = p1.sellingPrice;
         const arrivalDate = dayjs().format('YYYY-MM-DD');
 
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
@@ -225,11 +234,11 @@ describe('ProductDAO', () => {
     });
 
     test('changeProductQuantity should throw an error if changeDate is before arrivalDate', async () => {
-        const model = 'model1';
-        const category = 'Smartphone';
-        const quantity = 10;
-        const details = 'details';
-        const sellingPrice = 100.00;
+        const model = p2.model;
+        const category = p2.category;
+        const quantity = p2.quantity;
+        const details = p2.details;
+        const sellingPrice = p2.sellingPrice;
         const arrivalDate = dayjs().format('YYYY-MM-DD');
 
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
@@ -243,7 +252,6 @@ describe('ProductDAO', () => {
     /* ******************************************* *
     * Integration test for the sellProduct method *
     * ******************************************* */
-   /*
    test('sellProduct should update the quantity of a product in the database', async () => {
        const model = 'model1';
        const category = 'Smartphone';
@@ -273,7 +281,7 @@ describe('ProductDAO', () => {
             expect(productRow.quantity).toBe(quantity - soldQuantity);
         });
     });
-
+    
     test('sellProduct should update the quantity of a product in the database with sellDate set to the current date if not provided', async () => {
         const model = 'model1';
         const category = 'Smartphone';
@@ -281,13 +289,13 @@ describe('ProductDAO', () => {
         const details = 'details';
         const sellingPrice = 100.00;
         const arrivalDate = "2024-01-01";
-
+        
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
-
+        
         const soldQuantity = 5;
-
+        
         await dao.sellProduct(model, soldQuantity, null);
-
+        
         db.get('SELECT * FROM products WHERE model = ?', [model], (err, row) => {
             const productRow = row as {
                 model: string;
@@ -297,32 +305,19 @@ describe('ProductDAO', () => {
                 sellingPrice: number;
                 arrivalDate: string;
             };
-
+            
             expect(productRow.quantity).toBe(quantity - soldQuantity);
         });
-
-        db.get('SELECT * FROM products WHERE model = ?', [model], (err, row) => {
-            const productRow = row as {
-                model: string;
-                category: string;
-                quantity: number;
-                details: string;
-                sellingPrice: number;
-                arrivalDate: string;
-            };
-
-            expect(productRow.arrivalDate).toBe(dayjs().format('YYYY-MM-DD'));
-        });
     });
-
+    
     test('sellProduct should throw an error if the product does not exist', async () => {
         const model = 'model1';
         const soldQuantity = 5;
         const sellDate = dayjs().format('YYYY-MM-DD');
-
+        
         await expect(dao.sellProduct(model, soldQuantity, sellDate)).rejects.toThrow(ProductNotFoundError);
     });
-
+    
     test('sellProduct should throw an error if the sellDate is in the future', async () => {
         const model = 'model1';
         const category = 'Smartphone';
@@ -330,15 +325,16 @@ describe('ProductDAO', () => {
         const details = 'details';
         const sellingPrice = 100.00;
         const arrivalDate = dayjs().format('YYYY-MM-DD');
-
+        
         await dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
-
+        
         const soldQuantity = 5;
         const sellDate = dayjs().add(1, 'day').format('YYYY-MM-DD');
-
+        
         await expect(dao.sellProduct(model, soldQuantity, sellDate)).rejects.toThrow(ArrivalDateError);
     });
-
+    
+    
     test('sellProduct should throw an error if sellDate is before arrivalDate', async () => {
         const model = 'model1';
         const category = 'Smartphone';
@@ -368,7 +364,7 @@ describe('ProductDAO', () => {
         const soldQuantity = 5;
         const sellDate = dayjs().format('YYYY-MM-DD');
 
-        await expect(dao.sellProduct(model, soldQuantity, sellDate)).rejects.toThrow(LowProductStockError);
+        await expect(dao.sellProduct(model, soldQuantity, sellDate)).rejects.toThrow(EmptyProductStockError);
     });
 
 
@@ -387,13 +383,10 @@ describe('ProductDAO', () => {
 
         await expect(dao.sellProduct(model, soldQuantity, sellDate)).rejects.toThrow(LowProductStockError);
     });
-   */
+
     /* ***************************************** *
     * Integration test for the getProducts method *
     * ****************************************** */
-    const p1 = new Product(100.00, "Model1", Category.SMARTPHONE, "2022-01-01", "Details1", 10);
-    const p2 = new Product(200.00, "Model2", Category.LAPTOP, "2022-01-02", "Details2", 20);
-    const p3 = new Product(300.00, "Model3", Category.APPLIANCE, "2022-01-03", "Details3", 30);
     
     test('getProduct should return the product from the database', async () => {
         await dao.registerProducts(p1.model, p1.category, p1.quantity, p1.details, p1.sellingPrice, p1.arrivalDate);
@@ -473,9 +466,6 @@ describe('ProductDAO', () => {
     /* **************************************************** *
      * Integration test for the getAvailableProducts method *
      * **************************************************** */
-    const p4 = new Product(100.00, "Model4", Category.SMARTPHONE, "2022-01-01", "Details1", 0);
-    const p5 = new Product(200.00, "Model5", Category.LAPTOP, "2022-01-02", "Details2", 0);
-    const p6 = new Product(300.00, "Model6", Category.APPLIANCE, "2022-01-03", "Details3", 0);
     
     test('getAvailableProduct should return the product with quantity is > 0 from the database', async () => {
         await dao.registerProducts(p1.model, p1.category, p1.quantity, p1.details, p1.sellingPrice, p1.arrivalDate);
@@ -530,16 +520,15 @@ describe('ProductDAO', () => {
         const product = await dao.getAvailableProducts("category", p4.category, null);
         expect(product).toEqual([]);
     });
- /*
-    test('getAvailableProduct should return an empty array if the model requested is not available', async () => {
+ 
+    test('getAvailableProduct should throw an error if the model requested is not available', async () => {
         await dao.registerProducts(p4.model, p4.category, p4.quantity, p4.details, p4.sellingPrice, p4.arrivalDate);
         await dao.registerProducts(p5.model, p5.category, p5.quantity, p5.details, p5.sellingPrice, p5.arrivalDate);
         await dao.registerProducts(p6.model, p6.category, p6.quantity, p6.details, p6.sellingPrice, p6.arrivalDate);
 
-        const product = await dao.getAvailableProducts("model", null, p4.model);
-        expect(product).toEqual([]);
+        await expect(dao.getAvailableProducts("model", null, p4.model)).rejects.toThrow(EmptyProductStockError);
     }); 
-*/   
+  
 
     test('getAvailableProduct should throw an error if grouping is not a valid field', async () => {
         await dao.registerProducts(p1.model, p1.category, p1.quantity, p1.details, p1.sellingPrice, p1.arrivalDate);

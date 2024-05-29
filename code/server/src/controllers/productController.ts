@@ -26,14 +26,14 @@ class ProductController {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
+    async registerProducts(model: string, category: string, quantity: number, details: string | null | undefined, sellingPrice: number, arrivalDate: string | null | undefined) /**:Promise<void> */ { 
         if (
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || 
             (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
-            (details !== null && (typeof details !== 'string' || details.trim() === '')) || 
-            (typeof sellingPrice !== 'number' || sellingPrice <= 0) || 
-            (arrivalDate !== null && (typeof arrivalDate !== 'string' || !dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()))
+            (details && (typeof details !== 'string' || details.trim() === '')) || 
+            (typeof sellingPrice !== 'number' || sellingPrice <= 0) ||
+            (arrivalDate  && (typeof arrivalDate !== 'string' || !dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }
