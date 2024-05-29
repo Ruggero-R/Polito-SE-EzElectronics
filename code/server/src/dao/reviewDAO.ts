@@ -21,11 +21,11 @@ class ReviewDAO {
                     } else if (count.N==0) {
                         reject(new ProductNotFoundError);}})
 
-                const selectReviewSql = "SELECT COUNT(*) AS N FROM products_reviews WHERE user = ? AND model = ?";
+                const selectReviewSql = "SELECT COUNT(*) AS M FROM products_reviews WHERE user = ? AND model = ?";
                 db.get(selectReviewSql, [user.username,model], (err: Error | null, count: any) => {
                     if (err) {
                         reject(err);
-                    } else if (count.N>0) {
+                    } else if (count.M>0) {
                         reject(new ExistingReviewError);}})
                 
                 const sql = "INSERT INTO products_reviews(model, user, score, date, comment) VALUES(?, ?, ?, ?, ?)";
