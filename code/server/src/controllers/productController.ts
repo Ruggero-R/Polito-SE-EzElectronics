@@ -26,14 +26,14 @@ class ProductController {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
+    async registerProducts(model: string, category: string, quantity: number, details: string | null | undefined, sellingPrice: number, arrivalDate: string | null | undefined) /**:Promise<void> */ { 
         if (
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || 
             (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
-            (details !== null && (typeof details !== 'string' || details.trim() === '')) || 
-            (typeof sellingPrice !== 'number' || sellingPrice <= 0) || 
-            (arrivalDate !== null && (typeof arrivalDate !== 'string' || !dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()))
+            (details && (typeof details !== 'string' || details.trim() === '')) || 
+            (typeof sellingPrice !== 'number' || sellingPrice <= 0) ||
+            (arrivalDate  && (typeof arrivalDate !== 'string' || !dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }
@@ -53,11 +53,11 @@ class ProductController {
      * @param changeDate The optional date in which the change occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
+    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null | undefined) /**:Promise<number> */ {
         if (
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof newQuantity !== 'number' || !Number.isInteger(newQuantity) || newQuantity <= 0) || 
-            (changeDate !== null && (typeof changeDate !== 'string' || !dayjs(changeDate, 'YYYY-MM-DD', true).isValid()))
+            (changeDate && (typeof changeDate !== 'string' || !dayjs(changeDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }
@@ -81,7 +81,7 @@ class ProductController {
         if (
             (typeof model !== 'string' || model.trim() === '') || 
             (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
-            (sellingDate !== null && (typeof sellingDate !== 'string' || !dayjs(sellingDate, 'YYYY-MM-DD', true).isValid()))
+            (sellingDate && (typeof sellingDate !== 'string' || !dayjs(sellingDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
         }

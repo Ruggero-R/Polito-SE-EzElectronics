@@ -25,7 +25,7 @@ class ProductDAO {
                 const sql = "INSERT INTO products (model, category, arrivalDate, quantity, details, sellingPrice) VALUES (?, ?, ?, ?, ?, ?)"
                 db.run(sql, [model, category, !arrivalDate ? dayjs().format('YYYY-MM-DD') : arrivalDate, quantity, details, sellingPrice], function (err: Error | null) {
                     if (err) {
-                        if (err.message.includes("UNIQUE constraint failed: products.model")) 
+                        if (err.message.includes("UNIQUE constraint failed: products.model"))
                             reject(new ProductAlreadyExistsError)
                         reject(err)
                         return
@@ -103,8 +103,8 @@ class ProductDAO {
                         return
                     }
 
-                    sql = "UPDATE products SET quantity = ?, sellingDate = ? WHERE model = ?"
-                    db.run(sql, [row.quantity - quantity, !sellingDate  ? dayjs().format('YYYY-MM-DD') : sellingDate, model], function (err: Error | null) {
+                    sql = "UPDATE products SET quantity = ? WHERE model = ?"
+                    db.run(sql, [row.quantity - quantity, model], function (err: Error | null) {
                         if (err) {
                             reject(err)
                             return
@@ -127,9 +127,9 @@ class ProductDAO {
                 const params: any[] = [];
 
                 switch (grouping) {
-                    case null: 
+                    case null:
                     case undefined:
-                        if(!category && !model){
+                        if (!category && !model) {
                             sql = "SELECT * FROM products"
                         } else {
                             reject(new FiltersError());
@@ -137,7 +137,7 @@ class ProductDAO {
                         }
                         break;
                     case "category":
-                        if(category && !model){
+                        if (category && !model) {
                             sql = "SELECT * FROM products WHERE category = ?"
                             params.push(category);
                         } else {
@@ -146,7 +146,7 @@ class ProductDAO {
                         }
                         break;
                     case "model":
-                        if(model && !category){
+                        if (model && !category) {
                             sql = "SELECT * FROM products WHERE model = ?"
                             params.push(model);
                         } else {
@@ -159,7 +159,7 @@ class ProductDAO {
                         return;
                 }
 
-                
+
                 if (grouping === "model") {
                     // Use db.get for a single result
                     db.get(sql, params, (err: Error | null, row: any) => {
@@ -199,9 +199,9 @@ class ProductDAO {
                 const params: any[] = [];
 
                 switch (grouping) {
-                    case null: 
+                    case null:
                     case undefined:
-                        if(!category && !model){
+                        if (!category && !model) {
                             sql = "SELECT * FROM products WHERE quantity > 0"
                         } else {
                             reject(new FiltersError());
@@ -209,7 +209,7 @@ class ProductDAO {
                         }
                         break;
                     case "category":
-                        if(category && !model){
+                        if (category && !model) {
                             sql = "SELECT * FROM products WHERE category = ? AND quantity > 0"
                             params.push(category);
                         } else {
@@ -218,8 +218,8 @@ class ProductDAO {
                         }
                         break;
                     case "model":
-                        if(model && !category){
-                            sql = "SELECT * FROM products WHERE model = ? AND quantity > 0"
+                        if (model && !category) {
+                            sql = "SELECT * FROM products WHERE model = ?"
                             params.push(model);
                         } else {
                             reject(new FiltersError());
@@ -231,7 +231,7 @@ class ProductDAO {
                         return;
                 }
 
-                
+
                 if (grouping === "model") {
                     // Use db.get for a single result
                     db.get(sql, params, (err: Error | null, row: any) => {
@@ -240,8 +240,13 @@ class ProductDAO {
                             return;
                         }
                         if (row) {
-                            const product = new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity);
-                            resolve([product]);
+                            if (row.quantity == 0) {
+                                reject(new EmptyProductStockError)
+                                return
+                            } else {
+                                const product = new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity);
+                                resolve([product]);
+                            }
                         } else {
                             reject(new ProductNotFoundError);
                         }
@@ -264,8 +269,8 @@ class ProductDAO {
         })
     }
 
-    deleteAllProducts(): Promise<Boolean> {
-        return new Promise<Boolean>((resolve, reject) => {
+    deleteAllProducts(): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
             try {
                 const sql = "DELETE FROM products"
                 db.run(sql, [], function (err: Error | null) {
@@ -280,8 +285,8 @@ class ProductDAO {
             }
         })
     }
-    deleteProduct(model: string): Promise<Boolean> {                                      // DUBBIO
-        return new Promise<Boolean>((resolve, reject) => {
+    deleteProduct(model: string): Promise<boolean> {                                      // DUBBIO
+        return new Promise<boolean>((resolve, reject) => {
             try {
                 let sql = "SELECT * FROM products WHERE model = ?"
                 db.get(sql, [model], (err: Error | null, row: Product) => {

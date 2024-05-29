@@ -25,18 +25,6 @@ class NoReviewProductError extends Error {
     }
 }
 
-//aggiunti di seguito
-class InvalidParametersError extends Error {
-    customMessage: string
-    customCode: number
-
-    constructor() {
-        super()
-        this.customMessage = INVALID_REVIEWS_PARAMETERS
-        this.customCode = 422
-    }
-}
-
 class ProductNotFoundError extends Error {
     customMessage: string
     customCode: number
@@ -48,4 +36,4 @@ class ProductNotFoundError extends Error {
     }
 }
 
-export { ExistingReviewError, NoReviewProductError, InvalidParametersError, ProductNotFoundError }
+export { ExistingReviewError, NoReviewProductError, ProductNotFoundError }
