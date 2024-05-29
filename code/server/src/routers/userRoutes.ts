@@ -60,7 +60,7 @@ class UserRoutes {
             body("name").notEmpty().isString(),
             body("surname").notEmpty().isString(),
             body("password").notEmpty().isString(),
-            body("role").notEmpty().isIn(["Manager","Customer","Admin"]),
+            body("role").notEmpty().isIn(["Manager", "Customer", "Admin"]),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.createUser(req.body.username, req.body.name, req.body.surname, req.body.password, req.body.role)
                 .then(() => res.status(200).end())
@@ -93,7 +93,7 @@ class UserRoutes {
             "/roles/:role",
             this.authService.isLoggedIn,
             this.authService.isAdmin,
-            param("role").notEmpty().isIn(["Manager","Admin","Customer"]),
+            param("role").notEmpty().isIn(["Manager", "Admin", "Customer"]),
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.getUsersByRole(req.params.role)
                 .then((users: any /**User[] */) => res.status(200).json(users))
@@ -141,7 +141,7 @@ class UserRoutes {
             "/",
             this.authService.isLoggedIn,
             this.authService.isAdmin,
-            (req: any, res: any, next: any) => this.controller.deleteAll()
+            (req: any, res: any, next: any) => this.controller.deleteAllUsers()
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
         )

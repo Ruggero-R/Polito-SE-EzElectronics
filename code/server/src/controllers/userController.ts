@@ -104,7 +104,7 @@ class UserController {
      * Deletes all non-Admin users
      * @returns A Promise that resolves to true if all non-Admin users have been deleted.
      */
-    async deleteAll() /**:Promise<Boolean> */ { return this.dao.deleteAllUsers(); }
+    async deleteAllUsers() /**:Promise<Boolean> */ { return this.dao.deleteAllUsers(); }
 
     /**
      * Updates the personal information of one user. The user can only update their own information.
