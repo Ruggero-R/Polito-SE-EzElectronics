@@ -7,9 +7,7 @@ import { Database } from "sqlite3";
 
 const RevDAO=new reviewDAO();
 const Utente1=new User("Ale","Alessandro","Mosca",Role.ADMIN,"amosca502@gmail.com","2024-01-01");
-
-afterEach(() => {
-    jest.clearAllMocks();});
+afterEach(()=>{jest.clearAllMocks()});
 
 /* ********************************************** *
  *    Unit test for the addReview method    *
@@ -17,19 +15,32 @@ afterEach(() => {
 
 describe("Unit tests for the addReview method",()=>{
     test("It should not insert a review due to an unexisting model",async()=>{
-        jest.spyOn(db,"get").mockImplementation((sql,pars,call)=>{
-            call(new ProductNotFoundError);
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{N:0});
             return {} as Database;});
-        expect(RevDAO.addReview("iPhone13",Utente1,5,"Molto bello")).rejects.toThrow(ProductNotFoundError);})
+        expect(RevDAO.addReview("iPhone13",Utente1,125,"Test1")).rejects.toThrow(ProductNotFoundError);})
 
     test("It should insert a new review",async()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
             callback(null,{N:1});
             return {} as Database;});
-        jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
-            callback(null);
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{M:0});
             return {} as Database;});
-        expect(RevDAO.addReview("Notebook",Utente1,5,"Molto bello")).resolves.toBe(undefined);})
+        jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
+            callback(null,undefined);
+            return {} as Database;});
+        expect(RevDAO.addReview("iPhone13",Utente1,5,"Test2")).resolves.toBe(undefined);})
+
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation(()=>{throw new Error("Error");})
+        expect(RevDAO.addReview("Notebook",Utente1,5,"Test3")).rejects.toThrow("Error")})
+
+    test("It should throw an Error if the database fails",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(new Error("Database error"));
+                return {} as Database;});
+        expect(RevDAO.addReview("Notebook",Utente1,5,"Test4")).rejects.toThrow("Database error")})
 
     test("It should not insert the review due to an existing review for the same tuple user-model",async()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
@@ -41,10 +52,10 @@ describe("Unit tests for the addReview method",()=>{
         jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
             callback(new Error("UNIQUE constraint failed"));
             return {} as Database;});
-       expect(RevDAO.addReview("iPhone13",Utente1,5,"Hi")).rejects.toThrowError(ExistingReviewError);})})
+        expect(RevDAO.addReview("iPhone13",Utente1,5,"Hi")).rejects.toThrow(ExistingReviewError);})})
 
 /* ********************************************** *
- *    Unit test for the getReviews method    *
+ *    Unit test for the getProductReviews method    *
  * ********************************************** */       
 
 describe("Unit tests for the getReviews method",()=>{
@@ -52,7 +63,26 @@ describe("Unit tests for the getReviews method",()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
             callback(null,undefined);
             return {} as Database;});
-        expect(RevDAO.getProductReviews("iPhone13")).rejects.toThrowError(ProductNotFoundError);})
+        expect(RevDAO.getProductReviews("iPhone13")).rejects.toThrow(ProductNotFoundError);})
+
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation(()=>{throw new Error("Error");})
+        expect(RevDAO.getProductReviews("iPhone13")).rejects.toThrow("Error")}) 
+    
+    test("It should throw an Error if the database fails",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback) => {
+            callback(new Error("Database error"));
+                return {} as Database;});
+        expect(RevDAO.getProductReviews("Notebook")).rejects.toThrow("Database error")})
+
+    test("It should throw an Error if the database fails",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback) => {
+            callback(null,1);
+                return {} as Database;});
+        jest.spyOn(db,"all").mockImplementation((sql, params, callback) => {
+            callback(new Error("Database error"));
+                return {} as Database;});
+        expect(RevDAO.getProductReviews("Notebook")).rejects.toThrow("Database error")})
 
     test("It should get one review",async()=>{
         const reviewObj=[{model:"iPhone13", user:"aaaa",score:2,date:"",comment:""}];
@@ -71,22 +101,56 @@ describe("Unit tests for the getReviews method",()=>{
 describe("Unit tests for the deleteReview method",()=>{
     test("It should not find any review to delete due to an unexisting model",()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
-            callback(new ProductNotFoundError);
+            callback(null,{N:0});
             return {} as Database;});
-        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrowError(ProductNotFoundError);});
+        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrow(ProductNotFoundError);})
 
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(new Error("Database error"));
+            return {} as Database;});
+        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrow("Database error")})
+
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{N:1});
+            return {} as Database;});
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(new Error("Database error"));
+            return {} as Database;});
+        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrow("Database error")})
+    
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{N:1});
+            return {} as Database;});
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{M:1});
+            return {} as Database;});
+        jest.spyOn(db,"run").mockImplementation((sql,params,callback)=>{
+            callback(new Error("Database error"));
+            return {} as Database;})
+        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrow("Database error")})
+    
     test("It should not find any review to delete due to an unexisting pair (model-user)",()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
-            callback(new NoReviewProductError);
+            callback(null,{N:1});
             return {} as Database;});
-        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrowError(NoReviewProductError);});
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{M:0});
+            return {} as Database;});
+        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrow(NoReviewProductError);})
+
+    test("It should raise an error",()=>{
+        jest.spyOn(db,"get").mockImplementation(()=>{throw new Error("Error")});
+        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrow("Error");})
     
     test("It should delete the review",()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
-            callback(null,{model:""});
+            callback(null,{N:1});
             return {} as Database;});
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
-            callback(null,{model:"",user:""});
+            callback(null,{M:1});
             return {} as Database;});
         jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
             callback(null,undefined);
@@ -100,9 +164,28 @@ describe("Unit tests for the deleteReview method",()=>{
 describe("Unit tests for the deleteReviewsOfProduct method",()=>{
     test("It should not find any review to delete due to an unexisting model",()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
-            callback(new ProductNotFoundError);
+            callback(null,undefined);
             return {} as Database;});
-        expect(RevDAO.deleteReview("iPhone13",Utente1)).rejects.toThrowError(ProductNotFoundError);});
+        expect(RevDAO.deleteReviewsOfProduct("iPhone13")).rejects.toThrow(ProductNotFoundError);});
+
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation(()=>{throw new Error("Error");})
+        expect(RevDAO.deleteReviewsOfProduct("iPhone13")).rejects.toThrow("Error")}) 
+
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql,params,callback)=>{
+            callback(new Error("Database error"));
+            return {} as Database;});
+        expect(RevDAO.deleteReviewsOfProduct("iPhone13")).rejects.toThrow("Database error")}) 
+    
+    test("It should throw an Error if the database fails",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{model:""});
+            return {} as Database;});
+        jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
+            callback(new Error("Database error"));
+            return {} as Database;});
+        expect(RevDAO.deleteReviewsOfProduct("Notebook")).rejects.toThrow("Database error")})
     
     test("It should delete any review for the given model",()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
@@ -118,8 +201,18 @@ describe("Unit tests for the deleteReviewsOfProduct method",()=>{
  * ********************************************** */
 
 describe("Unit tests for the deleteAllReviews method",()=>{
-    test("It should not find any review to delete due to an unexisting model",()=>{
-        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+    test("It should not find any review to delete",()=>{
+        jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
             callback(null,undefined);
             return {} as Database;});
-    expect(RevDAO.deleteAllReviews()).resolves.toBe(undefined);})});
+    expect(RevDAO.deleteAllReviews()).resolves.toBe(undefined);})
+
+    test("It should throw an error",()=>{
+        jest.spyOn(db,"run").mockImplementation(()=>{throw new Error("Error");})
+        expect(RevDAO.deleteAllReviews()).rejects.toThrow("Error")})
+    
+    test("It should throw an Error if the database fails",()=>{
+        jest.spyOn(db,"run").mockImplementation((sql, params, callback) => {
+            callback(new Error("Database error"));
+            return {} as Database;});
+        expect(RevDAO.deleteAllReviews()).rejects.toThrow("Database error")})})
