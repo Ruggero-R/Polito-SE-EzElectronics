@@ -1,5 +1,4 @@
 import db from "../db/db"
-import { resolve } from "path";
 import { User } from "../components/user";
 import { ProductReview } from "../components/review";
 import dayjs from "dayjs";
@@ -13,32 +12,28 @@ import { Product } from "../components/product";
 class ReviewDAO {
 
     addReview(model: string, user: User, score: number, comment: string): Promise<void> {
-        // DA MODIFICARE UNA VOLTA CHE IL DAO DEI PRODOTTI SARÀ COMPLETATO, usare getProducts invece della query sql
-
         return new Promise<void>((resolve, reject) => {
             try {
-                const selectSql = "SELECT * FROM products WHERE model = ?";
-                db.get(selectSql, [model], (err: Error | null, row: Product) => {
+                const selectSql = "SELECT COUNT(*) AS N FROM products WHERE model = ?";
+                db.get(selectSql, [model], (err: Error | null, count: any) => {
                     if (err) {
                         reject(err);
-                        return
-                    } else if (!row) {
-                        reject(new ProductNotFoundError);
-                    } else {
-                        const sql = "INSERT INTO products_reviews(model, user, score, date, comment) VALUES(?, ?, ?, ?, ?)";
-                        db.run(sql, [model, user.username, score, dayjs().format("YYYY-MM-DD"), comment], function (err: Error | null) {
-                            if (err) {
-                                if (err.message.includes("FOREIGN KEY constraint failed")) {
-                                    reject(new ExistingReviewError);
-                                    return
-                                }
-                                reject(err);
-                                return
-                            }
-                            resolve();
+                    } else if (count.N==0) {
+                        reject(new ProductNotFoundError);}})
+
+                const selectReviewSql = "SELECT COUNT(*) AS N FROM products_reviews WHERE user = ? AND model = ?";
+                db.get(selectReviewSql, [user.username,model], (err: Error | null, count: any) => {
+                    if (err) {
+                        reject(err);
+                    } else if (count.N>0) {
+                        reject(new ExistingReviewError);}})
+                
+                const sql = "INSERT INTO products_reviews(model, user, score, date, comment) VALUES(?, ?, ?, ?, ?)";
+                db.run(sql, [model, user.username, score, dayjs().format("YYYY-MM-DD"), comment], function (err: Error | null) {
+                    if (err) {
+                        reject(err);}
+                resolve();
                         });
-                    }
-                });
             } catch (error) {
                 reject(error);
             }
@@ -46,8 +41,6 @@ class ReviewDAO {
     }
 
     getProductReviews(model: string): Promise<ProductReview[]> {
-        // DA MODIFICARE UNA VOLTA CHE IL DAO DEI PRODOTTI SARÀ COMPLETATO, usare getProducts invece della query sql
-
         return new Promise<ProductReview[]>((resolve, reject) => {
             try {
                 const selectSql = "SELECT * FROM products WHERE model = ?";
@@ -64,7 +57,6 @@ class ReviewDAO {
                                 reject(err);
                                 return
                             }
-                            console.log(rows);
                             const reviews: ProductReview[] = rows.map((row: any) => new ProductReview(row.model, row.user, row.score, row.date, row.comment));
                             resolve(reviews);
                         });
@@ -103,9 +95,6 @@ class ReviewDAO {
                         const sql = "DELETE FROM products_reviews WHERE model = ? AND user = ?";
                         db.run(sql, [model, user.username], function (err: Error | null) {
                             if (err) {
-                                if (err.message.includes("FOREIGN KEY constraint failed")) {
-                                    reject(new NoReviewProductError);
-                                }
                                 reject(err);
                                 return
                             }
@@ -127,7 +116,6 @@ class ReviewDAO {
                 db.get(selectSql, [model], (err: Error | null, row: Product) => {
                     if (err) {
                         reject(err);
-                        return
                     } else if (!row) {
                         reject(new ProductNotFoundError);
                         return
