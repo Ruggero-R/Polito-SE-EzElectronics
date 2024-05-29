@@ -1,12 +1,11 @@
 import ProductDAO from '../../src/dao/productDAO';
 import dayjs from 'dayjs';
-import { expect, afterEach, beforeEach, describe, test } from '@jest/globals';
-import sqlite3 from 'sqlite3';
+import { expect, beforeEach, describe, test, afterAll } from '@jest/globals';
 import db from '../../src/db/db';
 import { ArrivalDateError, EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from '../../src/errors/productError';
 import { Category, Product } from '../../src/components/product';
 
-describe('ProductDAO', () => {
+describe('ProductDAO integration tests', () => {
     let dao: ProductDAO;
     
     beforeEach((done) => {
@@ -28,9 +27,9 @@ describe('ProductDAO', () => {
     const p5 = new Product(200.00, "Model5", Category.LAPTOP, "2024-01-02", "Details2", 0);
     const p6 = new Product(300.00, "Model6", Category.APPLIANCE, "2024-01-03", "Details3", 0);
     
-    /* ********************************************** *
-    * Integration test for the registerProduct method *    
-    * *********************************************** */
+    /* *********************************************** *
+    * Integration test for the registerProducts method *    
+    * ************************************************ */
 
     test('registerProducts should insert a product into the database', async () => {
         const model = p1.model;
