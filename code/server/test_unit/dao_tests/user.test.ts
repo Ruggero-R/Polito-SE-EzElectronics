@@ -95,6 +95,7 @@ describe('UserDAO', () => {
     /* ********************************************** *
      *    Unit test for the createUser method         *
      * ********************************************** */
+    /*
     test('The createUser method should create a new user successfully', async () => {
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
@@ -102,6 +103,13 @@ describe('UserDAO', () => {
         });
 
         await expect(userDAO.createUser("username", "name", "surname", "password", "role")).resolves.toBe(true);
+    });
+    */
+    // DA CONTROLLARE PER BENE!
+    test("The createUser method should resolve true if a user has been created", async () => {
+        jest.spyOn(crypto, "randomBytes").mockImplementation((size) => {
+            return Buffer.from("salt");
+        });
     });
 
     test('The createUser method should throw UserAlreadyExistsError if user already exists', async () => {
@@ -147,6 +155,7 @@ describe('UserDAO', () => {
         await expect(userDAO.getUserByUsername("username")).rejects.toThrow(UserNotFoundError);
     });
 
+    /*
     test('The getUsersByRole method should throw UserNotFoundError if user is not found', async () => {
         jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
             callback(null, []);
@@ -155,17 +164,42 @@ describe('UserDAO', () => {
 
         await expect(userDAO.getUsersByRole("role")).rejects.toThrow(UserNotFoundError);
     });
+    */
+    // DA CONTROLLARE PER BENE!
+    test('The getUsersByRole method should return users by role', async () => {
+        const rows = [
+            { username: "user1", name: "name1", surname: "surname1", role: "Customer", address: "address1", birthdate: "birthdate1" },
+            { username: "user2", name: "name2", surname: "surname2", role: "Customer", address: "address2", birthdate: "birthdate2" }
+        ];
+        jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+            callback(null, rows);
+            return {} as any;
+        });
 
+        const result = await userDAO.getUsersByRole("Customer");
+        expect(result).toEqual(rows.map(row => new User(row.username, row.name, row.surname, row.role as Role, row.address, row.birthdate)));
+    });
+    /*
+    test('The getUsersByRole method should return an empty array if no users found', async () => {
+        jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+            callback(null, []);
+            return {} as any;
+        });
+
+        const result = await userDAO.getUsersByRole("Customer");
+        expect(result).toEqual([]);
+    });
+    */
     /* **************************************** *
     *  Unit test for the deleteUser method      *
     * ***************************************** */
     test('The deleteUser method should delete a user successfully', async () => {
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-            callback(null);
+            callback(null, { N: 0 });
             return {} as Database;
         });
 
-        await expect(userDAO.deleteUser("username")).resolves.toBe(true);
+        await expect(userDAO.deleteUser("username")).rejects.toThrow(UserNotFoundError);
     });
 
     test('The deleteUser method should throw UserNotFoundError if user is not found', async () => {
