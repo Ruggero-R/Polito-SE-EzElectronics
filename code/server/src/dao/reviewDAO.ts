@@ -2,7 +2,7 @@ import db from "../db/db"
 import { User } from "../components/user";
 import { ProductReview } from "../components/review";
 import dayjs from "dayjs";
-import { ExistingReviewError, NoReviewProductError, ProductNotFoundError } from "../errors/reviewError";
+import { ExistingReviewError, NoReviewProductError, ProductNotFoundError,InvalidParametersError } from "../errors/reviewError";
 import { Product } from "../components/product";
 
 /**
@@ -11,9 +11,11 @@ import { Product } from "../components/product";
  */
 class ReviewDAO {
 
-    addReview(model: string, user: User, score: number, comment: string): Promise<void> {
+    addReview(model: string, user: User, score: number, comment: string): Promise<void>{
         return new Promise<void>((resolve, reject) => {
             try {
+                if(!comment || !score || comment.trim()==""){
+                    reject(new InvalidParametersError);}
                 const selectSql = "SELECT COUNT(*) AS N FROM products WHERE model = ?";
                 db.get(selectSql, [model], (err: Error | null, count: any) => {
                     if (err) {

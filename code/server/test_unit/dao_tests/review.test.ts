@@ -1,7 +1,7 @@
 import { test, expect, describe, jest, afterEach} from "@jest/globals";
 import reviewDAO from "../../src/dao/reviewDAO";
 import { User,Role } from "../../src/components/user";
-import { ExistingReviewError, NoReviewProductError, ProductNotFoundError } from "../../src/errors/reviewError";
+import { ExistingReviewError, InvalidParametersError, NoReviewProductError, ProductNotFoundError } from "../../src/errors/reviewError";
 import db from "../../src/db/db";
 import { Database } from "sqlite3";
 
@@ -20,6 +20,9 @@ describe("Unit tests for the addReview method",()=>{
             return {} as Database;});
         expect(RevDAO.addReview("iPhone13",Utente1,125,"Test1")).rejects.toThrow(ProductNotFoundError);})
 
+    test("It should not insert a review due to an invalid parameter",async()=>{
+        expect(RevDAO.addReview("iPhone13",Utente1,125,"")).rejects.toThrow(InvalidParametersError);})
+    
     test("It should insert a new review",async()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
             callback(null,{N:1});
