@@ -170,13 +170,16 @@ class UserDAO {
     deleteUser(requested: string) {
         return new Promise<boolean>((resolve, reject) => {
             try {
+                let firstsql="SELECT * FROM users WHERE username=?";
+                db.get(firstsql,[requested],(err:Error | null, answer:any)=>{
+                    if(err){
+                        reject(err);}
+                    else if(!answer){
+                        reject(new UserNotFoundError);}})
                 const sql = "DELETE FROM users WHERE username=?";
                 db.run(sql, [requested], function (err: Error | null) {
                     if (err) {
                         reject(err);
-                    }
-                    else if (this.changes == 0) {
-                        reject(new UserNotFoundError);
                     }
                     else {
                         resolve(true);
@@ -210,9 +213,6 @@ class UserDAO {
                         db.run(sql, [username], function (err: Error | null) {
                             if (err) {
                                 reject(err);
-                            }
-                            else if (this.changes == 0) {
-                                reject(new UserNotFoundError);
                             }
                             else {
                                 resolve(true);
@@ -253,13 +253,17 @@ class UserDAO {
     updateUser(username: string, name: string, surname: string, address: string, birthdate: string) {
         return new Promise<User>((resolve, reject) => {
             try {
+                let firstsql="SELECT * FROM users WHERE username=?";
+                db.get(firstsql,[username],(err:Error | null, answer:any)=>{
+                    if(err){
+                        reject(err);}
+                    else if(!answer){
+                        reject(new UserNotFoundError);}})
+
                 let sql = "UPDATE users SET name=?, surname=?, address=?, birthdate=? WHERE username=?"
                 db.run(sql, [name, surname, address, birthdate, username], function (err: Error | null) {
                     if (err) {
                         reject(err);
-                    }
-                    else if (this.changes == 0) {
-                        reject(new UserNotFoundError);
                     }
                     else {
                         sql = "SELECT role FROM users WHERE username=?";
