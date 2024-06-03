@@ -45,15 +45,24 @@ describe("Unit tests for the addReview method",()=>{
                 return {} as Database;});
         expect(RevDAO.addReview("Notebook",Utente1,5,"Test4")).rejects.toThrow("Database error")})
 
+    test("It should throw an Error if the database fails in the run",()=>{
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{N:1});
+            return {} as Database;});
+        jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
+            callback(null,{M:0});
+            return {} as Database;});
+        jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
+            callback(new Error("Database error"));
+            return {} as Database;});
+        expect(RevDAO.addReview("Notebook",Utente1,5,"Test4")).rejects.toThrow("Database error")})
+
     test("It should not insert the review due to an existing review for the same tuple user-model",async()=>{
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
             callback(null,{N:1});
             return {} as Database;})
         jest.spyOn(db,"get").mockImplementation((sql, params, callback)=>{
             callback(null,{M:1});
-            return {} as Database;});
-        jest.spyOn(db,"run").mockImplementation((sql, params, callback)=>{
-            callback(new Error("UNIQUE constraint failed"));
             return {} as Database;});
         expect(RevDAO.addReview("iPhone13",Utente1,5,"Hi")).rejects.toThrow(ExistingReviewError);})})
 
