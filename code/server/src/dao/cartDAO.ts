@@ -1,7 +1,7 @@
 import db from "../db/db";
 import { Cart, ProductInCart } from "../components/cart";
 import { Product } from "../components/product";
-import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError, NoCartItemsError } from "../errors/cartError";
+import { CartNotFoundError, ProductInCartError, ProductNotInCartError, WrongUserCartError, EmptyCartError, NoCartItemsError, AlreadyActiveCart } from "../errors/cartError";
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../errors/productError";
 import dayjs from "dayjs";
 
@@ -14,11 +14,22 @@ class CartDAO {
     /**
      * Creates a new cart for a customer.
      * @param customer The username of the customer.
-     * @returns A Promise that resolves to the ID of the newly created cart.
+     * @returns A void Promise 
      */
     createCart(customer: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
+                const checkActiveCartSql = "SELECT * FROM carts WHERE customer = ? AND paid = 0";
+                db.get(checkActiveCartSql, [customer], (err: Error | null, row: any) => {
+                    if (err) {
+                        reject(err);
+                        return
+                    }
+                    if (row) {
+                        reject(new AlreadyActiveCart);
+                        return;
+                    }
+                });
                 const sql = "INSERT INTO carts (customer, paid, paymentDate, total) VALUES (?, 0, NULL, 0.0)";
                 db.run(sql, [customer], function (err: Error | null) {
                     if (err) {

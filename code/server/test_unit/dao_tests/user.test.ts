@@ -194,7 +194,7 @@ describe('UserDAO', () => {
     *  Unit test for the deleteUser method      *
     * ***************************************** */
     test('The deleteUser method should delete a user successfully', async () => {
-        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
             callback(null, { N: 0 });
             return {} as Database;
         });
