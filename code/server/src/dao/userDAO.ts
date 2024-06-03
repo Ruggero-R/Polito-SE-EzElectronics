@@ -167,15 +167,18 @@ class UserDAO {
         })
     }
 
-    deleteUser(requested: string) {
+    deleteUser(requested: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
-                let firstsql="SELECT * FROM users WHERE username=?";
-                db.get(firstsql,[requested],(err:Error | null, answer:any)=>{
-                    if(err){
-                        reject(err);}
-                    else if(!answer){
-                        reject(new UserNotFoundError);}})
+                let firstsql = "SELECT * FROM users WHERE username=?";
+                db.get(firstsql, [requested], (err: Error | null, answer: any) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else if (!answer) {
+                        reject(new UserNotFoundError);
+                    }
+                })
                 const sql = "DELETE FROM users WHERE username=?";
                 db.run(sql, [requested], function (err: Error | null) {
                     if (err) {
@@ -253,12 +256,15 @@ class UserDAO {
     updateUser(username: string, name: string, surname: string, address: string, birthdate: string) {
         return new Promise<User>((resolve, reject) => {
             try {
-                let firstsql="SELECT * FROM users WHERE username=?";
-                db.get(firstsql,[username],(err:Error | null, answer:any)=>{
-                    if(err){
-                        reject(err);}
-                    else if(!answer){
-                        reject(new UserNotFoundError);}})
+                let firstsql = "SELECT * FROM users WHERE username=?";
+                db.get(firstsql, [username], (err: Error | null, answer: any) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else if (!answer) {
+                        reject(new UserNotFoundError);
+                    }
+                })
 
                 let sql = "UPDATE users SET name=?, surname=?, address=?, birthdate=? WHERE username=?"
                 db.run(sql, [name, surname, address, birthdate, username], function (err: Error | null) {

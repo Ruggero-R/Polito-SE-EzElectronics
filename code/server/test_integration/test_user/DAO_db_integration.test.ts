@@ -229,7 +229,7 @@ describe('UserDAO integration tests', () => {
 
     test('updateUserAsAdmin should throw UserIsAdminError if trying to update an admin', async () => {
         const password = "password";
-        await dao.createUser(u3.username, u3.name, u3.surname, password, u3.role);
+        await dao.createUser(u3.username, u3.name, u3.surname, password, u3.role); // Create admin user
 
         const newName = "NewName";
         const newSurname = "NewSurname";
@@ -238,6 +238,7 @@ describe('UserDAO integration tests', () => {
 
         await expect(dao.updateUserAsAdmin(u3.username, newName, newSurname, newAddress, newBirthdate)).rejects.toThrow(UserIsAdminError);
     });
+
 
     /* afterAll((done) => {
         db.close((err) => {

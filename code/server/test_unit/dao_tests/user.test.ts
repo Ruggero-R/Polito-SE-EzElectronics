@@ -56,30 +56,6 @@ describe('UserDAO', () => {
         mockScrypt.mockRestore()
     })
 
-    /* ********************************************** *
-     *    Unit test for the createUser method    *
-     * ********************************************** */
-    /* POSSIBILE INIZIO TESTO EDITATO POICHÈ FALLISCE TEST SOPRA
-    test("It should resolve to true if a user has been created", async () => {
-        const userDAO = new UserDAO();
-        const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-            callback(null);
-            return {} as Database;
-        });
-
-        const mockRandomBytes = jest.spyOn(crypto, "randomBytes").mockReturnValue(Buffer.from("salt"));
-        const mockScrypt = jest.spyOn(crypto, "scrypt").mockResolvedValue(Buffer.from("hashedPassword"));
-
-        const result = await userDAO.createUser("username", "name", "surname", "password", "role");
-        expect(result).toBe(true);
-        
-        mockRandomBytes.mockRestore();
-        mockDBRun.mockRestore();
-        mockScrypt.mockRestore();
-    });
-
-    */
-
     /* ****************************************************  *
      *    Unit test for the getIsUserAuthenticated method    *
      * ****************************************************  */
@@ -92,19 +68,6 @@ describe('UserDAO', () => {
         await expect(userDAO.getIsUserAuthenticated("username", "password"));
     });
 
-    /* ********************************************** *
-     *    Unit test for the createUser method         *
-     * ********************************************** */
-    /*
-    test('The createUser method should create a new user successfully', async () => {
-        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-            callback(null);
-            return {} as Database;
-        });
-
-        await expect(userDAO.createUser("username", "name", "surname", "password", "role")).resolves.toBe(true);
-    });
-    */
     // DA CONTROLLARE PER BENE!
     test("The createUser method should resolve true if a user has been created", async () => {
         jest.spyOn(crypto, "randomBytes").mockImplementation((size) => {
@@ -179,17 +142,7 @@ describe('UserDAO', () => {
         const result = await userDAO.getUsersByRole("Customer");
         expect(result).toEqual(rows.map(row => new User(row.username, row.name, row.surname, row.role as Role, row.address, row.birthdate)));
     });
-    /*
-    test('The getUsersByRole method should return an empty array if no users found', async () => {
-        jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
-            callback(null, []);
-            return {} as any;
-        });
 
-        const result = await userDAO.getUsersByRole("Customer");
-        expect(result).toEqual([]);
-    });
-    */
     /* **************************************** *
     *  Unit test for the deleteUser method      *
     * ***************************************** */

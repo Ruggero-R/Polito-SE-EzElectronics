@@ -80,9 +80,20 @@ const DAOmockGetUsers = jest.fn((filterType, value) => {
     }
     return Promise.resolve(mockUsers);
 });
+const DAOmockGetUserByUsername = jest.fn((username) => {
+    const user = mockUsers.find(u => u.username === username);
+    if (user) {
+        return Promise.resolve(user);
+    }
+    return Promise.reject(new UserNotFoundError());
+});
+const DAOmockGetUsersByRole = jest.fn((role) => {
+    const users = mockUsers.filter(u => u.role === role);
+    return Promise.resolve(users);
+});
 const DAOmockDeleteUser = jest.fn().mockImplementation(() => Promise.resolve(true));
 const DAOmockDeleteAllUser = jest.fn().mockImplementation(() => Promise.resolve(true));
-const DAOmockUpdateUserInfo = jest.fn().mockImplementation(() => Promise.resolve(userCustomer));
+const DAOmockUpdateUser = jest.fn().mockImplementation(() => Promise.resolve(userCustomer));
 
 jest.mock("../../src/dao/userDAO", () => {
     return jest.fn().mockImplementation(() => {
@@ -91,7 +102,7 @@ jest.mock("../../src/dao/userDAO", () => {
             getUsers: DAOmockGetUsers,
             deleteUser: DAOmockDeleteUser,
             deleteAll: DAOmockDeleteAllUser,
-            updateUserInfo: DAOmockUpdateUserInfo,
+            updateUserInfo: DAOmockUpdateUser,
         };
     });
 });
@@ -137,19 +148,21 @@ describe("UserController", () => {
     /* ******************************************
      *     Unit test for the getUsers method    *
      * ******************************************/
-    test("It should return all users", async () => {
+    test("getUsers should return all users", async () => {
         await expect(controller.getUsers()).resolves.toEqual(mockUsers);
         expect(DAOmockGetUsers).toHaveBeenCalledTimes(1);
     });
 
-    test("It should return a user by username", async () => {
-        await expect(controller.getUserByUsername(userCustomer, "test1")).resolves.toEqual(mockUsers.filter(u => u.username === "test1"));
-        expect(DAOmockGetUsers).toHaveBeenCalledTimes(1);
+    test("getUserByUsername should return a user by username", async () => {
+        await expect(controller.getUserByUsername(userCustomer, "test1")).resolves.toEqual(userCustomer);
+        expect(DAOmockGetUserByUsername).toHaveBeenCalledTimes(1);
+        expect(DAOmockGetUserByUsername).toHaveBeenCalledWith("test1");
     });
 
-    test("It should return all users with a specific role", async () => {
-        await expect(controller.getUsersByRole("Customer")).resolves.toEqual(mockUsers.filter(u => u.role === "Customer"));
-        expect(DAOmockGetUsers).toHaveBeenCalledTimes(1);
+    test("getUsersByRole should return all users with a specific role", async () => {
+        await expect(controller.getUsersByRole("Customer")).resolves.toEqual([userCustomer]);
+        expect(DAOmockGetUsersByRole).toHaveBeenCalledTimes(1);
+        expect(DAOmockGetUsersByRole).toHaveBeenCalledWith("Customer");
     });
 
     /* ***********************************************
@@ -168,17 +181,28 @@ describe("UserController", () => {
     /* ***********************************************
     * Unit test for the deleteAllUsers method         *
     * ********************************************** */
-    test("It should delete all users", async () => {
+    test("deleteAllUsers should delete all users", async () => {
         await expect(controller.deleteAllUsers()).resolves.toBe(true);
-        expect(DAOmockDeleteAllUser).toHaveBeenCalled();
+        expect(DAOmockDeleteAllUser).toHaveBeenCalledTimes(1);
     });
 
     /* *********************************************
      * Unit test for the updateUserInfo method         *
      * *********************************************/
-    test("It should update a user's information", async () => {
-        const controller = new UserController();
-        await expect(controller.updateUserInfo(userCustomer, "test1", "test", "test", "2000-01-01", "test")).resolves.toBe(userCustomer);
-        expect(DAOmockUpdateUserInfo).toHaveBeenCalledWith("test1", "test", "test", "test", "2000-01-01", "test");
+    test("updateUserInfo should update a user's information", async () => {
+        await expect(controller.updateUserInfo(userCustomer, "newName", "newSurname", "newAddress", "2000-01-01", "test1")).resolves.toEqual({
+            ...userCustomer,
+            name: "newName",
+            surname: "newSurname",
+            address: "newAddress",
+            birthdate: "2000-01-01"
+        });
+        expect(DAOmockUpdateUser).toHaveBeenCalledWith("test1", "newName", "newSurname", "newAddress", "2000-01-01");
     });
+
+    test("updateUserInfo should throw InvalidParametersError if parameters are invalid", async () => {
+        await expect(controller.updateUserInfo(userCustomer, "", "newSurname", "newAddress", "2000-01-01", "test1")).rejects.toThrow(InvalidParametersError);
+        expect(DAOmockUpdateUser).not.toHaveBeenCalled();
+    });
+
 });
