@@ -142,6 +142,11 @@ class UserDAO {
                         return;
                     }
 
+                    if (rows.length === 0) {
+                        reject(new UserNotFoundError);
+                        return;
+                    }
+
                     let Users = rows.map((row: any) => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate));
                     resolve(Users);
                 })

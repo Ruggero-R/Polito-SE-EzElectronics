@@ -5,33 +5,16 @@ import { Role, User } from "../../src/components/user"
 import Authenticator from "../../src/routers/auth"
 import UserController from "../../src/controllers/userController"
 import { UserRoutes } from "../../src/routers/userRoutes"
+
 const baseURL = "/ezelectronics"
+jest.mock('../../src/controllers/userController')
+jest.mock('../../src/routers/auth')
 
 // Cleanup after each test
 afterEach(() => {
     jest.resetAllMocks()
     jest.restoreAllMocks()
 })
-
-describe('User Routes', () => {
-    let userRoutes: UserRoutes;
-    let token: string;
-    beforeAll(async () => {
-        const authenticator = new Authenticator(app);
-        userRoutes = new UserRoutes(authenticator);
-
-        // Simula il login di un utente amministratore e ottieni un token
-        const response = await request(app)
-            .post('/auth/login') // Assicurati che questo sia il percorso corretto per il login
-            .send({
-                username: 'admin',
-                password: 'admin'
-            });
-
-        token = response.body.token; // Assicurati che il token sia inviato nella risposta
-    });
-});
-
 
 //Example of a unit test for the POST ezelectronics/users route
 //The test checks if the route returns a 200 success code
@@ -223,7 +206,7 @@ test("It should return a 200 success code for updating user information", async 
     expect(UserController.prototype.updateUserInfo).toHaveBeenCalledWith(expect.any(Object), updatedUser.name, updatedUser.surname, updatedUser.address, updatedUser.birthdate, username)
 })
 
-// Tests for AuthRoutes
+/* Tests for AuthRoutes */
 
 // Test for logging in a user
 test("It should return a 200 success code for logging in a user", async () => {
@@ -249,7 +232,13 @@ test("It should return a 200 success code for logging out a user", async () => {
 
 // Test for retrieving the currently logged in user
 test("It should return the currently logged in user", async () => {
-    const loggedInUser = { username: "test", name: "Test User" }
+    const loggedInUser = { //Define a test user object sent to the route
+        username: "test",
+        name: "test",
+        surname: "test",
+        password: "test",
+        role: "Manager"
+    }
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => { req.user = loggedInUser; next() })
 
     const response = await request(app).get(baseURL + "/auth/current")

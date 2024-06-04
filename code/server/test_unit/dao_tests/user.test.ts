@@ -76,8 +76,8 @@ describe('UserDAO', () => {
     });
 
     test('The createUser method should throw UserAlreadyExistsError if user already exists', async () => {
-        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-            callback(null, { N: 1 })
+        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(new Error("UNIQUE constraint failed: users.username")) // Mocks the case where the user already exists
             return {} as Database
         });
 
@@ -118,7 +118,7 @@ describe('UserDAO', () => {
         await expect(userDAO.getUserByUsername("username")).rejects.toThrow(UserNotFoundError);
     });
 
-    /*
+
     test('The getUsersByRole method should throw UserNotFoundError if user is not found', async () => {
         jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
             callback(null, []);
@@ -127,8 +127,7 @@ describe('UserDAO', () => {
 
         await expect(userDAO.getUsersByRole("role")).rejects.toThrow(UserNotFoundError);
     });
-    */
-    // DA CONTROLLARE PER BENE!
+
     test('The getUsersByRole method should return users by role', async () => {
         const rows = [
             { username: "user1", name: "name1", surname: "surname1", role: "Customer", address: "address1", birthdate: "birthdate1" },
@@ -147,13 +146,23 @@ describe('UserDAO', () => {
     *  Unit test for the deleteUser method      *
     * ***************************************** */
     test('The deleteUser method should delete a user successfully', async () => {
+        const username = 'existinguser';
+        // Simulate the user exists in the database
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-            callback(null, { N: 0 });
+            callback(null, { N: 1 }); // Simulate user found
             return {} as Database;
         });
 
-        await expect(userDAO.deleteUser("username")).rejects.toThrow(UserNotFoundError);
+        // Simulate the deletion operation is successful
+        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(null);
+            return {} as Database;
+        });
+
+        // Call the deleteUser method and expect it to resolve true
+        await expect(userDAO.deleteUser(username)).resolves.toBe(true);
     });
+
 
     test('The deleteUser method should throw UserNotFoundError if user is not found', async () => {
         const username = 'nonexistentuser';
