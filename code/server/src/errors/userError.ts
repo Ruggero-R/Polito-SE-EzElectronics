@@ -8,11 +8,10 @@ const UNAUTHORIZED_USER = "You cannot access the information of other users"
 const INVALID_ROLE = "The chosen role is not valid"
 const INVALID_PARAMS = "The request cannot be satisfied due to an/some incorret/s parameter/s"
 
-
 /**
  * Represent an error that occurs when one or more parameters are not valid
  */
-class InvalidParametersError extends Error{
+class InvalidParametersError extends Error {
     customMessage: string
     customCode: number
 
@@ -63,8 +62,6 @@ class UserNotCustomerError extends Error {
         this.customCode = 401
     }
 }
-
-
 
 /**
  * Represents an error that occurs when a username is already in use.
@@ -118,7 +115,7 @@ class InvalidRoleError extends Error {
     customMessage: String;
     customCode: Number;
 
-    constructor(role:string) {
+    constructor(role: string) {
         super()
         this.customMessage = INVALID_ROLE + ": " + role
         this.customCode = 422

@@ -12,7 +12,7 @@ afterEach(() => {
     jest.resetAllMocks()
     jest.restoreAllMocks()
 })
-/*
+
 describe('User Routes', () => {
     let userRoutes: UserRoutes;
     let token: string;
@@ -24,14 +24,14 @@ describe('User Routes', () => {
         const response = await request(app)
             .post('/auth/login') // Assicurati che questo sia il percorso corretto per il login
             .send({
-                username: 'admin', // Usa un utente amministratore esistente
-                password: 'admin' // Usa la password corretta
+                username: 'admin',
+                password: 'admin'
             });
 
         token = response.body.token; // Assicurati che il token sia inviato nella risposta
     });
 });
-*/
+
 
 //Example of a unit test for the POST ezelectronics/users route
 //The test checks if the route returns a 200 success code

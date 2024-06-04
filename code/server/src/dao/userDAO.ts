@@ -56,37 +56,23 @@ class UserDAO {
     createUser(username: string, name: string, surname: string, password: string, role: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
-                const salt = crypto.randomBytes(16);
-                const hashedPassword = crypto.scryptSync(password, salt, 16);
-                let sql = "SELECT COUNT(*) AS N FROM users WHERE username=?";
-                db.get(sql, [username], (err: String | null, ans: any) => {
+                const salt = crypto.randomBytes(16)
+                const hashedPassword = crypto.scryptSync(password, salt, 16)
+                const sql = "INSERT INTO users(username, name, surname, role, password, salt) VALUES(?, ?, ?, ?, ?, ?)"
+                db.run(sql, [username, name, surname, role, hashedPassword, salt], (err: Error | null) => {
                     if (err) {
-                        reject(err);
-                        return;
+                        if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserAlreadyExistsError)
+                        reject(err)
                     }
-                    else if (ans.N > 0) {
-                        reject(new UserAlreadyExistsError);
-                        return;
-                    }
-
-                    sql = "INSERT INTO users(username, name, surname, role, password, salt) VALUES(?,?,?,?,?,?)";
-                    db.run(sql, [username, name, surname, role, hashedPassword, salt], function (err: Error | null) {
-                        if (err) {
-                            reject(err);
-                        }
-                        else {
-                            resolve(true);
-                        }
-                        return;
-                    })
+                    resolve(true)
                 })
+            } catch (error) {
+                reject(error)
             }
-            catch (error) {
-                reject(error);
-                return;
-            }
+
         })
     }
+
 
     /**
      * Returns a user object from the database based on the username.
