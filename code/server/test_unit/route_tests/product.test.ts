@@ -1,57 +1,46 @@
-import { body, validationResult } from 'express-validator';
-import ProductRoutes from '../../src/routers/productRoutes';
-import Authenticator from '../../src/routers/auth';
-import ProductController from '../../src/controllers/productController';
-import ErrorHandler from '../../src/helper';
+import { describe, test, expect, jest, afterEach } from "@jest/globals";
+import request from "supertest";
+import { app } from "../../index";
+import ProductRoutes from "../../src/routers/productRoutes";
+import ProductController from "../../src/controllers/productController";
+import Authenticator from "../../src/routers/auth";
 
-import {jest, describe, beforeEach, it, expect} from '@jest/globals';
-import express from 'express';
-import request from 'supertest';
+jest.mock("../../src/controllers/productController");
+jest.mock("../../src/routers/auth");
 
-jest.mock('../../src/controllers/productController');
+const baseURL = "/ezelectronics";
 
+afterEach(() => {
+  jest.resetAllMocks();
+});
 
-const mockProductController = new ProductController();
-mockProductController.registerProducts = jest.fn() as jest.MockedFunction<typeof mockProductController.registerProducts>;
+/* ********************************************** *
+ *    Unit test for the registerProducts method   *
+ * ********************************************** */
 
-describe('ProductRoutes', () => {
-    let productRoutes: ProductRoutes;
-    let app = express();
-    let authenticator: Authenticator;
-    let errorHandler: ErrorHandler;
-  
-    beforeEach(() => {
-      authenticator = new Authenticator(app);
-      errorHandler = new ErrorHandler();
-      productRoutes = new ProductRoutes(authenticator);
-    });
-  
-    it('calls registerProducts on POST /', async () => {
-        const app = express();
-        app.use(productRoutes.getRouter());
-      
-        const response = await request(app)
-          .post('/')
-          .send({
-            model: 'testModel',
-            category: 'Smartphone',
-            quantity: 10,
-            details: 'testDetails',
-            sellingPrice: 1000,
-            arrivalDate: '2022-01-01',
-          });
-      
-        expect(mockProductController.registerProducts).toHaveBeenCalledWith(
-          'testModel',
-          'Smartphone',
-          10,
-          'testDetails',
-          1000,
-          '2022-01-01'
-        );
-        expect(response.status).toBe(200);
-    });
+describe("Unit test for the registerProducts route", () => {
+  test("It should register a product", async () => {
+    const p1 = {
+      model: "model",
+      category: "Smartphone",
+      quantity: 1,
+      details: "details",
+      sellingPrice: 1,
+      arrivalDate: "2024-01-01",
+    };
 
-    
+    jest
+      .spyOn(ProductController.prototype, "registerProducts")
+      .mockResolvedValueOnce(undefined);
+    jest
+      .spyOn(Authenticator.prototype, "isAdminOrManager")
+      .mockImplementation((req, res, next) => next());
 
+    const response = await request(app)
+      .post(baseURL + "/products")
+      .send(p1);
+    expect(response.status).toBe(200);
+
+    expect(ProductController.prototype.registerProducts).toHaveBeenCalledTimes(1);
   });
+});
