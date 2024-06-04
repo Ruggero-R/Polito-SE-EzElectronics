@@ -1,6 +1,6 @@
 import ProductController from '../../src/controllers/productController';
 import dayjs from 'dayjs';
-import { expect, beforeEach, describe, test, afterAll } from '@jest/globals';
+import { expect, beforeEach, describe, test } from '@jest/globals';
 import db from '../../src/db/db';
 import { ArrivalDateError, EmptyProductStockError, FiltersError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from '../../src/errors/productError';
 import { Category, Product } from '../../src/components/product';
