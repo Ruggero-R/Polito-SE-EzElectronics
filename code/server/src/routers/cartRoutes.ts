@@ -52,7 +52,6 @@ class CartRoutes {
          */
         this.router.get(
             "/",
-            this.authService.isLoggedIn,
             this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.getCart(req.user)
                 .then((cart: any /**Cart */) => {
@@ -72,7 +71,6 @@ class CartRoutes {
          */
         this.router.post(
             "/",
-            this.authService.isLoggedIn,
             this.authService.isCustomer,
             body("model").isString().notEmpty(),
             this.errorHandler.validateRequest,
@@ -91,7 +89,6 @@ class CartRoutes {
          */
         this.router.patch(
             "/",
-            this.authService.isLoggedIn,
             this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.checkoutCart(req.user)
                 .then(() => res.status(200).end())
@@ -107,7 +104,6 @@ class CartRoutes {
          */
         this.router.get(
             "/history",
-            this.authService.isLoggedIn,
             this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.getCustomerCarts(req.user)
                 .then((carts: any /**Cart[] */) => res.status(200).json(carts))
@@ -122,7 +118,6 @@ class CartRoutes {
          */
         this.router.delete(
             "/products/:model",
-            this.authService.isLoggedIn,
             this.authService.isCustomer,
             param("model").notEmpty().isString().isLength({ min: 1 }),
             this.errorHandler.validateRequest,
@@ -141,7 +136,6 @@ class CartRoutes {
          */
         this.router.delete(
             "/current",
-            this.authService.isLoggedIn,
             this.authService.isCustomer,
             (req: any, res: any, next: any) => this.controller.clearCart(req.user)
                 .then(() => res.status(200).end())
@@ -155,7 +149,6 @@ class CartRoutes {
          */
         this.router.delete(
             "/",
-            this.authService.isLoggedIn,
             this.authService.isAdminOrManager,
             (req: any, res: any, next: any) => this.controller.deleteAllCarts()
                 .then(() => res.status(200).end())
@@ -169,7 +162,6 @@ class CartRoutes {
          */
         this.router.get(
             "/all",
-            this.authService.isLoggedIn,
             this.authService.isAdminOrManager,
             (req: any, res: any, next: any) => this.controller.getAllCarts()
                 .then((carts: any/**Cart[] */) => res.status(200).json(carts))

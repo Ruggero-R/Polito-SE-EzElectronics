@@ -92,7 +92,7 @@ test("It should return an array of users for retrieving all users", async () => 
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
     jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => next())
 
-    const response = await request(app).get(baseURL + "/users")
+    const response = await request(app).post(baseURL + "/users").send(users)
     expect(response.status).toBe(200)
     expect(response.body).toEqual(users)
     expect(UserController.prototype.getUsers).toHaveBeenCalledTimes(1)
