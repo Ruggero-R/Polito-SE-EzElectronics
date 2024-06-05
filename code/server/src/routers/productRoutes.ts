@@ -4,6 +4,7 @@ import { body, param, query } from "express-validator"
 import ProductController from "../controllers/productController"
 import Authenticator from "./auth"
 
+let i =0;
 /**
  * Represents a class that defines the routes for handling proposals.
  */
@@ -67,7 +68,9 @@ class ProductRoutes {
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
                 .then(() => res.status(200).end())
-                .catch((err) => next(err))
+                .catch((err) => {
+                    next(err)
+                })
         )
 
         /**
@@ -110,10 +113,7 @@ class ProductRoutes {
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
-                .catch((err) => {
-                    console.log(err)
-                    next(err)
-                })
+                .catch((err) => next(err) )
         )
 
         /**
@@ -134,10 +134,7 @@ class ProductRoutes {
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.getProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any /*Product[]*/) => res.status(200).json(products))
-                .catch((err) => {
-                    console.log(err)
-                    next(err)
-                })
+                .catch((err) => next(err))
         )
 
         /**
@@ -151,7 +148,7 @@ class ProductRoutes {
          */
         this.router.get(
             "/available",
-            this.authenticator.isCustomer,
+            this.authenticator.isLoggedIn,
             query("grouping").trim().optional().isString().isIn(["category", "model"]),
             query("category").trim().optional().isString().isIn(["Smartphone", "Laptop", "Appliance"]),
             query("model").trim().optional().isString().notEmpty(),

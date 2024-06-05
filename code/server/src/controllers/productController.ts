@@ -32,7 +32,7 @@ class ProductController {
             (typeof category !== 'string' || (!["Smartphone", "Laptop", "Appliance"].includes(category))) || 
             (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity <= 0) || 
             (details && (typeof details !== 'string' || details.trim() === '')) || 
-            (typeof sellingPrice !== 'number' || sellingPrice <= 0) ||
+            (typeof sellingPrice !== 'number' || sellingPrice <= 0.00) ||
             (arrivalDate  && (typeof arrivalDate !== 'string' || !dayjs(arrivalDate, 'YYYY-MM-DD', true).isValid()))
         ) {
             throw new InvalidParametersError
