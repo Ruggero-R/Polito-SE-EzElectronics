@@ -40,7 +40,7 @@ describe("Integration tests for the addReview method",()=>{
         await expect(RevDAO.addReview("Model",Utente1,5,"Hi")).rejects.toThrowError(ExistingReviewError);})
     
     test("It should insert a new review",async()=>{
-        await expect(RevDAO.addReview("Model",Utente1,125,"Test1")).resolves.toBe(undefined);})})
+        await expect(RevDAO.addReview("Model",Utente1,5,"Test1")).resolves.toBe(undefined);})})
 
 /* ********************************************** *
  * Integration test for the getProductReviews method    *
@@ -85,13 +85,13 @@ describe("Integration tests for the deleteReviewsOfProduct method",()=>{
     test("It should not find any review to delete due to an unexisting model",async()=>{
         await expect(RevDAO.deleteReviewsOfProduct("iPhone13")).rejects.toThrow(ProductNotFoundError);});
     
-    /*test("It should delete all reviews for the given model",async()=>{
+    test("It should delete all reviews for the given model",async()=>{
         await RevDAO.addReview("Model",Utente1,5,"Bello");
         await RevDAO.addReview("Model",Utente2,5,"Bello"); 
         await RevDAO.addReview("Model2",Utente1,5,"Bello");    // 2 reviews for Model, 1 for Model2
         await RevDAO.deleteReviewsOfProduct("Model");
         let N=await Get();
-        expect(N).toBe(1);})*/})                                // Only the review for Model2
+        expect(N).toBe(1);})})                                // Only the review for Model2
 
 /* ********************************************** *
  * Integration test for the deleteAllReviews method*
