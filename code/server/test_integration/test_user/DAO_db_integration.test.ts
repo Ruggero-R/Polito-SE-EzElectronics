@@ -1,5 +1,5 @@
 import UserDAO from "../../src/dao/userDAO";
-import { expect, afterEach, describe, test, afterAll } from '@jest/globals';
+import { expect, beforeEach, describe, test, afterAll } from '@jest/globals';
 import db from '../../src/db/db';
 import {
     InvalidParametersError,
@@ -17,7 +17,7 @@ import { Role, User } from '../../src/components/user';
 describe('UserDAO integration tests', () => {
     let dao: UserDAO;
 
-    afterEach((done) => {
+    beforeEach((done) => {
         dao = new UserDAO();
         db.serialize(() => {
             db.run('DELETE FROM users', (err) => {
@@ -42,6 +42,8 @@ describe('UserDAO integration tests', () => {
         const surname = u1.surname;
         const password = "password";
         const role = u1.role;
+        const address = u1.address;
+        const birthdate = u1.birthdate;
 
         await expect(dao.createUser(username, name, surname, password, role)).resolves.toBe(true);
 
@@ -59,6 +61,8 @@ describe('UserDAO integration tests', () => {
             expect(UserRow.name).toBe(name);
             expect(UserRow.surname).toBe(surname);
             expect(UserRow.role).toBe(role);
+            expect(UserRow.address).toBe(null);
+            expect(UserRow.birthdate).toBe(null);
         });
     });
 
@@ -178,6 +182,7 @@ describe('UserDAO integration tests', () => {
         await dao.createUser(u3.username, u3.name, u3.surname, password, u3.role);
         await expect(dao.deleteUserAsAdmin(u3.username, u3.username)).rejects.toThrow(UserIsAdminError);
     });
+
 
     /* ****************************************** *
      * Integration test for the updateUser method *    

@@ -1,7 +1,7 @@
 import db from "../db/db"
 import { User } from "../components/user"
 import crypto from "crypto"
-import { InvalidParametersError, InvalidRoleError, UserAlreadyExistsError, UserIsAdminError, UserNotFoundError } from "../errors/userError";
+import { InvalidParametersError, UnauthorizedUserError, InvalidRoleError, UserAlreadyExistsError, UserIsAdminError, UserNotFoundError } from "../errors/userError";
 
 /**
  * A class that implements the interaction with the database for all user-related operations.
@@ -238,7 +238,7 @@ class UserDAO {
                 })
             }
             catch (error) {
-                reject(error);
+                reject(new UnauthorizedUserError);
                 return;
             }
         })

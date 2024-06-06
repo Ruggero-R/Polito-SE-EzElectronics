@@ -1,5 +1,4 @@
 import { describe, test, expect, beforeAll, afterAll, jest, beforeEach, afterEach } from "@jest/globals"
-import UserController from "../../src/controllers/userController"
 import UserDAO from "../../src/dao/userDAO"
 import { Role, User } from "../../src/components/user";
 import crypto from "crypto"
@@ -23,12 +22,9 @@ jest.mock("../../src/db/db.ts")
 describe('UserDAO', () => {
     let userDAO: UserDAO;
 
-    // Inizializza UserDAO prima di ogni test
     beforeEach(() => {
         userDAO = new UserDAO();
     });
-
-    // Resetta i mock dopo ogni test
     afterEach(() => {
         jest.clearAllMocks();
     });
@@ -68,7 +64,9 @@ describe('UserDAO', () => {
         await expect(userDAO.getIsUserAuthenticated("username", "password"));
     });
 
-    // DA CONTROLLARE PER BENE!
+    /* ********************************************** *
+     *    Unit test for the createUser method  *
+     * ********************************************** */
     test("The createUser method should resolve true if a user has been created", async () => {
         jest.spyOn(crypto, "randomBytes").mockImplementation((size) => {
             return Buffer.from("salt");
@@ -82,6 +80,19 @@ describe('UserDAO', () => {
         });
 
         await expect(userDAO.createUser("username", "name", "surname", "password", "role")).rejects.toThrow(UserAlreadyExistsError);
+    });
+
+
+    //CONTROLLARE
+    test('The createUser method should throw InvalidParametersError for invalid parameters', async () => {
+        const userDAO = new UserDAO();
+        const invalidUsername = "";
+        const name = "John";
+        const surname = "Doe";
+        const password = "password";
+        const role = "Customer";
+
+        await expect(userDAO.createUser(invalidUsername, name, surname, password, role)).rejects.toThrow(InvalidParametersError);
     });
 
     /* ********************************************** *
@@ -118,7 +129,15 @@ describe('UserDAO', () => {
         await expect(userDAO.getUserByUsername("username")).rejects.toThrow(UserNotFoundError);
     });
 
+    test('The getUserByUsername method should throw InvalidParametersError for empty username', async () => {
+        const emptyUsername = '';
 
+        await expect(userDAO.getUserByUsername(emptyUsername)).rejects.toThrow(InvalidParametersError);
+    });
+
+    /* ********************************************** *
+     *    Unit test for the getUsersByRole method     *
+     * ********************************************** */
     test('The getUsersByRole method should throw UserNotFoundError if user is not found', async () => {
         jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
             callback(null, []);
@@ -142,6 +161,16 @@ describe('UserDAO', () => {
         expect(result).toEqual(rows.map(row => new User(row.username, row.name, row.surname, row.role as Role, row.address, row.birthdate)));
     });
 
+    test('The getUsersByRole method should throw InvalidRoleError if role is invalid', async () => {
+        const invalidRole = "InvalidRole";
+
+        jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
+            callback(null, []);
+            return {} as Database;
+        });
+
+        await expect(userDAO.getUsersByRole(invalidRole)).rejects.toThrow(UserNotFoundError);
+    });
     /* **************************************** *
     *  Unit test for the deleteUser method      *
     * ***************************************** */
@@ -153,16 +182,20 @@ describe('UserDAO', () => {
             return {} as Database;
         });
 
-        // Simulate the deletion operation is successful
         jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
             callback(null);
             return {} as Database;
         });
 
-        // Call the deleteUser method and expect it to resolve true
         await expect(userDAO.deleteUser(username)).resolves.toBe(true);
     });
 
+    //DA CONTROLLARE
+    test('The deleteUser method should throw InvalidParametersError for empty username', async () => {
+        const emptyUsername = '';
+
+        await expect(userDAO.deleteUser(emptyUsername)).rejects.toThrow(InvalidParametersError);
+    });
 
     test('The deleteUser method should throw UserNotFoundError if user is not found', async () => {
         const username = 'nonexistentuser';
@@ -200,7 +233,6 @@ describe('UserDAO', () => {
         await expect(userDAO.deleteUserAsAdmin("admin", "username")).rejects.toThrow(UserIsAdminError);
     });
 
-
     /* **************************************** *
     *  Unit test for the deleteAllUsers method      *
     * ***************************************** */
@@ -211,6 +243,24 @@ describe('UserDAO', () => {
         });
 
         await expect(userDAO.deleteAllUsers()).resolves.toBe(true);
+    });
+
+    test('The deleteAllUsers method should throw UserNotFoundError if no users are found', async () => {
+        jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            callback(new UserNotFoundError);
+            return {} as Database;
+        });
+
+        await expect(userDAO.deleteAllUsers()).rejects.toThrow(UserNotFoundError);
+    });
+
+    test('The deleteAllUsers method should throw UnauthorizedUserError if user is not an admin or a manager', async () => {
+        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+            callback(null, { role: "Customer" });
+            return {} as Database;
+        });
+
+        await expect(userDAO.deleteAllUsers()).rejects.toThrow(UnauthorizedUserError);
     });
 
     /* **************************************** *
@@ -228,7 +278,6 @@ describe('UserDAO', () => {
 
         await expect(userDAO.updateUser("username", "name", "surname", "address", "birthdate")).resolves.toEqual(new User("username", "name", "surname", Role.CUSTOMER, "address", "birthdate"));
     });
-
 
     test("The updateUser method should throw UserNotFoundError if user is not found", async () => {
         jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
