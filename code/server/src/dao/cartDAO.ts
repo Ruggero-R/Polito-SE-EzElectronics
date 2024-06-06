@@ -131,7 +131,6 @@ class CartDAO {
                         reject(new EmptyProductStockError)
                         return;
                     } else {
-                        console.log(row)
                         let sellingPrice = 0;
                         let category = "";
                         //retrieve product price
@@ -144,9 +143,7 @@ class CartDAO {
                             }
                             sellingPrice = row.sellingPrice
                             category = row.category
-                            console.log(row.sellingPrice, sellingPrice, category)
                         })
-                        console.log('eccomi2')
                         //check if user has active
                         this.userHasActiveCart(userId).then((hasCart) => {
                             if (!hasCart) {
@@ -174,7 +171,6 @@ class CartDAO {
                             } else {
                                 //User already has a active cart
                                 //check if a equals product is already in cart
-                                console.log('eccomi3')
                                 const sqlCheckProduct = "SELECT * FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_model = ?";
                                 db.get(sqlCheckProduct, [userId, productModel], (err: Error | null, row: any) => {
                                     if (err) {
@@ -182,7 +178,7 @@ class CartDAO {
                                         return
                                     }
                                     if (row) {
-                                        console.log('eccomi4')
+                                        console.log(row)
                                         //Product is already in cart
                                         //check if quantity is available
                                         const cartProductQuantity = row.quantity;
@@ -213,6 +209,7 @@ class CartDAO {
                                             })
                                         })
                                     } else {
+                                        console.log("Sono qui")
                                         //Product is not in cart
                                         const sql = "INSERT INTO carts_items (cart_id, product_model, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
                                         db.run(sql, [userId, productModel, sellingPrice, category], function (err: Error | null) {

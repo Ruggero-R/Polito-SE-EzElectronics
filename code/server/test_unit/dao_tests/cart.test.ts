@@ -237,29 +237,29 @@ test("It should throw an error if an error is thrown in the try block", async ()
  *    Unit test for the addProductToCart method    *
  * ********************************************** */
 test('It should add a new product to the exisisting cart of the user', async () => {
-    const mockDBGetModel = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+    const mockDBGetModel = jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
         callback(null, { model: 'product1', quantity: 15 });
         return {} as Database;
     });
-    const mockDBGetPrice = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+    const mockDBGetPrice = jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
         callback(null, { sellingPrice: 10.0, category: 'Appliance' });
         return {} as Database;
     });
 
-    const mockUserActiveCart = jest.spyOn(cartDAO, "userHasActiveCart").mockImplementation((userId: string) => {
+    const mockUserActiveCart = jest.spyOn(cartDAO, "userHasActiveCart").mockImplementationOnce((userId: string) => {
         return Promise.resolve(true);
     });
-    const mockDBGetCheckProduct = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-        callback(null, { cart_id: 1, product_model: 'product1', quantity: 1, price: 10.0, category: 'Smartphone' });
-        return {} as Database;
-    });
-    
-    const mockDBRunInsert = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+    const mockDBGetCheckProduct = jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
         callback(null, undefined);
         return {} as Database;
     });
     
-    const mockDBRunUpdate = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+    const mockDBRunInsert = jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
+        callback(null, undefined);
+        return {} as Database;
+    });
+    
+    const mockDBRunUpdate = jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
         callback(null, undefined);
         return {} as Database;
     });
