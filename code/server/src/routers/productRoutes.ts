@@ -4,7 +4,6 @@ import { body, param, query } from "express-validator"
 import ProductController from "../controllers/productController"
 import Authenticator from "./auth"
 
-let i =0;
 /**
  * Represents a class that defines the routes for handling proposals.
  */
