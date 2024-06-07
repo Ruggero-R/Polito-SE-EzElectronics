@@ -134,7 +134,6 @@ class CartDAO {
                         let sellingPrice = 0;
                         let category = "";
                         //retrieve product price
-                        console.log('eccomi')
                         const sqlCheckProductPrice = "SELECT sellingPrice, category FROM products WHERE model = ?";
                         db.get(sqlCheckProductPrice, [productModel], (err: Error | null, row: any) => {
                             if (err) {
@@ -169,6 +168,7 @@ class CartDAO {
                                     return
                                 })
                             } else {
+                                console.log("User has active cart")
                                 //User already has a active cart
                                 //check if a equals product is already in cart
                                 const sqlCheckProduct = "SELECT * FROM carts_items WHERE cart_id IN (SELECT id FROM carts WHERE customer = ? AND paid = 0) AND product_model = ?";
@@ -178,7 +178,7 @@ class CartDAO {
                                         return
                                     }
                                     if (row) {
-                                        console.log(row)
+                                        console.log("Product is in cart")
                                         //Product is already in cart
                                         //check if quantity is available
                                         const cartProductQuantity = row.quantity;
@@ -189,11 +189,11 @@ class CartDAO {
                                                 return
                                             }
                                             if (row.quantity < cartProductQuantity + 1) {
-                                                console.log('eccomi5')  
                                                 reject(new LowProductStockError)
                                                 return;
                                             }
                                             //Update quantity
+                                            console.log("Updating quantity")
                                             this.updateCartItem(userId, sellingPrice, productModel, cartProductQuantity + 1).then(() => {
                                                 const sqlUpdateCart = "UPDATE carts SET total = total + ? WHERE customer = ? AND paid = 0";
                                                 db.run(sqlUpdateCart, [sellingPrice, userId], function (err: Error | null) {
@@ -201,6 +201,7 @@ class CartDAO {
                                                         reject(err);
                                                         return
                                                     }
+                                                    console.log("Cart updated")
                                                     resolve()
                                                 })
 
@@ -209,8 +210,8 @@ class CartDAO {
                                             })
                                         })
                                     } else {
-                                        console.log("Sono qui")
                                         //Product is not in cart
+                                        console.log("Product is not in cart")
                                         const sql = "INSERT INTO carts_items (cart_id, product_model, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
                                         db.run(sql, [userId, productModel, sellingPrice, category], function (err: Error | null) {
                                             if (err) {
@@ -223,6 +224,7 @@ class CartDAO {
                                                     reject(err);
                                                     return
                                                 }
+                                                console.log("Cart updated")
                                                 resolve()
                                             })
                                         });
