@@ -18,7 +18,7 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ {
-        if ((!model || typeof model !== 'string' || !model.trim()) || !(user instanceof User) || (typeof score !== 'number' || score < 1 || score > 5) || (typeof comment !== 'string' || !comment || !comment.trim()))
+        if ((!model || typeof model !== 'string' || !model.trim()) || (typeof score !== 'number' || score < 1 || score > 5) || (typeof comment !== 'string' || !comment || !comment.trim()))
             throw new InvalidParametersError;
         const ret: any = await this.dao.addReview(model, user, score, comment);
         return ret
@@ -43,7 +43,7 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteReview(model: string, user: User) /**:Promise<void> */ {
-        if (!model || !model.trim() || typeof model !== 'string' || !(user instanceof User)) {
+        if (!model || !model.trim() || typeof model !== 'string') {
             throw new InvalidParametersError
         }
         const ret: any = await this.dao.deleteReview(model, user);
