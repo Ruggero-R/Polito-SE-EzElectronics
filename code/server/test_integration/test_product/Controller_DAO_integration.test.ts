@@ -41,9 +41,9 @@ describe('Product Controller Integration Tests', () => {
         await controller.registerProducts(p1c.model, p1c.category, p1c.quantity, p1c.details, p1c.sellingPrice, p1c.arrivalDate);
         await controller.registerProducts(p1d.model, p1d.category, p1d.quantity, p1d.details, p1d.sellingPrice, p1d.arrivalDate);
 
-        const p1bDB = new Product(p1b.sellingPrice, p1b.model, p1b.category, dayjs().format('YYYY-MM-DD'), "BUY YOUR Model1b NOW!", p1b.quantity);
-        const p1cDB = new Product(p1c.sellingPrice, p1c.model, p1c.category, dayjs().format('YYYY-MM-DD'), "BUY YOUR Model1c NOW!", p1c.quantity);
-        const p1dDB = new Product(p1d.sellingPrice, p1d.model, p1d.category, dayjs().format('YYYY-MM-DD'), "BUY YOUR Model1d NOW!", p1d.quantity);
+        const p1bDB = new Product(p1b.sellingPrice, p1b.model, p1b.category, dayjs().format('YYYY-MM-DD'), `BUY YOUR ${p1b.model} NOW!`, p1b.quantity);
+        const p1cDB = new Product(p1c.sellingPrice, p1c.model, p1c.category, dayjs().format('YYYY-MM-DD'), `BUY YOUR ${p1c.model} NOW!`, p1c.quantity);
+        const p1dDB = new Product(p1d.sellingPrice, p1d.model, p1d.category, dayjs().format('YYYY-MM-DD'), `BUY YOUR ${p1d.model} NOW!`, p1d.quantity);
 
         const products = await controller.getProducts(null, null, null);
         expect(products).toEqual([p1a, p1bDB, p1cDB, p1dDB]);
