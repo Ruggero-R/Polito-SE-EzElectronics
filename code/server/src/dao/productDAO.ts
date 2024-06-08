@@ -19,7 +19,7 @@ class ProductDAO {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null): Promise<void> {
+    registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
                 const sql = "INSERT INTO products (model, category, arrivalDate, quantity, details, sellingPrice) VALUES (?, ?, ?, ?, ?, ?)"
@@ -39,7 +39,7 @@ class ProductDAO {
         })
     }
 
-    changeProductQuantity(model: string, newQuantity: number, changeDate: string | null): Promise<number> {
+    changeProductQuantity(model: string, newQuantity: number, changeDate: string): Promise<number> {
         return new Promise<number>((resolve, reject) => {
             try {
                 //search model in database

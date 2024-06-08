@@ -38,11 +38,11 @@ class ProductController {
             throw new InvalidParametersError
         }
 
-        if (arrivalDate !== null && arrivalDate > dayjs().format('YYYY-MM-DD')) {
+        if (arrivalDate && arrivalDate > dayjs().format('YYYY-MM-DD')) {
             throw new ArrivalDateError
         }
 
-        const ret: any = await this.dao.registerProducts(model, category, quantity, details, sellingPrice, arrivalDate);
+        const ret: any = await this.dao.registerProducts(model.trim(), category.trim(), quantity, details ? details.trim() : `BUY YOUR ${model} NOW!`, sellingPrice, arrivalDate? arrivalDate : dayjs().format('YYYY-MM-DD'));
         return ret;
     }
 
@@ -62,7 +62,7 @@ class ProductController {
             throw new InvalidParametersError
         }
 
-        if (changeDate !== null && changeDate > dayjs().format('YYYY-MM-DD')) {
+        if (changeDate && changeDate > dayjs().format('YYYY-MM-DD')) {
             throw new ArrivalDateError
         }
 
