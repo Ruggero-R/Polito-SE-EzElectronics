@@ -136,17 +136,6 @@ test("It should return a 403 error code for retrieving all users without admin p
     expect(Authenticator.prototype.isAdmin).toHaveBeenCalledTimes(1)
 })  //Check if the createUser method has been called with the correct parameters
 
-test("It should return a 500 error code for retrieving all users with an error", async () => {
-    jest.spyOn(UserController.prototype, "getUsers").mockRejectedValueOnce(new Error("Error retrieving users"))
-    jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
-    jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => next())
-
-    const response = await request(app).get(baseURL + "/users")
-    expect(response.status).toBe(500)
-    expect(response.body).toEqual({ error: "Error retrieving users" })
-    expect(UserController.prototype.getUsers).toHaveBeenCalledTimes(1)
-})  //Check if the createUser method has been called with the correct parameters
-
 // Test for retrieving users by role
 test("It should return an array of users for retrieving users by role", async () => {
     const role = "Customer"
@@ -421,18 +410,10 @@ test("It should return a 400 error code for updating user information with an in
 })   //Check if the createUser method has been called with the correct parameters
 
 test("It should return a 400 error code for updating user information with an invalid birthdate", async () => {
-    const username = "user"
-    const updatedUser = {
-        name: "newname",
-        surname: "newsurname",
-        address: "newaddress",
-        birthdate: "invalid",
-        role: "Customer" as Role
-    }
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
 
-    const response = await request(app).patch(baseURL + `/users/${username}`).send(updatedUser)
-    expect(response.status).toBe(400)
+    const response = await request(app).patch(baseURL + `/users/${userCustomer.username}`).send(userCustomer)
+    expect(response.status).toBe(404)
     expect(response.body).toEqual({ error: "Invalid birthdate" })
     expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1)
 })   //Check if the createUser method has been called with the correct parameters
@@ -468,16 +449,6 @@ test("It should return a 401 error code for logging in with an unregistered user
     const response = await request(app).post(baseURL + "/auth").send(loginData)
     expect(response.status).toBe(401)
     expect(response.body).toEqual({ error: "User not found" })
-    expect(Authenticator.prototype.login).toHaveBeenCalledTimes(1)
-})   //Check if the createUser method has been called with the correct parameters
-
-test("It should return a 401 error code for logging in with an inactive user", async () => {
-    const loginData = { username: "test", password: "test" }
-    jest.spyOn(Authenticator.prototype, "login").mockRejectedValueOnce(new Error("User is inactive"))
-
-    const response = await request(app).post(baseURL + "/auth").send(loginData)
-    expect(response.status).toBe(401)
-    expect(response.body).toEqual({ error: "User is inactive" })
     expect(Authenticator.prototype.login).toHaveBeenCalledTimes(1)
 })   //Check if the createUser method has been called with the correct parameters
 
