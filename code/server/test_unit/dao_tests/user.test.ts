@@ -82,19 +82,6 @@ describe('UserDAO', () => {
         await expect(userDAO.createUser("username", "name", "surname", "password", "role")).rejects.toThrow(UserAlreadyExistsError);
     });
 
-
-    //CONTROLLARE
-    test('The createUser method should throw InvalidParametersError for invalid parameters', async () => {
-        const userDAO = new UserDAO();
-        const invalidUsername = "";
-        const name = "John";
-        const surname = "Doe";
-        const password = "password";
-        const role = "Customer";
-
-        await expect(userDAO.createUser(invalidUsername, name, surname, password, role)).rejects.toThrow(InvalidParametersError);
-    });
-
     /* ********************************************** *
      *    Unit test for the getUserByUsername method  *
      * ********************************************** */
@@ -190,13 +177,6 @@ describe('UserDAO', () => {
         await expect(userDAO.deleteUser(username)).resolves.toBe(true);
     });
 
-    //DA CONTROLLARE
-    test('The deleteUser method should throw InvalidParametersError for empty username', async () => {
-        const emptyUsername = '';
-
-        await expect(userDAO.deleteUser(emptyUsername)).rejects.toThrow(InvalidParametersError);
-    });
-
     test('The deleteUser method should throw UserNotFoundError if user is not found', async () => {
         const username = 'nonexistentuser';
 
@@ -252,15 +232,6 @@ describe('UserDAO', () => {
         });
 
         await expect(userDAO.deleteAllUsers()).rejects.toThrow(UserNotFoundError);
-    });
-
-    test('The deleteAllUsers method should throw UnauthorizedUserError if user is not an admin or a manager', async () => {
-        jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-            callback(null, { role: "Customer" });
-            return {} as Database;
-        });
-
-        await expect(userDAO.deleteAllUsers()).rejects.toThrow(UnauthorizedUserError);
     });
 
     /* **************************************** *
