@@ -23,17 +23,11 @@ class CartController {
     * @returns A Promise that resolves to `true` if the product was successfully added.
     */
     async addToCart(user: User, productModel: string): Promise<boolean> {
-        if (!user || !(user instanceof User) || typeof productModel !== 'string' || productModel.trim() === '' || !productModel) {
+        if (user.username.trim() === '' || productModel.trim() === '') {
             throw new InvalidParametersError;
         }
-        // //TODO controllare 
-        // const activeCart: any = await this.dao.getActiveCartByUserId(user.username);
-
-        // if (!activeCart) {
-        //     await this.dao.createCart(user.username);
-        // }
         const res: any = await this.dao.addProductToCart(user.username, productModel);
-        return res;
+        return true;
     }
 
     /**
@@ -43,7 +37,7 @@ class CartController {
     * @returns A Promise that resolves to the user's cart.
     */
     async getCart(user: User): Promise<Cart> {
-        if (!user || !(user instanceof User) || user.username.trim() === '' || !user.username) {
+        if (user.username.trim() === '') {
             throw new InvalidParametersError;
         }
         let ret: any = await this.dao.getActiveCartByUserId(user.username);
@@ -56,7 +50,7 @@ class CartController {
     * @returns A Promise that resolves to `true` if the cart was successfully checked out.
     */
     async checkoutCart(user: User): Promise<boolean> {
-        if (!user || !(user instanceof User) || user.username.trim() === '' || !user.username) {
+        if (user.username.trim() === '') {
             throw new InvalidParametersError;
         }
         let ret: any = await this.dao.checkoutCart(user.username);
@@ -71,7 +65,7 @@ class CartController {
      * Only the carts that have been checked out should be returned, the current cart should not be included in the result.
      */
     async getCustomerCarts(user: User): Promise<Cart[]> {
-        if (!user || !user.username || user.username.trim().length == 0) {
+        if (user.username.trim() === '') {
             throw new InvalidParametersError
         }
         const ret: any = this.dao.getCustomerCarts(user.username);
@@ -85,7 +79,7 @@ class CartController {
      * @returns A Promise that resolves to `true` if the product was successfully removed.
      */
     async removeProductFromCart(user: User, product: string): Promise<boolean> {
-        if (!user || !user.username || user.username.trim().length == 0 || !product || product.trim().length == 0) {
+        if (user.username.trim() == '' || !product || product.trim() == '') {
             throw new InvalidParametersError
         }
         const ret: any = await this.dao.removeProductFromCart(user.username, product);
@@ -98,7 +92,7 @@ class CartController {
      * @returns A Promise that resolves to `true` if the cart was successfully cleared.
      */
     async clearCart(user: User): Promise<boolean> {
-        if (!user || !user.username || user.username.trim().length == 0) {
+        if (user.username.trim() == '') {
             throw new InvalidParametersError
         }
         const ret: any = await this.dao.clearCart(user.username);
