@@ -12,14 +12,14 @@ const baseURL = "/ezelectronics";
 beforeEach((done) => {
     jest.resetAllMocks();
     db.serialize(() => {
-        db.run("DELETE FROM users", (err) => {
-            if (err) {
-                console.log(err);
-            }
-            done();
-        });
+      db.run("DELETE FROM users", (err) => {
+        if (err) {
+          console.log(err);
+        }
+        done();
+      });
     });
-});
+  });
 
 afterAll((done) => {
     cleanup();
