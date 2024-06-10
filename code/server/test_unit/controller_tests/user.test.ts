@@ -1,18 +1,9 @@
-import { describe, test, expect, jest, beforeEach } from "@jest/globals"
+import { describe, test, expect, jest, afterEach } from "@jest/globals"
 import UserController from "../../src/controllers/userController"
 import UserDAO from "../../src/dao/userDAO"
-import {
-    InvalidParametersError,
-    UserAlreadyExistsError,
-    UserIsAdminError,
-    UserNotFoundError,
-    UserNotManagerError,
-    UserNotCustomerError,
-    UserNotAdminError,
-    UnauthorizedUserError,
-    InvalidRoleError
-} from "../../src/errors/userError";
-import { Role, User } from "../../src/components/user"; // Import the User interface from the appropriate file
+import {InvalidParametersError, InvalidRoleError, UnauthorizedUserError} from "../../src/errors/userError";
+import { Role } from "../../src/components/user"; // Import the User interface from the appropriate file
+import { ArrivalDateError } from "../../src/errors/productError";
 
 const mockUsers = [
     {
@@ -22,7 +13,7 @@ const mockUsers = [
         password: "test",
         address: "test",
         birthdate: "test",
-        role: "Customer"
+        role: Role.CUSTOMER,
     },
     {
         username: "test2",
@@ -31,7 +22,7 @@ const mockUsers = [
         password: "test",
         address: "test",
         birthdate: "test",
-        role: "Manager"
+        role: Role.MANAGER,
     },
     {
         username: "test3",
@@ -40,100 +31,45 @@ const mockUsers = [
         password: "test",
         address: "test",
         birthdate: "test",
-        role: "Admin"
+        role: Role.ADMIN,
     }
 ];
 
-const userCustomer = {
+const userCustomer={
     username: "test1",
     name: "test",
     surname: "test",
     password: "test",
     address: "test",
     birthdate: "test",
-    role: "Customer" as Role
-}
-const userManager = {
-    username: "test2",
-    name: "test",
-    surname: "test",
+    role: Role.CUSTOMER}
+
+const userCustomerNew={
+    username: "test1",
+    name: "newName",
+    surname: "newSurname",
     password: "test",
-    address: "test",
-    birthdate: "test",
-    role: "Manager" as Role
-}
-const userAdmin = {
+    address: "newAddress",
+    birthdate: "2000-01-01",
+    role: Role.CUSTOMER}
+
+const userAdmin={
     username: "test3",
     name: "test",
     surname: "test",
     password: "test",
     address: "test",
     birthdate: "test",
-    role: "Admin" as Role
-}
-const DAOmockCreateUser = jest.fn().mockImplementation(() => Promise.resolve());
-const DAOmockGetUsers = jest.fn((filterType, value) => {
-    if (filterType === 'username') {
-        return Promise.resolve(mockUsers.filter(u => u.username === value));
-    } else if (filterType === 'role') {
-        return Promise.resolve(mockUsers.filter(u => u.role === value));
-    }
-    return Promise.resolve(mockUsers);
-});
-const DAOmockGetUserByUsername = jest.fn((username) => {
-    const user = mockUsers.find(u => u.username === username);
-    if (user) {
-        return Promise.resolve(user);
-    }
-    return Promise.reject(new UserNotFoundError());
-});
-const DAOmockGetUsersByRole = jest.fn((role) => {
-    const users = mockUsers.filter(u => u.role === role);
-    return Promise.resolve(users);
-});
-const DAOmockDeleteUser = jest.fn().mockImplementation(() => Promise.resolve(true));
-const DAOmockDeleteAllUser = jest.fn().mockImplementation(() => Promise.resolve(true));
-const DAOmockUpdateUser = jest.fn().mockImplementation(() => Promise.resolve(userCustomer));
+    role: Role.ADMIN}
+    
+const controller=new UserController();
+afterEach(()=>{jest.clearAllMocks();})
 
-jest.mock("../../src/dao/userDAO", () => {
-    return jest.fn().mockImplementation(() => {
-        return {
-            createUser: DAOmockCreateUser,
-            getUsers: DAOmockGetUsers,
-            deleteUser: DAOmockDeleteUser,
-            deleteAll: DAOmockDeleteAllUser,
-            updateUserInfo: DAOmockUpdateUser,
-        };
-    });
-});
-
-
-describe("UserController", () => {
-    let controller: UserController;
-    let userDAO: jest.Mocked<UserDAO>;
-
-    beforeEach(() => {
-        userDAO = new UserDAO() as jest.Mocked<UserDAO>;
-        controller = new UserController();
-        jest.clearAllMocks();
-    });
-
-    //Example of a unit test for the createUser method of the UserController
-    //The test checks if the method returns true when the DAO method returns true
-    //The test also expects the DAO method to be called once with the correct parameters
-
-    test("It should return true", async () => {
-        const testUser = { //Define a test user object
-            username: "test",
-            name: "test",
-            surname: "test",
-            password: "test",
-            role: "Manager"
-        }
-        jest.spyOn(UserDAO.prototype, "createUser").mockResolvedValueOnce(true); //Mock the createUser method of the DAO
-        const controller = new UserController(); //Create a new instance of the controller
-        //Call the createUser method of the controller with the test user object
-        const response = await controller.createUser(testUser.username, testUser.name, testUser.surname, testUser.password, testUser.role);
+describe("UserController",()=>{
+    test("It should return true",async()=>{
+        const testUser={username: "test",name: "test",surname: "test",password: "test",role:Role.MANAGER};
+        jest.spyOn(UserDAO.prototype,"createUser").mockResolvedValueOnce(true); //Mock the createUser method of the DAO
+        const response=await controller.createUser(testUser.username, testUser.name, testUser.surname, testUser.password, testUser.role);
 
         //Check if the createUser method of the DAO has been called once with the correct parameters
         expect(UserDAO.prototype.createUser).toHaveBeenCalledTimes(1);
@@ -142,67 +78,116 @@ describe("UserController", () => {
             testUser.surname,
             testUser.password,
             testUser.role);
-        expect(response).toBe(true); //Check if the response is true
-    });
+        expect(response).toBe(true)});
 
-    /* ******************************************
-     *     Unit test for the getUsers method    *
-     * ******************************************/
-    test("getUsers should return all users", async () => {
+    test("It should throw an invalid parameter error",async()=>{
+        const testUser={username: "test",name: "test",surname:"",password: "test",role:Role.MANAGER}
+        expect(controller.createUser(testUser.username,testUser.name,testUser.surname,testUser.password,testUser.role))
+        .rejects.toThrow(InvalidParametersError);})
+
+    test("It should throw an invalid parameter error because surname is empty",()=>{
+        const testUser={username: "test",name: "test",surname:"   ",password: "test",role:Role.MANAGER}
+        expect(controller.createUser(testUser.username,testUser.name,testUser.surname,testUser.password,testUser.role))
+        .rejects.toThrow(InvalidParametersError);})
+    
+    test("It should throw an invalid role error",async()=>{
+        const testUser={username: "test",name: "test",surname:"test",password: "test",role:"Not valid"}
+        expect(controller.createUser(testUser.username,testUser.name,testUser.surname,testUser.password,testUser.role))
+        .rejects.toThrow(InvalidRoleError);})
+    
+/* ******************************************
+ *     Unit test for the getUsers method    *
+* ******************************************/
+
+    test("getUsers should return all users",async()=>{
+        jest.spyOn(UserDAO.prototype,"getUsers").mockResolvedValueOnce(mockUsers);
         await expect(controller.getUsers()).resolves.toEqual(mockUsers);
-        expect(DAOmockGetUsers).toHaveBeenCalledTimes(1);
-    });
+        expect(UserDAO.prototype.getUsers).toHaveBeenCalledTimes(1);})
 
-    test("getUserByUsername should return a user by username", async () => {
+    test("getUserByUsername should throw an invalid parameter error",()=>{
+        expect(controller.getUserByUsername(userCustomer,"")).rejects.toThrow(InvalidParametersError);})
+
+    test("getUserByUsername should throw an unhauthorized error",()=>{
+        expect(controller.getUserByUsername(userCustomer,"test2")).rejects.toThrow(UnauthorizedUserError);})
+
+    test("getUserByUsername should return a user by username",async()=>{
+        jest.spyOn(UserDAO.prototype,"getUserByUsername").mockResolvedValueOnce(userCustomer);
         await expect(controller.getUserByUsername(userCustomer, "test1")).resolves.toEqual(userCustomer);
-        expect(DAOmockGetUserByUsername).toHaveBeenCalledTimes(1);
-        expect(DAOmockGetUserByUsername).toHaveBeenCalledWith("test1");
-    });
+        expect(UserDAO.prototype.getUserByUsername).toHaveBeenCalledTimes(1);
+        expect(UserDAO.prototype.getUserByUsername).toHaveBeenCalledWith("test1")});
 
-    test("getUsersByRole should return all users with a specific role", async () => {
+    test("getUsersByRole should return all users with a specific role",async()=>{
+        jest.spyOn(UserDAO.prototype,"getUsersByRole").mockResolvedValueOnce([userCustomer]);
         await expect(controller.getUsersByRole("Customer")).resolves.toEqual([userCustomer]);
-        expect(DAOmockGetUsersByRole).toHaveBeenCalledTimes(1);
-        expect(DAOmockGetUsersByRole).toHaveBeenCalledWith("Customer");
-    });
+        expect(UserDAO.prototype.getUsersByRole).toHaveBeenCalledTimes(1);
+        expect(UserDAO.prototype.getUsersByRole).toHaveBeenCalledWith("Customer");});
 
-    /* ***********************************************
-    * Unit test for the deleteUser method         *
-    * ********************************************** */
-    test("It should delete a user", async () => {
+    test("It should throw an invalid role error",async()=>{
+        expect(controller.getUsersByRole("Not valid")).rejects.toThrow(InvalidRoleError);})
+
+/* ***********************************************
+* Unit test for the deleteUser method         *
+* ********************************************** */
+
+    test("deleteUser should throw an unhauthorized error",()=>{
+        expect(controller.deleteUser(userCustomer,"test2")).rejects.toThrow(UnauthorizedUserError);})
+
+    test("It should delete a user",async()=>{
+        jest.spyOn(UserDAO.prototype,"deleteUser").mockResolvedValueOnce(true);
         await expect(controller.deleteUser(userCustomer, "test1")).resolves.toBe(true);
-        expect(userDAO.deleteUser).toHaveBeenCalledTimes(1);
-    });
+        expect(UserDAO.prototype.deleteUser).toHaveBeenCalledTimes(1);});
 
-    test("It should throw InvalidParametersError if the user is not found", async () => {
+    test("It should delete a user as admin",async()=>{
+        jest.spyOn(UserDAO.prototype,"deleteUserAsAdmin").mockResolvedValueOnce(true);
+        await expect(controller.deleteUser(userAdmin, "test1")).resolves.toBe(true);
+        expect(UserDAO.prototype.deleteUser).toHaveBeenCalledTimes(0);});
+
+    test("It should throw InvalidParametersError if the user is not found",async()=>{
+        jest.spyOn(UserDAO.prototype,"deleteUser").mockRejectedValueOnce(new InvalidParametersError);
         await expect(controller.deleteUser(userCustomer, "")).rejects.toThrow(InvalidParametersError);
-        expect(DAOmockDeleteUser).not.toHaveBeenCalled();
-    });
+        expect(UserDAO.prototype.deleteUser).toHaveBeenCalledTimes(0);});
 
-    /* ***********************************************
-    * Unit test for the deleteAllUsers method         *
-    * ********************************************** */
-    test("deleteAllUsers should delete all users", async () => {
+/* ***********************************************
+* Unit test for the deleteAllUsers method         *
+* ********************************************** */
+
+    test("deleteAllUsers should delete all users",async()=>{
+        jest.spyOn(UserDAO.prototype,"deleteAllUsers").mockResolvedValueOnce(true);
         await expect(controller.deleteAllUsers()).resolves.toBe(true);
-        expect(DAOmockDeleteAllUser).toHaveBeenCalledTimes(1);
-    });
+        expect(UserDAO.prototype.deleteAllUsers).toHaveBeenCalledTimes(1);});
 
-    /* *********************************************
-     * Unit test for the updateUserInfo method         *
-     * *********************************************/
-    test("updateUserInfo should update a user's information", async () => {
-        await expect(controller.updateUserInfo(userCustomer, "newName", "newSurname", "newAddress", "2000-01-01", "test1")).resolves.toEqual({
-            ...userCustomer,
-            name: "newName",
-            surname: "newSurname",
-            address: "newAddress",
-            birthdate: "2000-01-01"
-        });
-        expect(DAOmockUpdateUser).toHaveBeenCalledWith("test1", "newName", "newSurname", "newAddress", "2000-01-01");
-    });
+/* *********************************************
+* Unit test for the updateUserInfo method         *
+* *********************************************/
 
-    test("updateUserInfo should throw InvalidParametersError if parameters are invalid", async () => {
-        await expect(controller.updateUserInfo(userCustomer, "", "newSurname", "newAddress", "2000-01-01", "test1")).rejects.toThrow(InvalidParametersError);
-        expect(DAOmockUpdateUser).not.toHaveBeenCalled();
-    });
+    test("updateUserInfo should update a user's information",async()=>{
+        jest.spyOn(UserDAO.prototype,"updateUser").mockResolvedValueOnce(userCustomerNew);
+        await expect(controller.updateUserInfo(userCustomer,"newName","newSurname","newAddress","2000-01-01","test1")).resolves.
+        toEqual(userCustomerNew);
+        expect(UserDAO.prototype.updateUser).toHaveBeenCalledTimes(1);
+        expect(UserDAO.prototype.updateUser).toHaveBeenCalledWith("test1","newName","newSurname","newAddress","2000-01-01")});
 
-});
+    test("It should throw an invalid parameter error",async()=>{
+        await expect(controller.updateUserInfo(userCustomer,"   ","newSurname","newAddress","2000-01-01","test1")).rejects
+        .toThrow(InvalidParametersError);})
+
+    test("It should throw an arrival date error",async()=>{
+        await expect(controller.updateUserInfo(userCustomer,"newName","newSurname","newAddress","2025-08-20","test1")).rejects
+        .toThrow(ArrivalDateError);})
+
+    test("updateUserInfo should update a user's information as an admin",async()=>{
+        jest.spyOn(UserDAO.prototype,"updateUserAsAdmin").mockResolvedValueOnce(userCustomerNew);
+        const res=await expect(controller.updateUserInfo(userAdmin,"newName","newSurname","newAddress","2000-01-01","test1")).resolves.
+        toEqual(userCustomerNew);
+        expect(UserDAO.prototype.updateUserAsAdmin).toHaveBeenCalledTimes(1);});
+
+    test("updateUserInfo should throw unhauthorized user error",async()=>{
+        await expect(controller.updateUserInfo(userCustomer,"newName","newSurname","newAddress","2000-01-01","test2")).rejects.
+        toThrow(UnauthorizedUserError);
+        expect(UserDAO.prototype.updateUser).toHaveBeenCalledTimes(0);});
+    
+    test("updateUserInfo should throw InvalidParametersError if parameters are invalid",async()=>{
+        jest.spyOn(UserDAO.prototype,"updateUser").mockRejectedValueOnce(new InvalidParametersError);
+        await expect(controller.updateUserInfo(userCustomer, "", "newSurname", "newAddress", "2000-01-01", "test1")).rejects
+        .toThrow(InvalidParametersError);
+        expect(UserDAO.prototype.updateUser).not.toHaveBeenCalled();})});
