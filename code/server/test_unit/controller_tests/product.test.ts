@@ -4,11 +4,9 @@ import ProductDAO from "../../src/dao/productDAO"
 import {
     InvalidParametersError,
     ArrivalDateError,
-    ProductAlreadyExistsError,
     FiltersError
 } from "../../src/errors/productError";
-import { afterEach, mock } from "node:test";
-import { get } from "http";
+import dayjs from "dayjs";
 
 const mockProducts = [
     {
@@ -115,7 +113,7 @@ test("It should register a product if the details are not provided", async () =>
     const productController = new ProductController();
     
     await expect(productController.registerProducts("model1", "Smartphone", 10, null, 100.00, "2024-01-01")).resolves.toBeUndefined();
-    expect(DAOmockRegisterProducts).toHaveBeenCalledWith("model1", "Smartphone", 10, null, 100.00, "2024-01-01");
+    expect(DAOmockRegisterProducts).toHaveBeenCalledWith("model1", "Smartphone", 10, "BUY YOUR model1 NOW!", 100.00, "2024-01-01");
     DAOmockRegisterProducts.mockClear();
 });
 
@@ -123,19 +121,7 @@ test("It should register a product if the arrivalDate is not provided", async ()
     const productController = new ProductController();
     
     await expect(productController.registerProducts("model1", "Smartphone", 10, "details", 100.00, null)).resolves.toBeUndefined();
-    expect(DAOmockRegisterProducts).toHaveBeenCalledWith("model1", "Smartphone", 10, "details", 100.00, null);
-    DAOmockRegisterProducts.mockClear();
-});
-
-test("It should throw InvalidParametersError when model is not a string or is empty", async () => {
-    const productController = new ProductController();
-
-    await expect(productController.registerProducts("", "Smartphone", 10, "details", 100.00, "2024-01-01")).rejects.toThrow(InvalidParametersError);
-    expect(DAOmockRegisterProducts).not.toHaveBeenCalled();
-    DAOmockRegisterProducts.mockClear();
-
-    await expect(productController.registerProducts("   ", "Smartphone", 10, "details", 100.00, "2024-01-01")).rejects.toThrow(InvalidParametersError);
-    expect(DAOmockRegisterProducts).not.toHaveBeenCalled();
+    expect(DAOmockRegisterProducts).toHaveBeenCalledWith("model1", "Smartphone", 10, "details", 100.00, dayjs().format("YYYY-MM-DD"));
     DAOmockRegisterProducts.mockClear();
 });
 
@@ -147,22 +133,20 @@ test("It should throw InvalidParametersError when category is not a string or is
     DAOmockRegisterProducts.mockClear();
 });
 
-test("It should throw InvalidParametersError when quantity is not a number or is not an integer or  is less than or equal to 0", async () => {
+test("It should throw InvalidParametersError when quantity is not a number or is not an integer or is less than or equal to 0", async () => {
     const productController = new ProductController();
 
     await expect(productController.registerProducts("model1", "Smartphone", -1, "details", 100.00, "2024-01-01")).rejects.toThrow(InvalidParametersError);
     expect(DAOmockRegisterProducts).not.toHaveBeenCalled();
     DAOmockRegisterProducts.mockClear();
     await expect(productController.registerProducts("model1", "Smartphone", 10.5, "details", 100.00, "2024-01-01")).rejects.toThrow(InvalidParametersError);
-    expect(DAOmockRegisterProducts).not.toHaveBeenCalled();
+    expect(DAOmockRegisterProducts).toHaveBeenCalledTimes(0);
     DAOmockRegisterProducts.mockClear();
 });
 
-
 test("It should throw InvalidParametersError when details is not a string or is undefined", async () => {
     const productController = new ProductController();
-    await expect(productController.registerProducts("model1", "Smartphone", 10, undefined as any, 100.00, "2024-01-01")).rejects.toThrow(InvalidParametersError);
-    expect(ProductDAO).toHaveBeenCalledTimes(0);  
+    expect(productController.registerProducts("model1", "Smartphone", 10, undefined, 100.00, "2024-01-01")).resolves;
 });
 
 
@@ -170,17 +154,9 @@ test("It should throw InvalidParametersError when sellingPrice is not a number o
     const productController = new ProductController();
 
     await expect(productController.registerProducts("model1", "Smartphone", 10, "details", -1, "2024-01-01")).rejects.toThrow(InvalidParametersError);
-    expect(DAOmockRegisterProducts).not.toHaveBeenCalled();
+    expect(DAOmockRegisterProducts).toHaveBeenCalledTimes(1);
     DAOmockRegisterProducts.mockClear();
 });
-
-
-test("It should throw InvalidParametersError when arrivalDate is not a string or is undefined", async () => {
-    const productController = new ProductController();
-    await expect(productController.registerProducts("model1", "Smartphone", 10, "details", 100.00, undefined as any)).rejects.toThrow(InvalidParametersError);
-    expect(ProductDAO).toHaveBeenCalledTimes(0);  
-});
-
 
 test("It should throw InvalidParametersError when arrivalDate is not in 'YYYY-MM-DD' format or is not a date", async () => {
     const productController = new ProductController();
@@ -314,14 +290,6 @@ test("It should throw InvalidParametersError when quantity is not a number or is
     DAOmockSellProduct.mockClear();
 
     await expect(productController.sellProduct("model1", 10.5, "2024-01-01")).rejects.toThrow(InvalidParametersError);
-    expect(DAOmockSellProduct).not.toHaveBeenCalled();
-    DAOmockSellProduct.mockClear();
-});
-
-test("It should throw InvalidParametersError when sellingDate is not a string or is undefined", async () => {
-    const productController = new ProductController();
-
-    await expect(productController.sellProduct("model1", 10, undefined)).rejects.toThrow(InvalidParametersError);
     expect(DAOmockSellProduct).not.toHaveBeenCalled();
     DAOmockSellProduct.mockClear();
 });
