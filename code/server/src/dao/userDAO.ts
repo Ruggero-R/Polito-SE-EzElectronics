@@ -191,7 +191,7 @@ class UserDAO {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 let sql = "SELECT role FROM users WHERE username=?";
-                db.get(sql, [username, user], (err: string | null, role: any) => {
+                db.get(sql, [username], (err: string | null, role: any) => {
                     if (err) {
                         reject(err);
                     }
