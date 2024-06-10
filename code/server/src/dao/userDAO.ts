@@ -133,7 +133,6 @@ class UserDAO {
 
     getUsersByRole(role: string) {
         return new Promise<User[]>((resolve, reject) => {
-            console.log(role)
             try {
                 const sql = "SELECT * FROM users WHERE role=?";
                 db.all(sql, [role], (err: Error | null, rows: any) => {
@@ -238,7 +237,7 @@ class UserDAO {
                 })
             }
             catch (error) {
-                reject(new UnauthorizedUserError);
+                reject(error);
                 return;
             }
         })
@@ -297,7 +296,7 @@ class UserDAO {
                     else if (!role) {
                         reject(new UserNotFoundError);
                     }
-                    else if (role == "Admin") {
+                    else if (role.role == "Admin") {
                         reject(new UserIsAdminError);
                     }
                     else {
@@ -306,11 +305,8 @@ class UserDAO {
                             if (err) {
                                 reject(err);
                             }
-                            else if (this.changes == 0) {
-                                reject(new UserNotFoundError);
-                            }
                             else {
-                                resolve(new User(username, name, surname, role, address, birthdate));
+                                resolve(new User(username, name, surname, role.role, address, birthdate));
                             }
                             return;
                         })
