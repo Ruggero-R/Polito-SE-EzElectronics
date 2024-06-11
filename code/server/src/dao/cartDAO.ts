@@ -8,11 +8,11 @@ import {
   WrongUserCartError,
   EmptyCartError,
   NoCartItemsError,
+  LowProductStockError,
   AlreadyActiveCart,
 } from "../errors/cartError";
 import {
   EmptyProductStockError,
-  LowProductStockError,
   ProductNotFoundError,
 } from "../errors/productError";
 import dayjs from "dayjs";
@@ -153,15 +153,12 @@ class CartDAO {
           "SELECT model, quantity FROM products WHERE model = ?";
         db.get(sqlCheckModel, [productModel], (err: Error | null, row: any) => {
           if (err) {
-            reject(err);
-            return;
+            return reject(err);
           }
           if (!row) {
-            reject(new ProductNotFoundError());
-            return;
+            return reject(new ProductNotFoundError());
           } else if (row.quantity <= 0) {
-            reject(new EmptyProductStockError());
-            return;
+            return reject(new EmptyProductStockError());
           } else {
             let sellingPrice = 0;
             let category = "";
@@ -173,8 +170,7 @@ class CartDAO {
               [productModel],
               (err: Error | null, row: any) => {
                 if (err) {
-                  reject(err);
-                  return;
+                  return reject(err);
                 }
                 sellingPrice = row.sellingPrice;
                 category = row.category;
@@ -194,8 +190,7 @@ class CartDAO {
                         [userId, productModel, sellingPrice, category],
                         function (err: Error | null) {
                           if (err) {
-                            reject(err);
-                            return;
+                            return reject(err);
                           }
                           const sqlUpdateCart =
                             "UPDATE carts SET total = total + ? WHERE customer = ? AND paid = 0";
@@ -204,8 +199,7 @@ class CartDAO {
                             [sellingPrice, userId],
                             function (err: Error | null) {
                               if (err) {
-                                reject(err);
-                                return;
+                                return reject(err);
                               }
                               resolve();
                             }
@@ -214,11 +208,9 @@ class CartDAO {
                       );
                     })
                     .catch((err) => {
-                      reject(err);
-                      return;
+                      return reject(err);
                     });
                 } else {
-                  console.log("User has active cart");
                   //User already has a active cart
                   //check if a equals product is already in cart
                   const sqlCheckProduct =
@@ -228,11 +220,9 @@ class CartDAO {
                     [userId, productModel],
                     (err: Error | null, row: any) => {
                       if (err) {
-                        reject(err);
-                        return;
+                        return reject(err);
                       }
                       if (row) {
-                        console.log("Product is in cart");
                         //Product is already in cart
                         //check if quantity is available
                         const cartProductQuantity = row.quantity;
@@ -243,15 +233,12 @@ class CartDAO {
                           [productModel],
                           (err: Error | null, row: any) => {
                             if (err) {
-                              reject(err);
-                              return;
+                              return reject(err);
                             }
                             if (row.quantity < cartProductQuantity + 1) {
-                              reject(new LowProductStockError());
-                              return;
+                              return reject(new LowProductStockError());
                             }
                             //Update quantity
-                            console.log("Updating quantity");
                             this.updateCartItem(
                               userId,
                               sellingPrice,
@@ -266,10 +253,8 @@ class CartDAO {
                                   [sellingPrice, userId],
                                   function (err: Error | null) {
                                     if (err) {
-                                      reject(err);
-                                      return;
+                                      return reject(err);
                                     }
-                                    console.log("Cart updated");
                                     resolve();
                                   }
                                 );
@@ -281,7 +266,6 @@ class CartDAO {
                         );
                       } else {
                         //Product is not in cart
-                        console.log("Product is not in cart");
                         const sql =
                           "INSERT INTO carts_items (cart_id, product_model, quantity, price, category) VALUES ((SELECT id FROM carts WHERE customer = ? AND paid = 0), ?, 1, ?, ?)";
                         db.run(
@@ -289,8 +273,7 @@ class CartDAO {
                           [userId, productModel, sellingPrice, category],
                           function (err: Error | null) {
                             if (err) {
-                              reject(err);
-                              return;
+                              return reject(err);
                             }
                             const sqlUpdateCart =
                               "UPDATE carts SET total = total + ? WHERE customer = ? AND paid = 0";
@@ -299,10 +282,8 @@ class CartDAO {
                               [sellingPrice, userId],
                               function (err: Error | null) {
                                 if (err) {
-                                  reject(err);
-                                  return;
+                                  return reject(err);
                                 }
-                                console.log("Cart updated");
                                 resolve();
                               }
                             );
@@ -314,8 +295,7 @@ class CartDAO {
                 }
               })
               .catch((err) => {
-                reject(err);
-                return;
+                return reject(err);
               });
           }
         });
@@ -391,12 +371,10 @@ class CartDAO {
           "SELECT * FROM carts WHERE customer = ? AND paid = 0";
         db.get(sqlCheckCart, [userId], (err: Error | null, row: any) => {
           if (err) {
-            reject(err);
-            return;
+            return reject(err);
           }
           if (!row) {
-            reject(new CartNotFoundError());
-            return;
+            return reject(new CartNotFoundError());
           } else {
             const sqlCheckCartItems =
               "SELECT * FROM carts_items WHERE cart_id = ?";
@@ -405,12 +383,10 @@ class CartDAO {
               [row.id],
               (err: Error | null, rows: any[]) => {
                 if (err) {
-                  reject(err);
-                  return;
+                  return reject(err);
                 }
                 if (rows.length === 0) {
-                  reject(new EmptyCartError());
-                  return;
+                  return reject(new EmptyCartError());
                 } else {
                   const checkProductsAvailability =
                     "SELECT quantity,model  FROM products WHERE model IN(SELECT product_model FROM carts_items WHERE cart_id IN(SELECT id FROM carts WHERE customer = ? AND paid = 0))";
@@ -420,14 +396,12 @@ class CartDAO {
                     (err: Error | null, rows: any[]) => {
                       let productQuantity = 0;
                       if (err) {
-                        reject(err);
-                        return;
+                        return reject(err);
                       }
                       rows.forEach((product) => {
                         productQuantity = product.quantity;
                         if (productQuantity <= 0) {
-                          reject(new EmptyProductStockError());
-                          return;
+                          return reject(new EmptyProductStockError());
                         }
                         const checkCartItems =
                           "SELECT quantity FROM carts_items WHERE product_model = ? AND cart_id IN(SELECT id FROM carts WHERE customer = ? AND paid = 0)";
@@ -436,16 +410,13 @@ class CartDAO {
                           [product.model, userId],
                           (err: Error | null, row: any) => {
                             if (err) {
-                              reject(err);
-                              return;
+                              return reject(err);
                             }
                             if (!row) {
-                              reject(new ProductNotInCartError());
-                              return;
+                              return reject(new ProductNotInCartError());
                             }
                             if (row.quantity > productQuantity) {
-                              reject(new LowProductStockError());
-                              return;
+                              return reject(new LowProductStockError());
                             }
 
                             const updateProductQuantity =
@@ -455,8 +426,7 @@ class CartDAO {
                               [row.quantity, product.model],
                               function (err: Error | null) {
                                 if (err) {
-                                  reject(err);
-                                  return;
+                                  return reject(err);
                                 }
                               }
                             );
@@ -470,8 +440,7 @@ class CartDAO {
                         [dayjs().format("YYYY-MM-DD"), userId],
                         (err: Error | null) => {
                           if (err) {
-                            reject(err);
-                            return;
+                            return reject(err);
                           }
                           resolve(true);
                         }
@@ -508,13 +477,12 @@ class CartDAO {
           [productModel],
           (err: Error | null, model: any) => {
             if (err) {
-              reject(err);
-              return;
+              return reject(err);
             }
             if (!model) {
-              reject(new ProductNotFoundError());
-              return;
+              return reject(new ProductNotFoundError());
             }
+
             const checkActiveCartSql =
               "SELECT * FROM carts WHERE customer = ? AND paid = 0";
             db.get(
@@ -522,13 +490,12 @@ class CartDAO {
               [userId],
               (err: Error | null, activeCart: any) => {
                 if (err) {
-                  reject(err);
-                  return;
+                  return reject(err);
                 }
                 if (!activeCart) {
-                  reject(new CartNotFoundError());
-                  return;
+                  return reject(new CartNotFoundError());
                 }
+
                 const checkEmptyCartSql =
                   "SELECT * FROM carts_items WHERE cart_id = ?";
                 db.all(
@@ -536,13 +503,12 @@ class CartDAO {
                   [activeCart.id],
                   (err: Error | null, cartItems: any[]) => {
                     if (err) {
-                      reject(err);
-                      return;
+                      return reject(err);
                     }
                     if (cartItems.length === 0) {
-                      reject(new NoCartItemsError());
-                      return;
+                      return reject(new NoCartItemsError());
                     }
+
                     const checkProductInCartSql =
                       "SELECT * FROM carts_items WHERE cart_id = ? AND product_model = ?";
                     db.get(
@@ -550,13 +516,12 @@ class CartDAO {
                       [activeCart.id, productModel],
                       (err: Error | null, product: any) => {
                         if (err) {
-                          reject(err);
-                          return;
+                          return reject(err);
                         }
                         if (!product) {
-                          reject(new ProductNotInCartError());
-                          return;
+                          return reject(new ProductNotInCartError());
                         }
+
                         const deleteProductSql =
                           "DELETE FROM carts_items WHERE cart_id = ? AND product_model = ?";
                         db.run(
@@ -564,9 +529,9 @@ class CartDAO {
                           [activeCart.id, productModel],
                           function (err: Error | null) {
                             if (err) {
-                              reject(err);
-                              return;
+                              return reject(err);
                             }
+
                             const decreaseTotalSql =
                               "UPDATE carts SET total = total - ? WHERE customer = ? AND paid = 0 AND id = ?";
                             db.run(
@@ -574,8 +539,7 @@ class CartDAO {
                               [product.price, userId, activeCart.id],
                               function (err: Error | null) {
                                 if (err) {
-                                  reject(err);
-                                  return;
+                                  return reject(err);
                                 }
                                 resolve(true);
                               }
@@ -608,25 +572,21 @@ class CartDAO {
           "SELECT * FROM carts WHERE customer = ? AND paid = 0";
         db.get(getCartSql, [userId], (err: Error | null, cart: any) => {
           if (err) {
-            reject(err);
-            return;
+            return reject(err);
           }
           if (!cart) {
-            reject(new CartNotFoundError());
-            return;
+            return reject(new CartNotFoundError());
           }
           const clearCartSql = "DELETE FROM carts_items WHERE cart_id = ?";
           db.run(clearCartSql, [cart.id], function (err: Error | null) {
             if (err) {
-              reject(err);
-              return;
+              return reject(err);
             }
             const updateTotalSql =
               "UPDATE carts SET total = 0 WHERE customer = ? AND paid = 0";
             db.run(updateTotalSql, [userId], function (err: Error | null) {
               if (err) {
-                reject(err);
-                return;
+                return reject(err);
               }
               resolve(true);
             });
@@ -648,15 +608,13 @@ class CartDAO {
         let sql = "DELETE FROM carts";
         db.run(sql, [], function (err: Error | null) {
           if (err) {
-            reject(err);
-            return;
+            return reject(err);
           }
         });
         sql = "DELETE FROM carts_items";
         db.run(sql, [], function (err: Error | null) {
           if (err) {
-            reject(err);
-            return;
+            return reject(err);
           }
         });
         resolve(true);
@@ -678,24 +636,25 @@ class CartDAO {
           [],
           async (err: Error | null, user_carts: any[]) => {
             if (err) {
-              reject(err);
-              return;
+              return reject(err);
             }
+
             const carts: Cart[] = await Promise.all(
               user_carts.map(async (user_cart) => {
                 const getProductsSql =
                   "SELECT product_model, quantity, price, category FROM carts_items WHERE cart_id = ?";
+                  
                 return new Promise<Cart>((resolve, reject) => {
                   db.all(
                     getProductsSql,
                     [user_cart.id],
                     (err: Error | null, products: any[]) => {
                       if (err) {
-                        reject(err);
-                        return;
+                        return reject(err);
                       }
                       const productsInCart: ProductInCart[] = products.map(
                         (product) => {
+                          console.log(product, user_cart);
                           return new ProductInCart(
                             product.product_model,
                             product.quantity,
@@ -741,8 +700,8 @@ class CartDAO {
           [user],
           async (err: Error | null, user_carts: any[]) => {
             if (err) {
-              reject(err);
-              return;
+              return reject(err);
+
             }
             const carts: Cart[] = await Promise.all(
               user_carts.map(async (user_cart) => {
@@ -754,8 +713,7 @@ class CartDAO {
                     [user_cart.id],
                     (err: Error | null, products: any[]) => {
                       if (err) {
-                        reject(err);
-                        return;
+                        return reject(err);
                       }
                       const productsInCart: ProductInCart[] = products.map(
                         (product) => {
