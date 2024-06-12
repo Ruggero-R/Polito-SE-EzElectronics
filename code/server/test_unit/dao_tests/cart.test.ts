@@ -1875,38 +1875,31 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if the database fails to retrive the product", async () => {
-      const mockDBGet_checkExistingModel = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, { model: "product1" });
-          return {} as Database;
+      // Mock DB existing model
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, { model: "product1" });
+        return {} as Database;
+      });
+      // Mock DB check active cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, {
+          customer: "customer",
+          paid: 0,
+          paymentDate: null,
+          total: 30.0,
         });
-
-      const mockDBGet_checkActiveCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, {
-            customer: "customer",
-            paid: 0,
-            paymentDate: null,
-            total: 30.0,
-          });
-          return {} as Database;
-        });
-
-      const mockDBAll_checkEmptyCart = jest
-        .spyOn(db, "all")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, [{ model: "product1", quantity: 1 }]);
-          return {} as Database;
-        });
-
-      const mockDBGet_checkProductInCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+        return {} as Database;
+      });
+      // Mock DB check empty cart
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        callback(null, [{ model: "product1", quantity: 1 }]);
+        return {} as Database;
+      });
+      // Mock DB check product in cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(
         cartDAO.removeProductFromCart("customer", "product1")
@@ -1914,45 +1907,36 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if the database fails to delete the product", async () => {
-      const mockDBGet_checkExistingModel = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, { model: "product1" });
-          return {} as Database;
+      // Mock DB existing model
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, { model: "product1" });
+        return {} as Database;
+      });
+      // Mock DB check active cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, {
+          customer: "customer",
+          paid: 0,
+          paymentDate: null,
+          total: 30.0,
         });
-
-      const mockDBGet_checkActiveCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, {
-            customer: "customer",
-            paid: 0,
-            paymentDate: null,
-            total: 30.0,
-          });
-          return {} as Database;
-        });
-
-      const mockDBAll_checkEmptyCart = jest
-        .spyOn(db, "all")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, [{ model: "product1", quantity: 1 }]);
-          return {} as Database;
-        });
-
-      const mockDBGet_checkProductInCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, { model: "product1", quantity: 1 });
-          return {} as Database;
-        });
-
-      const mockDBRun_deleteProduct = jest
-        .spyOn(db, "run")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+        return {} as Database;
+      });
+      // Mock DB check empty cart
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        callback(null, [{ model: "product1", quantity: 1 }]);
+        return {} as Database;
+      });
+      // Mock DB get product in cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, { model: "product1", quantity: 1 });
+        return {} as Database;
+      });
+      // Mock DB run delete product
+      jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(
         cartDAO.removeProductFromCart("customer", "product1")
@@ -1960,52 +1944,42 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if the database fails to update the cart total", async () => {
-      const mockDBGet_checkExistingModel = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, { model: "product1" });
-          return {} as Database;
+      // Mock DB existing model
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, { model: "product1" });
+        return {} as Database;
+      });
+      // Mock DB check active cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, {
+          customer: "customer",
+          paid: 0,
+          paymentDate: null,
+          total: 30.0,
         });
+        return {} as Database;
+      });
+      // Mock DB check empty cart
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        callback(null, [{ model: "product1", quantity: 1 }]);
+        return {} as Database;
+      });
+      // Mock DB get product in cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, { model: "product1", quantity: 1 });
+        return {} as Database;
+      });
+      // Mock DB run delete product
+      jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+      });
 
-      const mockDBGet_checkActiveCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, {
-            customer: "customer",
-            paid: 0,
-            paymentDate: null,
-            total: 30.0,
-          });
-          return {} as Database;
-        });
-
-      const mockDBAll_checkEmptyCart = jest
-        .spyOn(db, "all")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, [{ model: "product1", quantity: 1 }]);
-          return {} as Database;
-        });
-
-      const mockDBGet_checkProductInCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, { model: "product1", quantity: 1 });
-          return {} as Database;
-        });
-
-      const mockDBRun_deleteProduct = jest
-        .spyOn(db, "run")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null);
-          return {} as Database;
-        });
-
-      const mockDBRun_updateCartTotal = jest
-        .spyOn(db, "run")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+      //Mock DB run update cart total
+      jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(
         cartDAO.removeProductFromCart("customer", "product1")
@@ -2013,18 +1987,16 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if an error is thrown in the try block", async () => {
-      const mockDBGet_checkExistingModel = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, { model: "product1" });
-          return {} as Database;
-        });
+      // Mock DB existing model
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, { model: "product1" });
+        return {} as Database;
+      });
 
-      const mockDBGet_checkActiveCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          throw new Error("Error in try block");
-        });
+      //Mock DB check active cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        throw new Error("Error in try block");
+      });
 
       await expect(
         cartDAO.removeProductFromCart("customer", "product1")
@@ -2037,36 +2009,33 @@ describe("Unit test for the cartDAO class", () => {
    * ********************************************** */
   describe("Unit test for the clearCart method", () => {
     test("It should clear the cart of the user", async () => {
-      const mockDBGetCart = jest
-        .spyOn(db, "get")
-        .mockImplementation((sql, params, callback) => {
-          callback(null, {
-            id: 1,
-            customer: "customer1",
-            paid: 0,
-            paymentDate: null,
-            total: 30.0,
-          });
-          return {} as Database;
+      //Mock DB get cart
+      jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, {
+          id: 1,
+          customer: "customer1",
+          paid: 0,
+          paymentDate: null,
+          total: 30.0,
         });
+        return {} as Database;
+      });
 
-      const mockDBRun = jest
-        .spyOn(db, "run")
-        .mockImplementation((sql, params, callback) => {
-          callback(null);
-          return {} as Database;
-        });
+      //Mock DB run delete cart items
+      jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+      });
 
       await expect(cartDAO.clearCart("customer")).resolves.toBe(true);
     });
 
     test("It should throw an error if the cart is not found", async () => {
-      const mockDBGetCart = jest
-        .spyOn(db, "get")
-        .mockImplementation((sql, params, callback) => {
-          callback(null, undefined);
-          return {} as Database;
-        });
+      // Mock DB get cart
+      jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, undefined);
+        return {} as Database;
+      });
 
       await expect(cartDAO.clearCart("customer")).rejects.toThrow(
         CartNotFoundError
@@ -2074,12 +2043,11 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if database fails", async () => {
-      const mockDBGetCart = jest
-        .spyOn(db, "get")
-        .mockImplementation((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+      // Mock DB get cart
+      jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(cartDAO.clearCart("customer")).rejects.toThrow(
         "Database error"
@@ -2087,11 +2055,10 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if an error is thrown in the try block", async () => {
-      const mockDBGetCart = jest
-        .spyOn(db, "get")
-        .mockImplementation((sql, params, callback) => {
-          throw new Error("Error in try block");
-        });
+      // Mock DB get cart
+      jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        throw new Error("Error in try block");
+      });
 
       await expect(cartDAO.clearCart("customer")).rejects.toThrow(
         "Error in try block"
@@ -2099,25 +2066,23 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if the database fails to delete the cart items", async () => {
-      const mockDBGetCart = jest
-        .spyOn(db, "get")
-        .mockImplementation((sql, params, callback) => {
-          callback(null, {
-            id: 1,
-            customer: "customer1",
-            paid: 0,
-            paymentDate: null,
-            total: 30.0,
-          });
-          return {} as Database;
+      // Mock DB get cart
+      jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+        callback(null, {
+          id: 1,
+          customer: "customer1",
+          paid: 0,
+          paymentDate: null,
+          total: 30.0,
         });
+        return {} as Database;
+      });
 
-      const mockDBRun = jest
-        .spyOn(db, "run")
-        .mockImplementation((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+      //Mock DB run delete cart items
+      jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(cartDAO.clearCart("customer")).rejects.toThrow(
         "Database error"
@@ -2125,32 +2090,29 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     test("It should throw an error if the database fails to update the cart total", async () => {
-      const mockDBGetCart = jest
-        .spyOn(db, "get")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null, {
-            id: 1,
-            customer: "customer1",
-            paid: 0,
-            paymentDate: null,
-            total: 30.0,
-          });
-          return {} as Database;
+      //Mock DB get cart
+      jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+        callback(null, {
+          id: 1,
+          customer: "customer1",
+          paid: 0,
+          paymentDate: null,
+          total: 30.0,
         });
+        return {} as Database;
+      });
 
-      const mockDBRun = jest
-        .spyOn(db, "run")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(null);
-          return {} as Database;
-        });
+      //Mock DB run delete cart items
+      jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
+        callback(null);
+        return {} as Database;
+      });
 
-      const mockDBRun_updateCartTotal = jest
-        .spyOn(db, "run")
-        .mockImplementationOnce((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+      //Mock DB run update cart total
+      jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(cartDAO.clearCart("customer")).rejects.toThrow(
         "Database error"
@@ -2162,52 +2124,47 @@ describe("Unit test for the cartDAO class", () => {
    * ********************************************** */
   describe("Unit test for the deleteAllCarts method", () => {
     test("It should delete all carts", async () => {
-      const mockDBRunDeleteCarts = jest
-        .spyOn(db, "run")
-        .mockImplementation((sql, params, callback) => {
-          callback(null), undefined;
-          return {} as Database;
-        });
+      //Mock DB run delete carts
+      jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null), undefined;
+        return {} as Database;
+      });
 
-      const mockDBRunDeleteCartItems = jest
-        .spyOn(db, "run")
-        .mockImplementation((sql, params, callback) => {
-          callback(null), undefined;
-          return {} as Database;
-        });
+      //Mock DB run delete cart items
+      jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(null), undefined;
+        return {} as Database;
+      });
 
       await expect(cartDAO.deleteAllCarts()).resolves.toBe(true);
     });
 
     test("It should throw an error if database fails", async () => {
-      const mockDBRun = jest
-        .spyOn(db, "run")
-        .mockImplementation((sql, params, callback) => {
-          callback(new Error("Database error"));
-          return {} as Database;
-        });
+      jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
 
       await expect(cartDAO.deleteAllCarts()).rejects.toThrow("Database error");
     });
 
     test("It should throw an error if an error is thrown in the try block", async () => {
-      const mockDBRun = jest
-        .spyOn(db, "run")
-        .mockImplementation((sql, params, callback) => {
-          throw new Error("Error in try block");
-        });
+      jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+        throw new Error("Error in try block");
+      });
 
       await expect(cartDAO.deleteAllCarts()).rejects.toThrow(
         "Error in try block"
       );
     });
   });
+
   /* ********************************************** *
    *    Unit test for the getAllCarts method    *
    * ********************************************** */
   describe("Unit test for the getAllCarts method", () => {
     test("It should retrieve all carts successfully", async () => {
-      const mockDBCarts = jest
+      jest
         .spyOn(db, "all")
         .mockImplementationOnce((sql, params, callback) => {
           callback(null, [
@@ -2218,12 +2175,65 @@ describe("Unit test for the cartDAO class", () => {
               paymentDate: null,
               total: 100.0,
             },
+          ]);
+          return {} as Database;
+        })
+        .mockImplementationOnce((sql, params, callback) => {
+          callback(null, [
             {
-              id: 2,
-              customer: "customer2",
-              paid: 1,
-              paymentDate: "2023-01-01",
-              total: 150.0,
+              product_model: "model1",
+              quantity: 2,
+              price: 50.0,
+              category: "Smartphone",
+            },
+          ]);
+
+          return {} as Database;
+        });
+
+      const expectedCarts = [
+        new Cart("customer1", false, null as any, 100.0, [
+          new ProductInCart("model1", 2, Category.SMARTPHONE, 50.0),
+        ]),
+      ];
+
+      await expect(cartDAO.getAllCarts()).resolves.toEqual(expectedCarts);
+    });
+
+    test("It should throw an error if database fails to retrieve the carts", async () => {
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
+
+      await expect(cartDAO.getAllCarts()).rejects.toThrow("Database error");
+    });
+
+    test(" It should throw an error if an error is thrown in the try block", async () => {
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        throw new Error("Error in try block");
+      });
+
+      await expect(cartDAO.getAllCarts()).rejects.toThrow("Error in try block");
+    });
+  });
+
+  /* ********************************************** *
+   *   Unit test for the getCustomerCarts method    *
+   * ********************************************** */
+  describe("Unit test for the getCustomerCarts method", () => {
+    test("It should retrieve all carts of a customer successfully", async () => {
+      // Mock DB get carts
+      jest
+        .spyOn(db, "all")
+        .mockImplementationOnce((sql, params, callback) => {
+          callback(null, [
+            {
+              id: 1,
+              customer: "customer1",
+              paid: 0,
+              paymentDate: null,
+              total: 100.0,
             },
           ]);
           return {} as Database;
@@ -2238,15 +2248,6 @@ describe("Unit test for the cartDAO class", () => {
                 category: "Smartphone",
               },
             ]);
-          } else if (params[0] === 2) {
-            callback(null, [
-              {
-                product_model: "model2",
-                quantity: 1,
-                price: 150.0,
-                category: "Appliance",
-              },
-            ]);
           }
           return {} as Database;
         });
@@ -2255,12 +2256,34 @@ describe("Unit test for the cartDAO class", () => {
         new Cart("customer1", false, null as any, 100.0, [
           new ProductInCart("model1", 2, Category.SMARTPHONE, 50.0),
         ]),
-        new Cart("customer2", true, "2023-01-01", 150.0, [
-          new ProductInCart("model2", 1, Category.APPLIANCE, 150.0),
-        ]),
       ];
 
-      await expect(cartDAO.getAllCarts()).resolves.toEqual(expectedCarts);
+      await expect(cartDAO.getCustomerCarts("customer1")).resolves.toEqual(
+        expectedCarts
+      );
+    });
+
+    test("It should throw an error if database fails to retrieve the carts", async () => {
+      // Mock DB get carts
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        callback(new Error("Database error"));
+        return {} as Database;
+      });
+
+      await expect(cartDAO.getCustomerCarts("customer1")).rejects.toThrow(
+        "Database error"
+      );
+    });
+
+    test(" It should throw an error if an error is thrown in the try block", async () => {
+      // Mock DB get carts
+      jest.spyOn(db, "all").mockImplementationOnce((sql, params, callback) => {
+        throw new Error("Error in try block");
+      });
+
+      await expect(cartDAO.getCustomerCarts("customer1")).rejects.toThrow(
+        "Error in try block"
+      );
     });
   });
 });

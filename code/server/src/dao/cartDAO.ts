@@ -654,7 +654,6 @@ class CartDAO {
                       }
                       const productsInCart: ProductInCart[] = products.map(
                         (product) => {
-                          console.log(product, user_cart);
                           return new ProductInCart(
                             product.product_model,
                             product.quantity,
@@ -701,7 +700,6 @@ class CartDAO {
           async (err: Error | null, user_carts: any[]) => {
             if (err) {
               return reject(err);
-
             }
             const carts: Cart[] = await Promise.all(
               user_carts.map(async (user_cart) => {
