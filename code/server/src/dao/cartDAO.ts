@@ -145,8 +145,8 @@ class CartDAO {
    * @param quantity The quantity of the product to add.
    * @returns A Promise that resolves when the product is added to the cart.
    */
-  addProductToCart(userId: string, productModel: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  addProductToCart(userId: string, productModel: string): Promise<Boolean> {
+    return new Promise<Boolean>((resolve, reject) => {
       try {
         //Check if model exists
         const sqlCheckModel =
@@ -201,7 +201,7 @@ class CartDAO {
                               if (err) {
                                 return reject(err);
                               }
-                              resolve();
+                              resolve(true);
                             }
                           );
                         }
@@ -255,7 +255,7 @@ class CartDAO {
                                     if (err) {
                                       return reject(err);
                                     }
-                                    resolve();
+                                    resolve(true);
                                   }
                                 );
                               })
@@ -284,7 +284,7 @@ class CartDAO {
                                 if (err) {
                                   return reject(err);
                                 }
-                                resolve();
+                                resolve(true);
                               }
                             );
                           }
@@ -643,7 +643,7 @@ class CartDAO {
               user_carts.map(async (user_cart) => {
                 const getProductsSql =
                   "SELECT product_model, quantity, price, category FROM carts_items WHERE cart_id = ?";
-                  
+
                 return new Promise<Cart>((resolve, reject) => {
                   db.all(
                     getProductsSql,

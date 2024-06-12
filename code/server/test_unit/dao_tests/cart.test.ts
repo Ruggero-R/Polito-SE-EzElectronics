@@ -365,7 +365,7 @@ describe("Unit test for the cartDAO class", () => {
 
       await expect(
         cartDAO.addProductToCart("customer", "product1")
-      ).resolves.toBe(undefined);
+      ).resolves.toBe(true);
     });
 
     test("It should add a new product to a new cart of the user", async () => {
@@ -410,7 +410,7 @@ describe("Unit test for the cartDAO class", () => {
 
       await expect(
         cartDAO.addProductToCart("customer", "product1")
-      ).resolves.toBe(undefined);
+      ).resolves.toBe(true);
     });
 
     test("It should increment product quantity in the cart of the user", async () => {
@@ -475,7 +475,7 @@ describe("Unit test for the cartDAO class", () => {
 
       await expect(
         cartDAO.addProductToCart("customer", "product1")
-      ).resolves.toBe(undefined);
+      ).resolves.toBe(true);
     });
 
     test("It should throw an error if the product is not in the database", async () => {
