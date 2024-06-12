@@ -26,7 +26,7 @@ class CartController {
         if (user.username.trim() === '' || productModel.trim() === '') {
             throw new InvalidParametersError;
         }
-        const res: any = await this.dao.addProductToCart(user.username, productModel);
+        await this.dao.addProductToCart(user.username, productModel);
         return true;
     }
 

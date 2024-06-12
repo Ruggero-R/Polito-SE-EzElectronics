@@ -67,9 +67,11 @@ class UserController {
         if (!user || !user.role || !user.username || user.username.trim().length == 0 || !username || username.trim().length == 0) {
             throw new InvalidParametersError;
         }
-        else if (["Manager", "Customer", "Admin"].includes(user.role) == false) {
+        /* User.role cannot have a value other than "Manager", "Customer" or "Admin" since it is an enum
+        else if (["Manager", "Customer", "Admin"].includes(user.role) == false) {  
             throw new InvalidRoleError(user.role);
         }
+        */
         else if (user.role.trim() == "Admin" || user.username.trim() == username.trim()) {
             return this.dao.getUserByUsername(username.trim());
         }
@@ -88,9 +90,11 @@ class UserController {
         if (!user || !user.role || !user.username || user.username.trim().length == 0 || !username || username.trim().length == 0) {
             throw new InvalidParametersError;
         }
+        /* User.role cannot have a value other than "Manager", "Customer" or "Admin" since it is an enum
         else if (["Manager", "Customer", "Admin"].includes(user.role) == false) {
             throw new InvalidRoleError(user.role);
         }
+        */
         else if (user.username.trim() == username.trim()) {
             return this.dao.deleteUser(username.trim());
         }
@@ -129,9 +133,11 @@ class UserController {
         else if (dayjs(birthdate.trim(), "YYYY-MM-DD").isValid() == false || dayjs(birthdate.trim()).isAfter(dayjs())) {
             throw new ArrivalDateError;
         }
+        /* User.role cannot have a value other than "Manager", "Customer" or "Admin" since it is an enum
         else if (["Manager", "Customer", "Admin"].includes(user.role.trim()) == false) {
             throw new InvalidRoleError(user.role);
         }
+        */
         else if (user.username.trim() == username.trim()) {
             return this.dao.updateUser(username.trim(), name.trim(), surname.trim(), address.trim(), birthdate.trim());
         }
