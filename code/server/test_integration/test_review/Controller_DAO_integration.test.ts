@@ -9,12 +9,11 @@ const Controller = new ReviewController();
 const Utente1 = new User("Ale1", "Ale", "Mosca", Role.CUSTOMER, "amosca502@gmail.com", "2001-12-06");
 const Utente2 = new User("Ale2", "Ale", "Mosca", Role.CUSTOMER, "amosca502@gmail.com", "2001-12-06");
 
-beforeAll(async () => {
-    await ProductDao.prototype.registerProducts("Model", "Laptop", 32, null, 34, "");
-    await ProductDao.prototype.registerProducts("Model2", "Laptop", 32, null, 34, "");
-})
-afterAll(async () => { await ProductDao.prototype.deleteAllProducts(); })
-afterEach(async () => { await Controller.deleteAllReviews(); })
+beforeAll(async()=>{
+    await ProductDao.prototype.registerProducts("Model","Laptop",32,null,34,null as any);
+    await ProductDao.prototype.registerProducts("Model2","Laptop",32,null,34,null as any);})
+afterAll(async()=>{await ProductDao.prototype.deleteAllProducts();})
+afterEach(async()=>{await Controller.deleteAllReviews();})
 
 /* *********************************************** *
 * Integration test for the addReview method *    
