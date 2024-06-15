@@ -61,8 +61,9 @@ test("It should return UserAlreadyExistsError for creating a user with an existi
     expect(UserController.prototype.createUser).toHaveBeenCalledTimes(1)
 })
 
-// Test for retrieving all users
-
+/* ********************************************* *
+ *     Test for the getUsers method     *
+ * ********************************************* */
 test("It should raise an error", async () => {
     jest.spyOn(UserController.prototype, "getUsers").mockRejectedValue(new Error());
     jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementationOnce((req, res, next) => next());
@@ -116,8 +117,9 @@ test("It should return a 401 error code for retrieving all users without admin p
     expect(Authenticator.prototype.isAdmin).toHaveBeenCalledTimes(1)
 })
 
-// Test for retrieving users by role
-
+/* ********************************************* *
+ *     Test for the getUsersByRole method     *
+ * ********************************************* */
 test("It should raise an error", async () => {
     jest.spyOn(UserController.prototype, "getUsersByRole").mockRejectedValue(new Error());
     jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementationOnce((req, res, next) => next());
@@ -183,8 +185,9 @@ test("It should return an array of users for retrieving users by role", async ()
     expect(UserController.prototype.getUsersByRole).toHaveBeenCalledWith("Customer")
 })
 
-// Test for retrieving a user by username
-
+/* ********************************************* *
+ *     Test for the getUserByUsername method     *
+ * ********************************************* */
 test("It should raise an error", async () => {
     jest.spyOn(UserController.prototype, "getUserByUsername").mockRejectedValue(new Error());
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementationOnce((req, res, next) => next());
