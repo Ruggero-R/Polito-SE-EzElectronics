@@ -254,12 +254,129 @@ This table describes the tests that provide reports for the ProductDAO class
 
 ## Cart
 
-This table describes the tests that provide reports for the Cart class
+This table describes the tests that provide reports for the Cart DAO class
+
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+| It should create a cart | createCart method  | Unit       | WB/statement coverage |
+| It should throw an error if a cart for the user already exists | createCart method | " | " |
+| It should throw an error if GET query  fails | createCart method | " | " |
+| It should throw an error if RUN quey fails | createCart method | " | " |
+|It should throw an error if an error is thrown in the try block | createCart method | " | " |
+| It should return a cart with items if the cart exists and has items | getActiveCartByUserId method | Unit | WB/statement coverage |
+| It should return a cart without items if the cart exists but has no items | getActiveCartByUserId method | " | " |
+| It should return an empty cart if the cart does not exist | getActiveCartByUserId method | " | " |
+| It should throw an error if database fails | getActiveCartByUserId method | " | " |
+| It should throw an error if database fails | getActiveCartByUserId method | " | " |
+| It should throw an error if an error is thrown in the try block | getActiveCartByUserId method | " | " |
+| It should return true if the user has an active cart | userHasActiveCart method | Unit | WB/statement coverage |
+| It should return false if the user does not have an active cart | userHasActiveCart method | " | " |
+| It should throw an error if database fails | userHasActiveCart method | " | " |
+| It should throw an error if an error is thrown in the try block | userHasActiveCart method | " | " |
+| It should add a new product to the existing cart of the user      | addProductToCart method | Unit       | WB/statement coverage    |
+| It should add a new product to a new cart of the user             | addProductToCart method | "          | "                        |
+| It should increment product quantity in the cart of the user      | addProductToCart method | "          | "                        |
+| It should throw an error if the product is not in the database   | addProductToCart method | "       | "    |
+| It should throw an error if the product is out of stock          | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails checking the product model | addProductToCart method | "          | "                        |
+| It should throw an error if the quantity of the product in the cart exceeds the stock | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails checking the product price | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails creating a new cart | addProductToCart method | "       | "    |
+| It should throw an error if the database fails updating the newly created cart | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails creating a new Cart | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails checking if the user has already the product in the cart | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails checking the quantity of the product in the cart | addProductToCart method | "       | "    |
+| It should throw an error if the database fails updating the quantity of the product in the cart | addProductToCart method | "          | "                        |
+| It should throw an error if the updateCartItem method fails       | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails inserting the product into the cart | addProductToCart method | "          | "                        |
+| It should throw an error if the database fails updating the cart | addProductToCart method | "       | "    |
+| It should throw an error if the userHasActiveCart method fails   | addProductToCart method | "          | "                        |
+| It should throw an error if an error is thrown in the try block  | addProductToCart method | "          | "                        |
+| It should update the quantity of the product in cart | updateCartItem method | Unit       | WB/statement coverage    |
+| It should throw an error if database fails           | updateCartItem method | "          | "                        |
+| It should throw an error if an error in try block    | updateCartItem method | "          | "                        |
+| It should update the total of the cart    | updateCartTotal method | Unit       | WB/statement coverage|
+| It should throw an error if database fails| updateCartTotal method | "          | "                    |
+| It should throw an error if an error in try block | updateCartTotal method | "          | "                    |
+| It should checkout the cart of the user                      | checkoutCart method            | "       | " |
+| It should throw an error if the cart is not found           | checkoutCart method            | "       | " |
+| It should throw an error if database fails                  | checkoutCart method            | "       | " |
+| It should throw an error if an error is thrown in the try block | checkoutCart method               | "       | "              |
+| It should throw an error if the cart is empty                  | checkoutCart method               | "       | "              |
+| It should throw an error if the databse fails                 | checkoutCart method               | "       | "              |
+| It should throw an error if there are not products in the stock anymore | checkoutCart method               | "       | "              |
+| It should throw an error if the product is not in the cart     | checkoutCart method               | "       | "              |
+| It should throw an error if the product quantity in the cart is greater than the stock | checkoutCart method               | "          | "                     |
+| It should throw an error if the database fails updating the product quantity | checkoutCart method               | "          | "                     |
+| It should throw an error if the database fails updating the cart as paid | checkoutCart method               | "          | "                     |
+| It should throw an error if the database fails checking the product availability | checkoutCart method               | "          | "                     |
+| It should throw an error if the database fails checking the product quantity in the cart | checkoutCart method               | "          | "                     |
+| It should throw an error if the product is not in the cart            | checkoutCart method               | "          | "                     |
+| It should remove the product from the cart of the user                | removeProductFromCart method      | Unit          | WB/statement coverage                     |
+| It should throw an error if the product is not in the database        | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the database fails to retrieve the model  | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the cart is not found                     | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the database fails to retrieve the cart   | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the cart is empty                         | removeProductFromCart method      | "          | "                     |
+| It should remove the product from the cart of the user                | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the product is not in the database        | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the database fails to retrieve the model  | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the cart is not found                     | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the database fails to retrieve the cart items | removeProductFromCart method   | "          | "                     |
+| It should throw an error if the product is not in the cart            | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the database fails to retrieve the product | removeProductFromCart method     | "          | "                     |
+| It should throw an error if the database fails to delete the product  | removeProductFromCart method      | "          | "                     |
+| It should throw an error if the database fails to update the cart total | removeProductFromCart method     | "          | "                     |
+| It should throw an error if an error is thrown in the try block       | removeProductFromCart method      | "          | "                     |
+| It should clear the cart of the user | clearCart method | Unit | WB/statement coverage |
+| It should throw an error if the cart is not found | clearCart method | Unit | " |
+| It should throw an error if database fails | clearCart method | Unit | " |
+| It should throw an error if an error is thrown in the try block | clearCart method | Unit | " |
+| It should throw an error if the database fails to delete the cart items | clearCart method | Unit | " |
+| It should throw an error if the database fails to update the cart total | clearCart method | Unit | " |
+| It should delete all carts | deleteAllCarts method | Unit | WB/statement coverage |
+| It should throw an error if database fails | deleteAllCarts method | Unit | " |
+| It should throw an error if an error is thrown in the try block | deleteAllCarts method | Unit | " |
+| It should retrieve all carts successfully | getAllCarts method | Unit | WB/statement coverage |
+| It should throw an error if database fails to retrieve the carts | getAllCarts method | Unit | " |
+| It should throw an error if an error is thrown in the try block | getAllCarts method | Unit | " |
+| It should retrieve all carts of a customer successfully | getCustomerCarts method | Unit | WB/statement coverage |
+| It should throw an error if database fails to retrieve the carts | getCustomerCarts method | Unit | " |
+| It should throw an error if an error is thrown in the try block | getCustomerCarts method | Unit | " |
+| It should return a cart with items if the cart exists and has items           | `cartDAO.getActiveCartByUserId`       | Integration | Mocking         |
+| It should return a cart without items if the cart exists but has no items     | `cartDAO.getActiveCartByUserId`       | Integration | Mocking         |
+| It should return an empty cart if the cart does not exist                     | `cartDAO.getActiveCartByUserId`       | Integration | Mocking         |
+| It should return true if the user has an active cart           | `cartDAO.userHasActiveCart`   | Integration  | Mocking            |
+| It should return false if the user does not have an active cart| `cartDAO.userHasActiveCart`   | Integration  | Mocking            |
+| It should add a new product to the existing cart of the user                    | `cartDAO.addProductToCart`    | Integration  | Mocking            |
+| It should add a new product to a new cart of the user                            | `cartDAO.addProductToCart`    | Integration  | Mocking            |
+| It should increment product quantity in the cart of the user                     | `cartDAO.addProductToCart`    | Integration  | Mocking            |
+| It should throw an error if the product is not in the database                  | `cartDAO.addProductToCart`    | Integration  | Error handling     |
+| It should throw an error if the quantity of the product in the cart exceeds stock| `cartDAO.addProductToCart`    | Integration  | Error handling     |
+| It should update the quantity of the product in the cart         | `cartDAO.updateCartItem`             | Integration  | Mocking            |
+| It should update the total of the cart                           | `cartDAO.updateCartTotal`            | Integration  | Mocking            |
+| It should checkout the cart of the user                          | `cartDAO.checkoutCart`               | Integration  | Mocking            |
+| It should throw an error if the cart is not found                | `cartDAO.checkoutCart`               | Integration  | Error handling     |
+| It should throw an error if the cart is empty                    | `cartDAO.checkoutCart`               | Integration  | Error handling     |
+| It should throw an error if there are no products in stock anymore| `cartDAO.checkoutCart`               | Integration  | Error handling     |
+| It should throw an error if the product is not in the cart       | `cartDAO.checkoutCart`               | Integration  | Error handling     |
+| It should throw an error if the product quantity exceeds stock    | `cartDAO.checkoutCart`               | Integration  | Error handling     |
+| It should remove the product from the cart of the user           | `cartDAO.removeProductFromCart`      | Integration  | Mocking            |
+| It should throw an error if the product is not in the database   | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
+| It should throw an error if the cart is not found                | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
+| It should throw an error if the cart is empty                    | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
+| It should throw an error if the product is not in the cart       | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
+| It should clear the cart of the user                             | `cartDAO.clearCart`                  | Integration  | Mocking            |
+| It should throw an error if the cart is not found                | `cartDAO.clearCart`                  | Integration  | Error handling     |
+| It should delete all carts                                       | `cartDAO.deleteAllCarts`             | Integration  | Mocking            |
+| It should retrieve all carts successfully                        | `cartDAO.getAllCarts`                | Integration  | Mocking            |
+| It should retrieve all carts of a customer successfully          | `cartDAO.getCustomerCarts`           | Integration  | Mocking            |
+
+This table describes the tests that provide reports for the Cart Controller class
 
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
 |                |                  |            |                |
-
 ## Review
 
 This table describes the tests that provide reports for the Review class

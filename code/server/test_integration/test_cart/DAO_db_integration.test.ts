@@ -36,11 +36,11 @@ afterEach(async () => {
     await cartDAO.deleteAllCarts();
 });
 
-describe("Unit test for the cartDAO class", () => {
+describe("Integration testfor the cartDAO class", () => {
     /* ********************************************** *
-     *    Unit test for the createCart method    *
+     *    Integration testfor the createCart method    *
      * ********************************************** */
-    describe("Unit test for the createCart method", () => {
+    describe("Integration testfor the createCart method", () => {
         test("It should create a cart", async () => {
             await expect(cartDAO.createCart("customer")).resolves.toBeUndefined();
         });
@@ -55,9 +55,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the getActiveCartByUserId method    *
+     *    Integration testfor the getActiveCartByUserId method    *
      * ********************************************** */
-    describe("Unit test for the getActiveCartByUserId method", () => {
+    describe("Integration testfor the getActiveCartByUserId method", () => {
         test("It should return a cart with items if the cart exists and has items", async () => {
             await cartDAO.createCart("customer");
 
@@ -86,9 +86,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the userHasActiveCart method  *
+     *    Integration testfor the userHasActiveCart method  *
      * ********************************************** */
-    describe("Unit test for the userHasActiveCart method", () => {
+    describe("Integration testfor the userHasActiveCart method", () => {
         test("It should return true if the user has an active cart", async () => {
             await cartDAO.createCart("customer");
             const result = await cartDAO.userHasActiveCart("customer");
@@ -102,9 +102,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the addProductToCart method   *
+     *    Integration testfor the addProductToCart method   *
      * ********************************************** */
-    describe("Unit test for the addProductToCart method", () => {
+    describe("Integration testfor the addProductToCart method", () => {
         test("It should add a new product to the exisisting cart of the user", async () => {
             await cartDAO.createCart("customer");;
             await expect(
@@ -159,9 +159,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the updateCartItem method    *
+     *    Integration testfor the updateCartItem method    *
      * ********************************************** */
-    describe("Unit test for the updateCartItem method", () => {
+    describe("Integration testfor the updateCartItem method", () => {
         test("It should update the quantity of the product in the cart", async () => {
             await cartDAO.createCart("customer");
             await expect(
@@ -171,9 +171,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the updateCartTotal method    *
+     *    Integration testfor the updateCartTotal method    *
      * ********************************************** */
-    describe("Unit test for the updateCartTotal method", () => {
+    describe("Integration testfor the updateCartTotal method", () => {
         test("It should update the total of the cart", async () => {
             await cartDAO.createCart("customer");
             await expect(cartDAO.updateCartTotal("customer", 30.0)).resolves.toBe(
@@ -183,9 +183,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the checkoutCart method    *
+     *    Integration testfor the checkoutCart method    *
      * ********************************************** */
-    describe("Unit test for the checkoutCart method", () => {
+    describe("Integration testfor the checkoutCart method", () => {
         test("It should checkout the cart of the user", async () => {
             await cartDAO.createCart("customer");
             await cartDAO.addProductToCart("customer", "product1");
@@ -241,9 +241,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the removeProductFromCart method    *
+     *    Integration testfor the removeProductFromCart method    *
      * ********************************************** */
-    describe("Unit test for the removeProductFromCart method", () => {
+    describe("Integration testfor the removeProductFromCart method", () => {
         test("It should remove the product from the cart of the user", async () => {
             await cartDAO.createCart("customer");
             await cartDAO.addProductToCart("customer", "product1");
@@ -285,9 +285,9 @@ describe("Unit test for the cartDAO class", () => {
     });
 
     /* ********************************************** *
-     *    Unit test for the clearCart method    *
+     *    Integration testfor the clearCart method    *
      * ********************************************** */
-    describe("Unit test for the clearCart method", () => {
+    describe("Integration testfor the clearCart method", () => {
         test("It should clear the cart of the user", async () => {
             await cartDAO.createCart("customer");
             await cartDAO.addProductToCart("customer", "product1");
@@ -302,18 +302,18 @@ describe("Unit test for the cartDAO class", () => {
 
     });
     /* ********************************************** *
-     *    Unit test for the deleteAllCarts method    *
+     *    Integration testfor the deleteAllCarts method    *
      * ********************************************** */
-    describe("Unit test for the deleteAllCarts method", () => {
+    describe("Integration testfor the deleteAllCarts method", () => {
         test("It should delete all carts", async () => {
             await cartDAO.createCart("customer");
             await expect(cartDAO.deleteAllCarts()).resolves.toBe(true);
         });
     });
     /* ********************************************** *
-     *    Unit test for the getAllCarts method    *
+     *    Integration testfor the getAllCarts method    *
      * ********************************************** */
-    describe("Unit test for the getAllCarts method", () => {
+    describe("Integration testfor the getAllCarts method", () => {
         test("It should retrieve all carts successfully", async () => {
             await cartDAO.createCart("customer");
             await cartDAO.addProductToCart("customer", "product1");
@@ -328,9 +328,9 @@ describe("Unit test for the cartDAO class", () => {
         });
     });
     /* ********************************************** *
-     *   Unit test for the getCustomerCarts method    *
+     *   Integration testfor the getCustomerCarts method    *
      * ********************************************** */
-    describe("Unit test for the getCustomerCarts method", () => {
+    describe("Integration testfor the getCustomerCarts method", () => {
         test("It should retrieve all carts of a customer successfully", async () => {
             await cartDAO.createCart("customer");
             await cartDAO.addProductToCart("customer", "product1");
