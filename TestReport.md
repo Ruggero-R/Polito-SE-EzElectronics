@@ -9,6 +9,10 @@
 - [Dependency graph](#dependency-graph)
 - [Integration approach](#integration-approach)
 - [Tests](#tests)
+  - [User](#user)
+  - [Product](#product)
+  - [Cart](#cart)
+  - [Review](#review)
 - [Coverage](#coverage)
   - [Coverage of FR](#coverage-of-fr)
   - [Coverage white box](#coverage-white-box)
@@ -177,11 +181,76 @@ This table describes the tests that provide reports for the UserRoute class
 
 ## Product
 
-This table describes the tests that provide reports for the Product class
+This table describes the tests that provide reports for the ProductDAO class
 
-| Test case name | Object(s) tested | Test level | Technique used |
-| :------------: | :--------------: | :--------: | :------------: |
-|                |                  |            |                |
+| Test case name               | Object(s) tested       | Test level | Technique used        |
+| :--------------------------: | :--------------------: | :--------: | :-------------------: |
+| It should register a product | registerProduct method | Unit       | WB/statement coverage |
+| It should throw an error if product already exists | "  | "  | " |
+| It should register a product without details | " | " | " |
+| It should register a prodcut without arrival date | " | " | " |
+| It should throw an error if database fails | " | " | " |
+| It should throw an error if an error is thrown in the try block | " | " | " |
+| It should change the product quantity                    | changeProductQuantity method | Unit       | WB/statement coverage |
+| It should change the product quantity if the changeDate is not specified | " | " | " |
+| It should throw an error if product not found            | " | " | " |
+| It should throw an error if change date is before the arrival date | " | " | " |
+| It should throw an error if change date is after the current date | " | " | " |
+| It should throw an error if the database fails to recover the requested model | " | " | " |
+| It should throw an error if the database fails to update the product quantity | " | " | " |
+| It should throw an error if an error is thrown in the try block | " | " | " |
+| It should sell a product                                 | sellProduct method     | Unit       | WB/statement coverage |
+| It should sell a product if the sellingDate is not specified | " | " | " |
+| It should throw an error if product not found            | " | " | " |
+| It should throw an error if the product stock is already 0 | " | " | " |
+| It should throw an error if the quantity to sell is greater than the stock | " | " | " |
+| It should throw an error if sell date is before the arrival date | " | " | " |
+| It should throw an error if sell date is after the current date | " | " | " |
+| It should throw an error if the database fails to recover the requested model | " | " | " |
+| It should throw an error if the database fails to update the product quantity | " | " | " |
+| It should throw an error if an error is thrown in the try block | " | " | " |
+| It should get all products in the database if the three parameters are null   | getProducts method | Unit       | WB/statement coverage |
+| It should get all products in the database if the grouping is 'category' and the category is valid | " | " | " |
+| It should get all products in the database if the grouping is 'model' and the model is valid | " | " | " |
+| It should throw a FiltersError if grouping is null and category or model is provided | " | " | " |
+| It should throw a FiltersError if grouping is 'category' and category is not provided or model is provided | " | " | " |
+| It should throw a FiltersError if grouping is 'model' and model is not provided or category is provided | " | " | " |
+| It should throw a FiltersError if grouping is not 'category', 'model', null, or undefined | " | " | " |
+| It should throw a ProductNotFoundError if no product is found for the given model | " | " | " |
+| It should throw an Error if the database fails to get the products (get method) | " | " | " |
+| It should throw an Error if the database fails to get the products (all method) | " | " | " |
+| It should throw an Error if an error is thrown in the try block                | " | " | " |
+| It should get all available products in the database if the three parameters are null           | getAvailableProducts method | Unit       | WB/statement coverage |
+| It should get all available products in the database if the grouping is 'category' and the category is valid | "                       | "          | "                     |
+| It should get the available product in the database if the grouping is 'model' and the model is valid | "                        | "          | "                     |
+| It should throw a FiltersError if grouping is null and category or model is provided            | "                        | "          | "                     |
+| It should throw a FiltersError if grouping is 'category' and category is not provided or model is provided | "                      | "          | "                     |
+| It should throw a FiltersError if grouping is 'model' and model is not provided or category is provided | "                        | "          | "                     |
+| It should throw a FiltersError if grouping is not 'category', 'model', null, or undefined       | "                        | "          | "                     |
+| It should throw a ProductNotFoundError if no product is found for the given model               | "                        | "          | "                     |
+| It should throw an Error if the database fails to get the products (get method)                 | "                        | "          | "                     |
+| It should throw an Error if the database fails to get the products (all method)                 | "                        | "          | "                     |
+| It should throw an Error if an error is thrown in the try block                                 | "                        | "          | "                     |
+| It should throw an EmptyProductStockError if the requested model is out of stock                | "                        | "          | "                     |
+| It should delete all products | deleteAllProducts method | Unit       | WB/statement coverage |
+| It should throw an Error if the database fails to delete the products | " | " | " |
+| It should throw an Error if an error is thrown in the try block | " | " | " |
+| It should delete the product if the model is valid                    | deleteProduct method  | Unit       | WB/statement coverage |
+| It should throw a ProductNotFoundError if the model is not found      | "   | " | " |
+| It should throw an Error if the database fails to get the product     | "  | " | " |
+| It should throw an Error if the database fails to delete the product  | "  | " | " |
+| It should throw an Error if an error is thrown in the try block       | "  | " | " |
+
+
+
+
+
+
+
+
+
+
+
 
 ## Cart
 
