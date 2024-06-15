@@ -343,40 +343,117 @@ This table describes the tests that provide reports for the Cart DAO class
 | It should retrieve all carts of a customer successfully | getCustomerCarts method | Unit | WB/statement coverage |
 | It should throw an error if database fails to retrieve the carts | getCustomerCarts method | Unit | " |
 | It should throw an error if an error is thrown in the try block | getCustomerCarts method | Unit | " |
-| It should return a cart with items if the cart exists and has items           | `cartDAO.getActiveCartByUserId`       | Integration | Mocking         |
-| It should return a cart without items if the cart exists but has no items     | `cartDAO.getActiveCartByUserId`       | Integration | Mocking         |
-| It should return an empty cart if the cart does not exist                     | `cartDAO.getActiveCartByUserId`       | Integration | Mocking         |
-| It should return true if the user has an active cart           | `cartDAO.userHasActiveCart`   | Integration  | Mocking            |
-| It should return false if the user does not have an active cart| `cartDAO.userHasActiveCart`   | Integration  | Mocking            |
-| It should add a new product to the existing cart of the user                    | `cartDAO.addProductToCart`    | Integration  | Mocking            |
-| It should add a new product to a new cart of the user                            | `cartDAO.addProductToCart`    | Integration  | Mocking            |
-| It should increment product quantity in the cart of the user                     | `cartDAO.addProductToCart`    | Integration  | Mocking            |
+| It should return a cart with items if the cart exists and has items           | `cartDAO.getActiveCartByUserId`       | Integration | Black Box         |
+| It should return a cart without items if the cart exists but has no items     | `cartDAO.getActiveCartByUserId`       | Integration | Black Box         |
+| It should return an empty cart if the cart does not exist                     | `cartDAO.getActiveCartByUserId`       | Integration | Black Box         |
+| It should return true if the user has an active cart           | `cartDAO.userHasActiveCart`   | Integration  | Black Box            |
+| It should return false if the user does not have an active cart| `cartDAO.userHasActiveCart`   | Integration  | Black Box            |
+| It should add a new product to the existing cart of the user                    | `cartDAO.addProductToCart`    | Integration  | Black Box            |
+| It should add a new product to a new cart of the user                            | `cartDAO.addProductToCart`    | Integration  | Black Box            |
+| It should increment product quantity in the cart of the user                     | `cartDAO.addProductToCart`    | Integration  | Black Box            |
 | It should throw an error if the product is not in the database                  | `cartDAO.addProductToCart`    | Integration  | Error handling     |
 | It should throw an error if the quantity of the product in the cart exceeds stock| `cartDAO.addProductToCart`    | Integration  | Error handling     |
-| It should update the quantity of the product in the cart         | `cartDAO.updateCartItem`             | Integration  | Mocking            |
-| It should update the total of the cart                           | `cartDAO.updateCartTotal`            | Integration  | Mocking            |
-| It should checkout the cart of the user                          | `cartDAO.checkoutCart`               | Integration  | Mocking            |
+| It should update the quantity of the product in the cart         | `cartDAO.updateCartItem`             | Integration  | Black Box            |
+| It should update the total of the cart                           | `cartDAO.updateCartTotal`            | Integration  | Black Box            |
+| It should checkout the cart of the user                          | `cartDAO.checkoutCart`               | Integration  | Black Box            |
 | It should throw an error if the cart is not found                | `cartDAO.checkoutCart`               | Integration  | Error handling     |
 | It should throw an error if the cart is empty                    | `cartDAO.checkoutCart`               | Integration  | Error handling     |
 | It should throw an error if there are no products in stock anymore| `cartDAO.checkoutCart`               | Integration  | Error handling     |
 | It should throw an error if the product is not in the cart       | `cartDAO.checkoutCart`               | Integration  | Error handling     |
 | It should throw an error if the product quantity exceeds stock    | `cartDAO.checkoutCart`               | Integration  | Error handling     |
-| It should remove the product from the cart of the user           | `cartDAO.removeProductFromCart`      | Integration  | Mocking            |
+| It should remove the product from the cart of the user           | `cartDAO.removeProductFromCart`      | Integration  | Black Box            |
 | It should throw an error if the product is not in the database   | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
 | It should throw an error if the cart is not found                | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
 | It should throw an error if the cart is empty                    | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
 | It should throw an error if the product is not in the cart       | `cartDAO.removeProductFromCart`      | Integration  | Error handling     |
-| It should clear the cart of the user                             | `cartDAO.clearCart`                  | Integration  | Mocking            |
+| It should clear the cart of the user                             | `cartDAO.clearCart`                  | Integration  | Black Box            |
 | It should throw an error if the cart is not found                | `cartDAO.clearCart`                  | Integration  | Error handling     |
-| It should delete all carts                                       | `cartDAO.deleteAllCarts`             | Integration  | Mocking            |
-| It should retrieve all carts successfully                        | `cartDAO.getAllCarts`                | Integration  | Mocking            |
-| It should retrieve all carts of a customer successfully          | `cartDAO.getCustomerCarts`           | Integration  | Mocking            |
+| It should delete all carts                                       | `cartDAO.deleteAllCarts`             | Integration  | Black Box            |
+| It should retrieve all carts successfully                        | `cartDAO.getAllCarts`                | Integration  | Black Box            |
+| It should retrieve all carts of a customer successfully          | `cartDAO.getCustomerCarts`           | Integration  | Black Box            |
 
 This table describes the tests that provide reports for the Cart Controller class
 
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
-|                |                  |            |                |
+| It should resolve | `Controller.addToCart` | Unit | WB/statement coverage |
+| It should reject due a model not given | `Controller.addToCart` | Unit | WB/statement coverage |
+| It should reject due to a user not given | `Controller.addToCart` | Unit | WB/statement coverage |
+| It should resolve                      | `Controller.getCart`                    | Unit       | WB/statement coverage |
+| It should reject due to a user not given | `Controller.getCart`                    | Unit       | WB/statement coverage |
+| It should resolve                      | `Controller.checkoutCart`                | Unit       | WB/statement coverage |
+| It should reject due to a user not given | `Controller.checkoutCart`                | Unit       | WB/statement coverage |
+| It should resolve                      | `Controller.getCustomerCarts`            | Unit       | WB/statement coverage |
+| It should reject due to a user not given | `Controller.getCustomerCarts`            | Unit       | WB/statement coverage |
+| It should resolve                      | `Controller.removeProductFromCart`       | Unit       | WB/statement coverage |
+| It should reject due a model not given | `Controller.removeProductFromCart`       | Unit       | WB/statement coverage |
+| It should reject due to a user not given | `Controller.removeProductFromCart`       | Unit       | WB/statement coverage |
+| It should resolve                      | `Controller.clearCart`                   | Unit       | WB/statement coverage |
+| It should reject due to a user not given | `Controller.clearCart`                   | Unit       | WB/statement coverage |
+| It should resolve                      | `Controller.deleteAllCarts`              | Unit       | WB/statement coverage |
+| It should resolve                      | `Controller.getAllCarts`                 | Unit       | WB/statement coverage |
+| It should resolve | `Controller.addToCart` | Integration | Black Box |
+| It should reject due a model not given | `Controller.addToCart` | Integration | Black Box |
+| It should reject due to a user not given | `Controller.addToCart` | Integration | Black Box |
+| It should resolve                        | `Controller.getCart`                      | Integration  | Black Box      |
+| It should reject due to a user not given | `Controller.getCart`                      | Integration  | Black Box      |
+| It should resolve                        |`Controller.checkoutCart` | Integration         | Black Box      |
+| It should reject due to a user not given | `Controller.checkoutCart`                 | Integration         | Black Box      |
+| It should resolve                        | `Controller.getCustomerCarts` | Integration | Black Box      |
+| It should reject due to a user not given | `Controller.getCustomerCarts`             | Integration | Black Box      |
+| It should resolve                        | `Controller.removeProductFromCart` | Integration       | Black Box      |
+| It should reject due a model not given   | `Controller.removeProductFromCart`        | Integration       | Black Box      |
+| It should reject due to a user not given |  `Controller.clearCart` | Integration       | Black Box      |
+| It should resolve                        | `Controller.deleteAllCarts`               | Integration       | Black Box      |
+| It should resolve                        | `Controller.getAllCarts` | Integration       | Black Box      |
+
+This table describes the tests that provide reports for the Carts Route class
+
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+| It should return 200 | `GET /carts` | Unit | Mocking |
+| It should return an Empty cart | `GET /carts` | Unit | Mocking |
+| It should return a 401 if the user is not a customer | `GET /carts` | Unit | Mocking/Error handling |
+| It should raise an error | `GET /carts` | Unit | Mocking/Error handling |
+| It should return 200 | `POST /carts` | Unit | Mocking |
+| It should return a 401 if the user is not a customer | `POST /carts` | Unit | Mocking/Error handling |
+| It should raise an error | `POST /carts` | Unit | Mocking/Error handling |
+| It should return a 422 if the model is not provided | `POST /carts` | Unit | Mocking/Validation |
+| It should return a 422 if the model is not a string | `POST /carts` | Unit | Mocking/Validation |
+| It should return a 422 if the model is an empty string | `POST /carts` | Unit | Mocking/Validation |
+| It should return a 422 if the model is a white space | `POST /carts` | Unit | Mocking/Validation |
+| It should return a 404 if the model does not represent an existing product | `POST /carts` | Unit | Mocking/Error handling |
+| It should return a 400 if the model's available quantity is 0 | `POST /carts` | Unit | Mocking/Error handling |
+| It should return 200 | `PATCH /carts` | Unit | Mocking |
+| It should return a 401 if the user is not a customer | `PATCH /carts` | Unit | Mocking/Error handling |
+| It should raise an error | `PATCH /carts` | Unit | Mocking/Error handling |
+| It should return a 404 error if there is no information about an unpaid cart in the database | `PATCH /carts` | Unit | Mocking/Error handling |
+| It should return a 400 error if there is information about an unpaid cart but the cart contains no product | `PATCH /carts` | Unit | Mocking/Error handling |
+| It should return a 409 error if there is at least one product in the cart whose available quantity in the stock is 0 | `PATCH /carts` | Unit | Mocking/Error handling |
+| It should return a 409 error if there is at least one product in the cart whose quantity is higher than the available quantity in the stock | `PATCH /carts` | Unit | Mocking/Error handling |
+| It should return 200 | `GET /carts/history` | Unit | Mocking |
+| It should return a 401 if the user is not a customer | `GET /carts/history` | Unit | Mocking/Error handling |
+| It should raise an error | `GET /carts/history` | Unit | Mocking/Error handling |
+| It should return 200 | `DELETE /carts/products/:model` | Unit | Mocking |
+| It should return a 401 if the user is not a customer | `DELETE /carts/products/:model` | Unit | Mocking/Error handling |
+| It should raise an error | `DELETE /carts/products/:model` | Unit | Mocking/Error handling |
+| It should return a 422 error if the model is not a string | `DELETE /carts/products/:model` | Unit | Mocking/Validation |
+| It should return a 404 error if the model is an empty string | `DELETE /carts/products/:model` | Unit | Mocking/Validation |
+| It should return a 404 error if model represents a product that is not in the cart | `DELETE /carts/products/:model` | Unit | Mocking/Error handling |
+| It should return a 404 error if there is no information about an unpaid cart for the user | `DELETE /carts/products/:model` | Unit | Mocking/Error handling |
+| It should return a 404 error if there is such information but there are no products in the cart | `DELETE /carts/products/:model` | Unit | Mocking/Error handling |
+| It should return a 404 error if model does not represent an existing product | `DELETE /carts/products/:model` | Unit | Mocking/Error handling |
+| It should return 200 | `DELETE /carts/current` | Unit | Mocking |
+| It should return a 401 if the user is not a customer | `DELETE /carts/current` | Unit | Mocking/Error handling |
+| It should raise an error | `DELETE /carts/current` | Unit | Mocking/Error handling |
+| It should return a 404 error if there is no information about an unpaid cart for the user | `DELETE /carts/current` | Unit | Mocking/Error handling |
+| It should return 200 | `DELETE /carts` | Unit | Mocking |
+| It should return a 401 if the user is not an admin or manager | `DELETE /carts` | Unit | Mocking/Error handling |
+| It should raise an error | `DELETE /carts` | Unit | Mocking/Error handling |
+| It should return 200 | `GET /carts/all` | Unit | Mocking |
+| It should return a 401 if the user is not an admin or manager | `GET /carts/all` | Unit | Mocking/Error handling |
+| It should raise an error | `GET /carts/all` | Unit | Mocking/Error handling |
+
 ## Review
 
 This table describes the tests that provide reports for the Review class
