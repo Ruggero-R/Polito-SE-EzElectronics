@@ -1,14 +1,10 @@
 import UserController from "../../src/controllers/userController";
-import { expect, afterEach, beforeEach, describe, test, afterAll } from '@jest/globals';
+import { expect, afterEach, beforeEach, describe, test, beforeAll } from '@jest/globals';
 import db from '../../src/db/db';
+import { cleanup } from "../../src/db/cleanup";
 import {
     InvalidParametersError,
     UserAlreadyExistsError,
-    UserIsAdminError,
-    UserNotFoundError,
-    UserNotManagerError,
-    UserNotCustomerError,
-    UserNotAdminError,
     UnauthorizedUserError,
     InvalidRoleError
 } from '../../src/errors/userError';
@@ -17,28 +13,18 @@ import { Role, User } from '../../src/components/user';
 describe('User Controller Integration Tests', () => {
     let controller: UserController;
 
-    afterEach((done) => {
-        controller = new UserController();
-        db.serialize(() => {
-            db.run('DELETE FROM users', (err) => {
-                if (err) {
-                    console.log(err);
-                }
-                done();
-            });
-        });
+    beforeAll(() => {
+        cleanup();
     });
 
     beforeEach((done) => {
         controller = new UserController();
-        db.serialize(() => {
             db.run('DELETE FROM users', (err) => {
                 if (err) {
                     console.log(err);
                 }
                 done();
             });
-        });
     });
 
     const u1 = new User("username1", "Name1", "Surname1", Role.CUSTOMER, "Address1", "2001-01-01");

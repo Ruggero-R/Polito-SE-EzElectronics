@@ -4,7 +4,7 @@ import {
   describe,
   test,
   beforeEach,
-  afterAll,
+  beforeAll,
   afterEach,
 } from "@jest/globals";
 import db from "../../src/db/db";
@@ -17,6 +17,7 @@ import {
 } from "../../src/errors/reviewError";
 import { User, Role } from "../../src/components/user";
 import dayjs from "dayjs";
+import { cleanup } from "../../src/db/cleanup";
 
 const RevDAO = new ReviewDao();
 const Utente1 = new User(
@@ -35,6 +36,10 @@ const Utente2 = new User(
   "amosca502@gmail.com",
   "2001-12-06"
 );
+
+beforeAll(() => {
+  cleanup();
+});
 
 beforeEach(async () => {
   await RevDAO.deleteAllReviews();
@@ -56,6 +61,7 @@ beforeEach(async () => {
     null as any
   );
 });
+
 
 function Get() {
   return new Promise((resolve, reject) => {

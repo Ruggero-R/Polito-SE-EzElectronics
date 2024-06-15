@@ -1,13 +1,15 @@
-import { describe, test, expect, jest, afterEach } from "@jest/globals"
+import { describe, test, expect, jest, afterEach, beforeAll } from "@jest/globals"
 import request from 'supertest'
 import { app } from "../../index"
 import Authenticator from "../../src/routers/auth"
 import ReviewDAO from "../../src/dao/reviewDAO"
 import { ExistingReviewError, InvalidParametersError, NoReviewProductError, ProductNotFoundError } from "../../src/errors/reviewError"
+import { cleanup } from "../../src/db/cleanup"
 
 const baseURL="/ezelectronics";
 jest.mock("../../src/routers/auth");
 afterEach(()=>{jest.resetAllMocks();})
+beforeAll(() => {cleanup();})
 
 /* ********************************************** *
  *    Integration test for the addReview route    *   COME MOCKO USER?

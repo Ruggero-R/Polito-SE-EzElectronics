@@ -4,7 +4,7 @@ import {
   expect,
   jest,
   beforeEach,
-  afterAll,
+  beforeAll,
 } from "@jest/globals";
 import request from "supertest";
 import { app } from "../../index";
@@ -29,7 +29,7 @@ beforeEach((done) => {
   });
 });
 
-afterAll((done) => {
+beforeAll((done) => {
   cleanup();
   done();
 });

@@ -1,5 +1,6 @@
-import { expect, test, describe, beforeAll, afterAll, afterEach } from "@jest/globals";
+import { expect, test, describe, beforeAll, afterEach } from "@jest/globals";
 import dayjs from "dayjs";
+import { cleanup } from "../../src/db/cleanup";
 import ReviewController from "../../src/controllers/reviewController";
 import { User, Role } from "../../src/components/user";
 import ProductDao from "../../src/dao/productDAO";
@@ -10,9 +11,9 @@ const Utente1 = new User("Ale1", "Ale", "Mosca", Role.CUSTOMER, "amosca502@gmail
 const Utente2 = new User("Ale2", "Ale", "Mosca", Role.CUSTOMER, "amosca502@gmail.com", "2001-12-06");
 
 beforeAll(async()=>{
+    cleanup();
     await ProductDao.prototype.registerProducts("Model","Laptop",32,null,34,null as any);
     await ProductDao.prototype.registerProducts("Model2","Laptop",32,null,34,null as any);})
-afterAll(async()=>{await ProductDao.prototype.deleteAllProducts();})
 afterEach(async()=>{await Controller.deleteAllReviews();})
 
 /* *********************************************** *
