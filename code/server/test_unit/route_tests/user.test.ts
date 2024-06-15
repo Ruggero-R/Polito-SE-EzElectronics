@@ -4,7 +4,7 @@ import { app } from "../../index"
 import { Role, User } from "../../src/components/user"
 import Authenticator from "../../src/routers/auth"
 import UserController from "../../src/controllers/userController"
-import {InvalidParametersError,UserAlreadyExistsError,UserNotAdminError,InvalidRoleError} from '../../src/errors/userError';
+import { InvalidParametersError, UserAlreadyExistsError, UserNotAdminError, InvalidRoleError } from '../../src/errors/userError';
 
 const baseURL = "/ezelectronics"
 jest.mock('../../src/routers/auth')
@@ -51,7 +51,8 @@ test("It should return a 200 success code", async () => {
 test("It should return a InvalidParametersError for creating a user with missing fields", async () => {
     const response = await request(app).post(baseURL + "/users").send({ ...userCustomer, name: undefined })
     expect(response.status).toBe(422)
-    expect(UserController.prototype.createUser).toHaveBeenCalledTimes(0);})
+    expect(UserController.prototype.createUser).toHaveBeenCalledTimes(0);
+})
 
 test("It should return UserAlreadyExistsError for creating a user with an existing username", async () => {
     jest.spyOn(UserController.prototype, "createUser").mockRejectedValueOnce(new UserAlreadyExistsError())
@@ -62,11 +63,11 @@ test("It should return UserAlreadyExistsError for creating a user with an existi
 
 // Test for retrieving all users
 
-test("It should raise an error",async()=>{
+test("It should raise an error", async () => {
     jest.spyOn(UserController.prototype, "getUsers").mockRejectedValue(new Error());
-    jest.spyOn(Authenticator.prototype,"isAdmin").mockImplementationOnce((req,res,next)=>next());
-    const response = await request(app).get(baseURL + "/users") //Send a POST request to the route
-    expect(response.status).toBe(503) //Check if the response status is 503
+    jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementationOnce((req, res, next) => next());
+    const response = await request(app).get(baseURL + "/users")
+    expect(response.status).toBe(503)
 })
 
 test("It should return an array of users for retrieving all users", async () => {
@@ -108,20 +109,20 @@ test("It should return an array of users for retrieving all users", async () => 
     expect(UserController.prototype.getUsers).toHaveBeenCalledTimes(1);
 })
 
-test("It should return a 401 error code for retrieving all users without admin privileges",async()=>{
-    jest.spyOn(Authenticator.prototype,"isAdmin").mockImplementation((req,res,next)=>{return res.status(401).end()})
+test("It should return a 401 error code for retrieving all users without admin privileges", async () => {
+    jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => { return res.status(401).end() })
     const response = await request(app).get(baseURL + "/users");
     expect(response.status).toBe(401)
     expect(Authenticator.prototype.isAdmin).toHaveBeenCalledTimes(1)
-}) 
+})
 
 // Test for retrieving users by role
 
-test("It should raise an error",async()=>{
+test("It should raise an error", async () => {
     jest.spyOn(UserController.prototype, "getUsersByRole").mockRejectedValue(new Error());
-    jest.spyOn(Authenticator.prototype,"isAdmin").mockImplementationOnce((req,res,next)=>next());
-    const response = await request(app).get(baseURL + "/users/roles/Customer") //Send a POST request to the route
-    expect(response.status).toBe(503) //Check if the response status is 503
+    jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementationOnce((req, res, next) => next());
+    const response = await request(app).get(baseURL + "/users/roles/Customer")
+    expect(response.status).toBe(503)
 })
 
 test("It should return an array of users for retrieving users by role", async () => {
@@ -184,23 +185,24 @@ test("It should return an array of users for retrieving users by role", async ()
 
 // Test for retrieving a user by username
 
-test("It should raise an error",async()=>{
+test("It should raise an error", async () => {
     jest.spyOn(UserController.prototype, "getUserByUsername").mockRejectedValue(new Error());
-    jest.spyOn(Authenticator.prototype,"isLoggedIn").mockImplementationOnce((req,res,next)=>next());
-    const response = await request(app).get(baseURL + "/users/user") //Send a POST request to the route
-    expect(response.status).toBe(503) //Check if the response status is 503
+    jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementationOnce((req, res, next) => next());
+    const response = await request(app).get(baseURL + "/users/user")
+    expect(response.status).toBe(503)
 })
 
 test("It should return a user for retrieving user by username", async () => {
-    const testUser = { //Define a test user object sent to the route
+    const testUser = {
         username: "user",
         name: "test",
         surname: "test",
         password: "test",
         address: "test",
         birthdate: "test",
-        role: Role.CUSTOMER}
-        
+        role: Role.CUSTOMER
+    }
+
     jest.spyOn(UserController.prototype, "getUserByUsername").mockResolvedValueOnce(testUser);
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
     const response = await request(app).get(baseURL + `/users/user`)
@@ -231,14 +233,14 @@ test("It should return a 503 error code for deleting a user with an error", asyn
 })
 
 //Test for deleteAllUsers method
-test("It should work",async()=>{
+test("It should work", async () => {
     jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => next())
     jest.spyOn(UserController.prototype, "deleteAllUsers").mockResolvedValueOnce(true);
     const response = await request(app).delete(baseURL + `/users`)
     expect(response.status).toBe(200)
 })
 
-test("It should not work",async()=>{
+test("It should not work", async () => {
     jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => next())
     jest.spyOn(UserController.prototype, "deleteAllUsers").mockRejectedValueOnce(new Error())
     const response = await request(app).delete(baseURL + `/users`)
@@ -272,8 +274,8 @@ test("It should return a 401 error code for updating user information without ad
         birthdate: "1990-01-01",
         role: Role.CUSTOMER
     }
-    jest.spyOn(UserController.prototype,"updateUserInfo").mockRejectedValue(new UserNotAdminError);
-    jest.spyOn(Authenticator.prototype,"isLoggedIn").mockImplementation((req, res, next) => next())
+    jest.spyOn(UserController.prototype, "updateUserInfo").mockRejectedValue(new UserNotAdminError);
+    jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
     const response = await request(app).patch(baseURL + `/users/user`).send(updatedUser)
     expect(response.status).toBe(401)
     expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1)
@@ -288,11 +290,12 @@ test("It should return a 503 error code for updating user information with an er
         birthdate: "1990-01-01",
         role: Role.CUSTOMER
     }
-    jest.spyOn(UserController.prototype, "updateUserInfo").mockImplementationOnce(()=>{throw new Error()})
+    jest.spyOn(UserController.prototype, "updateUserInfo").mockImplementationOnce(() => { throw new Error() })
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
     const response = await request(app).patch(baseURL + `/users/${username}`).send(updatedUser)
     expect(response.status).toBe(503)
-    expect(UserController.prototype.updateUserInfo).toHaveBeenCalledTimes(1)})
+    expect(UserController.prototype.updateUserInfo).toHaveBeenCalledTimes(1)
+})
 
 test("It should return a 404 error code for updating user information with missing fields", async () => {
     const updatedUser = {
@@ -301,7 +304,7 @@ test("It should return a 404 error code for updating user information with missi
         address: "newaddress",
         birthdate: "1990-01-01"
     }
-    jest.spyOn(UserController.prototype,"updateUserInfo").mockRejectedValueOnce(new InvalidParametersError);
+    jest.spyOn(UserController.prototype, "updateUserInfo").mockRejectedValueOnce(new InvalidParametersError);
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
     const response = await request(app).patch(baseURL + `/users/user`).send(updatedUser)
     expect(response.status).toBe(404)
@@ -318,7 +321,7 @@ test("It should return a 400 error code for updating user information with an in
         role: "InvalidRole"
     }
     jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => next())
-    jest.spyOn(UserController.prototype,"updateUserInfo").mockRejectedValueOnce(new InvalidRoleError(""));
+    jest.spyOn(UserController.prototype, "updateUserInfo").mockRejectedValueOnce(new InvalidRoleError(""));
 
     const response = await request(app).patch(baseURL + `/users/${username}`).send(updatedUser)
     expect(response.status).toBe(422)

@@ -79,6 +79,22 @@ This table describes the tests that provide reports for the UserDAO class
 | updateUserAsAdmin run-function rejects | updateUserAsAdmin method of UserDAO | Unit       | WB/statement coverage |
 | updateUserAsAdmin raises an error | updateUserAsAdmin method of UserDAO | Unit       | WB/statement coverage |
 | updateUserAsAdmin updates user successfully | updateUserAsAdmin method of UserDAO | Unit       | WB/statement coverage |
+| createUser should insert a user customer into the database     | `UserDAO.createUser`            | Integration | Mocking             |
+| createUser should throw UserAlreadyExistsError for duplicate username | `UserDAO.createUser`            | Integration | Error handling      |
+| getIsUserAuthenticated should return true for correct credentials | `UserDAO.getIsUserAuthenticated` | Integration | Mocking             |
+| getIsUserAuthenticated should return false for incorrect password | `UserDAO.getIsUserAuthenticated` | Integration | Mocking             |
+| getUserByUsername should retrieve a user from the database     | `UserDAO.getUserByUsername`     | Integration | Mocking             |
+| getUserByUsername should throw UserNotFoundError for non-existing user | `UserDAO.getUserByUsername`     | Integration | Error handling      |
+| getUsers should retrieve all users from the database           | `UserDAO.getUsers`              | Integration | Mocking             |
+| getUsersByRole should retrieve all users with a specific role from the database | `UserDAO.getUsersByRole`        | Integration | Mocking             |
+| deleteUser should remove a user from the database              | `UserDAO.deleteUser`            | Integration | Mocking             |
+| deleteUser should throw UserNotFoundError for non-existing user | `UserDAO.deleteUser`            | Integration | Error handling      |
+| deleteUserAsAdmin should remove a user from the database as an admin | `UserDAO.deleteUserAsAdmin`     | Integration | Mocking             |
+| deleteUserAsAdmin should throw UserIsAdminError if trying to delete an admin | `UserDAO.deleteUserAsAdmin`     | Integration | Error handling      |
+| updateUser should update user details in the database          | `UserDAO.updateUser`            | Integration | Mocking             |
+| updateUser should throw UserNotFoundError for non-existing user | `UserDAO.updateUser`            | Integration | Error handling      |
+| updateUserAsAdmin should update user details as an admin       | `UserDAO.updateUserAsAdmin`     | Integration | Mocking             |
+| updateUserAsAdmin should throw UserIsAdminError if trying to update an admin | `UserDAO.updateUserAsAdmin`     | Integration | Error handling      |
 
 This table describes the tests that provide reports for the UserController class
 
@@ -105,30 +121,59 @@ This table describes the tests that provide reports for the UserController class
 | Should update a user's information as admin               | `updateUserInfo`     | Unit       | Mocking                |
 | Should throw UnauthorizedUserError                        | `updateUserInfo`     | Unit       | Error handling         |
 | Should throw InvalidParametersError for invalid parameters| `updateUserInfo`     | Unit       | Error handling         |
+| createUser should create a user in the database | UserController, db                        | Integration | CRUD operation, Data validation |
+| createUser should throw an error if the username is already taken | UserController, UserAlreadyExistsError   | Integration | Exception handling, Negative testing |
+| getUsers should retrieve all users             | UserController, db                        | Integration | CRUD operation, Data validation |
+| getUsersByRole should retrieve all users with a specific role | UserController, db, Role.CUSTOMER       | Integration | CRUD operation, Data filtering |
+| getUsersByRole should throw an error if the role is not valid | UserController, InvalidRoleError         | Integration | Exception handling, Negative testing |
+| getUserByUsername should retrieve a specific user | UserController, db, User                  | Integration | CRUD operation, Data retrieval |
+| getUserByUsername should throw InvalidParametersError if parameters are invalid | UserController, InvalidParametersError   | Integration | Exception handling, Negative testing |
+| getUserByUsername should throw UnauthorizedUserError if user is not authorized | UserController, UnauthorizedUserError    | Integration | Exception handling, Negative testing |
+| deleteUser should delete a specific user      | UserController, db, User                  | Integration | CRUD operation, Data deletion |
+| deleteUser should throw InvalidParametersError if parameters are invalid | UserController, InvalidParametersError   | Integration | Exception handling, Negative testing |
+| deleteUser should throw UnauthorizedUserError if user is not authorized | UserController, UnauthorizedUserError    | Integration | Exception handling, Negative testing |
+| deleteAllUsers should delete all non-Admin users | UserController, db, User, Role.ADMIN      | Integration | CRUD operation, Data deletion, Data filtering |
+| updateUserInfo should update the information of a specific user | UserController, db, User                  | Integration | CRUD operation, Data update |
+| updateUserInfo should throw InvalidParametersError if parameters are missing or empty | UserController, InvalidParametersError   | Integration | Exception handling, Negative testing |
+| updateUserInfo should throw UnauthorizedUserError if user is not authorized | UserController, UnauthorizedUserError    | Integration | Exception handling, Negative testing |
 
 This table describes the tests that provide reports for the UserRoute class
 
 | Test case name                                                | Object(s) tested    | Test level | Technique used      |
-| :-----------------------------------------------------------: | :-----------------: | :--------: | :-----------------: |
-| It should return a 200 success code                           | `POST /users`       | Integration | Mocking             |
-| It should return a InvalidParametersError for missing fields  | `POST /users`       | Integration | Error handling      |
-| It should return UserAlreadyExistsError for existing username | `POST /users`       | Integration | Mocking/Error handling |
-| It should raise an error                                      | `GET /users`        | Integration | Mocking/Error handling |
-| It should return an array of users                            | `GET /users`        | Integration | Mocking             |
-| It should return a 401 error code without admin privileges    | `GET /users`        | Integration | Error handling      |
-| It should raise an error                                      | `GET /users/roles/Customer` | Integration | Mocking/Error handling |
-| It should return an array of users by role                    | `GET /users/roles/Customer` | Integration | Mocking             |
-| It should raise an error                                      | `GET /users/user`   | Integration | Mocking/Error handling |
-| It should return a user by username                           | `GET /users/user`   | Integration | Mocking             |
-| It should return a 200 success code for deleting a user       | `DELETE /users/user` | Integration | Mocking             |
-| It should return a 503 error code for deleting a user with error | `DELETE /users/user` | Integration | Mocking/Error handling |
-| It should work for deleting all users                         | `DELETE /users`     | Integration | Mocking             |
-| It should not work for deleting all users with error          | `DELETE /users`     | Integration | Mocking/Error handling |
-| It should return a 200 success code for updating user information | `PATCH /users/user` | Integration | Mocking             |
-| It should return a 401 error code without admin privileges    | `PATCH /users/user` | Integration | Error handling      |
-| It should return a 503 error code with an error               | `PATCH /users/user` | Integration | Mocking/Error handling |
-| It should return a 404 error code for missing fields          | `PATCH /users/user` | Integration | Mocking/Error handling |
-| It should return a 400 error code for invalid role            | `PATCH /users/user` | Integration | Mocking/Error handling |
+| :----------------------------------------------------------- | :-----------------: | :--------: | :-----------------: |
+| It should return a 200 success code                           | `POST /users`       | Unit | Mocking             |
+| It should return a InvalidParametersError for missing fields  | `POST /users`       | Unit | Error handling      |
+| It should return UserAlreadyExistsError for existing username | `POST /users`       | Unit | Mocking/Error handling |
+| It should raise an error                                      | `GET /users`        | Unit | Mocking/Error handling |
+| It should return an array of users                            | `GET /users`        | Unit | Mocking             |
+| It should return a 401 error code without admin privileges    | `GET /users`        | Unit | Error handling      |
+| It should raise an error                                      | `GET /users/roles/Customer` | Unit | Mocking/Error handling |
+| It should return an array of users by role                    | `GET /users/roles/Customer` | Unit | Mocking             |
+| It should raise an error                                      | `GET /users/user`   | Unit | Mocking/Error handling |
+| It should return a user by username                           | `GET /users/user`   | Unit | Mocking             |
+| It should return a 200 success code for deleting a user       | `DELETE /users/user` | Unit | Mocking             |
+| It should return a 503 error code for deleting a user with error | `DELETE /users/user` | Unit | Mocking/Error handling |
+| It should work for deleting all users                         | `DELETE /users`     | Unit | Mocking             |
+| It should not work for deleting all users with error          | `DELETE /users`     | Unit | Mocking/Error handling |
+| It should return a 200 success code for updating user information | `PATCH /users/user` | Unit | Mocking             |
+| It should return a 401 error code without admin privileges    | `PATCH /users/user` | Unit | Error handling      |
+| It should return a 503 error code with an error               | `PATCH /users/user` | Unit | Mocking/Error handling |
+| It should return a 404 error code for missing fields          | `PATCH /users/user` | Unit | Mocking/Error handling |
+| It should return a 400 error code for invalid role            | `PATCH /users/user` | Unit | Mocking/Error handling |
+| Integration test for createUser routes                     | `userCustomer`, `userManager`, `userAdmin` | Integration | HTTP request/response validation    |
+| Integration test for getUsers routes                        | `userCustomer`, `userManager`, `userAdmin` | Integration | HTTP request/response validation    |
+| Integration test for getUserByUsername routes               | `userCustomer`                      | Integration | HTTP request/response validation    |
+| Integration test for deleteUser routes                      | `userCustomer`, `userAdmin`          | Integration | HTTP request/response validation    |
+| Integration test for updateUser routes                      | `userCustomer`                      | Integration | HTTP request/response validation    |
+| It should return 200 for creating a Customer                | `userCustomer`                      | Integration       | Function return value validation    |
+| It should return 422 for missing fields                     | N/A                                 | Integration       | Function parameter validation       |
+| It should return 422 for invalid role                       | `userCustomer` with invalid role    | Integration       | Function parameter validation       |
+| It should return 401 for non-existent user                  | `getUserByUsername` with non-existent username | Integration       | Function parameter validation       |
+| It should return 200 and delete user by username            | `deleteUser` with existing user     | Integration       | Function side-effect validation     |
+| It should return 404 for non-existent user                  | `deleteUser` with non-existent username | Integration       | Function parameter validation       |
+| It should return 200 and update user info                   | `updateUser` with existing user     | Integration       | Function side-effect validation     |
+| It should return 422 for missing fields in update           | `updateUser` with missing fields   | Integration       | Function parameter validation       |
+| It should return 404 for non-existent user in update        | `updateUser` with non-existent username | Integration       | Function parameter validation       |
 
 ## Product
 
