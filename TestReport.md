@@ -35,6 +35,38 @@
 | :------------: | :--------------: | :--------: | :------------: |
 |                |                  |            |                |
 
+## User
+
+This table describes the tests that provide reports for the User class
+
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
+## Product
+
+This table describes the tests that provide reports for the Product class
+
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
+## Cart
+
+This table describes the tests that provide reports for the Cart class
+
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
+## Review
+
+This table describes the tests that provide reports for the Review class
+
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
 # Coverage
 
 ## Coverage of FR
