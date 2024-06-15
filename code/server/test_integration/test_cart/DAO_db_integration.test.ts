@@ -22,17 +22,14 @@ import {
 import { afterEach, beforeAll, afterAll } from "@jest/globals";
 import ProductDAO from "../../src/dao/productDAO";
 import dayjs from "dayjs";
-
+import {cleanup} from "../../src/db/cleanup";
 
 let cartDAO = new CartDAO();
 
 beforeAll(async () => {
+    cleanup();
     await ProductDAO.prototype.registerProducts("product1", Category.SMARTPHONE, 2, null, 10.0, "2024-01-01");
 })
-
-afterAll(async () => {
-    await ProductDAO.prototype.deleteAllProducts()
-});
 
 
 afterEach(async () => {

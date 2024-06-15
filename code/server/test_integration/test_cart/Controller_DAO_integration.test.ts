@@ -1,4 +1,4 @@
-import { test, expect, jest, describe, afterEach, beforeEach, afterAll } from "@jest/globals";
+import { test, expect, jest, describe, afterEach, beforeEach, beforeAll } from "@jest/globals";
 import CartController from "../../src/controllers/cartController";
 import ProductController from "../../src/controllers/productController";
 import CartDAO from "../../src/dao/cartDAO";
@@ -7,7 +7,7 @@ import { Category } from "../../src/components/product";
 import { Role, User } from "../../src/components/user";
 import { InvalidParametersError } from "../../src/errors/cartError";
 import dayjs from "dayjs";
-
+import { cleanup } from "../../src/db/cleanup";
 
 let cartDAO = new CartDAO();
 const Controller = new CartController();
@@ -17,8 +17,8 @@ beforeEach(async () => {
   await ProductDAO.prototype.registerProducts("model1", Category.SMARTPHONE, 2, null, 10.0, "2024-01-01");
 })
 
-afterAll(async () => {
-  await ProductDAO.prototype.deleteAllProducts()
+beforeAll(() => {
+  cleanup();
 });
 
 afterEach(async () => {
