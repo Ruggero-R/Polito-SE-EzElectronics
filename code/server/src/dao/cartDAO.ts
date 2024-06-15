@@ -37,12 +37,10 @@ class CartDAO {
           [customer],
           (err: Error | null, row: any) => {
             if (err) {
-              reject(err);
-              return;
+              return reject(err);
             }
             if (row) {
-              reject(new AlreadyActiveCart());
-              return;
+              return reject(new AlreadyActiveCart());
             }
           }
         );
@@ -50,14 +48,13 @@ class CartDAO {
           "INSERT INTO carts (customer, paid, paymentDate, total) VALUES (?, 0, NULL, 0.0)";
         db.run(sql, [customer], function (err: Error | null) {
           if (err) {
-            reject(err);
-            return;
+            return reject(err);
           } else {
-            resolve();
+             return resolve();
           }
         });
       } catch (error) {
-        reject(error);
+        return reject(error);
       }
     });
   }
@@ -83,7 +80,7 @@ class CartDAO {
             //Store cart
             const cart = new Cart(
               row.customer,
-              row.paid,
+              Boolean(row.paid),
               row.paymentDate,
               row.total,
               []
@@ -142,7 +139,6 @@ class CartDAO {
    * Adds a product to a cart.
    * @param userId The ID of the user.
    * @param productModel The model of the product.
-   * @param quantity The quantity of the product to add.
    * @returns A Promise that resolves when the product is added to the cart.
    */
   addProductToCart(userId: string, productModel: string): Promise<Boolean> {
