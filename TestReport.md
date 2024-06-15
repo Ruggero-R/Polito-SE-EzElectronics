@@ -31,6 +31,49 @@
 
     <One step will  correspond to API testing, or testing unit route.js>
 
+Per lo sviluppo dell'applicazione EZElectronics, è stato adottato un approccio di integrazione mista. Questo approccio combina elementi di integrazione top-down e bottom-up per garantire un test approfondito e una corretta integrazione dei componenti del sistema.
+
+#### Sequenza di Integrazione
+
+1. **Test dell'Unità**
+    - **Step 1:** Test dell'Unità A (Gestione Prodotti)
+    - **Step 2:** Test dell'Unità B (Gestione Clienti)
+    - **Step 3:** Test dell'Unità C (Elaborazione Ordini)
+    - **Step 4:** Test dell'Unità D (Gestione Recensioni)
+    - **Step 5:** Test dell'Unità E (Gestione Amministratori)
+
+2. **Integrazione Incrementale**
+    - **Step 6:** Integrazione e test delle Unità A e B (Gestione Prodotti + Gestione Clienti)
+    - **Step 7:** Integrazione e test delle Unità A, B e C (Gestione Prodotti + Gestione Clienti + Elaborazione Ordini)
+    - **Step 8:** Integrazione e test delle Unità A, B, C e D (Gestione Prodotti + Gestione Clienti + Elaborazione Ordini + Gestione Recensioni)
+    - **Step 9:** Integrazione e test delle Unità A, B, C, D e E (Gestione Prodotti + Gestione Clienti + Elaborazione Ordini + Gestione Recensioni + Gestione Amministratori)
+
+3. **Test dell'API**
+    - **Step 10:** Eseguire un test completo dell'API, concentrandosi sulle route per garantire che tutti gli endpoint dell'API funzionino correttamente e come previsto.
+
+### Descrizione dell'Approccio di Integrazione per EZElectronics
+
+Lo sviluppo e l'integrazione dell'applicazione EZElectronics hanno coinvolto diversi passaggi critici per garantire che tutti i componenti funzionino senza problemi insieme. L'approccio di integrazione mista ha facilitato sia il test isolato delle singole unità (Unit test) che la loro integrazione progressiva in un sistema completamente funzionante (Integration test).
+
+1. **Test dell'Unità:**
+    - **Unità A (Gestione Prodotti):** Funzionalità testate per valutare, registrare e gestire i prodotti.
+    - **Unità B (Gestione Clienti):** Funzionalità testate per la creazione, il login e la gestione degli account cliente.
+    - **Unità C (Elaborazione Ordini):** Funzionalità testate per la gestione dei carrelli della spesa, l'elaborazione degli ordini e la conferma degli acquisti.
+    - **Unità D (Gestione Recensioni):** Funzionalità testate per consentire ai clienti di lasciare e visualizzare recensioni sui prodotti.
+    - **Unità E (Gestione Amministratori):** Funzionalità testate per la valutazione dello stato del sistema e la gestione dei dati da parte degli amministratori.
+
+2. **Integrazione Incrementale:**
+    - Le unità sono state integrate in modo incrementale per garantire che ogni componente aggiunto funzionasse correttamente con il sistema esistente. Questo metodo ha aiutato a identificare e risolvere i problemi di integrazione in ogni fase, semplificando il debug e migliorando la stabilità del sistema.
+    - **Passaggi di Integrazione:**
+        - Prima, le unità di gestione dei prodotti e dei clienti sono state integrate e testate insieme.
+        - Successivamente, l'unità di elaborazione degli ordini è stata aggiunta e testata in combinazione con le unità di gestione dei prodotti e dei clienti.
+        - L'unità di gestione delle recensioni è stata integrata in seguito, garantendo che i clienti potessero lasciare e visualizzare recensioni mentre gestivano i loro prodotti e ordini.
+        - Infine, l'unità di gestione degli amministratori è stata integrata, consentendo agli amministratori di gestire il sistema e i dati in modo completo.
+
+3. **Test dell'API:**
+    - L'ultimo passaggio ha coinvolto un test approfondito degli endpoint dell'API definiti in route.js. Questo passaggio ha garantito che tutte le funzionalità esposte tramite l'API fossero accessibili e funzionassero come previsto.
+    - I test completi dell'API hanno verificato che l'applicazione client potesse interagire senza problemi con il server, soddisfacendo tutte le funzionalità richieste.
+
 # Tests
 
 <in the table below list the test cases defined For each test report the object tested, the test level (API, integration, unit) and the technique used to define the test case (BB/ eq partitioning, BB/ boundary, WB/ statement coverage, etc)> <split the table if needed>
@@ -240,17 +283,6 @@ This table describes the tests that provide reports for the ProductDAO class
 | It should throw an Error if the database fails to get the product     | "  | " | " |
 | It should throw an Error if the database fails to delete the product  | "  | " | " |
 | It should throw an Error if an error is thrown in the try block       | "  | " | " |
-
-
-
-
-
-
-
-
-
-
-
 
 ## Cart
 
@@ -473,6 +505,25 @@ This table describes the tests that provide reports for the Review class
 |                FRx                 |         |
 |                FRy                 |         |
 |                ...                 |         |
+
+## Coverage of FR
+
+| Functional Requirement or scenario                                | Test(s)                                                                                                                                                                                                                                                         |
+| :---------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **FR1**: Gestione utenti                                          | `test_unit/dao_tests/user.test.ts`, `test_unit/controller_tests/user.test.ts`, `test_unit/route_tests/user.test.ts`, `test_integration/test_user/Routes_Controller_integration.test.ts`, `test_integration/test_user/Controller_DAO_integration.test.ts`, `test_integration/test_user/DAO_db_integration.test.ts` |
+| **FR1.1**: Creare profilo customer                                | `createUser: should return true`, `createUser: should throw UserAlreadyExistsError`, `Integration: should return 200 for creating a Customer`, `Integration: should return 422 for invalid role`                                                                 |
+| **FR1.2**: Login nel sistema                                      | `getIsUserAuthenticated: should return false if user is not authenticated`, `getIsUserAuthenticated: should return true for correct credentials`, `getIsUserAuthenticated: should return false for incorrect password`                                           |
+| **FR1.3**: Logout dal sistema                                     | (Assumendo che il logout venga gestito direttamente dalla sessione del client, altrimenti questo scenario non è stato coperto esplicitamente dai test)                                                                                                         |
+| **FR1.4**: Visualizzare le informazioni del proprio profilo       | `getUserByUsername: should return a user by username`, `Integration: should return 200 and get user by username`, `Integration: should return 401 for non-existent user`                                                                                       |
+| **FR1.5**: Creare profilo di un dipendente                        | `createUser: should return true`, `Integration: should return 200 for creating multiple users`, `Integration: should return 422 for invalid role`                                                                                                              |
+| **FR1.6**: Modificare profilo di un dipendente                    | `updateUser: should update a user successfully`, `Integration: should return 200 and update user info`, `Integration: should return 404 for non-existent user in update`                                                                                        |
+| **FR1.7**: Eliminare profilo di un dipendente                     | `deleteUser: should delete a user successfully`, `deleteUserAsAdmin: should delete a user as admin successfully`, `Integration: should return 200 and delete user by username`, `Integration: should return 404 for non-existent user`                          |
+| **FR1.8**: Eliminare profilo di un customer                       | `deleteUser: should delete a user successfully`, `deleteUserAsAdmin: should delete a user as admin successfully`, `Integration: should return 200 and delete user by username`, `Integration: should return 404 for non-existent user`                          |
+| **FR1.9**: Eliminare il proprio profilo                           | `deleteUser: should delete a user successfully`, `deleteUserAsAdmin: should delete a user as admin successfully`, `Integration: should return 200 and delete user by username`, `Integration: should return 404 for non-existent user`                          |
+| **FR1.10**: Visualizzare elenco profili registrati                | `getUsers: should return all users`, `getUsers: should retrieve all users`, `Integration: should return 200 and get all users`                                                                                                                                 |
+| **FR1.11**: Filtrare elenco profili per ruolo                     | `getUsersByRole: should return users by role`, `getUsersByRole: should retrieve all users with a specific role`, `Integration: should return 200 and get users by role`                                                                                        |
+| **FR1.12**: Visualizzare profilo tramite username                 | `getUserByUsername: should return a user by username`, `Integration: should return 200 and get user by username`, `Integration: should return 401 for non-existent user`                                                                                       |
+| **FR1.13**: Modificare informazioni del proprio profilo           | `updateUser: should update a user successfully`, `updateUserAsAdmin: should update a user successfully`, `Integration: should return 200 and update user info`, `Integration: should return 404 for non-existent user in update`                                |
 
 ## Coverage white box
 
