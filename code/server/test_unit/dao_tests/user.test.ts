@@ -1,4 +1,4 @@
-import { describe, test, expect, jest, beforeEach, afterEach } from "@jest/globals"
+import { describe, test, expect, jest, beforeEach } from "@jest/globals"
 import UserDAO from "../../src/dao/userDAO"
 import { Role, User } from "../../src/components/user";
 import crypto from "crypto"
@@ -9,18 +9,13 @@ import {
     UserAlreadyExistsError,
     UserIsAdminError,
     UserNotFoundError,
-    UserNotManagerError,
-    UserNotCustomerError,
-    UserNotAdminError,
-    UnauthorizedUserError,
-    InvalidRoleError
 } from '../../src/errors/userError';
 
 jest.mock("crypto")
 const userDAO=new UserDAO();
 
 describe('UserDAO',()=>{
-    afterEach(()=>{
+    beforeEach(()=>{
         jest.clearAllMocks();});
 
     test("It should resolve true",async()=>{
@@ -122,11 +117,11 @@ describe('UserDAO',()=>{
         await expect(userDAO.getUserByUsername("username")).rejects.toThrow(UserNotFoundError);
     });
 
-    test("getUser should raise an error",async()=>{
+    test("getUserByUsername should raise an error",async()=>{
         jest.spyOn(db,"get").mockImplementation(()=>{throw new Error()})
         await expect(userDAO.getUserByUsername("username")).rejects.toThrow()})
 
-    test("getUser should raise an error in db",async()=>{
+    test("getUserByUsername should raise an error in db",async()=>{
         jest.spyOn(db,"get").mockImplementation((sql,pars,callback)=>{
             callback(new Error());
             return {} as Database})
