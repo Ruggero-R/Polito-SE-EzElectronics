@@ -87,6 +87,8 @@ Lo sviluppo e l'integrazione dell'applicazione EZElectronics hanno coinvolto div
 
 ## User
 
+### UserDAO
+
 This table describes the tests that provide reports for the UserDAO class
 
 | Test case name                                                                  |             Object(s) tested             | Test level  |    Technique used     |
@@ -146,6 +148,8 @@ This table describes the tests that provide reports for the UserDAO class
 | updateUserAsAdmin should update user details as an admin                        |       `UserDAO.updateUserAsAdmin`        | Integration |        Mocking        |
 | updateUserAsAdmin should throw UserIsAdminError if trying to update an admin    |       `UserDAO.updateUserAsAdmin`        | Integration |    Error handling     |
 
+### UserController
+
 This table describes the tests that provide reports for the UserController class
 
 | Test case name                                                                        |            Object(s) tested            | Test level  |                Technique used                 |
@@ -186,6 +190,8 @@ This table describes the tests that provide reports for the UserController class
 | updateUserInfo should update the information of a specific user                       |        UserController, db, User        | Integration |          CRUD operation, Data update          |
 | updateUserInfo should throw InvalidParametersError if parameters are missing or empty | UserController, InvalidParametersError | Integration |     Exception handling, Negative testing      |
 | updateUserInfo should throw UnauthorizedUserError if user is not authorized           | UserController, UnauthorizedUserError  | Integration |     Exception handling, Negative testing      |
+
+### UserRoute
 
 This table describes the tests that provide reports for the UserRoute class
 
@@ -658,7 +664,9 @@ This table describes the tests that provide reports for the Carts Route class
 | It should raise an error | `GET /carts/all` | " | " |
 
 ## Review
-### ReviewController 
+
+### ReviewController
+
 This table describes the tests that provide reports for the Review Controlelr class
 
 | Test case name | Object(s) tested | Test level | Technique used |
@@ -693,6 +701,56 @@ This table describes the tests that provide reports for the Review Controlelr cl
 |   It should not find any review to delete due to an unexisting model | `Controller.deleteReviewsOfProduct`          |  Integration   |      Black Box       |
 |   It should delete all reviews for the given model | `Controller.deleteReviewsOfProduct`                  |  Integration   |      Black Box       |
 |   It should delete everything  | `Controller.deleteAllReviews`             |  Integration   |      Black Box       |
+
+### ReviewRoute
+
+| Test case name                                                    |                Object(s) tested                | Test level  |          Technique used          |
+| :---------------------------------------------------------------- | :--------------------------------------------: | :---------: | :------------------------------: |
+| It should fail due to a comment not given                         |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
+| It should fail due to a not valid score                           |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
+| It should work                                                    |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
+| It should not work due to an invalid parameter                    |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to a model not existing                    |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should raise an error                                          |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to an existing review                      |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to an invalid parameter error              |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to a product not found error               |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should raise an error                                          |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should work                                                    |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
+| It should not work due to an invalid parameter error              |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to a product not found error               |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to an unexisting review                    |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should raise an error                                          |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
+| It should work                                                    |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
+| It should not work due to an invalid parameter error              |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking/Error handling              |
+| It should not work due to a product not found error               |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking/Error handling              |
+| It should raise an error                                          |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking/Error handling              |
+| It should work                                                    |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking              |
+| It should work                                                    |                 `DELETE /ezelectronics/reviews`                  |    Unit     |             Mocking              |
+| It should raise an error                                          |                 `DELETE /ezelectronics/reviews`                  |    Unit     |             Mocking/Error handling              |
+| It should fail due to a comment not given | `POST /reviews/:model` | Integration | Mocking |
+| It should fail due to a not valid score | `POST /reviews/:model` | Integration | Mocking |
+| It should work | `POST /reviews/:model` | Integration | Mocking |
+| It should not work due to an invalid parameter | `POST /reviews/:model` | Integration | Mocking/Error handling |
+| It should not work due to a model not existing | `POST /reviews/:model` | Integration | Mocking/Error handling |
+| It should raise an error | `POST /reviews/:model` | Integration | Mocking/Error handling |
+| It should not work due to an existing review for the tuple (user-model) | `POST /reviews/:model` | Integration | Mocking/Error handling |
+| It should not work due to an invalid parameter error | `GET /reviews/:model` | Integration | Mocking/Error handling |
+| It should not work due to a product not found error | `GET /reviews/:model` | Integration | Mocking/Error handling |
+| It should raise an error | `GET /reviews/:model` | Integration | Mocking/Error handling |
+| It should work | `GET /reviews/:model` | Integration | Mocking |
+| It should not work due to an invalid parameter error | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
+| It should not work due to a product not found error | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
+| It should not work due to an unexisting review | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
+| It should raise an error | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
+| It should work | `DELETE /reviews/:model` | Integration | Mocking |
+| It should not work due to an invalid parameter error | `DELETE /reviews/:model/all` | Integration | Mocking/Error handling |
+| It should not work due to a product not found error | `DELETE /reviews/:model/all` | Integration | Mocking/Error handling |
+| It should raise an error | `DELETE /reviews/:model/all` | Integration | Mocking/Error handling |
+| It should work | `DELETE /reviews/:model/all` | Integration | Mocking |
+| It should work | `DELETE /reviews` | Integration | Mocking |
+| It should raise an error | `DELETE /reviews` | Integration | Mocking/Error handling |
+
 # Coverage
 
 ## Coverage of FR
