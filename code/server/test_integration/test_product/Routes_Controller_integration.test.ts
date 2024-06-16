@@ -17,6 +17,11 @@ jest.mock("../../src/routers/auth");
 
 const baseURL = "/ezelectronics";
 
+
+beforeAll(() => {
+  cleanup();
+});
+
 beforeEach((done) => {
   jest.resetAllMocks();
   db.serialize(() => {
@@ -27,11 +32,6 @@ beforeEach((done) => {
       done();
     });
   });
-});
-
-beforeAll((done) => {
-  cleanup();
-  done();
 });
 
 const p1 = {
