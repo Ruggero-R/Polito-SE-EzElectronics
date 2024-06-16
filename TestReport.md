@@ -367,6 +367,7 @@ This table describes the tests that provide reports for the Product Routes class
 
 ## Cart
 
+### CartDAO
 This table describes the tests that provide reports for the Cart DAO class
 
 |                                             Test case name                                              |        Object(s) tested         | Test level  |    Technique used     |
@@ -485,6 +486,7 @@ This table describes the tests that provide reports for the Cart DAO class
 |                                It should retrieve all carts successfully                                |      `cartDAO.getAllCarts`      | Integration |       Black Box       |
 |                         It should retrieve all carts of a customer successfully                         |   `cartDAO.getCustomerCarts`    | Integration |       Black Box       |
 
+### CartController
 This table describes the tests that provide reports for the Cart Controller class
 
 |              Test case name              |          Object(s) tested          | Test level  |    Technique used     |
@@ -520,6 +522,8 @@ This table describes the tests that provide reports for the Cart Controller clas
 |            It should resolve             |    `Controller.deleteAllCarts`     | Integration |       Black Box       |
 |            It should resolve             |      `Controller.getAllCarts`      | Integration |       Black Box       |
 
+
+### CartRoute
 This table describes the tests that provide reports for the Carts Route class
 
 | Test case name | Object(s) tested | Test level | Technique used |
