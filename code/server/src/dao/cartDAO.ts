@@ -40,7 +40,6 @@ class CartDAO {
               return reject(err);
             }
             if (row) {
-              console.log("ENTRA!");
               return reject(new AlreadyActiveCart());
             }
             

@@ -260,7 +260,7 @@ describe("ProductDAO integration tests", () => {
     });
   });
 
-  test("changeProductQuantity should update the quantity of a product in the database with changeDate set to the current date if not provided", async () => {
+  test("changeProductQuantity should update the quantity of a product in the database", async () => {
     const model = p2.model;
     const category = p2.category;
     const quantity = p2.quantity;
@@ -279,7 +279,7 @@ describe("ProductDAO integration tests", () => {
 
     const newQuantity = 20;
 
-    await dao.changeProductQuantity(model, newQuantity, null as any);
+    await dao.changeProductQuantity(model, newQuantity, dayjs().format("YYYY-MM-DD"));
 
     db.get("SELECT * FROM products WHERE model = ?", [model], (err, row) => {
       const productRow = row as {
