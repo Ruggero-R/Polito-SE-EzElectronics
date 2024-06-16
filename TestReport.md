@@ -189,7 +189,7 @@ This table describes the tests that provide reports for the UserRoute class
 This table describes the tests that provide reports for the ProductDAO class
 
 |                                                Test case name                                                |       Object(s) tested       | Test level |    Technique used     |
-| :---------------------------------------------------------------------------------------------------------- | :--------------------------: | :--------: | :-------------------: |
+| :----------------------------------------------------------------------------------------------------------: | :--------------------------: | :--------: | :-------------------: |
 |                                         It should register a product                                         |    registerProduct method    |    Unit    | WB/statement coverage |
 |                              It should throw an error if product already exists                              |              "               |     "      |           "           |
 |                                 It should register a product without details                                 |              "               |     "      |           "           |
@@ -249,7 +249,7 @@ This table describes the tests that provide reports for the ProductDAO class
 ### Product Controller
 
 |                                                       Test case name                                                       |       Object(s) tested       | Test level |    Technique used     |
-| :------------------------------------------------------------------------------------------------------------------------ | :--------------------------: | :--------: | :-------------------: |
+| :------------------------------------------------------------------------------------------------------------------------: | :--------------------------: | :--------: | :-------------------: |
 |                                                It should register a product                                                |   registerProducts method    |    Unit    | WB/statement coverage |
 |                                It should register a product if the details are not provided                                |              "               |     "      |           "           |
 |                              It should register a product if the arrivalDate is not provided                               |              "               |     "      |           "           |
@@ -297,7 +297,7 @@ This table describes the tests that provide reports for the ProductDAO class
 
 This table describes the tests that provide reports for the Product Routes class
 | Test case name | Object(s) tested | Test level | Technique used |
-| :------------ | :--------------: | :--------: | :------------: |
+| :------------: | :--------------: | :--------: | :------------: |
 | It should return 200 | `POST product/` | Unit | WB/statement coverage |
 | It should return 422 if model is empty | " | " | " |
 | It should return 422 if category is empty | " | " | " |
@@ -370,7 +370,7 @@ This table describes the tests that provide reports for the Product Routes class
 This table describes the tests that provide reports for the Cart DAO class
 
 |                                             Test case name                                              |        Object(s) tested         | Test level  |    Technique used     |
-| :----------------------------------------------------------------------------------------------------- | :-----------------------------: | :---------: | :-------------------: |
+| :-----------------------------------------------------------------------------------------------------: | :-----------------------------: | :---------: | :-------------------: |
 |                                         It should create a cart                                         |        createCart method        |    Unit     | WB/statement coverage |
 |                     It should throw an error if a cart for the user already exists                      |        createCart method        |      "      |           "           |
 |                               It should throw an error if GET query fails                               |        createCart method        |      "      |           "           |
@@ -488,7 +488,7 @@ This table describes the tests that provide reports for the Cart DAO class
 This table describes the tests that provide reports for the Cart Controller class
 
 |              Test case name              |          Object(s) tested          | Test level  |    Technique used     |
-| :--------------------------------------  | :--------------------------------: | :---------: | :-------------------: |
+| :--------------------------------------: | :--------------------------------: | :---------: | :-------------------: |
 |            It should resolve             |       `Controller.addToCart`       |    Unit     | WB/statement coverage |
 |  It should reject due a model not given  |       `Controller.addToCart`       |    Unit     | WB/statement coverage |
 | It should reject due to a user not given |       `Controller.addToCart`       |    Unit     | WB/statement coverage |
@@ -523,7 +523,7 @@ This table describes the tests that provide reports for the Cart Controller clas
 This table describes the tests that provide reports for the Carts Route class
 
 | Test case name | Object(s) tested | Test level | Technique used |
-| :------------  | :--------------: | :--------: | :------------: |
+| :------------: | :--------------: | :--------: | :------------: |
 | It should return 200 | `GET /carts` | Unit | Mocking |
 | It should return an Empty cart | `GET /carts` | Unit | Mocking |
 | It should return a 401 if the user is not a customer | `GET /carts` | Unit | Mocking/Error handling |
@@ -566,13 +566,55 @@ This table describes the tests that provide reports for the Carts Route class
 | It should return 200 | `GET /carts/all` | Unit | Mocking |
 | It should return a 401 if the user is not an admin or manager | `GET /carts/all` | Unit | Mocking/Error handling |
 | It should raise an error | `GET /carts/all` | Unit | Mocking/Error handling |
+|It should return 200|	`GET /carts`	|Integration	|Black Box|
+|It should return an Empty cart|`GET /carts`	|"	|"|
+|It should return an 401 if the user is not a customer|	`GET /carts`	|"|	"|
+|It should raise an error	| `GET /carts`|	"	|"|
+| It should return 200 | `POST /carts` | Integration | Black Box |
+| It should return an 401 if the user is not a customer | `POST /carts` | " | " |
+| It should raise an error | `POST /carts` | " | " |
+| It should return an 422 if the model is not provided | `POST /carts` | " | " |
+| It should return an 422 if the model is not a string | `POST /carts` | " | " |
+| It should return an 422 if the model is an empty string | `POST /carts` | " | " |
+| It should return an 422 if the model is a white space | `POST /carts` | " | " |
+| It should return an 404 if the model does not represent an existing product | `POST /carts` | " | " |
+| It should return an 400 if the model's available quantity is 0 | `POST /carts` | " | " |
+| It should return 200 | `PATCH /carts` | Integration | Black Box |
+| It should return an 401 if the user is not a customer | `PATCH /carts` | " | " |
+| It should raise an error | `PATCH /carts` | " | " |
+| It should return an 404 error if there is no information about an unpaid cart in the database | `PATCH /carts` | " | " |
+| It should return an 400 error if there is information about an unpaid cart but the cart contains no product | `PATCH /carts` | " | " |
+| It should return an 409 error if there is at least one product in the cart whose available quantity in the stock is 0 | `PATCH /carts` | " | " |
+| It should return a 409 error if there is at least one product in the cart whose quantity is higher than the available quantity in the stock | `PATCH /carts` | " | " |
+| It should return 200 | `GET /carts/history` | Integration | Black Box |
+| It should return an 401 if the user is not a customer | `GET /carts/history` | " | " |
+| It should raise an error | `GET /carts/history` | " | " |
+| It should return 200 | `DELETE /carts/products/:model` | Integration | Black Box |
+| It should return an 401 if the user is not a customer | `DELETE /carts/products/:model` | " | " |
+| It should raise an error | `DELETE /carts/products/:model` | " | " |
+| It should return an 404 error if the model is an empty string | `DELETE /carts/products/` | " | " |
+| It should return an 404 error if model represents a product that is not in the cart | `DELETE /carts/products/:model` | " | " |
+| It should return an 404 error if there is no information about an unpaid cart for the user | `DELETE /carts/products/:model` | " | " |
+| It should return an 404 error if there is such information but there are no products in the cart | `DELETE /carts/products/:model` | " | " |
+| It should return an 404 error if model does not represent an existing product | `DELETE /carts/products/:model` | " | " |
+| It should return 200 | `DELETE /carts/current` | Integration | Black Box |
+| It should return an 401 if the user is not a customer | `DELETE /carts/current` | " | " |
+| It should raise an error | `DELETE /carts/current` | " | " |
+| It should return a 404 error if there is no information about an unpaid cart for the user | `DELETE /carts/current` | " | " |
+| It should return 200 | `DELETE /carts` | Integration | Black Box |
+| It should return an 401 if the user is not an admin or manager | `DELETE /carts` | " | " |
+| It should raise an error | `DELETE /carts` | " | " |
+| It should return 200 | `GET /carts/all` | Integration | Black Box |
+| It should return an 401 if the user is not an admin or manager | `GET /carts/all` | " | " |
+| It should raise an error | `GET /carts/all` | " | " |
+
 
 ## Review
 
 This table describes the tests that provide reports for the Review class
 
 | Test case name | Object(s) tested | Test level | Technique used |
-| :------------  | :--------------: | :--------: | :------------: |
+| :------------: | :--------------: | :--------: | :------------: |
 |                |                  |            |                |
 
 # Coverage
@@ -604,14 +646,6 @@ This table describes the tests that provide reports for the Review class
 | **FR1.11**: Filtrare elenco profili per ruolo                     | `UserController getUsersByRole should throw UserNotFoundError if user is not found`, `UserController getUsersByRole should reject`, `UserController getUsersByRole should raise an error`, `UserController getUsersByRole should return users by role`, `UserController getUsersByRole should throw InvalidRoleError if role is invalid`, `Integration test for getUsersByRole routes should return an array of users for retrieving users by role`, `Integration test for getUsersByRole routes should raise an error`                               |
 | **FR1.12**: Visualizzare profilo tramite username                 | `UserController getUserByUsername should throw InvalidParametersError`, `UserController getUserByUsername should throw an unauthorized error`, `UserController getUserByUsername should return a user by username`, `Integration test for getUserByUsername routes should return 200 and get user by username`, `Integration test for getUserByUsername routes should return 401 for non-existent user`                                                                                                         |
 | **FR1.13**: Modificare informazioni del proprio profilo           | `UserController updateUserInfo should update a user's information`, `UserController updateUserInfo should throw an invalid parameter error`, `UserController updateUserInfo should throw an arrival date error`, `UserController updateUserInfo should update a user's information as an admin`, `UserController updateUserInfo should throw unauthorized user error`, `UserController updateUserInfo should throw InvalidParametersError if parameters are invalid`, `Integration test for updateUserInfo routes should return a 200 success code for updating user information`,`Integration test for updateUserInfo routes should return a 401 error code for updating user information without admin privileges`,`Integration test for updateUserInfo routes should return a 503 error code for updating user information with an error`,`Integration test for updateUserInfo routes should return a 404 error code for updating user information with missing fields`,`Integration test for updateUserInfo routes should return a 400 error code for updating user information with an invalid role` |
-| **FR5.1**: Mostrare le informazioni del carrello corrente           | `GET ezelectronics/carts` Success: 200 OK, 401 Unauthorized (not a customer) |
-| **FR5.2**: Aggiungere un prodotto al carrello corrente           | `POST ezelectronics/carts` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 Model does not represent an existing product, 409 error if model represents a product whose available quantity is 0 |
-| **FR5.3**: Checkout carrello corrente           | `PATCH ezelectronics/carts` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 error if there is no information about an unpaid cart in the database, 400 if there is information about an unpaid cart but the cart contains no product, 409 if there is at least one product in the cart whose available quantity in the stock is 0. 409 if there is at least one product in the cart whose quantity is higher than the available quantity in the stock |
-| **FR5.4**: Mostrare la cronologia dei carrelli passati           | `GET ezelectronics/carts/history` Success: 200 OK, Error: 401 Unauthorized (not a customer)  |
-| **FR5.5**: Rimuovere un prodotto dal carrello corrente           | `DELETE ezelectronics/carts/products/:models` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 if model represents a product that is not in the cart, 404 if there is no information about an unpaid cart for the user, or if there is such information but there are no products in the cart, 404 error if model does not represent an existing product|
-| **FR5.6**: Eliminare il carrello corrente           | `DELETE ezelectronics/carts/current` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 if there is no information about an unpaid cart for the user |
-| **FR5.7**: Visualizzare la lista dei carrelli di tutti gli utenti           | `GET ezelectronics/carts/all` Success: 200 OK, 401 Unauthorized (not an admin or customer) |
-| **FR5.8**: Eliminare tutti i carrelli           | `DELETE ezelectronics/carts`  Success: 200 OK, 401 Unauthorized (not an admin or customer) |
 
 ## Coverage white box
 
