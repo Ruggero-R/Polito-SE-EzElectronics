@@ -7,7 +7,8 @@
 - [Test Report](#test-report)
 - [Contents](#contents)
 - [Dependency graph](#dependency-graph)
-- [Integration approach](#integration-approach) - [Sequenza di Integrazione](#sequenza-di-integrazione)
+- [Integration approach](#integration-approach)
+  - [Sequenza di Integrazione](#sequenza-di-integrazione)
   - [Descrizione dell'Approccio di Integrazione per EZElectronics](#descrizione-dellapproccio-di-integrazione-per-ezelectronics)
 - [Tests](#tests)
   - [User](#user)
@@ -38,21 +39,10 @@
 
 # Dependency graph
 
-![Dependency graph](images\graphviz.svg)
+![Dependency graph](images\Dependency-Graph.svg)
 
 # Integration approach
-
-    <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
-
-    (ex: step1: unit A, step 2: unit A+B, step 3: unit A+B+C, etc)>
-
-    <Some steps may  correspond to unit testing (ex step1 in ex above)>
-
-    <One step will  correspond to API testing, or testing unit route.js>
-
-    Per lo sviluppo dell'applicazione EZElectronics, è stato adottato un approccio di integrazione mista. Questo approccio combina elementi di integrazione top-down e bottom-up per garantire un test approfondito e una corretta integrazione dei componenti del sistema.
-
-#### Sequenza di Integrazione
+## Sequenza di Integrazione
 
 1. **Test dell'Unità**
 
@@ -72,7 +62,7 @@
 3. **Test dell'API**
    - **Step 10:** Eseguire un test completo dell'API, concentrandosi sulle route per garantire che tutti gli endpoint dell'API funzionino correttamente e come previsto.
 
-### Descrizione dell'Approccio di Integrazione per EZElectronics
+## Descrizione dell'Approccio di Integrazione per EZElectronics
 
 Lo sviluppo e l'integrazione dell'applicazione EZElectronics hanno coinvolto diversi passaggi critici per garantire che tutti i componenti funzionino senza problemi insieme. L'approccio di integrazione mista ha facilitato sia il test isolato delle singole unità (Unit test) che la loro integrazione progressiva in un sistema completamente funzionante (Integration test).
 
@@ -1118,4 +1108,4 @@ This table describes the tests that provide reports for the Review Controlelr cl
 
 ## Coverage white box
 
-Report here the screenshot of coverage values obtained with jest-- coverage
+![Report Coverate](images/Coverage.png)
