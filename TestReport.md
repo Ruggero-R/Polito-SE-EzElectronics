@@ -557,7 +557,6 @@ These tables describe the tests that provide reports for the ProductRoutes class
 
 ### CartDAO
 
-
 This table describes the tests that provide reports for the Cart DAO class
 
 |                                             Test case name                                              |        Object(s) tested         | Test level  |    Technique used     |
@@ -678,7 +677,6 @@ This table describes the tests that provide reports for the Cart DAO class
 
 ### CartController
 
-
 This table describes the tests that provide reports for the Cart Controller class
 
 |              Test case name              |          Object(s) tested          | Test level  |    Technique used     |
@@ -715,7 +713,6 @@ This table describes the tests that provide reports for the Cart Controller clas
 |            It should resolve             |      `Controller.getAllCarts`      | Integration |       Black Box       |
 
 ### CartRoute
-
 
 This table describes the tests that provide reports for the Carts Route class
 
@@ -811,87 +808,87 @@ This table describes the tests that provide reports for the Carts Route class
 
 This table describes the tests that provide reports for the Review Controlelr class
 
-| Test case name | Object(s) tested | Test level | Technique used |
-| :------------: | :--------------: | :--------: | :------------: |
-|   It should reject due a model not given  | `Controller.addReview`             |    Unit     | WB/statement coverage |
-|   It should reject due to a negative score | `Controller.addReview`             |    Unit     | WB/statement coverage |
-|   It should reject due to a score not valid | `Controller.addReview`            |    Unit     | WB/statement coverage |
-|               It should resolve           | `Controller.addReview`             |    Unit     | WB/statement coverage |
-|   It should reject due a comment not given | `Controller.addReview`             |    Unit     | WB/statement coverage |
-|   It should reject due a model not given  | `Controller.getProductReviews`    |    Unit     | WB/statement coverage |
-|               It should resolve           | `Controller.getProductReviews`    |    Unit     | WB/statement coverage |
-|   It should reject due to a model not given  | `Controller.deleteReview`    |    Unit     | WB/statement coverage |
-|               It should resolve           | `Controller.deleteReview`    |    Unit     | WB/statement coverage |
-|   It should delete an existing review  | `Controller.deleteReview`    |    Unit     | WB/statement coverage |
-|   It should reject due to a model not given  | `Controller.deleteReviewsOfProduct`    |    Unit     | WB/statement coverage |
-|               It should resolve           | `Controller.deleteReviewsOfProduct`    |    Unit     | WB/statement coverage |
-|   It should delete all existing reviews for a model  | `Controller.deleteReviewsOfProduct`    |    Unit     | WB/statement coverage |
-|   It should delete all existing reviews   | `Controller.deleteAllReviews`      |    Unit     | WB/statement coverage |
-|   It should not work due to an invalid model  | `Controller.addReview`             |  Integration   |      Black Box       |
-|   It should not insert a review due to an unexisting model | `Controller.addReview`          |  Integration   |      Black Box       |
-|   It should not insert a review due to an invalid parameter | `Controller.addReview`         |  Integration   |      Black Box       |
-|   It should not insert the review due to an existing review for the same tuple user-model | `Controller.addReview`  |  Integration   |      Black Box       |
-|   It should insert a new review | `Controller.addReview`                  |  Integration   |      Black Box       |
-|   It should not work due to an invalid model  | `Controller.getProductReviews`             |  Integration   |      Black Box       |
-|   It should not get reviews due to an unexisting model | `Controller.getProductReviews`          |  Integration   |      Black Box       |
-|   It should get 2 reviews | `Controller.getProductReviews`                  |  Integration   |      Black Box       |
-|   It should not work due to an invalid model  | `Controller.deleteReview`             |  Integration   |      Black Box       |
-|   It should not find any review to delete due to an unexisting model | `Controller.deleteReview`          |  Integration   |      Black Box       |
-|   It should not find any review to delete due to an unexisting pair (model-user) | `Controller.deleteReview`                  |  Integration   |      Black Box       |
-|   It should delete the review | `Controller.deleteReview`                  |  Integration   |      Black Box       |
-|   It should not work due to an invalid model  | `Controller.deleteReviewsOfProduct`             |  Integration   |      Black Box       |
-|   It should not find any review to delete due to an unexisting model | `Controller.deleteReviewsOfProduct`          |  Integration   |      Black Box       |
-|   It should delete all reviews for the given model | `Controller.deleteReviewsOfProduct`                  |  Integration   |      Black Box       |
-|   It should delete everything  | `Controller.deleteAllReviews`             |  Integration   |      Black Box       |
+|                                     Test case name                                      |          Object(s) tested           | Test level  |    Technique used     |
+| :-------------------------------------------------------------------------------------: | :---------------------------------: | :---------: | :-------------------: |
+|                         It should reject due a model not given                          |       `Controller.addReview`        |    Unit     | WB/statement coverage |
+|                        It should reject due to a negative score                         |       `Controller.addReview`        |    Unit     | WB/statement coverage |
+|                        It should reject due to a score not valid                        |       `Controller.addReview`        |    Unit     | WB/statement coverage |
+|                                    It should resolve                                    |       `Controller.addReview`        |    Unit     | WB/statement coverage |
+|                        It should reject due a comment not given                         |       `Controller.addReview`        |    Unit     | WB/statement coverage |
+|                         It should reject due a model not given                          |   `Controller.getProductReviews`    |    Unit     | WB/statement coverage |
+|                                    It should resolve                                    |   `Controller.getProductReviews`    |    Unit     | WB/statement coverage |
+|                        It should reject due to a model not given                        |      `Controller.deleteReview`      |    Unit     | WB/statement coverage |
+|                                    It should resolve                                    |      `Controller.deleteReview`      |    Unit     | WB/statement coverage |
+|                           It should delete an existing review                           |      `Controller.deleteReview`      |    Unit     | WB/statement coverage |
+|                        It should reject due to a model not given                        | `Controller.deleteReviewsOfProduct` |    Unit     | WB/statement coverage |
+|                                    It should resolve                                    | `Controller.deleteReviewsOfProduct` |    Unit     | WB/statement coverage |
+|                    It should delete all existing reviews for a model                    | `Controller.deleteReviewsOfProduct` |    Unit     | WB/statement coverage |
+|                          It should delete all existing reviews                          |    `Controller.deleteAllReviews`    |    Unit     | WB/statement coverage |
+|                       It should not work due to an invalid model                        |       `Controller.addReview`        | Integration |       Black Box       |
+|                It should not insert a review due to an unexisting model                 |       `Controller.addReview`        | Integration |       Black Box       |
+|                It should not insert a review due to an invalid parameter                |       `Controller.addReview`        | Integration |       Black Box       |
+| It should not insert the review due to an existing review for the same tuple user-model |       `Controller.addReview`        | Integration |       Black Box       |
+|                              It should insert a new review                              |       `Controller.addReview`        | Integration |       Black Box       |
+|                       It should not work due to an invalid model                        |   `Controller.getProductReviews`    | Integration |       Black Box       |
+|                  It should not get reviews due to an unexisting model                   |   `Controller.getProductReviews`    | Integration |       Black Box       |
+|                                 It should get 2 reviews                                 |   `Controller.getProductReviews`    | Integration |       Black Box       |
+|                       It should not work due to an invalid model                        |      `Controller.deleteReview`      | Integration |       Black Box       |
+|           It should not find any review to delete due to an unexisting model            |      `Controller.deleteReview`      | Integration |       Black Box       |
+|     It should not find any review to delete due to an unexisting pair (model-user)      |      `Controller.deleteReview`      | Integration |       Black Box       |
+|                               It should delete the review                               |      `Controller.deleteReview`      | Integration |       Black Box       |
+|                       It should not work due to an invalid model                        | `Controller.deleteReviewsOfProduct` | Integration |       Black Box       |
+|           It should not find any review to delete due to an unexisting model            | `Controller.deleteReviewsOfProduct` | Integration |       Black Box       |
+|                    It should delete all reviews for the given model                     | `Controller.deleteReviewsOfProduct` | Integration |       Black Box       |
+|                               It should delete everything                               |    `Controller.deleteAllReviews`    | Integration |       Black Box       |
 
 ### ReviewRoute
 
-| Test case name                                                    |                Object(s) tested                | Test level  |          Technique used          |
-| :---------------------------------------------------------------- | :--------------------------------------------: | :---------: | :------------------------------: |
-| It should fail due to a comment not given                         |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
-| It should fail due to a not valid score                           |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
-| It should work                                                    |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
-| It should not work due to an invalid parameter                    |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to a model not existing                    |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should raise an error                                          |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to an existing review                      |                 `POST /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to an invalid parameter error              |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to a product not found error               |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should raise an error                                          |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should work                                                    |                 `GET /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
-| It should not work due to an invalid parameter error              |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to a product not found error               |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to an unexisting review                    |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should raise an error                                          |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking/Error handling              |
-| It should work                                                    |                 `DELETE /ezelectronics/reviews/Model`                  |    Unit     |             Mocking              |
-| It should not work due to an invalid parameter error              |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking/Error handling              |
-| It should not work due to a product not found error               |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking/Error handling              |
-| It should raise an error                                          |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking/Error handling              |
-| It should work                                                    |                 `DELETE /ezelectronics/reviews/Model/all`                  |    Unit     |             Mocking              |
-| It should work                                                    |                 `DELETE /ezelectronics/reviews`                  |    Unit     |             Mocking              |
-| It should raise an error                                          |                 `DELETE /ezelectronics/reviews`                  |    Unit     |             Mocking/Error handling              |
-| It should fail due to a comment not given | `POST /reviews/:model` | Integration | Mocking |
-| It should fail due to a not valid score | `POST /reviews/:model` | Integration | Mocking |
-| It should work | `POST /reviews/:model` | Integration | Mocking |
-| It should not work due to an invalid parameter | `POST /reviews/:model` | Integration | Mocking/Error handling |
-| It should not work due to a model not existing | `POST /reviews/:model` | Integration | Mocking/Error handling |
-| It should raise an error | `POST /reviews/:model` | Integration | Mocking/Error handling |
-| It should not work due to an existing review for the tuple (user-model) | `POST /reviews/:model` | Integration | Mocking/Error handling |
-| It should not work due to an invalid parameter error | `GET /reviews/:model` | Integration | Mocking/Error handling |
-| It should not work due to a product not found error | `GET /reviews/:model` | Integration | Mocking/Error handling |
-| It should raise an error | `GET /reviews/:model` | Integration | Mocking/Error handling |
-| It should work | `GET /reviews/:model` | Integration | Mocking |
-| It should not work due to an invalid parameter error | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
-| It should not work due to a product not found error | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
-| It should not work due to an unexisting review | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
-| It should raise an error | `DELETE /reviews/:model` | Integration | Mocking/Error handling |
-| It should work | `DELETE /reviews/:model` | Integration | Mocking |
-| It should not work due to an invalid parameter error | `DELETE /reviews/:model/all` | Integration | Mocking/Error handling |
-| It should not work due to a product not found error | `DELETE /reviews/:model/all` | Integration | Mocking/Error handling |
-| It should raise an error | `DELETE /reviews/:model/all` | Integration | Mocking/Error handling |
-| It should work | `DELETE /reviews/:model/all` | Integration | Mocking |
-| It should work | `DELETE /reviews` | Integration | Mocking |
-| It should raise an error | `DELETE /reviews` | Integration | Mocking/Error handling |
+| Test case name                                                          |             Object(s) tested              | Test level  |     Technique used     |
+| :---------------------------------------------------------------------- | :---------------------------------------: | :---------: | :--------------------: |
+| It should fail due to a comment not given                               |    `POST /ezelectronics/reviews/Model`    |    Unit     |        Mocking         |
+| It should fail due to a not valid score                                 |    `POST /ezelectronics/reviews/Model`    |    Unit     |        Mocking         |
+| It should work                                                          |    `POST /ezelectronics/reviews/Model`    |    Unit     |        Mocking         |
+| It should not work due to an invalid parameter                          |    `POST /ezelectronics/reviews/Model`    |    Unit     | Mocking/Error handling |
+| It should not work due to a model not existing                          |    `POST /ezelectronics/reviews/Model`    |    Unit     | Mocking/Error handling |
+| It should raise an error                                                |    `POST /ezelectronics/reviews/Model`    |    Unit     | Mocking/Error handling |
+| It should not work due to an existing review                            |    `POST /ezelectronics/reviews/Model`    |    Unit     | Mocking/Error handling |
+| It should not work due to an invalid parameter error                    |    `GET /ezelectronics/reviews/Model`     |    Unit     | Mocking/Error handling |
+| It should not work due to a product not found error                     |    `GET /ezelectronics/reviews/Model`     |    Unit     | Mocking/Error handling |
+| It should raise an error                                                |    `GET /ezelectronics/reviews/Model`     |    Unit     | Mocking/Error handling |
+| It should work                                                          |    `GET /ezelectronics/reviews/Model`     |    Unit     |        Mocking         |
+| It should not work due to an invalid parameter error                    |   `DELETE /ezelectronics/reviews/Model`   |    Unit     | Mocking/Error handling |
+| It should not work due to a product not found error                     |   `DELETE /ezelectronics/reviews/Model`   |    Unit     | Mocking/Error handling |
+| It should not work due to an unexisting review                          |   `DELETE /ezelectronics/reviews/Model`   |    Unit     | Mocking/Error handling |
+| It should raise an error                                                |   `DELETE /ezelectronics/reviews/Model`   |    Unit     | Mocking/Error handling |
+| It should work                                                          |   `DELETE /ezelectronics/reviews/Model`   |    Unit     |        Mocking         |
+| It should not work due to an invalid parameter error                    | `DELETE /ezelectronics/reviews/Model/all` |    Unit     | Mocking/Error handling |
+| It should not work due to a product not found error                     | `DELETE /ezelectronics/reviews/Model/all` |    Unit     | Mocking/Error handling |
+| It should raise an error                                                | `DELETE /ezelectronics/reviews/Model/all` |    Unit     | Mocking/Error handling |
+| It should work                                                          | `DELETE /ezelectronics/reviews/Model/all` |    Unit     |        Mocking         |
+| It should work                                                          |      `DELETE /ezelectronics/reviews`      |    Unit     |        Mocking         |
+| It should raise an error                                                |      `DELETE /ezelectronics/reviews`      |    Unit     | Mocking/Error handling |
+| It should fail due to a comment not given                               |          `POST /reviews/:model`           | Integration |        Mocking         |
+| It should fail due to a not valid score                                 |          `POST /reviews/:model`           | Integration |        Mocking         |
+| It should work                                                          |          `POST /reviews/:model`           | Integration |        Mocking         |
+| It should not work due to an invalid parameter                          |          `POST /reviews/:model`           | Integration | Mocking/Error handling |
+| It should not work due to a model not existing                          |          `POST /reviews/:model`           | Integration | Mocking/Error handling |
+| It should raise an error                                                |          `POST /reviews/:model`           | Integration | Mocking/Error handling |
+| It should not work due to an existing review for the tuple (user-model) |          `POST /reviews/:model`           | Integration | Mocking/Error handling |
+| It should not work due to an invalid parameter error                    |           `GET /reviews/:model`           | Integration | Mocking/Error handling |
+| It should not work due to a product not found error                     |           `GET /reviews/:model`           | Integration | Mocking/Error handling |
+| It should raise an error                                                |           `GET /reviews/:model`           | Integration | Mocking/Error handling |
+| It should work                                                          |           `GET /reviews/:model`           | Integration |        Mocking         |
+| It should not work due to an invalid parameter error                    |         `DELETE /reviews/:model`          | Integration | Mocking/Error handling |
+| It should not work due to a product not found error                     |         `DELETE /reviews/:model`          | Integration | Mocking/Error handling |
+| It should not work due to an unexisting review                          |         `DELETE /reviews/:model`          | Integration | Mocking/Error handling |
+| It should raise an error                                                |         `DELETE /reviews/:model`          | Integration | Mocking/Error handling |
+| It should work                                                          |         `DELETE /reviews/:model`          | Integration |        Mocking         |
+| It should not work due to an invalid parameter error                    |       `DELETE /reviews/:model/all`        | Integration | Mocking/Error handling |
+| It should not work due to a product not found error                     |       `DELETE /reviews/:model/all`        | Integration | Mocking/Error handling |
+| It should raise an error                                                |       `DELETE /reviews/:model/all`        | Integration | Mocking/Error handling |
+| It should work                                                          |       `DELETE /reviews/:model/all`        | Integration |        Mocking         |
+| It should work                                                          |             `DELETE /reviews`             | Integration |        Mocking         |
+| It should raise an error                                                |             `DELETE /reviews`             | Integration | Mocking/Error handling |
 
 # Coverage
 
@@ -905,30 +902,30 @@ This table describes the tests that provide reports for the Review Controlelr cl
 |                FRy                 |         |
 |                ...                 |         |
 
-| **Functional Requirement or Scenario**                            | **Test(s)**|
-| :---------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **FR1.1**: Login nel sistema                                      | `POST ezelectronics/sessions` Success: 200 OK, Error: 401 Unauthorized (incorrect password or not authenticated)  |
-| **FR1.2**: Logout dal sistema                                     | `DELETE ezelectronics/sessions/current`| `POST ezelectronics/sessions` Success: 200 OK|
-| **FR1.3**: Creare nuovo utente                                | `POST ezelectronics/users` Success: 200 OK, Error: 409 error when username represents a user that is already in the database|
-| **FR2.1**: Visualizza lista utenti                                | `GET ezelectronics/users` Success: 200 OK, Error: 401 Unauthorized (not an admin) |
-| **FR2.2**: Visualizzare la lista degli utenti con un ruolo specifico                             | `GET ezelectronics/users/roles/:role` Success: 200 OK, Error: 401 Unauthorized (not an admin) |
-| **FR2.3**: Visualizza le informazioni di un singolo utente                                | `GET ezelectronics/users/:username` Success: 200 OK, Error: 401 Unauthorized (not logged in), 404 when username represents a user that does not exist in the database, 401 when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin|
-| **FR2.4**: Aggiorna le informazioni di un utente                                | `PATCH ezelectronics/users/:username` Success: 200 OK, Error: 401 Unauthorized (not logged in), 404 when username represents a user that does not exist in the database, 401 when username does not correspond to the username of the logged in user, 400 when birthdate is after the current date, 401 error when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin|
-| **FR2.5**: Elimina un utente non Admin                                | `DELETE ezelectronics/users/:username` Success: 200 OK, Error: 404 Unauthorized (not logged in), 404 when username represents a user that does not exist in the database, 401 when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin, 401 when the calling user is an Admin and username represents a different Admin user |
-| **FR2.6**: Elimina tutti gli utenti non Admin                                | `DELETE ezelectronics/users` Success: 200 OK, Error: 401 Unauthorized (not an admin)|
-| **FR4.1**: Aggiungere una nuova recensione ad un prodotto           | `POST ezelectronics/reviews/:model` Success: 200 OK, 401 Unauthorized (not a customer), 404 if model does not represent an existing product in the database, 409 if there is an existing review for the product made by the customer |
-| **FR4.2**: Visualizzare tutte le recensioni di un prodotto           | `ezelectronics/reviews/:model` Success: 200 OK, 401 Unauthorized (not logged in) |
-| **FR4.3**: Eliminare una recensione data ad un prodotto          | `DELETE ezelectronics/reviews/:model` Success: 200 OK, 401 Unauthorized (not a customer), 404 if model does not represent an existing product in the database, 404 if the current user does not have a review for the product identified by model |
-| **FR4.4**: Eliminare tutte le recensioni di un prodotto           | `DELETE ezelectronics/reviews/:model/all` Success: 200 OK, 401 Unauthorized (not a admin or manager), 404 if model does not represent an existing product in the database |
-| **FR4.5**: Eliminare tutte le recensioni di tutti i prodotti           | `DELETE ezelectronics/reviews` Success: 200 OK, 401 Unauthorized (not a admin or manager) |
-| **FR5.1**: Mostrare le informazioni del carrello corrente           | `GET ezelectronics/carts` Success: 200 OK, 401 Unauthorized (not a customer) |
-| **FR5.2**: Aggiungere un prodotto al carrello corrente           | `POST ezelectronics/carts` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 Model does not represent an existing product, 409 error if model represents a product whose available quantity is 0 |
-| **FR5.3**: Checkout carrello corrente           | `PATCH ezelectronics/carts` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 error if there is no information about an unpaid cart in the database, 400 if there is information about an unpaid cart but the cart contains no product, 409 if there is at least one product in the cart whose available quantity in the stock is 0. 409 if there is at least one product in the cart whose quantity is higher than the available quantity in the stock |
-| **FR5.4**: Mostrare la cronologia dei carrelli passati           | `GET ezelectronics/carts/history` Success: 200 OK, Error: 401 Unauthorized (not a customer)  |
-| **FR5.5**: Rimuovere un prodotto dal carrello corrente           | `DELETE ezelectronics/carts/products/:models` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 if model represents a product that is not in the cart, 404 if there is no information about an unpaid cart for the user, or if there is such information but there are no products in the cart, 404 error if model does not represent an existing product|
-| **FR5.6**: Eliminare il carrello corrente           | `DELETE ezelectronics/carts/current` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 if there is no information about an unpaid cart for the user |
-| **FR5.7**: Visualizzare la lista dei carrelli di tutti gli utenti           | `GET ezelectronics/carts/all` Success: 200 OK, 401 Unauthorized (not an admin or customer) |
-| **FR5.8**: Eliminare tutti i carrelli           | `DELETE ezelectronics/carts`  Success: 200 OK, 401 Unauthorized (not an admin or customer) |
+|                **Functional Requirement or Scenario**                |                                                                                                                                                                                                                             **Test(s)**                                                                                                                                                                                                                              |
+| :------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | --------------------------------------------- |
+|                     **FR1.1**: Login nel sistema                     |                                                                                                                                                                           `POST ezelectronics/sessions` Success: 200 OK, Error: 401 Unauthorized (incorrect password or not authenticated)                                                                                                                                                                           |
+|                    **FR1.2**: Logout dal sistema                     |                                                                                                                                                                                                               `DELETE ezelectronics/sessions/current`                                                                                                                                                                                                                | `POST ezelectronics/sessions` Success: 200 OK |
+|                    **FR1.3**: Creare nuovo utente                    |                                                                                                                                                                     `POST ezelectronics/users` Success: 200 OK, Error: 409 error when username represents a user that is already in the database                                                                                                                                                                     |
+|                  **FR2.1**: Visualizza lista utenti                  |                                                                                                                                                                                          `GET ezelectronics/users` Success: 200 OK, Error: 401 Unauthorized (not an admin)                                                                                                                                                                                           |
+| **FR2.2**: Visualizzare la lista degli utenti con un ruolo specifico |                                                                                                                                                                                    `GET ezelectronics/users/roles/:role` Success: 200 OK, Error: 401 Unauthorized (not an admin)                                                                                                                                                                                     |
+|      **FR2.3**: Visualizza le informazioni di un singolo utente      |                                                                              `GET ezelectronics/users/:username` Success: 200 OK, Error: 401 Unauthorized (not logged in), 404 when username represents a user that does not exist in the database, 401 when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin                                                                              |
+|           **FR2.4**: Aggiorna le informazioni di un utente           |            `PATCH ezelectronics/users/:username` Success: 200 OK, Error: 401 Unauthorized (not logged in), 404 when username represents a user that does not exist in the database, 401 when username does not correspond to the username of the logged in user, 400 when birthdate is after the current date, 401 error when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin             |
+|                **FR2.5**: Elimina un utente non Admin                |                                 `DELETE ezelectronics/users/:username` Success: 200 OK, Error: 404 Unauthorized (not logged in), 404 when username represents a user that does not exist in the database, 401 when username is not equal to the username of the logged user calling the route, and the user calling the route is not an Admin, 401 when the calling user is an Admin and username represents a different Admin user                                  |
+|            **FR2.6**: Elimina tutti gli utenti non Admin             |                                                                                                                                                                                         `DELETE ezelectronics/users` Success: 200 OK, Error: 401 Unauthorized (not an admin)                                                                                                                                                                                         |
+|      **FR4.1**: Aggiungere una nuova recensione ad un prodotto       |                                                                                                                 `POST ezelectronics/reviews/:model` Success: 200 OK, 401 Unauthorized (not a customer), 404 if model does not represent an existing product in the database, 409 if there is an existing review for the product made by the customer                                                                                                                 |
+|      **FR4.2**: Visualizzare tutte le recensioni di un prodotto      |                                                                                                                                                                                           `ezelectronics/reviews/:model` Success: 200 OK, 401 Unauthorized (not logged in)                                                                                                                                                                                           |
+|       **FR4.3**: Eliminare una recensione data ad un prodotto        |                                                                                                          `DELETE ezelectronics/reviews/:model` Success: 200 OK, 401 Unauthorized (not a customer), 404 if model does not represent an existing product in the database, 404 if the current user does not have a review for the product identified by model                                                                                                           |
+|       **FR4.4**: Eliminare tutte le recensioni di un prodotto        |                                                                                                                                              `DELETE ezelectronics/reviews/:model/all` Success: 200 OK, 401 Unauthorized (not a admin or manager), 404 if model does not represent an existing product in the database                                                                                                                                               |
+|     **FR4.5**: Eliminare tutte le recensioni di tutti i prodotti     |                                                                                                                                                                                      `DELETE ezelectronics/reviews` Success: 200 OK, 401 Unauthorized (not a admin or manager)                                                                                                                                                                                       |
+|      **FR5.1**: Mostrare le informazioni del carrello corrente       |                                                                                                                                                                                             `GET ezelectronics/carts` Success: 200 OK, 401 Unauthorized (not a customer)                                                                                                                                                                                             |
+|        **FR5.2**: Aggiungere un prodotto al carrello corrente        |                                                                                                                            `POST ezelectronics/carts` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 Model does not represent an existing product, 409 error if model represents a product whose available quantity is 0                                                                                                                             |
+|                **FR5.3**: Checkout carrello corrente                 | `PATCH ezelectronics/carts` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 error if there is no information about an unpaid cart in the database, 400 if there is information about an unpaid cart but the cart contains no product, 409 if there is at least one product in the cart whose available quantity in the stock is 0. 409 if there is at least one product in the cart whose quantity is higher than the available quantity in the stock |
+|        **FR5.4**: Mostrare la cronologia dei carrelli passati        |                                                                                                                                                                                     `GET ezelectronics/carts/history` Success: 200 OK, Error: 401 Unauthorized (not a customer)                                                                                                                                                                                      |
+|        **FR5.5**: Rimuovere un prodotto dal carrello corrente        |                                                `DELETE ezelectronics/carts/products/:models` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 if model represents a product that is not in the cart, 404 if there is no information about an unpaid cart for the user, or if there is such information but there are no products in the cart, 404 error if model does not represent an existing product                                                |
+|              **FR5.6**: Eliminare il carrello corrente               |                                                                                                                                                   `DELETE ezelectronics/carts/current` Success: 200 OK, Error: 401 Unauthorized (not a customer), 404 if there is no information about an unpaid cart for the user                                                                                                                                                   |
+|  **FR5.7**: Visualizzare la lista dei carrelli di tutti gli utenti   |                                                                                                                                                                                      `GET ezelectronics/carts/all` Success: 200 OK, 401 Unauthorized (not an admin or customer)                                                                                                                                                                                      |
+|                **FR5.8**: Eliminare tutti i carrelli                 |                                                                                                                                                                                      `DELETE ezelectronics/carts` Success: 200 OK, 401 Unauthorized (not an admin or customer)                                                                                                                                                                                       |
 
 ## Coverage white box
 
