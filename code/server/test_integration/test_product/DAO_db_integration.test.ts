@@ -301,18 +301,6 @@ describe("ProductDAO integration tests", () => {
         };
 
         expect(productRow.quantity).toBe(quantity + newQuantity);
-      });
-
-      db.get("SELECT * FROM products WHERE model = ?", [model], (err, row) => {
-        const productRow = row as {
-          model: string;
-          category: string;
-          quantity: number;
-          details: string;
-          sellingPrice: number;
-          arrivalDate: string;
-        };
-
         expect(productRow.arrivalDate).toBe(dayjs().format("YYYY-MM-DD"));
       });
     });
