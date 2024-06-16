@@ -657,13 +657,41 @@ This table describes the tests that provide reports for the Carts Route class
 
 
 ## Review
-
-This table describes the tests that provide reports for the Review class
+### ReviewController 
+This table describes the tests that provide reports for the Review Controlelr class
 
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
-|                |                  |            |                |
-
+|   It should reject due a model not given  | `Controller.addReview`             |    Unit     | WB/statement coverage |
+|   It should reject due to a negative score | `Controller.addReview`             |    Unit     | WB/statement coverage |
+|   It should reject due to a score not valid | `Controller.addReview`            |    Unit     | WB/statement coverage |
+|               It should resolve           | `Controller.addReview`             |    Unit     | WB/statement coverage |
+|   It should reject due a comment not given | `Controller.addReview`             |    Unit     | WB/statement coverage |
+|   It should reject due a model not given  | `Controller.getProductReviews`    |    Unit     | WB/statement coverage |
+|               It should resolve           | `Controller.getProductReviews`    |    Unit     | WB/statement coverage |
+|   It should reject due to a model not given  | `Controller.deleteReview`    |    Unit     | WB/statement coverage |
+|               It should resolve           | `Controller.deleteReview`    |    Unit     | WB/statement coverage |
+|   It should delete an existing review  | `Controller.deleteReview`    |    Unit     | WB/statement coverage |
+|   It should reject due to a model not given  | `Controller.deleteReviewsOfProduct`    |    Unit     | WB/statement coverage |
+|               It should resolve           | `Controller.deleteReviewsOfProduct`    |    Unit     | WB/statement coverage |
+|   It should delete all existing reviews for a model  | `Controller.deleteReviewsOfProduct`    |    Unit     | WB/statement coverage |
+|   It should delete all existing reviews   | `Controller.deleteAllReviews`      |    Unit     | WB/statement coverage |
+|   It should not work due to an invalid model  | `Controller.addReview`             |  Integration   |      Black Box       |
+|   It should not insert a review due to an unexisting model | `Controller.addReview`          |  Integration   |      Black Box       |
+|   It should not insert a review due to an invalid parameter | `Controller.addReview`         |  Integration   |      Black Box       |
+|   It should not insert the review due to an existing review for the same tuple user-model | `Controller.addReview`  |  Integration   |      Black Box       |
+|   It should insert a new review | `Controller.addReview`                  |  Integration   |      Black Box       |
+|   It should not work due to an invalid model  | `Controller.getProductReviews`             |  Integration   |      Black Box       |
+|   It should not get reviews due to an unexisting model | `Controller.getProductReviews`          |  Integration   |      Black Box       |
+|   It should get 2 reviews | `Controller.getProductReviews`                  |  Integration   |      Black Box       |
+|   It should not work due to an invalid model  | `Controller.deleteReview`             |  Integration   |      Black Box       |
+|   It should not find any review to delete due to an unexisting model | `Controller.deleteReview`          |  Integration   |      Black Box       |
+|   It should not find any review to delete due to an unexisting pair (model-user) | `Controller.deleteReview`                  |  Integration   |      Black Box       |
+|   It should delete the review | `Controller.deleteReview`                  |  Integration   |      Black Box       |
+|   It should not work due to an invalid model  | `Controller.deleteReviewsOfProduct`             |  Integration   |      Black Box       |
+|   It should not find any review to delete due to an unexisting model | `Controller.deleteReviewsOfProduct`          |  Integration   |      Black Box       |
+|   It should delete all reviews for the given model | `Controller.deleteReviewsOfProduct`                  |  Integration   |      Black Box       |
+|   It should delete everything  | `Controller.deleteAllReviews`             |  Integration   |      Black Box       |
 # Coverage
 
 ## Coverage of FR
