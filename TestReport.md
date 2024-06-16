@@ -9,7 +9,7 @@
 - [Dependency graph](#dependency-graph)
 - [Integration approach](#integration-approach)
       - [Sequenza di Integrazione](#sequenza-di-integrazione)
-    - [Descrizione dell'Approccio di Integrazione per EZElectronics](#descrizione-dellapproccio-di-integrazione-per-ezelectronics)
+  - [Descrizione dell'Approccio di Integrazione per EZElectronics](#descrizione-dellapproccio-di-integrazione-per-ezelectronics)
 - [Tests](#tests)
   - [User](#user)
     - [UserDAO](#userdao)
@@ -36,7 +36,7 @@
 
 # Dependency graph
 
-     <report the here the dependency graph of EzElectronics>
+ ![Dependency graph](images\graphviz.svg)
 
 # Integration approach
 
@@ -96,12 +96,6 @@ Lo sviluppo e l'integrazione dell'applicazione EZElectronics hanno coinvolto div
    - I test completi dell'API hanno verificato che l'applicazione client potesse interagire senza problemi con il server, soddisfacendo tutte le funzionalità richieste.
 
 # Tests
-
-<in the table below list the test cases defined For each test report the object tested, the test level (API, integration, unit) and the technique used to define the test case (BB/ eq partitioning, BB/ boundary, WB/ statement coverage, etc)> <split the table if needed>
-
-| Test case name | Object(s) tested | Test level | Technique used |
-| :------------: | :--------------: | :--------: | :------------: |
-|                |                  |            |                |
 
 ## User
 
@@ -893,14 +887,6 @@ This table describes the tests that provide reports for the Review Controlelr cl
 # Coverage
 
 ## Coverage of FR
-
-<Report in the following table the coverage of functional requirements and scenarios(from official requirements) >
-
-| Functional Requirement or scenario | Test(s) |
-| :--------------------------------: | :-----: |
-|                FRx                 |         |
-|                FRy                 |         |
-|                ...                 |         |
 
 |                **Functional Requirement or Scenario**                |                                                                                                                                                                                                                             **Test(s)**                                                                                                                                                                                                                              |
 | :------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | --------------------------------------------- |
