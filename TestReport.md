@@ -189,7 +189,7 @@ This table describes the tests that provide reports for the UserRoute class
 This table describes the tests that provide reports for the ProductDAO class
 
 |                                                Test case name                                                |       Object(s) tested       | Test level |    Technique used     |
-| :----------------------------------------------------------------------------------------------------------: | :--------------------------: | :--------: | :-------------------: |
+| :---------------------------------------------------------------------------------------------------------- | :--------------------------: | :--------: | :-------------------: |
 |                                         It should register a product                                         |    registerProduct method    |    Unit    | WB/statement coverage |
 |                              It should throw an error if product already exists                              |              "               |     "      |           "           |
 |                                 It should register a product without details                                 |              "               |     "      |           "           |
@@ -249,7 +249,7 @@ This table describes the tests that provide reports for the ProductDAO class
 ### Product Controller
 
 |                                                       Test case name                                                       |       Object(s) tested       | Test level |    Technique used     |
-| :------------------------------------------------------------------------------------------------------------------------: | :--------------------------: | :--------: | :-------------------: |
+| :------------------------------------------------------------------------------------------------------------------------ | :--------------------------: | :--------: | :-------------------: |
 |                                                It should register a product                                                |   registerProducts method    |    Unit    | WB/statement coverage |
 |                                It should register a product if the details are not provided                                |              "               |     "      |           "           |
 |                              It should register a product if the arrivalDate is not provided                               |              "               |     "      |           "           |
@@ -297,7 +297,7 @@ This table describes the tests that provide reports for the ProductDAO class
 
 This table describes the tests that provide reports for the Product Routes class
 | Test case name | Object(s) tested | Test level | Technique used |
-| :------------: | :--------------: | :--------: | :------------: |
+| :------------ | :--------------: | :--------: | :------------: |
 | It should return 200 | `POST product/` | Unit | WB/statement coverage |
 | It should return 422 if model is empty | " | " | " |
 | It should return 422 if category is empty | " | " | " |
@@ -370,7 +370,7 @@ This table describes the tests that provide reports for the Product Routes class
 This table describes the tests that provide reports for the Cart DAO class
 
 |                                             Test case name                                              |        Object(s) tested         | Test level  |    Technique used     |
-| :-----------------------------------------------------------------------------------------------------: | :-----------------------------: | :---------: | :-------------------: |
+| :----------------------------------------------------------------------------------------------------- | :-----------------------------: | :---------: | :-------------------: |
 |                                         It should create a cart                                         |        createCart method        |    Unit     | WB/statement coverage |
 |                     It should throw an error if a cart for the user already exists                      |        createCart method        |      "      |           "           |
 |                               It should throw an error if GET query fails                               |        createCart method        |      "      |           "           |
@@ -488,7 +488,7 @@ This table describes the tests that provide reports for the Cart DAO class
 This table describes the tests that provide reports for the Cart Controller class
 
 |              Test case name              |          Object(s) tested          | Test level  |    Technique used     |
-| :--------------------------------------: | :--------------------------------: | :---------: | :-------------------: |
+| :--------------------------------------  | :--------------------------------: | :---------: | :-------------------: |
 |            It should resolve             |       `Controller.addToCart`       |    Unit     | WB/statement coverage |
 |  It should reject due a model not given  |       `Controller.addToCart`       |    Unit     | WB/statement coverage |
 | It should reject due to a user not given |       `Controller.addToCart`       |    Unit     | WB/statement coverage |
@@ -523,7 +523,7 @@ This table describes the tests that provide reports for the Cart Controller clas
 This table describes the tests that provide reports for the Carts Route class
 
 | Test case name | Object(s) tested | Test level | Technique used |
-| :------------: | :--------------: | :--------: | :------------: |
+| :------------  | :--------------: | :--------: | :------------: |
 | It should return 200 | `GET /carts` | Unit | Mocking |
 | It should return an Empty cart | `GET /carts` | Unit | Mocking |
 | It should return a 401 if the user is not a customer | `GET /carts` | Unit | Mocking/Error handling |
@@ -567,13 +567,12 @@ This table describes the tests that provide reports for the Carts Route class
 | It should return a 401 if the user is not an admin or manager | `GET /carts/all` | Unit | Mocking/Error handling |
 | It should raise an error | `GET /carts/all` | Unit | Mocking/Error handling |
 
-
 ## Review
 
 This table describes the tests that provide reports for the Review class
 
 | Test case name | Object(s) tested | Test level | Technique used |
-| :------------: | :--------------: | :--------: | :------------: |
+| :------------  | :--------------: | :--------: | :------------: |
 |                |                  |            |                |
 
 # Coverage
