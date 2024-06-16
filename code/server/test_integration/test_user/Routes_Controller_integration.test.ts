@@ -24,9 +24,9 @@ const login = async (usr: any, psw: any) => {
   });
 };
 
-beforeAll(() => {
+/*beforeAll(() => {
   cleanup();
-});
+});*/
 
 beforeEach(() => {
   jest.resetAllMocks();

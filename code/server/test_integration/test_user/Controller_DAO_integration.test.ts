@@ -10,12 +10,12 @@ import {
 } from '../../src/errors/userError';
 import { Role, User } from '../../src/components/user';
 
+beforeAll(() => {
+    cleanup();
+});
+
 describe('User Controller Integration Tests', () => {
     let controller: UserController;
-
-    beforeAll(() => {
-        cleanup();
-    });
 
     beforeEach((done) => {
         controller = new UserController();

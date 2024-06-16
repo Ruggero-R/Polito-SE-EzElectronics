@@ -61,7 +61,8 @@ class UserDAO {
                 const sql = "INSERT INTO users(username, name, surname, role, password, salt) VALUES(?, ?, ?, ?, ?, ?)"
                 db.run(sql, [username, name, surname, role, hashedPassword, salt], (err: Error | null) => {
                     if (err) {
-                        if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserAlreadyExistsError)
+                        if (err.message.includes("UNIQUE constraint failed: users.username")) 
+                            reject(new UserAlreadyExistsError)
                         reject(err)
                     }
                     resolve(true)
@@ -89,10 +90,10 @@ class UserDAO {
                     const sql = "SELECT * FROM users WHERE username=?"
                     db.get(sql, [username], (err: Error | null, row: any) => {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
                         else if (!row) {
-                            reject(new UserNotFoundError);
+                            return reject(new UserNotFoundError);
                         }
                         else {
                             const user = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);
@@ -115,18 +116,15 @@ class UserDAO {
                 const sql = "SELECT * FROM users";
                 db.all(sql, [], (err: Error | null, rows: any) => {
                     if (err) {
-                        reject(err);
-                        return;
+                        return reject(err);
                     }
 
                     let Users = rows.map((row: any) => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate));
-                    resolve(Users);
-                    return;
+                    return resolve(Users);
                 })
             }
             catch (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
         })
     }
@@ -137,13 +135,11 @@ class UserDAO {
                 const sql = "SELECT * FROM users WHERE role=?";
                 db.all(sql, [role], (err: Error | null, rows: any) => {
                     if (err) {
-                        reject(err);
-                        return;
+                        return reject(err);
                     }
 
                     if (rows.length === 0) {
-                        reject(new UserNotFoundError);
-                        return;
+                        return reject(new UserNotFoundError);
                     }
 
                     let Users = rows.map((row: any) => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate));
@@ -151,8 +147,7 @@ class UserDAO {
                 })
             }
             catch (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
         })
     }
@@ -163,26 +158,24 @@ class UserDAO {
                 let firstsql = "SELECT * FROM users WHERE username=?";
                 db.get(firstsql, [requested], (err: Error | null, answer: any) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
                     else if (!answer) {
-                        reject(new UserNotFoundError);
+                        return reject(new UserNotFoundError);
                     }
                 })
                 const sql = "DELETE FROM users WHERE username=?";
                 db.run(sql, [requested], function (err: Error | null) {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
                     else {
-                        resolve(true);
+                        return resolve(true);
                     }
-                    return;
                 })
             }
             catch (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
         })
     }
@@ -193,19 +186,19 @@ class UserDAO {
                 let sql = "SELECT role FROM users WHERE username=?";
                 db.get(sql, [username], (err: string | null, role: any) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
                     else if (!role) {
-                        reject(new UserNotFoundError);
+                        return reject(new UserNotFoundError);
                     }
                     else if (role.role == "Admin") {
-                        reject(new UserIsAdminError);
+                        return reject(new UserIsAdminError);
                     }
                     else {
                         sql = "DELETE FROM users WHERE username=?";
                         db.run(sql, [username], function (err: Error | null) {
                             if (err) {
-                                reject(err);
+                                return reject(err);
                             }
                             else {
                                 resolve(true);
@@ -216,8 +209,7 @@ class UserDAO {
                 })
             }
             catch (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
         })
     }
@@ -228,7 +220,7 @@ class UserDAO {
                 const sql = "DELETE FROM users WHERE role!='Admin'";
                 db.run(sql, [], function (err: Error | null) {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
                     else {
                         resolve(true);
@@ -249,10 +241,10 @@ class UserDAO {
                 let firstsql = "SELECT * FROM users WHERE username=?";
                 db.get(firstsql, [username], (err: Error | null, answer: any) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
                     else if (!answer) {
-                        reject(new UserNotFoundError);
+                        return reject(new UserNotFoundError);
                     }
                 })
 
@@ -265,10 +257,10 @@ class UserDAO {
                         sql = "SELECT role FROM users WHERE username=?";
                         db.get(sql, [username], (err: string | null, role: any) => {
                             if (err) {
-                                reject(err);
+                                return reject(err);
                             }
                             else if (!role) {
-                                reject(new UserNotFoundError);
+                                return reject(new UserNotFoundError);
                             }
                             else {
                                 resolve(new User(username, name, surname, role.role, address, birthdate));
@@ -279,8 +271,7 @@ class UserDAO {
                 })
             }
             catch (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
         })
     }
@@ -291,19 +282,19 @@ class UserDAO {
                 let sql = "SELECT role FROM users WHERE username=?"
                 db.get(sql, [username], (err: string | null, role: any) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
                     else if (!role) {
-                        reject(new UserNotFoundError);
+                        return reject(new UserNotFoundError);
                     }
                     else if (role.role == "Admin") {
-                        reject(new UserIsAdminError);
+                        return reject(new UserIsAdminError);
                     }
                     else {
                         sql = "UPDATE users SET name=?, surname=?, address=?, birthdate=? WHERE username=?"
                         db.run(sql, [name, surname, address, birthdate, username], function (err: Error | null) {
                             if (err) {
-                                reject(err);
+                                return reject(err);
                             }
                             else {
                                 resolve(new User(username, name, surname, role.role, address, birthdate));
@@ -314,8 +305,7 @@ class UserDAO {
                 })
             }
             catch (error) {
-                reject(error);
-                return;
+                return reject(error);
             }
         })
     }

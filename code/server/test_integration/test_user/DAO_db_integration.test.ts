@@ -15,6 +15,10 @@ import {
 } from "../../src/errors/userError";
 import { Role, User } from "../../src/components/user";
 
+beforeAll(() => {
+    cleanup();
+});
+
 describe("UserDAO integration tests", () => {
   let dao: UserDAO;
 
@@ -28,9 +32,6 @@ describe("UserDAO integration tests", () => {
     });
   });
   
-    beforeAll(() => {
-        cleanup();
-    });
 
   const u1 = new User(
     "username1",
