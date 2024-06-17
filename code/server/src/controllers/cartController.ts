@@ -1,5 +1,7 @@
 import { User } from "../components/user";
 import CartDAO from "../dao/cartDAO";
+import { Cart, ProductInCart } from "../components/cart";
+import { CartNotFoundError, EmptyCartError, InvalidParametersError } from "../errors/cartError";
 
 /**
  * Represents a controller for managing shopping carts.
@@ -13,30 +15,48 @@ class CartController {
     }
 
     /**
-     * Adds a product to the user's cart. If the product is already in the cart, the quantity should be increased by 1.
-     * If the product is not in the cart, it should be added with a quantity of 1.
-     * If there is no current unpaid cart in the database, then a new cart should be created.
-     * @param user - The user to whom the product should be added.
-     * @param productId - The model of the product to add.
-     * @returns A Promise that resolves to `true` if the product was successfully added.
-     */
-    async addToCart(user: User, product: string)/*: Promise<Boolean>*/ { }
-
-
-    /**
-     * Retrieves the current cart for a specific user.
-     * @param user - The user for whom to retrieve the cart.
-     * @returns A Promise that resolves to the user's cart or an empty one if there is no current cart.
-     */
-    async getCart(user: User)/*: Cart*/ { }
+    * Adds a product to the user's cart. If the product is already in the cart, the quantity should be increased by 1.
+    * If the product is not in the cart, it should be added with a quantity of 1.
+    * If there is no current unpaid cart in the database, then a new cart should be created.
+    * @param user - The user to whom the product should be added.
+    * @param productModel - The model of the product to add.
+    * @returns A Promise that resolves to `true` if the product was successfully added.
+    */
+    async addToCart(user: User, productModel: string): Promise<boolean> {
+        if (user.username.trim() === '' || productModel.trim() === '') {
+            throw new InvalidParametersError;
+        }
+        await this.dao.addProductToCart(user.username, productModel);
+        return true;
+    }
 
     /**
-     * Checks out the user's cart. We assume that payment is always successful, there is no need to implement anything related to payment.
-     * @param user - The user whose cart should be checked out.
-     * @returns A Promise that resolves to `true` if the cart was successfully checked out.
-     * 
-     */
-    async checkoutCart(user: User) /**Promise<Boolean> */ { }
+    * Retrieves the current cart for a specific user.
+    * If there is no active cart, creates a new one.
+    * @param user - The user for whom to retrieve the cart.
+    * @returns A Promise that resolves to the user's cart.
+    */
+    async getCart(user: User): Promise<Cart> {
+        if (user.username.trim() === '') {
+            throw new InvalidParametersError;
+        }
+        let ret: any = await this.dao.getActiveCartByUserId(user.username);
+        return ret;
+    }
+
+    /**
+    * Checks out the user's cart. We assume that payment is always successful, there is no need to implement anything related to payment.
+    * @param user - The user whose cart should be checked out.
+    * @returns A Promise that resolves to `true` if the cart was successfully checked out.
+    */
+    async checkoutCart(user: User): Promise<boolean> {
+        if (user.username.trim() === '') {
+            throw new InvalidParametersError;
+        }
+        let ret: any = await this.dao.checkoutCart(user.username);
+        return ret;
+
+    }
 
     /**
      * Retrieves all paid carts for a specific customer.
@@ -44,7 +64,13 @@ class CartController {
      * @returns A Promise that resolves to an array of carts belonging to the customer.
      * Only the carts that have been checked out should be returned, the current cart should not be included in the result.
      */
-    async getCustomerCarts(user: User) { } /**Promise<Cart[]> */
+    async getCustomerCarts(user: User): Promise<Cart[]> {
+        if (user.username.trim() === '') {
+            throw new InvalidParametersError
+        }
+        const ret: any = this.dao.getCustomerCarts(user.username);
+        return ret
+    }
 
     /**
      * Removes one product unit from the current cart. In case there is more than one unit in the cart, only one should be removed.
@@ -52,27 +78,44 @@ class CartController {
      * @param product The model of the product to remove.
      * @returns A Promise that resolves to `true` if the product was successfully removed.
      */
-    async removeProductFromCart(user: User, product: string) /**Promise<Boolean> */ { }
-
+    async removeProductFromCart(user: User, product: string): Promise<boolean> {
+        if (user.username.trim() == '' || !product || product.trim() == '') {
+            throw new InvalidParametersError
+        }
+        const ret: any = await this.dao.removeProductFromCart(user.username, product);
+        return ret;
+    }
 
     /**
      * Removes all products from the current cart.
      * @param user - The user who owns the cart.
      * @returns A Promise that resolves to `true` if the cart was successfully cleared.
      */
-    async clearCart(user: User)/*:Promise<Boolean> */ { }
+    async clearCart(user: User): Promise<boolean> {
+        if (user.username.trim() == '') {
+            throw new InvalidParametersError
+        }
+        const ret: any = await this.dao.clearCart(user.username);
+        return ret
+    }
 
     /**
      * Deletes all carts of all users.
      * @returns A Promise that resolves to `true` if all carts were successfully deleted.
      */
-    async deleteAllCarts() /**Promise<Boolean> */ { }
+    async deleteAllCarts() /**Promise<Boolean> */ {
+        const ret: any = await this.dao.deleteAllCarts();
+        return ret;
+    }
 
     /**
      * Retrieves all carts in the database.
      * @returns A Promise that resolves to an array of carts.
      */
-    async getAllCarts() /*:Promise<Cart[]> */ { }
+    async getAllCarts() /*:Promise<Cart[]> */ {
+        const ret: any = this.dao.getAllCarts();
+        return ret;
+    }
 }
 
 export default CartController

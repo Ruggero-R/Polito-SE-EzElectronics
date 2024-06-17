@@ -1,3 +1,4 @@
+import { InvalidParametersError } from "../errors/reviewError";
 import { User } from "../components/user";
 import ReviewDAO from "../dao/reviewDAO";
 
@@ -16,14 +17,24 @@ class ReviewController {
      * @param comment The comment made by the user
      * @returns A Promise that resolves to nothing
      */
-    async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ { }
+    async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ {
+        if ((!model || typeof model !== 'string' || !model.trim()) || (typeof score !== 'number' || score < 1 || score > 5) || (typeof comment !== 'string' || !comment || !comment.trim()))
+            throw new InvalidParametersError;
+        const ret: any = await this.dao.addReview(model, user, score, comment);
+        return ret
+    }
 
     /**
      * Returns all reviews for a product
      * @param model The model of the product to get reviews from
      * @returns A Promise that resolves to an array of ProductReview objects
      */
-    async getProductReviews(model: string) /**:Promise<ProductReview[]> */ { }
+    async getProductReviews(model: string) /**:Promise<ProductReview[]> */ {
+        if (!model || !model.trim() || typeof model !== 'string')
+            throw new InvalidParametersError;
+        const ret: any = await this.dao.getProductReviews(model);
+        return ret
+    }
 
     /**
      * Deletes the review made by a user for a product
@@ -31,20 +42,36 @@ class ReviewController {
      * @param user The user who made the review to delete
      * @returns A Promise that resolves to nothing
      */
-    async deleteReview(model: string, user: User) /**:Promise<void> */ { }
+    async deleteReview(model: string, user: User) /**:Promise<void> */ {
+        if (!model || !model.trim() || typeof model !== 'string') {
+            throw new InvalidParametersError
+        }
+        const ret: any = await this.dao.deleteReview(model, user);
+        return ret
+    }
 
     /**
      * Deletes all reviews for a product
      * @param model The model of the product to delete the reviews from
      * @returns A Promise that resolves to nothing
      */
-    async deleteReviewsOfProduct(model: string) /**:Promise<void> */ { }
+    async deleteReviewsOfProduct(model: string) /**:Promise<void> */ {
+        if (!model || !model.trim() || typeof model !== 'string') {
+            throw new InvalidParametersError;
+        } else {
+            const ret = await this.dao.deleteReviewsOfProduct(model);
+            return ret
+        }
+    }
 
     /**
      * Deletes all reviews of all products
      * @returns A Promise that resolves to nothing
      */
-    async deleteAllReviews() /**:Promise<void> */ { }
+    async deleteAllReviews() /**:Promise<void> */ {
+        const ret: any = await this.dao.deleteAllReviews();
+        return ret
+    }
 }
 
 export default ReviewController;

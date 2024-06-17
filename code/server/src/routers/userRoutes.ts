@@ -56,6 +56,12 @@ class UserRoutes {
          */
         this.router.post(
             "/",
+            body("username").notEmpty().isString(),
+            body("name").notEmpty().isString(),
+            body("surname").notEmpty().isString(),
+            body("password").notEmpty().isString(),
+            body("role").notEmpty().isIn(["Manager", "Customer", "Admin"]),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.createUser(req.body.username, req.body.name, req.body.surname, req.body.password, req.body.role)
                 .then(() => res.status(200).end())
                 .catch((err) => {
@@ -70,6 +76,7 @@ class UserRoutes {
          */
         this.router.get(
             "/",
+            this.authService.isAdmin,
             (req: any, res: any, next: any) => this.controller.getUsers()
                 .then((users: any /**User[] */) => res.status(200).json(users))
                 .catch((err) => next(err))
@@ -83,6 +90,9 @@ class UserRoutes {
          */
         this.router.get(
             "/roles/:role",
+            this.authService.isAdmin,
+            param("role").notEmpty().isIn(["Manager", "Admin", "Customer"]),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.getUsersByRole(req.params.role)
                 .then((users: any /**User[] */) => res.status(200).json(users))
                 .catch((err) => next(err))
@@ -96,6 +106,9 @@ class UserRoutes {
          */
         this.router.get(
             "/:username",
+            this.authService.isLoggedIn,
+            param("username").notEmpty().isString(),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.getUserByUsername(req.user, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
                 .catch((err) => next(err))
@@ -109,6 +122,9 @@ class UserRoutes {
          */
         this.router.delete(
             "/:username",
+            this.authService.isLoggedIn,
+            param("username").notEmpty().isString(),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.deleteUser(req.user, req.params.username)
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
@@ -121,7 +137,8 @@ class UserRoutes {
          */
         this.router.delete(
             "/",
-            (req: any, res: any, next: any) => this.controller.deleteAll()
+            this.authService.isAdmin,
+            (req: any, res: any, next: any) => this.controller.deleteAllUsers()
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
         )
@@ -139,11 +156,17 @@ class UserRoutes {
          */
         this.router.patch(
             "/:username",
+            this.authService.isLoggedIn,
+            body("name").notEmpty().isString(),
+            body("surname").notEmpty().isString(),
+            body("address").notEmpty().isString(),
+            body("birthdate").notEmpty().isString(),
+            param("username").notEmpty().isString(),
+            this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.updateUserInfo(req.user, req.body.name, req.body.surname, req.body.address, req.body.birthdate, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
                 .catch((err: any) => next(err))
         )
-
     }
 }
 

@@ -3,6 +3,9 @@ const PRODUCT_ALREADY_EXISTS = "The product already exists"
 const PRODUCT_SOLD = "Product already sold"
 const EMPTY_PRODUCT_STOCK = "Product stock is empty"
 const LOW_PRODUCT_STOCK = "Product stock cannot satisfy the requested quantity"
+const INVALID_FILTERS = "Invalid filters"
+const INVALID_DATE = "Invalid date"
+const INVALID_PARAMETERS = "Invalid parameters"
 
 /**
  * Represents an error that occurs when a product is not found.
@@ -34,7 +37,7 @@ class ProductAlreadyExistsError extends Error {
 
 /**
  * Represents an error that occurs when a product is already sold.
- */
+ 
 class ProductSoldError extends Error {
     customMessage: string
     customCode: number
@@ -44,7 +47,7 @@ class ProductSoldError extends Error {
         this.customMessage = PRODUCT_SOLD
         this.customCode = 409
     }
-}
+}*/
 
 class EmptyProductStockError extends Error {
     customMessage: string
@@ -68,4 +71,40 @@ class LowProductStockError extends Error {
     }
 }
 
-export { ProductNotFoundError, ProductAlreadyExistsError, ProductSoldError, EmptyProductStockError, LowProductStockError }
+//aggiunti successivamente 
+class FiltersError extends Error {
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_FILTERS
+        this.customCode = 422
+    }
+}
+
+class ArrivalDateError extends Error {
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_DATE
+        this.customCode = 400
+    }
+}
+
+class InvalidParametersError extends Error {
+    customMessage: string
+    customCode: number
+
+    constructor() {
+        super()
+        this.customMessage = INVALID_PARAMETERS
+        this.customCode = 422
+    }
+}
+
+
+
+export { ProductNotFoundError, ProductAlreadyExistsError, /*ProductSoldError,*/ EmptyProductStockError, LowProductStockError, FiltersError, ArrivalDateError, InvalidParametersError }
